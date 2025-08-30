@@ -11,7 +11,8 @@ import {
   NavbarMenuItem,
   Image,
 } from "@heroui/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useLenis } from "lenis/react";
 
 // Desktop Navigation Link Component
 const NavLink = ({
@@ -25,10 +26,10 @@ const NavLink = ({
 }) => (
   <Link
     href={href}
-    className={`transition-colors text-sm  ${
+    className={`text-sm ${
       isScrolled
         ? "text-foreground hover:text-default-600"
-        : "text-primary-foreground hover:text-default-300"
+        : "text-white hover:text-white/80"
     }`}
   >
     {children}
@@ -58,20 +59,15 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Use Lenis' virtual scroll value to determine header state
+  useLenis(({ scroll }) => {
+    setIsScrolled(scroll > 25);
+  });
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-in ${
-        isScrolled ? " bg-background shadow-lg" : "bg-transparent text-white"
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-200 ease-in ${
+        isScrolled ? "bg-background shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl px-4 py-1 sm:px-6 lg:px-8 ml-[8%]">
@@ -81,7 +77,7 @@ export default function Navigation() {
               <Image
                 src="/logo.png"
                 alt="Logo"
-                className={`h-10 mr-3 transition-all duration-300 ${
+                className={`h-10 mr-3 ${
                   !isScrolled ? "filter brightness-0 invert" : ""
                 }`}
               />
@@ -117,8 +113,8 @@ export default function Navigation() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`focus:outline-none transition-colors hover:text-primary ${
-                isScrolled ? "text-foreground" : "text-primary-foreground"
+              className={`focus:outline-none hover:text-primary ${
+                isScrolled ? "text-foreground" : "text-white"
               }`}
             >
               <svg

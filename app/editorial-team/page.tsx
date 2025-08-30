@@ -17,13 +17,13 @@ const editors: Person[] = [
     team: "Crystal",
     bio: "Research focus on AI ethics and policy",
   },
-  {
-    name: "Raj Choudhury",
-    affiliation: "Harvard University",
-    role: "Editor",
-    team: "Crystal",
-    bio: "Expert in technology management and innovation",
-  },
+  // {
+  //   name: "Raj Choudhury",
+  //   affiliation: "Harvard University",
+  //   role: "Editor",
+  //   team: "Crystal",
+  //   bio: "Expert in technology management and innovation",
+  // },
   {
     name: "Geneva Jonathan",
     affiliation: "Harvard University",
@@ -52,27 +52,27 @@ const editors: Person[] = [
     team: "",
     bio: "Expert in education and neuroscience",
   },
-  {
-    name: "Brian Berkey",
-    affiliation: "Wharton, University of Pennsylvania",
-    role: "Editor",
-    team: "Clara",
-    bio: "Philosophy and ethics of technology",
-  },
-  {
-    name: "Henry Smith",
-    affiliation: "Department of Education",
-    role: "Editor",
-    team: "Clara",
-    bio: "Educational policy and technology integration",
-  },
-  {
-    name: "Jackie Renfrow",
-    affiliation: "Johns Hopkins University",
-    role: "Editor",
-    team: "Clara",
-    bio: "Research methodology and academic writing",
-  },
+  // {
+  //   name: "Brian Berkey",
+  //   affiliation: "Wharton, University of Pennsylvania",
+  //   role: "Editor",
+  //   team: "Clara",
+  //   bio: "Philosophy and ethics of technology",
+  // },
+  // {
+  //   name: "Henry Smith",
+  //   affiliation: "Department of Education",
+  //   role: "Editor",
+  //   team: "Clara",
+  //   bio: "Educational policy and technology integration",
+  // },
+  // {
+  //   name: "Jackie Renfrow",
+  //   affiliation: "Johns Hopkins University",
+  //   role: "Editor",
+  //   team: "Clara",
+  //   bio: "Research methodology and academic writing",
+  // },
 ];
 
 const managingEditors: Person[] = [
@@ -99,12 +99,12 @@ const managingEditors: Person[] = [
 ];
 
 const industryCollaborators: Person[] = [
-  {
-    name: "Kongli Liu",
-    affiliation: "Google",
-    role: "Industry Collaborator",
-    team: "Crystal",
-  },
+  // {
+  //   name: "Kongli Liu",
+  //   affiliation: "Google",
+  //   role: "Industry Collaborator",
+  //   team: "Crystal",
+  // },
   {
     name: "Tina Hou",
     affiliation: "McKinsey & Company",
@@ -119,13 +119,23 @@ const industryCollaborators: Person[] = [
   },
 ];
 
+const juniorEditors: Person[] = [
+  {
+    name: "Albert Zhou",
+    affiliation: "",
+    role: "Junior Editor",
+    team: "",
+    bio: "",
+  },
+];
+
 function PersonCard({ person }: { person: Person }) {
   return (
     <Card className="max-w-[340px] w-full border-primary border-2 rounded-lg p-2">
       <CardHeader className="justify-between">
         <div className="flex gap-5">
           <div className="w-12 h-12 bg-primary  shadow-md rounded-full flex flex-col items-center justify-center text-foreground shrink-0">
-            <div className="text-sm text-white font-medium leading-tight">
+            <div className="text-sm text-default font-medium leading-tight">
               {person.name
                 .split(" ")
                 .map((n) => n[0])
@@ -173,6 +183,18 @@ export default function EditorialTeam() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {managingEditors.map((editor, index) => (
+                <PersonCard key={index} person={editor} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-20">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl md:text-4xl mb-12">Junior Editors</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {juniorEditors.map((editor, index) => (
                 <PersonCard key={index} person={editor} />
               ))}
             </div>
