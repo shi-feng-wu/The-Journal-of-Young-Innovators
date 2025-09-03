@@ -82,11 +82,6 @@ const managingEditors: Person[] = [
     role: "Managing Editor",
   },
   {
-    name: "Clara Ma",
-    affiliation: "Johns Hopkins University",
-    role: "Managing Editor",
-  },
-  {
     name: "Kai Ding",
     affiliation: "Johns Hopkins University",
     role: "Managing Editor",
