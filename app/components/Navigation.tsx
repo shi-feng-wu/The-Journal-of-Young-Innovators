@@ -70,7 +70,7 @@ export default function Navigation() {
         isScrolled ? "bg-background shadow-lg" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl px-4 py-1 sm:px-6 lg:px-8 ml-[8%]">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center h-16 space-x-8">
           <div className="flex items-center ">
             <Link href="/" className="flex items-center">

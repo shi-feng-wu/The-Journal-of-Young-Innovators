@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Hero from "@/components/Hero";
 
 // Sample articles data - replace with real data
 const featuredArticles = [
@@ -75,18 +76,10 @@ export default function Home() {
   return (
     <div className="min-h-screen -mt-16 bg-gray-100">
       {/* Hero Section */}
-      <section className="bg-primary text-white pb-20 pt-30">
-        <div className="max-w-7xl px-4 ml-[8%] sm:px-6 lg:px-8 py-20">
-          <div className="">
-            <h1 className="text-4xl md:text-6xl mb-6">
-              The Journal of Young Innovators
-            </h1>
-            <h2 className="text-xl md:text-2xl mb-8 opacity-90">
-              Leadership. Innovation. AI.
-            </h2>
-          </div>
-        </div>
-      </section>
+      <Hero
+        title="The Journal of Young Innovators"
+        subtitle="Leadership. Innovation. AI."
+      />
 
       {/* Featured Articles Section */}
       <section className="py-20 pb-40">
