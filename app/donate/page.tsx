@@ -12,9 +12,9 @@ export default function Donate() {
             color="primary"
             variant="shadow"
             size="lg"
-            className="mt-4 border-2 rounded-lg p-4"
+            className="border-2 rounded-lg p-4"
           >
-            Donate
+            Make a Donation Today
           </Button>
         }
       />

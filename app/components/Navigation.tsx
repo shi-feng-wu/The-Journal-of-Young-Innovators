@@ -59,7 +59,6 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Use Lenis' virtual scroll value to determine header state
   useLenis(({ scroll }) => {
     setIsScrolled(scroll > 25);
   });
@@ -91,6 +90,9 @@ export default function Navigation() {
             </NavLink>
             <NavLink href="/submission" isScrolled={isScrolled}>
               Submission
+            </NavLink>
+            <NavLink href="/partners" isScrolled={isScrolled}>
+              Partners
             </NavLink>
             <NavLink href="/faq" isScrolled={isScrolled}>
               FAQ
@@ -156,6 +158,12 @@ export default function Navigation() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Submission
+              </MobileNavLink>
+              <MobileNavLink
+                href="/partners"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Partners
               </MobileNavLink>
               <MobileNavLink href="/faq" onClick={() => setIsMenuOpen(false)}>
                 FAQ

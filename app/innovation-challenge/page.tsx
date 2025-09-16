@@ -11,6 +11,10 @@ export default function InnovationChallenge() {
       id: "summer-research-innovation-bootcamp",
       title: "Summer Research & Innovation Bootcamp",
     },
+    {
+      id: "occupational-health-in-music",
+      title: "OccupationalHealthinMusic.org",
+    },
   ];
 
   return (
@@ -22,7 +26,7 @@ export default function InnovationChallenge() {
 
       {/* Main Content Area with TOC as Second Column */}
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-30">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
           {/* Main Content - Takes up 3/4 of the width */}
           <div className="lg:col-span-3">
             <ContentSection
@@ -40,18 +44,20 @@ export default function InnovationChallenge() {
               </div>
 
               <p className="mb-6">
-                We're thrilled to announce the Fall 2025 Annual Student Research
-                & Innovation Competition—a national platform for 11th and 12th
-                grade students to showcase bold ideas and original work in AI,
-                innovation, data ethics, biomedical technologies, and more.
+                We’re thrilled to announce the Fall 2025 Annual Student Research
+                & Innovation Competition—a national platform for high school and
+                college students to showcase bold ideas and original work in AI,
+                social innovation, ethics, biomedical technologies, and more.
+                Proudly sponsored by the Johns Hopkins Ding Lab, this year’s
+                competition will take the form of a case competition, where
+                participants submit both a PowerPoint presentation and a final
+                written report.
               </p>
 
               <p className="mb-6">
-                This year's competition will take the form of a case
-                competition, where participants submit both a PowerPoint
-                presentation and a final written report. Projects may include
-                prototypes, data analyses, literature reviews, or ethical case
-                studies exploring the frontiers of emerging technologies.
+                Projects may include prototypes, data analyses, literature
+                reviews, or ethical case studies exploring the frontiers of
+                emerging technologies.
               </p>
 
               <p className="mb-6">
@@ -75,7 +81,12 @@ export default function InnovationChallenge() {
                   <h4 className="text-lg font-bold text-gray-900 mb-2">
                     Timeline
                   </h4>
-                  <p className="text-gray-600">Competition opens Fall 2025</p>
+                  <ul className="text-gray-600 space-y-1 text-left">
+                    <li>Sep 15, 2025: Applications open</li>
+                    <li>Nov 15, 2025: Submission deadline</li>
+                    <li>Jan 3, 2025: Preliminary selection of finalists</li>
+                    <li>Feb 23, 2026: Final competition (online)</li>
+                  </ul>
                 </div>
 
                 <div className="bg-white rounded-lg shadow-lg p-6 text-center">
@@ -83,12 +94,18 @@ export default function InnovationChallenge() {
                     <FaLightbulb className="text-4xl" />
                   </div>
                   <h4 className="text-lg font-bold text-gray-900 mb-2">
-                    Guidelines
+                    Categories & Guidelines
                   </h4>
-                  <p className="text-gray-600">
-                    Categories, submission guidelines, and deadlines will be
-                    announced soon
-                  </p>
+                  <ul className="text-gray-600 space-y-1 text-left">
+                    <li>Artificial Intelligence & Data Science</li>
+                    <li>Biomedical & Health Technologies</li>
+                    <li>Ethics & Society</li>
+                    <li>Innovation & Entrepreneurship</li>
+                  </ul>
+                  <div className="mt-3 text-gray-600 text-left">
+                    <p className="mb-1">Teams of 2–4; HS or undergraduate.</p>
+                    <p>Submit 12-slide PPT and 2,000–3,000 word report.</p>
+                  </div>
                 </div>
 
                 <div className="bg-white rounded-lg shadow-lg p-6 text-center">
@@ -99,8 +116,32 @@ export default function InnovationChallenge() {
                     Awards
                   </h4>
                   <p className="text-gray-600">
-                    Award results and honorable mentions will be published after
-                    final presentations
+                    Top teams receive Certificates of Excellence and publication
+                    opportunities; honorable mentions recognized for creativity,
+                    impact, and rigor.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">
+                    How to Apply
+                  </h4>
+                  <p className="text-gray-600 mb-3">
+                    Submit your application through our online portal (link to
+                    be provided). Include a 250–300 word abstract outlining your
+                    idea, approach, and significance.
+                  </p>
+                  <p className="text-gray-600">
+                    Format: Entirely online to allow national participation.
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">Fees</h4>
+                  <p className="text-gray-600">
+                    Application fee: $500 per team. Fee waiver available upon
+                    request for students with financial need.
                   </p>
                 </div>
               </div>
@@ -172,6 +213,23 @@ export default function InnovationChallenge() {
                 institutions. They bring cutting-edge expertise, real-world
                 insights, and a deep commitment to nurturing the next generation
                 of thinkers and leaders.
+              </p>
+            </ContentSection>
+
+            <ContentSection
+              title="OccupationalHealthinMusic.org"
+              id="occupational-health-in-music"
+            >
+              <p>
+                Visit our affiliated initiative:{" "}
+                <a
+                  className="text-primary underline"
+                  href="https://occupationalhealthinmusic.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  OccupationalHealthinMusic.org
+                </a>
               </p>
             </ContentSection>
           </div>

@@ -32,7 +32,7 @@ export default function Home() {
 
       {/* Main Content Area with TOC as Second Column */}
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-30">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
           {/* Main Content - Takes up 3/4 of the width */}
           <div className="lg:col-span-3">
             <ContentSection noPadding className="" title="Selectivity">

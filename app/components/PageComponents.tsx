@@ -8,6 +8,7 @@ export interface ContentSectionProps {
   className?: string;
   id?: string;
   noPadding?: boolean;
+  useContainer?: boolean; // when false, do not wrap with the internal max-width container
 }
 
 export interface TableOfContentsSection {
@@ -28,6 +29,7 @@ export function ContentSection({
   className = "",
   id,
   noPadding = false,
+  useContainer = true,
 }: ContentSectionProps) {
   const sectionId =
     id ||
@@ -38,17 +40,21 @@ export function ContentSection({
       .replace(/-+/g, "-") // Replace multiple consecutive dashes with single dash
       .replace(/^-|-$/g, ""); // Remove leading/trailing dashes
 
+  const content = (
+    <>
+      <h2 className="text-2xl md:text-4xl mb-6">{title}</h2>
+      <div className="space-y-8 [&_p]:text-sm [&_p]:md:text-md [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:text-sm [&_ul]:md:text-md">
+        {children}
+      </div>
+    </>
+  );
+
   return (
     <section
       id={sectionId}
       className={`pb-10 ${noPadding ? "" : "pt-10"} ${className}`}
     >
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
-        <h2 className="text-2xl md:text-4xl mb-6">{title}</h2>
-        <div className="space-y-8 [&_p]:text-sm [&_p]:md:text-md [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:text-sm [&_ul]:md:text-md">
-          {children}
-        </div>
-      </div>
+      {content}
     </section>
   );
 }

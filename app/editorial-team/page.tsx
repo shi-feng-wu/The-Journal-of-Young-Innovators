@@ -12,67 +12,33 @@ interface Person {
 const editors: Person[] = [
   {
     name: "Shanjin Li",
-    affiliation: "Stanford University",
+    affiliation: "Stanford",
     role: "Editor",
     team: "Crystal",
-    bio: "Research focus on AI ethics and policy",
   },
-  // {
-  //   name: "Raj Choudhury",
-  //   affiliation: "Harvard University",
-  //   role: "Editor",
-  //   team: "Crystal",
-  //   bio: "Expert in technology management and innovation",
-  // },
   {
     name: "Geneva Jonathan",
-    affiliation: "Harvard University",
+    affiliation: "Harvard",
     role: "Editor",
     team: "Crystal",
-    bio: "Specializes in interdisciplinary AI research",
   },
   {
     name: "Jessie Ford",
-    affiliation: "Columbia University",
+    affiliation: "Columbia",
     role: "Editor",
     team: "Clara",
-    bio: "Focus on educational technology and innovation",
   },
   {
     name: "Claire Chuter",
-    affiliation: "Johns Hopkins University",
+    affiliation: "JHU",
     role: "Editor",
     team: "Clara",
-    bio: "Research in healthcare AI applications",
   },
   {
     name: "Mariale Hardiman",
-    affiliation: "Johns Hopkins University",
+    affiliation: "JHU",
     role: "Editor",
-    team: "",
-    bio: "Expert in education and neuroscience",
   },
-  // {
-  //   name: "Brian Berkey",
-  //   affiliation: "Wharton, University of Pennsylvania",
-  //   role: "Editor",
-  //   team: "Clara",
-  //   bio: "Philosophy and ethics of technology",
-  // },
-  // {
-  //   name: "Henry Smith",
-  //   affiliation: "Department of Education",
-  //   role: "Editor",
-  //   team: "Clara",
-  //   bio: "Educational policy and technology integration",
-  // },
-  // {
-  //   name: "Jackie Renfrow",
-  //   affiliation: "Johns Hopkins University",
-  //   role: "Editor",
-  //   team: "Clara",
-  //   bio: "Research methodology and academic writing",
-  // },
 ];
 
 const managingEditors: Person[] = [
@@ -94,23 +60,21 @@ const managingEditors: Person[] = [
 ];
 
 const industryCollaborators: Person[] = [
-  // {
-  //   name: "Kongli Liu",
-  //   affiliation: "Google",
-  //   role: "Industry Collaborator",
-  //   team: "Crystal",
-  // },
   {
-    name: "Tina Hou",
-    affiliation: "McKinsey & Company",
+    name: "McKinsey Inc (Tina Hou)",
+    affiliation: "",
     role: "Industry Collaborator",
     team: "Crystal",
   },
   {
     name: "Fuxiao Liu",
-    affiliation: "NVIDIA",
+    affiliation: "Nvidia",
     role: "Industry Collaborator",
-    team: "",
+  },
+  {
+    name: "Jenna Cohen",
+    affiliation: "ACT",
+    role: "Industry Collaborator",
   },
 ];
 
@@ -118,9 +82,7 @@ const juniorEditors: Person[] = [
   {
     name: "Albert Zhou",
     affiliation: "",
-    role: "Junior Editor",
-    team: "",
-    bio: "",
+    role: "Student Editor",
   },
 ];
 
