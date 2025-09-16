@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@heroui/react": "2.8.2",
