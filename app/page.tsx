@@ -47,7 +47,7 @@ framework for international students navigating complex and inequitable systems.
   {
     id: 3,
     title: "Girl Power",
-    author: "Zhu, I., & Yu, A.",
+    author: "Zhu, I. & Yu, A.",
     school: "",
     image: "/images/optimized/feminism-800.webp",
     abstract: `In recent years, the term girl power (女孩力量) has become increasingly prominent in Chinese
@@ -73,9 +73,9 @@ a conceptual baseline for future empirical and theoretical inquiry.`,
   {
     id: 4,
     title: "Neuroleadership and Neuroeducation",
-    author: "Hardiman, M., & Ma, C. F.",
+    author: "Hardiman, M. & Ma, C. F.",
     school: "Johns Hopkins University",
-    image: "/images/optimized/leadership  -800.webp",
+    image: "/images/optimized/leadership-800.webp",
     abstract: `The rapidly evolving fields of neuroleadership and neuroeducation hold immense potential for
 transforming our understanding of effective leadership and learning. While neuroleadership
 delves into the neural underpinnings of leadership behaviors and decision-making processes
@@ -128,7 +128,7 @@ existing approaches to provide more comprehensive care to those in need.`,
     id: 6,
     title:
       "Fostering Hope through Hoops: The Potential of Basketball Sports Diplomacy",
-    author: "Zhu, E. , & Zhu, H.",
+    author: "Zhu, E & Zhu, H.",
     school: "",
     image: "/images/optimized/basketball-800.webp",
     abstract: `This article examines the potential of basketball to be used as a form of sports diplomacy. The
