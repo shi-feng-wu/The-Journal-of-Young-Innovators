@@ -100,8 +100,8 @@ export default function Navigation() {
             <NavLink href="/editorial-team" isScrolled={isScrolled}>
               Editorial Team
             </NavLink>
-            <NavLink href="/innovation-challenge" isScrolled={isScrolled}>
-              Innovation Challenge
+            <NavLink href="/scholarly-event" isScrolled={isScrolled}>
+              Scholarly Event
             </NavLink>
             <NavLink href="/donate" isScrolled={isScrolled}>
               Donate
@@ -175,10 +175,10 @@ export default function Navigation() {
                 Editorial Team
               </MobileNavLink>
               <MobileNavLink
-                href="/innovation-challenge"
+                href="/scholarly-event"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Innovation Challenge
+                Scholarly Event
               </MobileNavLink>
               <MobileNavLink
                 href="/donate"

@@ -75,28 +75,31 @@ export default function FAQ() {
         subtitle="Common questions about submitting to our journal."
       />
 
-      {/* FAQ Section */}
-      <section className="py-20 pb-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
-          <Accordion variant="splitted">
-            {faqData.map((faq) => (
-              <AccordionItem
-                key={faq.id}
-                aria-label={faq.question}
-                title={faq.question}
-                className="mb-4 bg-transparent border-none shadow-none"
-                classNames={{
-                  title: "text-3xl font-medium mr-2",
-                }}
-              >
-                <p className="text-foreground/80 leading-relaxed">
-                  {faq.answer}
-                </p>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
+      {/* FAQ Section (aligned with other pages) */}
+      <div className="pb-40">
+        <section className="py-30">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
+            <Accordion variant="splitted">
+              {faqData.map((faq) => (
+                <AccordionItem
+                  key={faq.id}
+                  aria-label={faq.question}
+                  title={faq.question}
+                  className="mb-4 bg-transparent border-none shadow-none"
+                  classNames={{
+                    title: "text-3xl font-medium mr-2",
+                    base: "p-0",
+                  }}
+                >
+                  <p className="text-foreground/80 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

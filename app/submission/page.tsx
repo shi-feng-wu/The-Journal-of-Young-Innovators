@@ -218,7 +218,13 @@ export default function Home() {
 
             <ContentSection title="Fast Track Review (Optional)">
               <p>
-                We offer a Fast Track option (2–3 week turnaround). Email us
+                We offer a Fast Track option (2–3 week turnaround). Email us at
+                <a
+                  className="text-primary underline ml-1"
+                  href="mailto:clara.ma@inceptionconsulting.org"
+                >
+                  clara.ma@inceptionconsulting.org
+                </a>
                 with your submission ID to request this service. Expedited fees
                 apply.
               </p>
@@ -226,8 +232,14 @@ export default function Home() {
 
             <ContentSection title="Need Help?">
               <p className="mb-8">
-                For any questions, contact our editorial team at [email]. Please
-                include:
+                For any questions, contact our editorial team at
+                <a
+                  className="text-primary underline ml-1"
+                  href="mailto:clara.ma@inceptionconsulting.org"
+                >
+                  clara.ma@inceptionconsulting.org
+                </a>
+                . Please include:
               </p>
               <ul>
                 <li>Your Full Name</li>

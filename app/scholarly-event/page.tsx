@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import { ContentSection, TableOfContents } from "@/components/PageComponents";
 import { FaCalendarAlt, FaLightbulb, FaMedal, FaTrophy } from "react-icons/fa";
 
-export default function InnovationChallenge() {
+export default function ScholarlyEvent() {
   const challengeSections = [
     { id: "innovation-case-challenge", title: "Innovation Case Challenge" },
     {
@@ -13,7 +13,7 @@ export default function InnovationChallenge() {
     },
     {
       id: "occupational-health-in-music",
-      title: "OccupationalHealthinMusic.org",
+      title: "Occupational Health in Music",
     },
   ];
 
@@ -130,8 +130,15 @@ export default function InnovationChallenge() {
                   </h4>
                   <p className="text-gray-600 mb-3">
                     Submit your application through our online portal (link to
-                    be provided). Include a 250–300 word abstract outlining your
-                    idea, approach, and significance.
+                    be provided) or email us directly at{" "}
+                    <a
+                      href="mailto:clara.ma@inceptionconsulting.org"
+                      className="text-primary underline"
+                    >
+                      clara.ma@inceptionconsulting.org
+                    </a>
+                    . Include a 250–300 word abstract outlining your idea,
+                    approach, and significance.
                   </p>
                   <p className="text-gray-600">
                     Format: Entirely online to allow national participation.
@@ -214,11 +221,21 @@ export default function InnovationChallenge() {
                 insights, and a deep commitment to nurturing the next generation
                 of thinkers and leaders.
               </p>
+              <p className="">
+                For more information email{" "}
+                <a
+                  href="mailto:clara.ma@inceptionconsulting.org"
+                  className="text-primary underline"
+                >
+                  clara.ma@inceptionconsulting.org
+                </a>
+                .
+              </p>
             </ContentSection>
 
             <ContentSection
-              title="OccupationalHealthinMusic.org"
-              id="occupational-health-in-music"
+              title="Occupation Health in Music"
+              id="Occupation Health in Music"
             >
               <p>
                 Visit our affiliated initiative:{" "}

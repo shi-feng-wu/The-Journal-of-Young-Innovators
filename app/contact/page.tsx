@@ -16,14 +16,16 @@ export default function Contact() {
               <li>Current Grade Level</li>
               <li>Your specific question</li>
             </ul>
-            <Button
-              color="primary"
-              variant="shadow"
-              size="lg"
-              className="border-2 rounded-lg p-4"
-            >
-              Email Us
-            </Button>
+            <a href="mailto:clara.ma@inceptionconsulting.org">
+              <Button
+                color="primary"
+                variant="shadow"
+                size="lg"
+                className="border-2 rounded-lg p-4"
+              >
+                Email Us
+              </Button>
+            </a>
           </div>
         }
       />
