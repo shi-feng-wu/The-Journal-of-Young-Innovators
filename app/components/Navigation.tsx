@@ -91,9 +91,6 @@ export default function Navigation() {
             <NavLink href="/submission" isScrolled={isScrolled}>
               Submission
             </NavLink>
-            <NavLink href="/partners" isScrolled={isScrolled}>
-              Partners
-            </NavLink>
             <NavLink href="/faq" isScrolled={isScrolled}>
               FAQ
             </NavLink>
@@ -102,6 +99,9 @@ export default function Navigation() {
             </NavLink>
             <NavLink href="/scholarly-event" isScrolled={isScrolled}>
               Scholarly Event
+            </NavLink>
+            <NavLink href="/partners" isScrolled={isScrolled}>
+              Strategic Partners
             </NavLink>
             <NavLink href="/donate" isScrolled={isScrolled}>
               Donate
@@ -159,12 +159,6 @@ export default function Navigation() {
               >
                 Submission
               </MobileNavLink>
-              <MobileNavLink
-                href="/partners"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Partners
-              </MobileNavLink>
               <MobileNavLink href="/faq" onClick={() => setIsMenuOpen(false)}>
                 FAQ
               </MobileNavLink>
@@ -179,6 +173,12 @@ export default function Navigation() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Scholarly Event
+              </MobileNavLink>
+              <MobileNavLink
+                href="/partners"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Strategic Partners
               </MobileNavLink>
               <MobileNavLink
                 href="/donate"

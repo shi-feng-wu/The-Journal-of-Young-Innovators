@@ -222,9 +222,10 @@ export default function Home() {
                 <a
                   className="text-primary underline ml-1"
                   href="mailto:clara.ma@inceptionconsulting.org"
+                  aria-label="Email us about Fast Track Review"
                 >
-                  clara.ma@inceptionconsulting.org
-                </a>
+                  this address
+                </a>{" "}
                 with your submission ID to request this service. Expedited fees
                 apply.
               </p>
@@ -232,12 +233,13 @@ export default function Home() {
 
             <ContentSection title="Need Help?">
               <p className="mb-8">
-                For any questions, contact our editorial team at
+                For any questions, contact our editorial team via
                 <a
                   className="text-primary underline ml-1"
                   href="mailto:clara.ma@inceptionconsulting.org"
+                  aria-label="Email the editorial team"
                 >
-                  clara.ma@inceptionconsulting.org
+                  email
                 </a>
                 . Please include:
               </p>

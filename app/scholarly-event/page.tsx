@@ -134,8 +134,9 @@ export default function ScholarlyEvent() {
                     <a
                       href="mailto:clara.ma@inceptionconsulting.org"
                       className="text-primary underline"
+                      aria-label="Email us your application"
                     >
-                      clara.ma@inceptionconsulting.org
+                      this email
                     </a>
                     . Include a 250–300 word abstract outlining your idea,
                     approach, and significance.
@@ -226,8 +227,9 @@ export default function ScholarlyEvent() {
                 <a
                   href="mailto:clara.ma@inceptionconsulting.org"
                   className="text-primary underline"
+                  aria-label="Email us for more information"
                 >
-                  clara.ma@inceptionconsulting.org
+                  our team
                 </a>
                 .
               </p>
@@ -251,8 +253,8 @@ export default function ScholarlyEvent() {
             </ContentSection>
           </div>
 
-          {/* Table of Contents - Takes up 1/4 of the width */}
-          <div className="lg:col-span-1">
+          {/* Table of Contents - hidden on small screens */}
+          <div className="hidden lg:block lg:col-span-1">
             <TableOfContents sections={challengeSections} />
           </div>
         </div>

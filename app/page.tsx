@@ -3,7 +3,8 @@ import Hero from "@/components/Hero";
 import { getCategoryBackground } from "@/utils/categoryBackgrounds"; // kept as fallback if an article image is missing
 
 // Featured articles pulled from uploaded Word docs. Place the files in /public/articles with these filenames.
-const featuredArticles = [
+// Base article list (full set) - removed Girl Power and Hoops from display per request below
+const allArticles = [
   {
     id: 1,
     title:
@@ -46,32 +47,6 @@ framework for international students navigating complex and inequitable systems.
   },
   {
     id: 3,
-    title: "Girl Power",
-    author: "Zhu, I. & Yu, A.",
-    school: "",
-    image: "/images/optimized/feminism-800.webp",
-    abstract: `In recent years, the term girl power (女孩力量) has become increasingly prominent in Chinese
-discourse, yet its meanings remain insufficiently theorized within the country's unique
-sociocultural landscape. This article offers a qualitative literature synthesis to explore how girl
-power is being conceptualized, articulated, and negotiated in contemporary China. Drawing on
-29 qualitative studies published between 2005 and 2024, we use a meta-ethnographic approach
-to identify five overarching themes: Gender Norms & Power Structures, Identity & Self
-Determination, Media Female Imagery, Body Aesthetic Politics, and Social Consumption
-Narratives. Our analysis reveals that girl power in China is neither a straightforward import of
-Western feminist ideals nor a passing pop-cultural trend. Rather, it reflects a dynamic interplay
-between tradition and modernity, digital expression and state control, empowerment and
-commodification. While some narratives challenge patriarchal norms and enable self-expression,
-others risk reinscribing inequality through market-driven “pseudo-feminist” frameworks. We
-argue that girl power in China functions as both a site of agency and a mechanism of social
-regulation, complicating linear understandings of feminist progress. This study contributes to
-feminist theory by situating girl power within China’s hybrid sociopolitical landscape and offers
-a conceptual baseline for future empirical and theoretical inquiry.`,
-    publishDate: "2025-09-16",
-    category: "Global & Cultural Perspectives",
-    link: "/articles/girl-power.pdf",
-  },
-  {
-    id: 4,
     title: "Neuroleadership and Neuroeducation",
     author: "Hardiman, M. & Ma, C. F.",
     school: "Johns Hopkins University",
@@ -100,7 +75,7 @@ realize their full potential.
     link: "/articles/neuroleadership-and-neuroeducation.pdf",
   },
   {
-    id: 5,
+    id: 4,
     title:
       "Meet Your Therapist: Exploring the Promise and Drawbacks of AI for Treating Digital Addictive Behavior among Adolescents",
     author: "Gao, R.",
@@ -124,29 +99,10 @@ existing approaches to provide more comprehensive care to those in need.`,
     category: "Technology & Innovation",
     link: "/articles/ray-gao-palo.pdf",
   },
-  {
-    id: 6,
-    title:
-      "Fostering Hope through Hoops: The Potential of Basketball Sports Diplomacy",
-    author: "Zhu, E & Zhu, H.",
-    school: "",
-    image: "/images/optimized/basketball-800.webp",
-    abstract: `This article examines the potential of basketball to be used as a form of sports diplomacy. The
-article argues that U.S.-China relations have soured over the past few decades, with relations
-between the two countries becoming notably more tense amidst rising tariffs issued against each.
-The authors show that basketball has a longstanding history in each country, as well as a
-widespread following, making it an ideal candidate for assisting in achieving diplomatic goals.
-The article points out that more traditional diplomatic negotiations have failed, presenting an
-opportunity for the “backdoor” negotiations that sports diplomacy can foster. To make this
-argument, this article provides a historical overview of successful cases of sports diplomacy,
-citing previous examples like the Olympic Games and the FIFA World Cup. It is careful to
-acknowledge the drawbacks of sports diplomacy as well, presenting the reader with a balanced
-understanding of what this political tool can and cannot do.`,
-    publishDate: "2025-09-16",
-    category: "Global & Cultural Perspectives",
-    link: "/articles/basketball-paper-jul-23.pdf",
-  },
 ];
+
+// Articles to display on homepage (filtered)
+const featuredArticles = allArticles; // currently all after removal
 
 export default function Home() {
   return (
@@ -156,6 +112,7 @@ export default function Home() {
         title="The Journal of Young Innovators"
         subtitle="Leadership. Innovation. AI."
         titleClassName="font-kenao"
+        subtitleClassName="font-kenao"
       />
 
       <div className="pt-10 pb-50">
@@ -168,200 +125,80 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* First Article - Full Width Left Aligned */}
-            <div className="mb-8">
-              <Link
-                href={featuredArticles[0].link}
-                target={
-                  featuredArticles[0].link.startsWith("http")
-                    ? "_blank"
-                    : undefined
-                }
-                rel={
-                  featuredArticles[0].link.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                className="block group"
-                aria-label={featuredArticles[0].title}
-              >
-                <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
-                    style={{
-                      backgroundImage: `url(${featuredArticles[0].image || getCategoryBackground(featuredArticles[0].category)})`,
-                    }}
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
-                    aria-hidden="true"
-                  />
-                  <div className="relative p-8">
-                    <div className="flex flex-col md:flex-row gap-8 items-center">
-                      <div className="md:w-2/3">
-                        <div className="mb-4">
-                          <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
-                            {featuredArticles[0].category}
-                          </span>
-                          <span className="text-white/80 ml-4 text-xs">
-                            {new Date(
-                              featuredArticles[0].publishDate
-                            ).toLocaleDateString()}
-                          </span>
+            {/* Four Full-Width Alternating Articles */}
+            {featuredArticles.map((article, idx) => {
+              const right = idx % 2 === 1; // alternate alignment
+              return (
+                <div className="mb-8" key={article.id}>
+                  <Link
+                    href={article.link}
+                    target={
+                      article.link.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel={
+                      article.link.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="block group"
+                    aria-label={article.title}
+                  >
+                    <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+                      <div
+                        className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
+                        style={{
+                          backgroundImage: `url(${(article as any).image || getCategoryBackground(article.category)})`,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <div
+                        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
+                        aria-hidden="true"
+                      />
+                      <div className="relative p-8">
+                        <div
+                          className={`flex flex-col md:flex-row ${right ? "md:flex-row-reverse" : ""} gap-8 md:items-stretch`}
+                        >
+                          <div
+                            className={`md:w-2/3 ${right ? "md:text-right" : ""}`}
+                          >
+                            <div className="mb-4">
+                              <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
+                                {article.category}
+                              </span>
+                              <span className="text-white/80 ml-4 text-xs">
+                                {new Date(
+                                  article.publishDate
+                                ).toLocaleDateString()}
+                              </span>
+                            </div>
+                            <h3 className="text-2xl font-semibold text-white mb-2 line-clamp-2">
+                              {article.title}
+                            </h3>
+                            <div className="mb-4">
+                              <p className="text-white font-semibold text-sm">
+                                {article.author}
+                              </p>
+                              <p className="text-white/70 text-xs">
+                                {article.school}
+                              </p>
+                            </div>
+                            <p className="text-white text-sm mb-3 line-clamp-4 opacity-90 leading-relaxed">
+                              {article.abstract}
+                            </p>
+                          </div>
+                          <div className="md:w-1/3 hidden md:block" />
                         </div>
-                        <h3 className="text-2xl font-semibold text-white mb-2 line-clamp-2">
-                          {featuredArticles[0].title}
-                        </h3>
-                        <div className="mb-4">
-                          <p className="text-white font-semibold text-sm">
-                            {featuredArticles[0].author}
-                          </p>
-                          <p className="text-white/70 text-xs">
-                            {featuredArticles[0].school}
-                          </p>
-                        </div>
-                        <p className="text-white text-sm mb-3 line-clamp-4 opacity-90 leading-relaxed">
-                          {featuredArticles[0].abstract}
-                        </p>
                       </div>
-                      <div className="md:w-1/3" />
-                    </div>
-                  </div>
-                </article>
-              </Link>
-            </div>
-
-            {/* Second Article - Full Width Right Aligned */}
-            <div className="mb-8">
-              <Link
-                href={featuredArticles[1].link}
-                target={
-                  featuredArticles[1].link.startsWith("http")
-                    ? "_blank"
-                    : undefined
-                }
-                rel={
-                  featuredArticles[1].link.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                className="block group"
-                aria-label={featuredArticles[1].title}
-              >
-                <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
-                    style={{
-                      backgroundImage: `url(${featuredArticles[1].image || getCategoryBackground(featuredArticles[1].category)})`,
-                    }}
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
-                    aria-hidden="true"
-                  />
-                  <div className="relative p-8">
-                    <div className="flex flex-col md:flex-row-reverse gap-8 items-center">
-                      <div className="md:w-2/3 md:text-right">
-                        <div className="mb-4">
-                          <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
-                            {featuredArticles[1].category}
-                          </span>
-                          <span className="text-white/80 ml-4 text-xs">
-                            {new Date(
-                              featuredArticles[1].publishDate
-                            ).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <h3 className="text-2xl font-semibold text-white mb-2 line-clamp-2">
-                          {featuredArticles[1].title}
-                        </h3>
-                        <div className="mb-4">
-                          <p className="text-white font-semibold text-sm">
-                            {featuredArticles[1].author}
-                          </p>
-                          <p className="text-white/70 text-xs">
-                            {featuredArticles[1].school}
-                          </p>
-                        </div>
-                        <p className="text-white text-sm mb-3 line-clamp-4 opacity-90 leading-relaxed">
-                          {featuredArticles[1].abstract}
-                        </p>
-                      </div>
-                      <div className="md:w-1/3" />
-                    </div>
-                  </div>
-                </article>
-              </Link>
-            </div>
-
-            {/* Remaining Articles - Four Cards in a Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredArticles.slice(2).map((article) => (
-                <Link
-                  key={article.id}
-                  href={article.link}
-                  target={
-                    article.link.startsWith("http") ? "_blank" : undefined
-                  }
-                  rel={
-                    article.link.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="block group"
-                  aria-label={article.title}
-                >
-                  <article className="relative rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                    <div
-                      className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
-                      style={{
-                        backgroundImage: `url(${(article as any).image || getCategoryBackground(article.category)})`,
-                      }}
-                      aria-hidden="true"
-                    />
-                    <div
-                      className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
-                      aria-hidden="true"
-                    />
-                    <div className="relative p-4">
-                      <div className="mb-3 flex flex-wrap gap-2">
-                        <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
-                          {article.category}
-                        </span>
-                      </div>
-                      <div className="mb-2">
-                        <span className="text-white/80 text-xs">
-                          {new Date(article.publishDate).toLocaleDateString()}
-                        </span>
-                      </div>
-
-                      <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
-                        {article.title}
-                      </h3>
-
-                      <div className="mb-3">
-                        <p className="text-white font-semibold text-sm">
-                          {article.author}
-                        </p>
-                        <p className="text-white/70 text-xs">
-                          {article.school}
-                        </p>
-                      </div>
-
-                      <p className="text-white text-sm mb-3 line-clamp-4 opacity-90 leading-relaxed">
-                        {article.abstract}
-                      </p>
-                    </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
+                    </article>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        {/* Videos Section */}
+        {/** Videos Section (temporarily disabled)
         <section className="py-10">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
             <div className=" mb-8">
@@ -393,6 +230,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        */}
       </div>
     </div>
   );
