@@ -21,7 +21,7 @@ export default function ScholarlyEvent() {
     <div className="min-h-screen -mt-16 bg-gray-100 pb-30">
       <Hero
         title="Innovation Challenge Series"
-        subtitle="National platforms for high school students to showcase bold ideas and original work in AI, innovation, data ethics, biomedical technologies, and more."
+        subtitle="National platforms for high school students and college students to showcase bold ideas and original work in AI, innovation, data ethics, biomedical technologies, and more."
       />
 
       {/* Main Content Area with TOC as Second Column */}
