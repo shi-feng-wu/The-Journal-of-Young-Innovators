@@ -12,31 +12,36 @@ interface Person {
 const editors: Person[] = [
   {
     name: "Shanjin Li",
-    affiliation: "Stanford",
+    affiliation: "Stanford University",
     role: "Editor",
     team: "Crystal",
   },
   {
     name: "Geneva Jonathan",
-    affiliation: "Harvard",
+    affiliation: "Harvard University",
     role: "Editor",
     team: "Crystal",
   },
   {
     name: "Jessie Ford",
-    affiliation: "Columbia",
+    affiliation: "Columbia University",
     role: "Editor",
     team: "Clara",
   },
   {
     name: "Claire Chuter",
-    affiliation: "JHU",
+    affiliation: "Johns Hopkins University",
     role: "Editor",
     team: "Clara",
   },
   {
     name: "Mariale Hardiman",
-    affiliation: "JHU",
+    affiliation: "Johns Hopkins University",
+    role: "Editor",
+  },
+  {
+    name: "Annie Conderacci",
+    affiliation: "Harvard University",
     role: "Editor",
   },
 ];
