@@ -23,7 +23,7 @@ export default function Home() {
     <div className="min-h-screen -mt-16 bg-gray-100 pb-30">
       <Hero
         title="Submission Guidelines"
-        subtitle="We welcome submissions from high school students who are
+        subtitle="We welcome submissions from high school and college students who are
               passionate about academic inquiry and eager to contribute to
               meaningful scholarship. Our editorial board includes experienced
               researchers, educators, and editors dedicated to helping young
