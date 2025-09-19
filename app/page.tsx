@@ -312,6 +312,9 @@ export default function Home() {
                       <p className="text-white/90 text-xs line-clamp-4">
                         {article.author}
                       </p>
+                      <p className="text-white/80 text-xs mt-2 line-clamp-4">
+                        {article.abstract}
+                      </p>
                     </div>
                   </article>
                 </Link>
