@@ -223,13 +223,13 @@ export default function ScholarlyEvent() {
                 of thinkers and leaders.
               </p>
               <p className="">
-                For more information email{" "}
+                For more information,{" "}
                 <a
                   href="mailto:clara.ma@inceptionconsulting.org"
                   className="text-primary underline"
                   aria-label="Email us for more information"
                 >
-                  our team
+                  email our team
                 </a>
                 .
               </p>

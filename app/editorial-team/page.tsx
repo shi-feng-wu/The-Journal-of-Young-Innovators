@@ -66,8 +66,8 @@ const managingEditors: Person[] = [
 
 const industryCollaborators: Person[] = [
   {
-    name: "McKinsey Inc (Tina Hou)",
-    affiliation: "",
+    name: "Tina Hou",
+    affiliation: "McKinsey",
     role: "Industry Collaborator",
     team: "Crystal",
   },

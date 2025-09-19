@@ -1,9 +1,6 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import { getCategoryBackground } from "@/utils/categoryBackgrounds"; // kept as fallback if an article image is missing
 
-// Featured articles pulled from uploaded Word docs. Place the files in /public/articles with these filenames.
-// Base article list (full set) - removed Girl Power and Hoops from display per request below
 const allArticles = [
   {
     id: 1,
@@ -24,8 +21,9 @@ end of life. After reviewing possible reasons that a physician may object on rel
 the author then provides recommendations that honor both the free will of the patient and the
 physician.`,
     publishDate: "2025-06-10",
-    category: "Ethics & Society",
-    link: "/articles/adam-religion-and-medicine-article-pdf.pdf",
+    category: "Research Articles",
+    link: "/articles/Religion End of Life.pdf",
+    issue: "Volume 1, Issue 1",
   },
   {
     id: 2,
@@ -42,8 +40,9 @@ development as a core element of higher education and an essential navigational 
 leaders. A global moral compass, as defined by Thompson (2010), offers an essential
 framework for international students navigating complex and inequitable systems.`,
     publishDate: "2025-07-20",
-    category: "Leadership & Education",
-    link: "/articles/leadership-education-for-international-students.pdf",
+    category: "Research Articles",
+    link: "/articles/Leadership Education.pdf",
+    issue: "Volume 1, Issue 2",
   },
   {
     id: 3,
@@ -72,8 +71,9 @@ learning, helping them to create impactful experiences that empower individuals 
 realize their full potential.
 `,
     publishDate: "2025-08-20",
-    category: "Neuroscience & Cognitive Science",
-    link: "/articles/neuroleadership-and-neuroeducation.pdf",
+    category: "Research Articles",
+    link: "/articles/Neurons to Leaders.pdf",
+    issue: "Volume 1, Issue 2",
   },
   {
     id: 4,
@@ -97,8 +97,9 @@ on this topic thus allows this paper to offer the view that although AI should n
 of human mental health providers, it can serve as an auxiliary resource that complements
 existing approaches to provide more comprehensive care to those in need.`,
     publishDate: "2025-08-18",
-    category: "Technology & Innovation",
-    link: "/articles/ray-gao-palo.pdf",
+    category: "Research Articles",
+    link: "/articles/Meet Your Therapist.pdf",
+    issue: "Volume 1, Issue 2",
   },
   {
     id: 5,
@@ -123,8 +124,9 @@ regulation, complicating linear understandings of feminist progress. This study 
 feminist theory by situating girl power within China’s hybrid sociopolitical landscape and offers  
 a conceptual baseline for future empirical and theoretical inquiry.`,
     publishDate: "2025-05-18",
-    category: "Gender Studies & Society",
-    link: "/articles/Girl power.pdf",
+    category: "Research Articles",
+    link: "/articles/Girl Power.pdf",
+    issue: "Volume 1, Issue 1",
   },
   {
     id: 6,
@@ -151,8 +153,9 @@ open-water catches. However, both the areas where Iceland’s fishing industry e
 short represent key considerations that can ideally be applied to a variety of other cultural contexts and economic sectors so that true sustainability is no longer seen as bound by region or 
 industry.`,
     publishDate: "2025-08-17",
-    category: "Environmental Science & Sustainability",
-    link: "/articles/Lisa and Julie _ch.pdf",
+    category: "Research Articles",
+    link: "/articles/Seas Sustainable.pdf",
+    issue: "Volume 1, Issue 2",
   },
 ];
 
@@ -160,6 +163,9 @@ industry.`,
 const featuredArticles = allArticles; // currently all after removal
 
 export default function Home() {
+  const primaryArticles = featuredArticles.slice(0, 2);
+  const gridArticles = featuredArticles.slice(2);
+
   return (
     <div className="min-h-screen -mt-16 bg-gray-100">
       {/* Hero Section */}
@@ -180,8 +186,8 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* Four Full-Width Alternating Articles */}
-            {featuredArticles.map((article, idx) => {
+            {/* First two articles (unchanged layout) */}
+            {primaryArticles.map((article, idx) => {
               const right = idx % 2 === 1; // alternate alignment
               return (
                 <div className="mb-8" key={article.id}>
@@ -202,7 +208,7 @@ export default function Home() {
                       <div
                         className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
                         style={{
-                          backgroundImage: `url(${(article as any).image || getCategoryBackground(article.category)})`,
+                          backgroundImage: `url(${(article as any).image})`,
                         }}
                         aria-hidden="true"
                       />
@@ -225,6 +231,12 @@ export default function Home() {
                                 {new Date(
                                   article.publishDate
                                 ).toLocaleDateString()}
+                              </span>
+                              <span className="text-white/60 mx-2 text-xs">
+                                ·
+                              </span>
+                              <span className="text-white/80 text-xs">
+                                {article.issue}
                               </span>
                             </div>
                             <h3 className="text-2xl font-semibold text-white mb-2 line-clamp-2">
@@ -250,42 +262,66 @@ export default function Home() {
                 </div>
               );
             })}
-          </div>
-        </section>
 
-        {/** Videos Section (temporarily disabled)
-        <section className="py-10">
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
-            <div className=" mb-8">
-              <h2 className="text-3xl md:text-4xl text-black mb-4">Videos</h2>
-              <p className="text-foreground/70">
-                From our scholars and students.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((v) => (
-                <div
-                  key={v}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+            {/* Remaining four in responsive grid: 1/2/4 columns */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+              {gridArticles.map((article) => (
+                <Link
+                  key={article.id}
+                  href={article.link}
+                  target={
+                    article.link.startsWith("http") ? "_blank" : undefined
+                  }
+                  rel={
+                    article.link.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className="group block"
+                  aria-label={article.title}
                 >
-                  <div className="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
-                    Video Placeholder
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-black font-semibold mb-1">
-                      Featured Talk #{v}
-                    </h3>
-                    <p className="text-foreground/70 text-sm">
-                      Scholar/Student spotlight video.
-                    </p>
-                  </div>
-                </div>
+                  <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden min-h-[260px]">
+                    <div
+                      className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
+                      style={{
+                        backgroundImage: `url(${(article as any).image})`,
+                      }}
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
+                      aria-hidden="true"
+                    />
+                    <div className="relative p-6 h-full flex flex-col justify-end">
+                      <div className="mb-3">
+                        <span className="bg-primary text-white text-xs font-semibold px-2 py-1 mr-0 mx-auto rounded">
+                          {article.category}
+                        </span>
+                        <br></br>
+                        <span className="text-white/80 text-xs">
+                          {new Date(article.publishDate).toLocaleDateString()}
+                        </span>
+                        <span className="text-white/60 mx-2 text-xs">·</span>
+                        <span className="text-white/80 text-xs">
+                          {article.issue}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-white mb-2 line-clamp-4">
+                        {article.title}
+                      </h3>
+                      <p className="text-white/90 text-xs line-clamp-4">
+                        {article.author}
+                      </p>
+                    </div>
+                  </article>
+                </Link>
               ))}
             </div>
           </div>
         </section>
-        */}
+
+        {/** Videos Section (temporarily disabled) */}
+        {/* ...existing code... */}
       </div>
     </div>
   );

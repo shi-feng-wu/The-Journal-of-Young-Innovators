@@ -65,7 +65,9 @@ export default function Partners() {
             </div>
 
             <div>
-              <h2 className="text-2xl md:text-4xl mb-6">Ding Research Lab</h2>
+              <h2 className="text-2xl md:text-4xl mb-6">
+                Ding Research Lab (Johns Hopkins University)
+              </h2>
               <p className="text-sm md:text-md mb-8">
                 Ding Research Lab is a leading research group dedicated to
                 transforming cancer treatment through innovative radiotherapy
