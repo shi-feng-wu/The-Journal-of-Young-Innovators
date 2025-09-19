@@ -186,86 +186,9 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* First two articles (unchanged layout) */}
-            {primaryArticles.map((article, idx) => {
-              const right = idx % 2 === 1; // alternate alignment
-              return (
-                <div className="mb-8" key={article.id}>
-                  <Link
-                    href={article.link}
-                    target={
-                      article.link.startsWith("http") ? "_blank" : undefined
-                    }
-                    rel={
-                      article.link.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                    className="block group"
-                    aria-label={article.title}
-                  >
-                    <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-                      <div
-                        className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
-                        style={{
-                          backgroundImage: `url(${(article as any).image})`,
-                        }}
-                        aria-hidden="true"
-                      />
-                      <div
-                        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
-                        aria-hidden="true"
-                      />
-                      <div className="relative p-8">
-                        <div
-                          className={`flex flex-col md:flex-row ${right ? "md:flex-row-reverse" : ""} gap-8 md:items-stretch`}
-                        >
-                          <div
-                            className={`md:w-2/3 ${right ? "md:text-right" : ""}`}
-                          >
-                            <div className="mb-4">
-                              <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
-                                {article.category}
-                              </span>
-                              <span className="text-white/80 ml-4 text-xs">
-                                {new Date(
-                                  article.publishDate
-                                ).toLocaleDateString()}
-                              </span>
-                              <span className="text-white/60 mx-2 text-xs">
-                                ·
-                              </span>
-                              <span className="text-white/80 text-xs">
-                                {article.issue}
-                              </span>
-                            </div>
-                            <h3 className="text-2xl font-semibold text-white mb-2 line-clamp-2">
-                              {article.title}
-                            </h3>
-                            <div className="mb-4">
-                              <p className="text-white font-semibold text-sm">
-                                {article.author}
-                              </p>
-                              <p className="text-white/70 text-xs">
-                                {article.school}
-                              </p>
-                            </div>
-                            <p className="text-white text-sm mb-3 line-clamp-4 opacity-90 leading-relaxed">
-                              {article.abstract}
-                            </p>
-                          </div>
-                          <div className="md:w-1/3 hidden md:block" />
-                        </div>
-                      </div>
-                    </article>
-                  </Link>
-                </div>
-              );
-            })}
-
-            {/* Remaining four in responsive grid: 1/2/4 columns */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-              {gridArticles.map((article) => (
+            {/* Mobile: show all six as cards (1 per row) */}
+            <div className="sm:hidden grid grid-cols-1 gap-6">
+              {featuredArticles.map((article) => (
                 <Link
                   key={article.id}
                   href={article.link}
@@ -297,7 +220,7 @@ export default function Home() {
                         <span className="bg-primary text-white text-xs font-semibold px-2 py-1 mr-0 mx-auto rounded">
                           {article.category}
                         </span>
-                        <br></br>
+                        <br />
                         <span className="text-white/80 text-xs">
                           {new Date(article.publishDate).toLocaleDateString()}
                         </span>
@@ -319,6 +242,144 @@ export default function Home() {
                   </article>
                 </Link>
               ))}
+            </div>
+
+            {/* Desktop/Tablet: original layout (top two hero + bottom four grid) */}
+            <div className="hidden sm:block">
+              {/* First two articles (unchanged layout) */}
+              {primaryArticles.map((article, idx) => {
+                const right = idx % 2 === 1; // alternate alignment
+                return (
+                  <div className="mb-8" key={article.id}>
+                    <Link
+                      href={article.link}
+                      target={
+                        article.link.startsWith("http") ? "_blank" : undefined
+                      }
+                      rel={
+                        article.link.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      className="block group"
+                      aria-label={article.title}
+                    >
+                      <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+                        <div
+                          className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
+                          style={{
+                            backgroundImage: `url(${(article as any).image})`,
+                          }}
+                          aria-hidden="true"
+                        />
+                        <div
+                          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
+                          aria-hidden="true"
+                        />
+                        <div className="relative p-8">
+                          <div
+                            className={`flex flex-col md:flex-row ${right ? "md:flex-row-reverse" : ""} gap-8 md:items-stretch`}
+                          >
+                            <div
+                              className={`md:w-2/3 ${right ? "md:text-right" : ""}`}
+                            >
+                              <div className="mb-4">
+                                <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
+                                  {article.category}
+                                </span>
+                                <span className="text-white/80 ml-4 text-xs">
+                                  {new Date(
+                                    article.publishDate
+                                  ).toLocaleDateString()}
+                                </span>
+                                <span className="text-white/60 mx-2 text-xs">
+                                  ·
+                                </span>
+                                <span className="text-white/80 text-xs">
+                                  {article.issue}
+                                </span>
+                              </div>
+                              <h3 className="text-2xl font-semibold text-white mb-2 line-clamp-2">
+                                {article.title}
+                              </h3>
+                              <div className="mb-4">
+                                <p className="text-white font-semibold text-sm">
+                                  {article.author}
+                                </p>
+                                <p className="text-white/70 text-xs">
+                                  {article.school}
+                                </p>
+                              </div>
+                              <p className="text-white text-sm mb-3 line-clamp-4 opacity-90 leading-relaxed">
+                                {article.abstract}
+                              </p>
+                            </div>
+                            <div className="md:w-1/3 hidden md:block" />
+                          </div>
+                        </div>
+                      </article>
+                    </Link>
+                  </div>
+                );
+              })}
+
+              {/* Remaining four in responsive grid: 2/4 columns on sm+ */}
+              <div className="grid grid-cols-2 xl:grid-cols-4 gap-6">
+                {gridArticles.map((article) => (
+                  <Link
+                    key={article.id}
+                    href={article.link}
+                    target={
+                      article.link.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel={
+                      article.link.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="group block"
+                    aria-label={article.title}
+                  >
+                    <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden min-h-[260px]">
+                      <div
+                        className="absolute inset-0 bg-center bg-cover opacity-40 group-hover:opacity-50 transition-opacity"
+                        style={{
+                          backgroundImage: `url(${(article as any).image})`,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <div
+                        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
+                        aria-hidden="true"
+                      />
+                      <div className="relative p-6 h-full flex flex-col justify-end">
+                        <div className="mb-3">
+                          <span className="bg-primary text-white text-xs font-semibold px-2 py-1 mr-0 mx-auto rounded">
+                            {article.category}
+                          </span>
+                          <br />
+                          <span className="text-white/80 text-xs">
+                            {new Date(article.publishDate).toLocaleDateString()}
+                          </span>
+                          <span className="text-white/60 mx-2 text-xs">·</span>
+                          <span className="text-white/80 text-xs">
+                            {article.issue}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-semibold text-white mb-2 line-clamp-4">
+                          {article.title}
+                        </h3>
+                        <p className="text-white/90 text-xs line-clamp-4">
+                          {article.author}
+                        </p>
+                        <p className="text-white/80 text-xs mt-2 line-clamp-4">
+                          {article.abstract}
+                        </p>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
