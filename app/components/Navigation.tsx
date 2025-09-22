@@ -28,7 +28,7 @@ const NavLink = ({
     href={href}
     className={`text-sm ${
       isScrolled
-        ? "text-foreground hover:text-default-600"
+        ? "text-primary hover:text-default-600"
         : "text-white hover:text-white/80"
     }`}
   >
@@ -48,7 +48,7 @@ const MobileNavLink = ({
 }) => (
   <Link
     href={href}
-    className="block px-3 py-2 text-foreground hover:text-default-500"
+    className="block px-3 py-2 text-primary hover:text-default-500"
     onClick={onClick}
   >
     {children}
@@ -65,7 +65,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-200 ease-in ${
+      className={`font-semibold fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-200 ease-in ${
         isScrolled ? "bg-background shadow-lg" : "bg-transparent"
       }`}
     >
@@ -116,7 +116,7 @@ export default function Navigation() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`focus:outline-none hover:text-primary ${
-                isScrolled ? "text-foreground" : "text-white"
+                isScrolled ? "text-primary" : "text-white"
               }`}
             >
               <svg
