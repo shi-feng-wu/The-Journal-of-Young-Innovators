@@ -40,8 +40,8 @@ const editors: Person[] = [
     role: "Editor",
   },
   {
-    name: "Annie Conderacci",
-    affiliation: "Harvard University",
+    name: "Kris Chesky",
+    affiliation: "Johns Hopkins University",
     role: "Editor",
   },
 ];
@@ -49,7 +49,7 @@ const editors: Person[] = [
 const managingEditors: Person[] = [
   {
     name: "Shelby Forbes",
-    affiliation: "University of North Carolina",
+    affiliation: "UNC–Chapel Hill",
     role: "Managing Editor",
   },
   {
@@ -79,6 +79,16 @@ const industryCollaborators: Person[] = [
   {
     name: "Jenna Cohen",
     affiliation: "ACT",
+    role: "Industry Collaborator",
+  },
+  {
+    name: "Lola Adeyemi",
+    affiliation: "Ministry of Health in Nigeria",
+    role: "Industry Collaborator",
+  },
+  {
+    name: "Annie Conderacci",
+    affiliation: "Center for the American Family",
     role: "Industry Collaborator",
   },
 ];

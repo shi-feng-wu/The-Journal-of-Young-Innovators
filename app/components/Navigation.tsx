@@ -88,6 +88,9 @@ export default function Navigation() {
             <NavLink href="/about" isScrolled={isScrolled}>
               About
             </NavLink>
+            <NavLink href="/issues" isScrolled={isScrolled}>
+              Issues
+            </NavLink>
             <NavLink href="/submission" isScrolled={isScrolled}>
               Submission
             </NavLink>
@@ -152,6 +155,12 @@ export default function Navigation() {
             >
               <MobileNavLink href="/about" onClick={() => setIsMenuOpen(false)}>
                 About
+              </MobileNavLink>
+              <MobileNavLink
+                href="/issues"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Issues
               </MobileNavLink>
               <MobileNavLink
                 href="/submission"

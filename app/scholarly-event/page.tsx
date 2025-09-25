@@ -83,7 +83,7 @@ export default function ScholarlyEvent() {
                   </h4>
                   <ul className="text-gray-600 space-y-1 text-left">
                     <li>Sep 15, 2025: Applications open</li>
-                    <li>Nov 15, 2025: Submission deadline</li>
+                    <li>Nov 30, 2025: Submission deadline</li>
                     <li>Jan 3, 2025: Preliminary selection of finalists</li>
                     <li>Feb 23, 2026: Final competition (online)</li>
                   </ul>
@@ -113,11 +113,28 @@ export default function ScholarlyEvent() {
                     <FaMedal className="text-4xl" />
                   </div>
                   <h4 className="text-lg font-bold text-gray-900 mb-2">
-                    Awards
+                    Awards & Recognition
                   </h4>
-                  <p className="text-gray-600">
-                    Top teams receive Certificates of Excellence and publication
-                    opportunities; honorable mentions recognized for creativity,
+                  <ul className="text-gray-600 space-y-1 text-left">
+                    <li>
+                      First Place: USD $3,000, Certificate of Excellence, and
+                      publication opportunity
+                    </li>
+                    <li>
+                      Second Place: USD $1,500, Certificate of Excellence, and
+                      publication opportunity
+                    </li>
+                    <li>
+                      Third Place: USD $800, Certificate of Excellence, and
+                      publication opportunity
+                    </li>
+                  </ul>
+                  <p className="text-gray-600 mt-3 text-left">
+                    Selected projects may also be featured in the Student
+                    Research & Innovation Digest.
+                  </p>
+                  <p className="text-gray-600 mt-3 text-left">
+                    Honorable Mentions will be recognized for creativity,
                     impact, and rigor.
                   </p>
                 </div>
@@ -240,7 +257,20 @@ export default function ScholarlyEvent() {
               id="Occupation Health in Music"
             >
               <p>
-                Visit our affiliated initiative:{" "}
+                This Global Occupational Health Summit in Tertiary Music
+                Institutions, offered as a Pre-Conference Event to the
+                Performing Arts Medicine Association’s International Symposium
+                in Washington, D.C., brings together scholars and experts to
+                address the pressing need for health promotion, education,
+                research, and professional accountability in higher music
+                education. The program highlights the importance of specialized
+                training for healthcare providers, the development of tailored
+                care protocols, and the use of measurable outcomes to meet the
+                unique health challenges musicians face. The summit advocates
+                for tertiary music institutions to assume responsibility for
+                safe learning environments and to recognize occupational health
+                as an essential area of knowledge and competency for all
+                musicians. Visit them here:{" "}
                 <a
                   className="text-primary underline"
                   href="https://occupationalhealthinmusic.org"
@@ -249,6 +279,7 @@ export default function ScholarlyEvent() {
                 >
                   OccupationalHealthinMusic.org
                 </a>
+                .
               </p>
             </ContentSection>
           </div>
