@@ -1,6 +1,7 @@
 "use client";
 
 import Hero from "@/components/Hero";
+import { Image, Link } from "@heroui/react";
 import { ContentSection, TableOfContents } from "@/components/PageComponents";
 import { FaCalendarAlt, FaLightbulb, FaMedal, FaTrophy } from "react-icons/fa";
 
@@ -35,9 +36,34 @@ export default function ScholarlyEvent() {
               title="Innovation Case Challenge"
             >
               <div className="bg-primary text-white rounded-lg p-8 mb-8">
-                <div className="flex items-center gap-8 justify-center">
-                  <FaTrophy className="text-3xl" />
-                  <h3 className="text-3xl font-bold">
+                <div className="flex items-center gap-4 sm:gap-6 justify-center">
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href="https://dinglab.jh.edu/"
+                      isExternal
+                      aria-label="Visit Ding Lab website"
+                      className="inline-flex"
+                    >
+                      <Image
+                        className="h-8 w-8 sm:h-10 object-contain"
+                        src={"/images/logos/dinglab.png"}
+                        alt="Ding Lab"
+                      />
+                    </Link>
+                    <Link
+                      href="https://www.jhu.edu"
+                      isExternal
+                      aria-label="Visit Johns Hopkins University website"
+                      className="inline-flex"
+                    >
+                      <Image
+                        className="h-8 w-8 sm:h-10 object-contain brightness-0 invert"
+                        src={"/images/logos/jhu.png"}
+                        alt="Johns Hopkins University"
+                      />
+                    </Link>
+                  </div>
+                  <h3 className="text-3xl font-bold text-center">
                     Fall 2025 Student Research & Innovation Competition
                   </h3>
                 </div>
@@ -96,12 +122,41 @@ export default function ScholarlyEvent() {
                   <h4 className="text-lg font-bold text-gray-900 mb-2">
                     Categories & Guidelines
                   </h4>
-                  <ul className="text-gray-600 space-y-1 text-left">
-                    <li>Artificial Intelligence & Data Science</li>
-                    <li>Biomedical & Health Technologies</li>
-                    <li>Ethics & Society</li>
-                    <li>Innovation & Entrepreneurship</li>
-                  </ul>
+                  {/* Categories */}
+                  <div className="text-gray-700 text-left space-y-4">
+                    <div>
+                      <p className="font-semibold">
+                        Innovation & Future Solutions
+                      </p>
+                      <p className="text-sm">
+                        Creative concepts, prototypes, new products, emerging
+                        technologies, sustainability ideas, disruptive business
+                        models, platforms, and ventures across any industry
+                        (education, environment, finance, culture, energy,
+                        space, etc.).
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">
+                        Science, Technology & Human Advancement
+                      </p>
+                      <p className="text-sm">
+                        Research, applied science, AI, engineering, design
+                        thinking, human performance, neuroscience,
+                        biotechnology, AR/VR, climate tech, urban design —
+                        anything that pushes knowledge or capability forward.
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-semibold">Society, Policy & Ethics</p>
+                      <p className="text-sm">
+                        Ideas tackling real-world issues: governance, digital
+                        equity, legal frameworks, global challenges, public
+                        health, social innovation, ethics, human rights, future
+                        of work, cultural inclusion.
+                      </p>
+                    </div>
+                  </div>
                   <div className="mt-3 text-gray-600 text-left">
                     <p className="mb-1">Teams of 2–4; HS or undergraduate.</p>
                     <p>Submit 12-slide PPT and 2,000–3,000 word report.</p>

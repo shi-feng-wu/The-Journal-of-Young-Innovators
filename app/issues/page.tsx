@@ -102,33 +102,33 @@ existing approaches to provide more comprehensive care to those in need.`,
     link: "/articles/Meet Your Therapist.pdf",
     issue: "Volume 1, Issue 2",
   },
-  {
-    id: 5,
-    title:
-      "Negotiating girl power in contemporary China: Feminist possibilities and contradictions.",
-    author: "Ashley Yu, Iris Zhu",
-    image: "/images/optimized/feminism-1600.webp",
-    abstract: `In recent years, the term girl power (女孩力量) has become increasingly prominent in Chinese  
-discourse, yet its meanings remain insufficiently theorized within the country's unique  
-sociocultural landscape. This article offers a qualitative literature synthesis to explore how girl  
-power is being conceptualized, articulated, and negotiated in contemporary China. Drawing on  
-29 qualitative studies published between 2005 and 2024, we use a meta-ethnographic approach  
-to identify five overarching themes: Gender Norms & Power Structures, Identity & Self 
-Determination, Media Female Imagery, Body Aesthetic Politics, and Social Consumption  
-Narratives. Our analysis reveals that girl power in China is neither a straightforward import of  
-Western feminist ideals nor a passing pop-cultural trend. Rather, it reflects a dynamic interplay  
-between tradition and modernity, digital expression and state control, empowerment and  
-commodification. While some narratives challenge patriarchal norms and enable self-expression,  
-others risk reinscribing inequality through market-driven “pseudo-feminist” frameworks. We  
-argue that girl power in China functions as both a site of agency and a mechanism of social  
-regulation, complicating linear understandings of feminist progress. This study contributes to  
-feminist theory by situating girl power within China’s hybrid sociopolitical landscape and offers  
-a conceptual baseline for future empirical and theoretical inquiry.`,
-    publishDate: "2025-05-18",
-    category: "Research Articles",
-    link: "/articles/Girl Power.pdf",
-    issue: "Volume 1, Issue 1",
-  },
+  // {
+  //   id: 5,
+  //   title:
+  //     "Negotiating girl power in contemporary China: Feminist possibilities and contradictions.",
+  //   author: "Ashley Yu, Iris Zhu",
+  //   image: "/images/optimized/feminism-1600.webp",
+  //   abstract: `In recent years, the term girl power (女孩力量) has become increasingly prominent in Chinese
+  // discourse, yet its meanings remain insufficiently theorized within the country's unique
+  // sociocultural landscape. This article offers a qualitative literature synthesis to explore how girl
+  // power is being conceptualized, articulated, and negotiated in contemporary China. Drawing on
+  // 29 qualitative studies published between 2005 and 2024, we use a meta-ethnographic approach
+  // to identify five overarching themes: Gender Norms & Power Structures, Identity & Self
+  // Determination, Media Female Imagery, Body Aesthetic Politics, and Social Consumption
+  // Narratives. Our analysis reveals that girl power in China is neither a straightforward import of
+  // Western feminist ideals nor a passing pop-cultural trend. Rather, it reflects a dynamic interplay
+  // between tradition and modernity, digital expression and state control, empowerment and
+  // commodification. While some narratives challenge patriarchal norms and enable self-expression,
+  // others risk reinscribing inequality through market-driven “pseudo-feminist” frameworks. We
+  // argue that girl power in China functions as both a site of agency and a mechanism of social
+  // regulation, complicating linear understandings of feminist progress. This study contributes to
+  // feminist theory by situating girl power within China’s hybrid sociopolitical landscape and offers
+  // a conceptual baseline for future empirical and theoretical inquiry.`,
+  //   publishDate: "2025-05-18",
+  //   category: "Research Articles",
+  //   link: "/articles/Girl Power.pdf",
+  //   issue: "Volume 1, Issue 1",
+  // },
   {
     id: 6,
     title:
