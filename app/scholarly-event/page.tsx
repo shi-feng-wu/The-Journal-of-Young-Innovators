@@ -108,10 +108,12 @@ export default function ScholarlyEvent() {
                     Timeline
                   </h4>
                   <ul className="text-gray-600 space-y-1 text-left">
-                    <li>Sep 15, 2025: Applications open</li>
-                    <li>Nov 30, 2025: Submission deadline</li>
-                    <li>Jan 3, 2025: Preliminary selection of finalists</li>
-                    <li>Feb 23, 2026: Final competition (online)</li>
+                    <li>Dec 15, 2025: Applications open</li>
+                    <li>Mar 1, 2025: Submission deadline</li>
+                    <li>Apr 3rd, 2025: Preliminary selection of finalists</li>
+                    <li>
+                      May 1st, 2026: Final competition (online presentations)
+                    </li>
                   </ul>
                 </div>
 
