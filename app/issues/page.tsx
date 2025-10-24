@@ -1,52 +1,9 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
 
-// Reuse the same articles for now; later we can extract to a shared module if needed
-const allArticles = [
+const issue1Articles = [
   {
     id: 1,
-    title:
-      "Religion, Ethics, and Medicine at End of Life: When It Is Acceptable for Physicians to Refuse Care?",
-    author: "Guanxi Adam Luo",
-    school: "",
-    image: "/images/optimized/ethics-1600.webp",
-    abstract: `In this article, the author considers physicians' right to refuse to participate in or offer
-end-of-life care that includes medically assisted death. The author argues that physicians, like
-patients, are guided by religious and more beliefs, and they do have a right to refuse medically
-assisted death services if they violate their religious beliefs or moral convictions. To make this
-case, the author reviews the historical relationship between religion and medicine, looking at
-how the modern medical system came to be. This helps set the stage for understanding how these
-two aspects of society affect end-of-life care. Landmark cases in the Right-to-Die movement are
-presented to further illustrate how religious beliefs affect the care that a person receives at the
-end of life. After reviewing possible reasons that a physician may object on religious grounds,
-the author then provides recommendations that honor both the free will of the patient and the
-physician.`,
-    publishDate: "2025-06-10",
-    category: "Research Articles",
-    link: "/articles/Religion End of Life.pdf",
-    issue: "Volume 1, Issue 1",
-  },
-  {
-    id: 2,
-    title: "Leadership Education for International Students",
-    author: "Francella Ochillo, Clara Ma",
-    school: "",
-    image: "/images/optimized/neuroleadership-1600.webp",
-    abstract: `International students in U.S. higher education face increasing uncertainty, not only due to
-shifting immigration policy and rising xenophobia, but also due to systemic failures in
-institutional support. This article argues that leadership education—when centered on ethics,
-creativity, and resilience—is no longer a curriculum enhancement. Drawing on narrative, policy
-context, and global ethics scholarship, the piece calls for a reimagining of leadership
-development as a core element of higher education and an essential navigational tool for future
-leaders. A global moral compass, as defined by Thompson (2010), offers an essential
-framework for international students navigating complex and inequitable systems.`,
-    publishDate: "2025-07-20",
-    category: "Research Articles",
-    link: "/articles/Leadership Education.pdf",
-    issue: "Volume 1, Issue 2",
-  },
-  {
-    id: 3,
     title:
       "From Neurons to Leaders: A Brain-Targeted Framework for Leadership Education",
     author: "Mariale Hardiman",
@@ -71,17 +28,57 @@ Ultimately, this article seeks to arm leaders with a brain-targeted approach to 
 learning, helping them to create impactful experiences that empower individuals to thrive and
 realize their full potential.
 `,
-    publishDate: "2025-08-20",
-    category: "Research Articles",
+    publishDate: "2025-04-02",
+    category: "Opinion Pieces",
     link: "/articles/Neurons to Leaders.pdf",
-    issue: "Volume 1, Issue 2",
+    issue: "Volume 1, Issue 1",
+  },
+  {
+    id: 2,
+    title:
+      "Standing Steady in Shifting Ground: Why Leadership Education Matters for International Students",
+    author: "Francella Ochillo, Clara Ma",
+    image: "/images/optimized/neuroleadership-1600.webp",
+    abstract: `International students in U.S. higher education face increasing uncertainty, not only due to
+shifting immigration policy and rising xenophobia, but also due to systemic failures in
+institutional support. This article argues that leadership education—when centered on ethics,
+creativity, and resilience—is no longer a curriculum enhancement. Drawing on narrative, policy
+context, and global ethics scholarship, the piece calls for a reimagining of leadership
+development as a core element of higher education and an essential navigational tool for future
+leaders. A global moral compass, as defined by Thompson (2010), offers an essential
+framework for international students navigating complex and inequitable systems.`,
+    publishDate: "2025-04-03",
+    category: "Opinion Pieces",
+    link: "/articles/Standing Steady.pdf",
+    issue: "Volume 1, Issue 1",
+  },
+  {
+    id: 3,
+    title:
+      "Religion, Ethics, and Medicine at End of Life: When It Is Acceptable for Physicians to Refuse Care?",
+    author: "Guanxi Adam Luo",
+    image: "/images/optimized/ethics-1600.webp",
+    abstract: `In this article, the author considers physicians' right to refuse to participate in or offer
+end-of-life care that includes medically assisted death. The author argues that physicians, like
+patients, are guided by religious and more beliefs, and they do have a right to refuse medically
+assisted death services if they violate their religious beliefs or moral convictions. To make this
+case, the author reviews the historical relationship between religion and medicine, looking at
+how the modern medical system came to be. This helps set the stage for understanding how these
+two aspects of society affect end-of-life care. Landmark cases in the Right-to-Die movement are
+presented to further illustrate how religious beliefs affect the care that a person receives at the
+end of life. After reviewing possible reasons that a physician may object on religious grounds,
+the author then provides recommendations that honor both the free will of the patient and the
+physician.`,
+    publishDate: "2025-04-05",
+    category: "Research Articles",
+    link: "/articles/Religion.pdf",
+    issue: "Volume 1, Issue 1",
   },
   {
     id: 4,
     title:
       "Meet Your Therapist: Exploring the Promise and Drawbacks of AI for Treating Digital Addictive Behavior among Adolescents",
     author: "Ray Gao",
-    school: "",
     image: "/images/optimized/therapy-800.webp",
     abstract: `Within the public health domain, one of greatest concerns is the rise of addictive behavior among
 adolescents and young adults. Questions have been raised as to how excessive video gaming,
@@ -97,40 +94,13 @@ to consider areas of concern in its application. Reviewing and synthesizing the 
 on this topic thus allows this paper to offer the view that although AI should not be used in lieu
 of human mental health providers, it can serve as an auxiliary resource that complements
 existing approaches to provide more comprehensive care to those in need.`,
-    publishDate: "2025-08-18",
+    publishDate: "2025-04-08",
     category: "Research Articles",
     link: "/articles/Meet Your Therapist.pdf",
-    issue: "Volume 1, Issue 2",
+    issue: "Volume 1, Issue 1",
   },
-  // {
-  //   id: 5,
-  //   title:
-  //     "Negotiating girl power in contemporary China: Feminist possibilities and contradictions.",
-  //   author: "Ashley Yu, Iris Zhu",
-  //   image: "/images/optimized/feminism-1600.webp",
-  //   abstract: `In recent years, the term girl power (女孩力量) has become increasingly prominent in Chinese
-  // discourse, yet its meanings remain insufficiently theorized within the country's unique
-  // sociocultural landscape. This article offers a qualitative literature synthesis to explore how girl
-  // power is being conceptualized, articulated, and negotiated in contemporary China. Drawing on
-  // 29 qualitative studies published between 2005 and 2024, we use a meta-ethnographic approach
-  // to identify five overarching themes: Gender Norms & Power Structures, Identity & Self
-  // Determination, Media Female Imagery, Body Aesthetic Politics, and Social Consumption
-  // Narratives. Our analysis reveals that girl power in China is neither a straightforward import of
-  // Western feminist ideals nor a passing pop-cultural trend. Rather, it reflects a dynamic interplay
-  // between tradition and modernity, digital expression and state control, empowerment and
-  // commodification. While some narratives challenge patriarchal norms and enable self-expression,
-  // others risk reinscribing inequality through market-driven “pseudo-feminist” frameworks. We
-  // argue that girl power in China functions as both a site of agency and a mechanism of social
-  // regulation, complicating linear understandings of feminist progress. This study contributes to
-  // feminist theory by situating girl power within China’s hybrid sociopolitical landscape and offers
-  // a conceptual baseline for future empirical and theoretical inquiry.`,
-  //   publishDate: "2025-05-18",
-  //   category: "Research Articles",
-  //   link: "/articles/Girl Power.pdf",
-  //   issue: "Volume 1, Issue 1",
-  // },
   {
-    id: 6,
+    id: 5,
     title:
       "Making Our Seas Sustainable: Examining Iceland’s Maritime Sector through a Commercial, Legal, and Ethical Lens",
     author: "Jiahong Julia Fu, Siyi Lisa Feng",
@@ -153,18 +123,30 @@ among smaller or newer companies and concerns for animal welfare in farm-raised 
 open-water catches. However, both the areas where Iceland’s fishing industry excels and falls 
 short represent key considerations that can ideally be applied to a variety of other cultural contexts and economic sectors so that true sustainability is no longer seen as bound by region or 
 industry.`,
-    publishDate: "2025-08-17",
+    publishDate: "2025-04-10",
     category: "Research Articles",
     link: "/articles/Seas Sustainable.pdf",
-    issue: "Volume 1, Issue 2",
+    issue: "Volume 1, Issue 1",
+  },
+  {
+    id: 6,
+    title:
+      "The Plastic Problem: The Ecological and Epidemiological Implications of Bacteria-Plastic Relationships",
+    author: "Albert Zhou",
+    image: "/images/optimized/bacteria-1600.webp",
+    abstract: `This article reviews scholarly literature examining bacteria-plastic interactions to provide
+insights into the global plastic pollution crisis. Using a PRISMA approach, this review identified
+and analyzed peer-reviewed studies across multiple databases, including Web of Science,
+Science Direct, and Google Scholar.`,
+    publishDate: "2025-04-15",
+    category: "Research Articles",
+    link: "/articles/The Plastic Problem.pdf",
+    issue: "Volume 1, Issue 1",
   },
 ];
 
 export default function Issues() {
-  const issue1 = allArticles.filter((a) => a.issue.includes("Issue 1"));
-  const issue2 = allArticles.filter((a) => a.issue.includes("Issue 2"));
-
-  const renderGrid = (articles: typeof allArticles) => (
+  const renderGrid = (articles: typeof issue1Articles) => (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
       {articles.map((article) => (
         <Link
@@ -227,12 +209,7 @@ export default function Issues() {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-30">
         <section className="pb-16">
           <h2 className="text-2xl md:text-4xl text-black mb-8">Issue 1</h2>
-          {renderGrid(issue1)}
-        </section>
-
-        <section className="pb-24">
-          <h2 className="text-2xl md:text-4xl text-black mb-8">Issue 2</h2>
-          {renderGrid(issue2)}
+          {renderGrid(issue1Articles)}
         </section>
       </div>
     </div>

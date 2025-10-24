@@ -1,5 +1,7 @@
+import Link from "next/link";
 import Hero from "@/components/Hero";
-import { Card, CardHeader } from "@heroui/react";
+import { Card, CardHeader, Button } from "@heroui/react";
+import { FaChevronCircleRight } from "react-icons/fa";
 
 interface Person {
   name: string;
@@ -93,11 +95,11 @@ const industryCollaborators: Person[] = [
   },
 ];
 
-const juniorEditors: Person[] = [
+const peerEditors: Person[] = [
   {
     name: "Albert Zhou",
-    affiliation: "",
-    role: "Student Editor",
+    affiliation: "Concord Academy",
+    role: "Peer Editor",
   },
 ];
 
@@ -163,18 +165,6 @@ export default function EditorialTeam() {
 
         <section className="pb-20">
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-4xl mb-12">Junior Editors</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {juniorEditors.map((editor, index) => (
-                <PersonCard key={index} person={editor} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="pb-20">
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl md:text-4xl mb-12">
               Industry Collaborators
             </h2>
@@ -183,6 +173,51 @@ export default function EditorialTeam() {
               {industryCollaborators.map((editor, index) => (
                 <PersonCard key={index} person={editor} />
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-20">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl md:text-4xl mb-8">Peer Editors</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+              {peerEditors.map((editor, index) => (
+                <PersonCard key={index} person={editor} />
+              ))}
+            </div>
+
+            <div className="max-w-3xl bg-white border border-primary/40 rounded-lg shadow-sm p-6 space-y-4">
+              <p className="text-base leading-relaxed text-gray-700">
+                We are seeking a select group of exceptional student editors to
+                join our Peer Editor Team. As a Peer Editor, you will review and
+                provide feedback on submitted research papers, help maintain the
+                academic integrity and quality of the publications, and
+                collaborate with an international team of editors and mentors.
+              </p>
+              <p className="text-base leading-relaxed text-gray-700">
+                This is a highly competitive leadership opportunity for students
+                passionate about AI, innovative research, and ethics.
+              </p>
+              <div className="flex justify-end">
+                <Link
+                  href="https://docs.google.com/document/d/1Djo8TCZvwwE3tlrPlUXDpOaVyP8aH4PFOnbYlbFfQ78/edit?tab=t.0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex"
+                >
+                  <Button
+                    className="h-14 font-semibold pl-40 text-md border-primary text-primary group-hover:text-white"
+                    color="primary"
+                    variant="ghost"
+                    endContent={
+                      <FaChevronCircleRight className="text-lg text-primary group-hover:text-white transition-colors" />
+                    }
+                  >
+                    Apply
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

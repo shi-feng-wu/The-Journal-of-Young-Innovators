@@ -19,12 +19,13 @@ outsize share of the economy’s growth, and market share within them changes ha
 degree. The presence of those two attributes indicates that a new competitive game has begun,
 usually prompted by a new bundle of technologies and business models.`,
     publishDate: "2024-10-1",
-    category: "Research Articles",
+    category: "Opinion Pieces",
     link: "/articles/Arenas of Competition.pdf",
   },
   {
     id: 2,
-    title: "Leadership Education for International Students",
+    title:
+      "Standing Steady in Shifting Ground: Why Leadership Education Matters for International Students",
     author: "Francella Ochillo, Clara Ma",
     school: "",
     image: "/images/optimized/neuroleadership-1600.webp",
@@ -36,10 +37,10 @@ context, and global ethics scholarship, the piece calls for a reimagining of lea
 development as a core element of higher education and an essential navigational tool for future
 leaders. A global moral compass, as defined by Thompson (2010), offers an essential
 framework for international students navigating complex and inequitable systems.`,
-    publishDate: "2025-07-20",
-    category: "Research Articles",
+    publishDate: "2025-04-03",
+    category: "Opinion Pieces",
     link: "/articles/Leadership Education.pdf",
-    issue: "Volume 1, Issue 2",
+    issue: "Volume 1, Issue 1",
   },
   {
     id: 3,
@@ -67,10 +68,10 @@ Ultimately, this article seeks to arm leaders with a brain-targeted approach to 
 learning, helping them to create impactful experiences that empower individuals to thrive and
 realize their full potential.
 `,
-    publishDate: "2025-08-20",
-    category: "Research Articles",
+    publishDate: "2025-04-02",
+    category: "Opinion Pieces",
     link: "/articles/Neurons to Leaders.pdf",
-    issue: "Volume 1, Issue 2",
+    issue: "Volume 1, Issue 1",
   },
 ];
 
