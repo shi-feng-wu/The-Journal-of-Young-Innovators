@@ -45,7 +45,7 @@ OLD_DIR="$APP_DIR/runtime.old"
 mkdir -p "$APP_DIR"
 rm -rf "$NEW_DIR"
 mkdir -p "$NEW_DIR"
-
+    
 echo "==> Extracting artifact"
 tar -xzf "$RELEASE_TGZ" -C "$NEW_DIR"
 

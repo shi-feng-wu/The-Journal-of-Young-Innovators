@@ -44,6 +44,26 @@ mkdir -p "$OUT_DIR/.next"
 cp -R .next/static "$OUT_DIR/.next/static"
 cp -R public "$OUT_DIR/public"
 
+# Next runtime also reads a handful of manifests from the .next root.
+# (If these are missing, you'll see errors like routes-manifest.json ENOENT.)
+for f in \
+  routes-manifest.json \
+  prerender-manifest.json \
+  build-manifest.json \
+  app-build-manifest.json \
+  react-loadable-manifest.json \
+  images-manifest.json \
+  middleware-manifest.json \
+  middleware-build-manifest.js \
+  _middleware-manifest.json \
+  next-font-manifest.json \
+  next-font-manifest.js
+do
+  if [[ -f ".next/$f" ]]; then
+    cp ".next/$f" "$OUT_DIR/.next/$f"
+  fi
+done
+
 # Next start/server expects BUILD_ID under .next
 if [[ ! -f ".next/BUILD_ID" ]]; then
   echo "ERROR: .next/BUILD_ID not found after build; cannot package runnable artifact."
