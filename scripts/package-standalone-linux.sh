@@ -30,6 +30,12 @@ echo "==> Assembling deploy directory"
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
 
+# Validate standalone output exists
+if [[ ! -d ".next/standalone" ]]; then
+  echo "ERROR: .next/standalone not found. Ensure next.config.ts has output: 'standalone' and rerun pnpm build."
+  exit 1
+fi
+
 # Copy standalone server bundle
 cp -R .next/standalone/* "$OUT_DIR/"
 
@@ -37,6 +43,18 @@ cp -R .next/standalone/* "$OUT_DIR/"
 mkdir -p "$OUT_DIR/.next"
 cp -R .next/static "$OUT_DIR/.next/static"
 cp -R public "$OUT_DIR/public"
+
+# Next start/server expects BUILD_ID under .next
+if [[ ! -f ".next/BUILD_ID" ]]; then
+  echo "ERROR: .next/BUILD_ID not found after build; cannot package runnable artifact."
+  exit 1
+fi
+cp .next/BUILD_ID "$OUT_DIR/.next/BUILD_ID"
+
+# Some Next versions also rely on required-server-files.json
+if [[ -f ".next/required-server-files.json" ]]; then
+  cp .next/required-server-files.json "$OUT_DIR/.next/required-server-files.json"
+fi
 
 echo "==> Creating tarball: $TARBALL"
 rm -f "$TARBALL"

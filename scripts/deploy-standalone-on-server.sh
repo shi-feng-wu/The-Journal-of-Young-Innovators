@@ -65,7 +65,7 @@ echo "==> Restarting PM2"
 if pm2 describe "$PM2_APP_NAME" >/dev/null 2>&1; then
   pm2 reload "$PM2_APP_NAME" --update-env
 else
-  pm2 start "$RUNTIME_DIR/server.js" --name "$PM2_APP_NAME" --interpreter node
+  pm2 start "$RUNTIME_DIR/server.js" --name "$PM2_APP_NAME" --cwd "$RUNTIME_DIR" --interpreter node
   pm2 save
 fi
 
