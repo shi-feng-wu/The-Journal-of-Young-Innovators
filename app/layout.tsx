@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { MuseoModerno } from "next/font/google";
-import { ReactLenis, useLenis } from "lenis/react";
 
 import "./globals.css";
 import { Providers } from "./providers.tsx";
