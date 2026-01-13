@@ -6,6 +6,14 @@ cd "$ROOT_DIR"
 
 BRANCH="${BRANCH:-main}"
 PM2_APP_NAME="${PM2_APP_NAME:-jyi}"
+STOP_PM2_BEFORE_BUILD="${STOP_PM2_BEFORE_BUILD:-0}"
+KILL_PM2_DAEMON="${KILL_PM2_DAEMON:-0}"
+
+export NODE_ENV=production
+export NEXT_TELEMETRY_DISABLED=1
+# If you keep hitting OOM/SIGKILL, try increasing swap and/or setting:
+#   NODE_OPTIONS=--max-old-space-size=2048
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=1536}"
 
 echo "==> Updating git repo ($BRANCH)"
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -33,12 +41,29 @@ fi
 
 pnpm install --frozen-lockfile
 
+if [[ "$STOP_PM2_BEFORE_BUILD" == "1" ]]; then
+  echo "==> Stopping PM2 app to free RAM ($PM2_APP_NAME)"
+  pm2 stop "$PM2_APP_NAME" >/dev/null 2>&1 || true
+
+  if [[ "$KILL_PM2_DAEMON" == "1" ]]; then
+    echo "==> Killing PM2 daemon to free more RAM"
+    pm2 kill >/dev/null 2>&1 || true
+  fi
+
+  echo "==> Memory snapshot (after stop)"
+  free -h || true
+fi
+
 echo "==> Building"
 pnpm build
 
 echo "==> Reloading PM2 ($PM2_APP_NAME)"
 if pm2 describe "$PM2_APP_NAME" >/dev/null 2>&1; then
-  pm2 reload "$PM2_APP_NAME" --update-env
+  if [[ "$STOP_PM2_BEFORE_BUILD" == "1" ]]; then
+    pm2 restart "$PM2_APP_NAME" --update-env
+  else
+    pm2 reload "$PM2_APP_NAME" --update-env
+  fi
 else
   echo "ERROR: PM2 process '$PM2_APP_NAME' not found. Start it once (e.g. pm2 start 'pnpm start' --name $PM2_APP_NAME), then rerun deploy."
   exit 3

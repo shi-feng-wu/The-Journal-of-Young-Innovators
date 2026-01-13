@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "The Journal of Young Innovators",
   description:
     "A global community of young scholars exploring the impacts of artificial intelligence and innovation across disciplines. Leadership. Innovation. AI.",
+  verification: {
+    google: "xet0nZILNVZJv0OOTKDsnME0Xfo8WAJJu2eYOjkG6U",
+  },
 };
 
 export default function RootLayout({
