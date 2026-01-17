@@ -2,6 +2,7 @@
 
 import Hero from "@/components/Hero";
 import { ContentSection, TableOfContents } from "@/components/PageComponents";
+import SiteButton from "@/components/SiteButton";
 
 export default function Home() {
   const submissionSections = [
@@ -28,6 +29,21 @@ export default function Home() {
               meaningful scholarship. Our editorial board includes experienced
               researchers, educators, and editors dedicated to helping young
               scholars grow through rigorous feedback and mentorship."
+        additionalContent={
+          <a
+            href="mailto:fma4@jh.edu"
+            aria-label="Submit a manuscript via email"
+          >
+            <SiteButton
+              color="primary"
+              variant="shadow"
+              size="lg"
+              className="border-2 rounded-lg p-4"
+            >
+              Submit to Our Journal
+            </SiteButton>
+          </a>
+        }
       />
 
       {/* Main Content Area with TOC as Second Column */}
@@ -221,7 +237,7 @@ export default function Home() {
                 We offer a Fast Track option (2–3 week turnaround). Email us at
                 <a
                   className="text-primary underline ml-1"
-                  href="mailto:clara.ma@inceptionconsulting.org"
+                  href="mailto:fma4@jh.edu"
                   aria-label="Email us about Fast Track Review"
                 >
                   this address
@@ -236,7 +252,7 @@ export default function Home() {
                 For any questions, contact our editorial team via
                 <a
                   className="text-primary underline ml-1"
-                  href="mailto:clara.ma@inceptionconsulting.org"
+                  href="mailto:fma4@jh.edu"
                   aria-label="Email the editorial team"
                 >
                   email

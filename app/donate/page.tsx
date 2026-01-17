@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero";
-import { Button } from "@heroui/react";
+import SiteButton from "@/components/SiteButton";
 
 export default function Donate() {
   return (
@@ -8,14 +8,14 @@ export default function Donate() {
         title="Donate"
         subtitle="We are a mission-driven organization committed to empowering young minds to pursue bold ideas and real-world impact. Our goal is not for profit, we aim to create opportunities for students through scholarships, mentor honorariums, research support, and competition awards. Your generous contribution directly fuels these programs and helps us continue making a difference."
         additionalContent={
-          <Button
+          <SiteButton
             color="primary"
             variant="shadow"
             size="lg"
             className="border-2 rounded-lg p-4"
           >
             Make a Donation Today
-          </Button>
+          </SiteButton>
         }
       />
     </div>

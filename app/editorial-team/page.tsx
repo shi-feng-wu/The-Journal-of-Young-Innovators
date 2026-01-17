@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import { Card, CardHeader, Button } from "@heroui/react";
+import { Card, CardHeader } from "@heroui/react";
+import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
 
 interface Person {
@@ -35,6 +36,11 @@ const editors: Person[] = [
     affiliation: "Johns Hopkins University",
     role: "Editor",
     team: "Clara",
+  },
+  {
+    name: "Michele Moreau",
+    affiliation: "Johns Hopkins University",
+    role: "Editor",
   },
   {
     name: "Mariale Hardiman",
@@ -211,16 +217,16 @@ export default function EditorialTeam() {
                   rel="noopener noreferrer"
                   className="group inline-flex"
                 >
-                  <Button
-                    className="h-14 font-semibold pl-40 text-md border-primary text-primary group-hover:text-white"
+                  <SiteButton
+                    className="h-14 font-semibold pl-40 text-md border-primary text-primary"
                     color="primary"
                     variant="ghost"
                     endContent={
-                      <FaChevronCircleRight className="text-lg text-primary group-hover:text-white transition-colors" />
+                      <FaChevronCircleRight className="text-lg text-current transition-colors" />
                     }
                   >
                     Apply
-                  </Button>
+                  </SiteButton>
                 </Link>
               </div>
             </div>

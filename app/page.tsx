@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import { Button } from "@heroui/react";
+import { NoLoadOpacityTransition } from "@/components/NoLoadOpacityTransition";
+import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
 
 const allArticles = [
@@ -128,12 +129,8 @@ export default function Home() {
                     aria-label={article.title}
                   >
                     <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-                      <div
-                        className="absolute inset-0 bg-center bg-cover opacity-60 group-hover:opacity-80 transition-opacity"
-                        style={{
-                          backgroundImage: `url(${(article as any).image})`,
-                        }}
-                        aria-hidden="true"
+                      <NoLoadOpacityTransition
+                        imageUrl={(article as any).image}
                       />
                       <div
                         className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
@@ -191,16 +188,16 @@ export default function Home() {
             })}
             <div className="mt-8 flex justify-end">
               <Link href="/issues" className="group">
-                <Button
-                  className="h-14 font-semibold pl-40 text-md border-primary text-primary group-hover:text-white"
+                <SiteButton
+                  className="h-14 font-semibold pl-40 text-md border-primary text-primary"
                   color="primary"
                   variant="ghost"
                   endContent={
-                    <FaChevronCircleRight className="ml-2 text-lg text-primary group-hover:text-white transition-colors" />
+                    <FaChevronCircleRight className="ml-2 text-lg text-current transition-colors" />
                   }
                 >
                   Read Our Issues
-                </Button>
+                </SiteButton>
               </Link>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero";
-import { Button } from "@heroui/react";
+import SiteButton from "@/components/SiteButton";
 
 export default function Contact() {
   return (
@@ -17,14 +17,14 @@ export default function Contact() {
               <li>Your specific question</li>
             </ul>
             <a href="mailto:clara.ma@inceptionconsulting.org">
-              <Button
+              <SiteButton
                 color="primary"
                 variant="shadow"
                 size="lg"
                 className="border-2 rounded-lg p-4"
               >
                 Email Us
-              </Button>
+              </SiteButton>
             </a>
           </div>
         }
