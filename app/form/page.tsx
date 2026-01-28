@@ -88,7 +88,7 @@ subtitle="We welcome submissions from high school and college students who are
                 <Input
                   label="First Name"
                   name="firstName"
-                  placeholder="Jane"
+                  classNames={{ label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
                   defaultValue={USE_DEFAULT_VALUES ? "Jane" : undefined}
@@ -96,7 +96,7 @@ subtitle="We welcome submissions from high school and college students who are
                 <Input
                   label="Last Name"
                   name="lastName"
-                  placeholder="Doe"
+                  classNames={{ label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
                   defaultValue={USE_DEFAULT_VALUES ? "Doe" : undefined}
@@ -106,8 +106,8 @@ subtitle="We welcome submissions from high school and college students who are
                 <Input
                   label="Email Address"
                   name="email"
-                  placeholder="jane@email.com"
                   type="email"
+                  classNames={{ label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
                   defaultValue={USE_DEFAULT_VALUES ? "jane.doe@example.com" : undefined}
@@ -115,8 +115,8 @@ subtitle="We welcome submissions from high school and college students who are
                 <Input
                   label="Phone Number"
                   name="phone"
-                  placeholder="(555) 123-4567"
                   type="tel"
+                  classNames={{ label: "font-serif" }}
                   isDisabled={isDisabled}
                   value={phone}
                   onValueChange={(value) => setPhone(formatPhone(value))}
@@ -126,7 +126,7 @@ subtitle="We welcome submissions from high school and college students who are
                 <Input
                   label="School Name"
                   name="school"
-                  placeholder="Example High School"
+                  classNames={{ label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
                   defaultValue={USE_DEFAULT_VALUES ? "Example High School" : undefined}
@@ -134,12 +134,11 @@ subtitle="We welcome submissions from high school and college students who are
                 <Select
                   label="Grade Level"
                   name="gradeLevel"
-                  placeholder="Select grade"
                   isRequired
                   isDisabled={isDisabled}
                   defaultSelectedKeys={USE_DEFAULT_VALUES ? ["hs-11"] : undefined}
                   classNames={{
-                    label: "font-mono",
+                    label: "font-serif",
                     trigger: "font-mono",
                     value: "font-mono",
                     listbox: "font-mono",
@@ -177,7 +176,7 @@ subtitle="We welcome submissions from high school and college students who are
               <Input
                 label="Manuscript Title"
                 name="manuscriptTitle"
-                placeholder="Title of your paper"
+                classNames={{ label: "font-serif" }}
                 isRequired
                 isDisabled={isDisabled}
                 defaultValue={USE_DEFAULT_VALUES ? "AI and Innovation in Education" : undefined}
@@ -186,6 +185,7 @@ subtitle="We welcome submissions from high school and college students who are
                 label="Manuscript"
                 name="manuscript"
                 type="file"
+                classNames={{ label: "font-serif" }}
                 isRequired
                 isDisabled={isDisabled}
                 accept=".docx,.doc"
@@ -194,7 +194,7 @@ subtitle="We welcome submissions from high school and college students who are
             <div className="space-y-4 text-white" >
               <h3 className="text-xl font-semibold text-white font-kenao">Additional Information</h3>
               <Checkbox color="default" classNames={{
-                label: "text-white"
+                label: "text-white font-serif"
               }} name="needScholarship" value="yes" isDisabled={isDisabled} defaultSelected={USE_DEFAULT_VALUES}>
                 I am requesting a need-based fee scholarship.
               </Checkbox>
@@ -202,13 +202,13 @@ subtitle="We welcome submissions from high school and college students who are
                 className="mt-4"
                 label="Need-Based Scholarship Statement"
                 name="scholarshipStatement"
-                placeholder="Briefly describe your need."
+                classNames={{ label: "font-serif" }}
                 minRows={3}
                 isDisabled={isDisabled}
                 defaultValue={USE_DEFAULT_VALUES ? "Requesting a fee waiver due to financial need." : undefined}
               />
               <Checkbox color="default" classNames={{
-                label: "text-white"
+                label: "text-white font-serif"
               }} name="fastTrack" value="yes" isDisabled={isDisabled} defaultSelected={USE_DEFAULT_VALUES}>
                 Fast Track Review (expedited fees apply).
               </Checkbox>
@@ -216,10 +216,16 @@ subtitle="We welcome submissions from high school and college students who are
 
             <div className="pt-2 relative">
               <div className="flex items-center gap-3">
-                <SiteButton variant="solid" size="lg" type="submit" isDisabled={isDisabled}>
+                <SiteButton
+                  variant="solid"
+                  size="lg"
+                  type="submit"
+                  isDisabled={isDisabled}
+                  className="hover:ring-1 hover:ring-white"
+                >
                   {status === "sending" && "Submitting..."}
-                  {status === "idle" && "Submit Paper"}
-                  {status === "error" && "Submit Paper"}
+                  {status === "idle" && "Submit Manuscript"}
+                  {status === "error" && "Submit Manuscript"}
                   {status === "success" && (
                     <span className="inline-flex items-center gap-2">
                       <svg
