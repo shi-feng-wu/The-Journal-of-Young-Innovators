@@ -3,27 +3,6 @@ import path from 'node:path';
 import fs from 'fs-extra';
 import sharp from 'sharp';
 
-/*
-  Image Optimization Script
-  -------------------------
-  Source folder (original large images): public/images/original
-  Output folder (optimized): public/images/optimized
-
-  For every image (jpg|jpeg|png) found recursively in source:
-    - Generate resized widths: 400, 800, 1600
-    - For each width create WebP (quality 68) and AVIF (quality 45)
-    - Skip generation if target file already exists and is newer than source
-
-  Usage:
-    pnpm optimize-images
-
-  After running, you can choose one of these integration approaches:
-    1. Direct file reference: /images/optimized/<basename>-800.webp
-    2. Responsive background via image-set in CSS.
-
-  Safe to re-run; only regenerates if source is newer.
-*/
-
 const projectRoot = path.resolve(process.cwd());
 const srcDir = path.join(projectRoot, 'public', 'images', 'original');
 const outDir = path.join(projectRoot, 'public', 'images', 'optimized');
@@ -58,7 +37,6 @@ async function optimizeOne(srcPath) {
   const srcStat = await fs.stat(srcPath);
   for (const width of widths) {
     const { webp, avif } = targetNames(srcPath, width);
-    // Skip if both exist and are newer than source
     const webpFresh = await isFresh(webp, srcStat);
     const avifFresh = await isFresh(avif, srcStat);
     if (webpFresh && avifFresh) {
