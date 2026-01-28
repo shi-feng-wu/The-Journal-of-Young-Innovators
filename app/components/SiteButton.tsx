@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, ButtonProps } from "@heroui/react";
 
 export type SiteButtonProps = ButtonProps;

@@ -9,7 +9,6 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Image,
 } from "@heroui/react";
 import { useState } from "react";
 import { useLenis } from "lenis/react";
@@ -73,12 +72,10 @@ export default function Navigation() {
         <div className="flex items-center h-16 space-x-8">
           <div className="flex items-center ">
             <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.png"
+              <img
+                src={isScrolled ? "/logodark.png" : "/logolight.png"}
                 alt="Logo"
-                className={`h-10 mr-3 ${
-                  !isScrolled ? "filter brightness-0 invert" : ""
-                }`}
+                className="h-10 mr-3 transition-opacity"
               />
             </Link>
           </div>

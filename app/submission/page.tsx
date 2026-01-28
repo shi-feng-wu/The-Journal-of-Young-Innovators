@@ -31,8 +31,8 @@ export default function Home() {
               scholars grow through rigorous feedback and mentorship."
         additionalContent={
           <a
-            href="mailto:fma4@jh.edu"
-            aria-label="Submit a manuscript via email"
+            href="/form"
+            aria-label="Submit a paper"
           >
             <SiteButton
               color="primary"
@@ -234,15 +234,7 @@ export default function Home() {
 
             <ContentSection title="Fast Track Review (Optional)">
               <p>
-                We offer a Fast Track option (2–3 week turnaround). Email us at
-                <a
-                  className="text-primary underline ml-1"
-                  href="mailto:fma4@jh.edu"
-                  aria-label="Email us about Fast Track Review"
-                >
-                  this address
-                </a>{" "}
-                with your submission ID to request this service. Expedited fees
+                We offer a Fast Track option (2–3 week turnaround). Check the box in the submission form to request this service. Expedited fees
                 apply.
               </p>
             </ContentSection>

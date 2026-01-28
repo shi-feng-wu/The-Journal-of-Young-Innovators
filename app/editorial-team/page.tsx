@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import { Card, CardHeader } from "@heroui/react";

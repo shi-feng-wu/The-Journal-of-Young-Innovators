@@ -23,6 +23,12 @@ export const metadata: Metadata = {
   verification: {
     google: "xet0nZILNVZJv0OOTKDsnME0Xfo8WAJJu2eYOjkG6U",
   },
+  icons: {
+    icon: [
+      { url: "/logodark.png", media: "(prefers-color-scheme: light)" },
+      { url: "/logolight.png", media: "(prefers-color-scheme: dark)" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -43,9 +49,13 @@ export default function RootLayout({
       </head>
       <body className={` antialiased`}>
         <Providers>
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen flex flex-col relative">
             <Navigation />
             <main className="flex-grow pt-16">{children}</main>
+            <footer className="absolute inset-x-0 bottom-4 px-4 sm:px-6 lg:px-20 text-center text-[0.5rem] text-white mix-blend-difference">
+              Published by Inception Education Consulting LLC - Baltimore,
+              Maryland, USA
+            </footer>
           </div>
         </Providers>
       </body>
