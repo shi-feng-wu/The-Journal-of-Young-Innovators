@@ -38,7 +38,7 @@ export default function Home() {
               color="primary"
               variant="shadow"
               size="lg"
-              className="border-2 rounded-lg p-4"
+              className="border-2 rounded-lg p-4 !bg-primary !text-white hover:!bg-white hover:!text-primary"
             >
               Submit to Our Journal
             </SiteButton>

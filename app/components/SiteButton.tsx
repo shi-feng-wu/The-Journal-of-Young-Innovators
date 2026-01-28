@@ -12,8 +12,8 @@ export default function SiteButton({
     <Button
       {...props}
       className={[
-        "group transition-colors",
-        "hover:!bg-white hover:!text-primary",
+        "group transition-colors !font-serif",
+        "hover:!bg-primary hover:!text-white",
         className,
       ]
         .filter(Boolean)

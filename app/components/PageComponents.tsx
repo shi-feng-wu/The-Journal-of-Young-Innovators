@@ -126,7 +126,7 @@ export function TableOfContents({
             className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
               activeSection === id
                 ? "bg-primary text-white"
-                : "text-gray hover:bg-white hover:text-primary"
+                : "text-gray hover:bg-primary hover:text-white"
             }`}
           >
             {title}
