@@ -16,14 +16,15 @@ export default function Contact() {
               <li>Current Grade Level</li>
               <li>Your specific question</li>
             </ul>
-            <a href="mailto:clara.ma@inceptionconsulting.org">
+            <a href="mailto:editor@young-innovator.org">
               <SiteButton
                 color="primary"
                 variant="shadow"
                 size="lg"
+                variantStyle="whiteHover"
                 className="border-2 rounded-lg p-4"
               >
-                Email Us
+                Contact our Editorial Team
               </SiteButton>
             </a>
           </div>

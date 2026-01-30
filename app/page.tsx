@@ -74,6 +74,34 @@ realize their full potential.
     link: "/articles/Neurons to Leaders.pdf",
     issue: "Volume 1, Issue 1",
   },
+  {
+    id: 4,
+    title: "A Quantitative Analysis of Natural Resource Economics on Global Wealth",
+    author: "Andrew Leibowitz",
+    school: "Mercersburg Academy",
+    image: "/images/optimized/agri-1600.webp",
+    abstract: `This paper presents a quantitative analysis of the implications of natural resource
+economics on global wealth, encompassing an extensive observational study of growth models
+from 1970 to 2022 across a diverse set of countries. It scrutinizes the relationships between
+natural resource rents (as a percentage of Gross Domestic Product) and natural resource
+depletion (relative to Gross National Income), and their correlation with Gross Domestic Product
+per capita. The primary aim is to assess whether increased economic prosperity, as derived
+from natural resources, aligns with sustainable resource management or exacerbates
+environmental degradation. The study utilizes data from The World Bank and employs logistic
+regression analysis to explore these relationships. Despite the broad temporal and geographic
+scope, preliminary results suggest weak correlations, as indicated by low R² values, which imply
+that only a minimal portion of the variance in GDP per capita can be explained by changes in
+natural resource rents and depletion percentages. This outcome challenges the efficacy of
+current economic models in balancing economic development with environmental stewardship
+and suggests a need for further research using more granular data and advanced analytical
+models. The findings emphasize the complexity of natural resource economics and the critical
+role of innovative policies and management strategies in fostering sustainable economic growth
+without compromising environmental integrity.`,
+    publishDate: "2026-01-07",
+    category: "Research Articles",
+    link: "/articles/Natural Resources Economics.pdf",
+    issue: "Volume 2, Issue 1",
+  },
 ];
 
 // Featured articles on the homepage
@@ -89,7 +117,7 @@ export default function Home() {
         title="The Journal of Young Innovators"
         subtitle="Leadership. Innovation. AI."
         titleClassName="font-kenao"
-        subtitleClassName="font-kenao"
+        subtitleClassName="font-times"
       />
 
       <div className="pt-10 pb-50">
@@ -97,9 +125,6 @@ export default function Home() {
         <section className="py-10">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
             <div className=" mb-12">
-              <h2 className="text-3xl md:text-4xl text-black mb-4">
-                Our current articles.
-              </h2>
             </div>
 
             {/* Two featured articles: both use the horizontal layout, one per row on all breakpoints */}
@@ -193,7 +218,7 @@ export default function Home() {
                   color="primary"
                   variant="ghost"
                   endContent={
-                    <FaChevronCircleRight className="ml-2 text-lg text-current transition-colors" />
+                    <FaChevronCircleRight className="ml-2 text-lg text-current" />
                   }
                 >
                   Read Our Issues

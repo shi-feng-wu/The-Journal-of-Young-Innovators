@@ -116,14 +116,15 @@ export function TableOfContents({
   };
 
   return (
-    <div className={`sticky ${stickyPosition} rounded-lg ${className}`}>
-      <h3 className="text-2xl text-black mb-4">{title}</h3>
-      <nav className="space-y-2">
+    <div
+      className={`sticky ${stickyPosition} rounded-lg text-right ${className}`}
+    >
+      <nav className="space-y-2 flex flex-col items-end">
         {sections.map(({ id, title }) => (
           <button
             key={id}
             onClick={() => scrollToSection(id)}
-            className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+            className={`block w-full text-right px-3 py-2 rounded-md text-sm transition-colors ${
               activeSection === id
                 ? "bg-primary text-white"
                 : "text-gray hover:bg-primary hover:text-white"

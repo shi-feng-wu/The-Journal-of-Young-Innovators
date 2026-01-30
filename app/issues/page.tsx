@@ -1,5 +1,12 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
+import ParallaxWatermark from "@/components/ParallaxWatermark";
+import { Great_Vibes } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const issue1Articles = [
   {
@@ -143,6 +150,56 @@ Science Direct, and Google Scholar.`,
     link: "/articles/The Plastic Problem.pdf",
     issue: "Volume 1, Issue 1",
   },
+  {
+    id: 7,
+    title:
+      "Foul on the Play: Legal Discretion in Cases Brought Against Professional Athletes",
+    author: "C. Shuster",
+    image: "/images/optimized/boxing-800.webp",
+    abstract: `This article offers an in-depth look at three high-profile legal cases in which professional athletes
+were charged with a crime. By examining the cases of football players Henry Ruggs III and
+Rashee Rice, as well as Olympic wrestler Kyle Snyder, this comparative analysis explores how
+social and financial capital, institutional response, and media framing all influence the legal
+process for such elite athletes. Through this exploration, it aims to provide an implicit answer to
+the question, “Is justice really blind?” By comprehensively investigating the details of each case,
+this study explores the degree to which the confounding variables of material resources, severity
+of the resulting harm, and prospect of rehabilitation influences legal outcomes. It furthermore
+argues that there is another parallel punitive system at play, as relevant institutions and
+professional sports associations administer their own set of consequences, which may or may not
+align with legal proceedings and public opinion. It concludes by offering recommendations for
+the development of a more equitable justice system, one which is more evenly applied across
+social strata.`,
+    publishDate: "2026-01-07",
+    category: "Research Articles",
+    link: "/articles/Foul on the Play.pdf",
+    issue: "Volume 2, Issue 1",
+  },
+  {
+    id: 8,
+    title:
+      "Combat Sports: Friend or Foe to Youth’s Socioemotional and Physical Development?",
+    author: "S. Shuster",
+    image: "/images/optimized/feminism-800.webp",
+    abstract: `Combat sports, such as wrestling, boxing, and martials arts, have increased in popularity in
+recent years, particularly among young people. This increased attention has been mirrored within
+the scholarly literature on combat sports and their effects on young people’s physical and
+socioemotional development. The verdict as to whether these impacts have been largely positive
+or negative, however, remains mixed. This article details the purported benefits of combat sports
+for youth athletes, citing evidence of value cultivation, protective effects against bullying, and
+interpersonal competency development. It then proceeds to outline how these competencies
+connect to improved academic and professional outcomes. At the same time, however, the article
+is careful to acknowledge the negative impacts of youth participation in combat sports. By
+examining the physiological and psychological effects of the rapid weight loss often implicitly
+promoted by combat sports, this article frames these impacts as decidedly mixed. To sway the
+effects more towards the side of benefits than risks, it concludes with concrete recommendations
+for intervention. These interventions will ideally guide both policy and practice to help ensure
+that combat sports continue to be a positive presence in the lives of young athletes throughout the
+world.`,
+    publishDate: "2026-01-07",
+    category: "Research Articles",
+    link: "/articles/Friend or Foe.pdf",
+    issue: "Volume 2, Issue 1",
+  },
 ];
 
 export default function Issues() {
@@ -161,7 +218,7 @@ export default function Issues() {
         >
           <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden h-[300px] ">
             <div
-              className="absolute inset-0 bg-center bg-cover opacity-60 group-hover:opacity-80 transition-opacity "
+              className="absolute inset-0 bg-center bg-cover opacity-55 group-hover:opacity-100 transition-opacity duration-300"
               style={{ backgroundImage: `url(${(article as any).image})` }}
               aria-hidden="true"
             />
@@ -198,17 +255,18 @@ export default function Issues() {
   );
 
   return (
-    <div className="min-h-screen -mt-16 bg-gray-100">
+    <div className="min-h-screen -mt-16 bg-gradient-to-b from-primary via-primary to-white relative overflow-hidden">
       <Hero
         title="Issues"
         subtitle="Explore our published issues and articles."
         titleClassName="font-kenao"
-        subtitleClassName="font-kenao"
+        subtitleClassName="font-times mb-0"
+        sectionClassName="pb-0"
+        contentClassName="pb-0"
       />
 
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-30">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-0 pb-30">
         <section className="pb-16">
-          <h2 className="text-2xl md:text-4xl text-black mb-8">Issue 1</h2>
           {renderGrid(issue1Articles)}
         </section>
       </div>

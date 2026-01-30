@@ -133,7 +133,7 @@ function PersonCard({ person }: { person: Person }) {
             <h4 className="text-small font-semibold leading-none text-default-600">
               {person.name}
             </h4>
-            <h5 className="text-small tracking-tight text-default-400">
+            <h5 className="text-small tracking-tight text-default-500">
               {person.affiliation}
             </h5>
           </div>
@@ -200,7 +200,7 @@ export default function EditorialTeam() {
               ))}
             </div>
 
-            <div className="max-w-3xl bg-white border border-primary/40 rounded-lg shadow-sm p-6 space-y-4">
+            <div className="w-202 bg-white border border-primary/40 rounded-lg shadow-sm p-6 space-y-4">
               <p className="text-base leading-relaxed text-gray-700">
                 We are seeking a select group of exceptional student editors to
                 join our Peer Editor Team. As a Peer Editor, you will review and
@@ -224,10 +224,10 @@ export default function EditorialTeam() {
                     color="primary"
                     variant="ghost"
                     endContent={
-                      <FaChevronCircleRight className="text-lg text-current transition-colors" />
+                      <FaChevronCircleRight className="text-lg text-current" />
                     }
                   >
-                    Apply
+                    Apply to be a Peer Editor
                   </SiteButton>
                 </Link>
               </div>

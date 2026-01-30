@@ -10,9 +10,9 @@
     "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
-    "@heroui/react": "2.8.7",
-    "@heroui/system": "2.4.25",
-    "@heroui/theme": "2.4.25",
+    "@heroui/react": "2.8.8",
+    "@heroui/system": "2.4.26",
+    "@heroui/theme": "2.4.26",
     "@studio-freight/react-lenis": "^0.0.47",
     "@tailwindcss/postcss": "^4.1.18",
     "canvas": "^3.2.1",
@@ -42,7 +42,6 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash.throttle": "^4.1.9",
     "@types/node": "^25.1.0",
@@ -53,6 +52,7 @@
     "@types/tinycolor2": "^1.4.6",
     "autoprefixer": "^10.4.23",
     "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
     "nodemon": "^3.1.11",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",

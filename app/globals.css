@@ -66,3 +66,7 @@ body {
   font-family: "Kenao", "Inter", "Helvetica Neue", Arial, sans-serif;
   letter-spacing: 0.5px;
 }
+
+.font-times {
+  font-family: "Times New Roman", Times, serif;
+}

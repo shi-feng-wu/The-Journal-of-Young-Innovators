@@ -12,6 +12,7 @@ export default function Donate() {
             color="primary"
             variant="shadow"
             size="lg"
+            variantStyle="whiteHover"
             className="border-2 rounded-lg p-4"
           >
             Make a Donation Today

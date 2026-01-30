@@ -206,11 +206,11 @@ export default function ScholarlyEvent() {
                     Submit your application through our online portal (link to
                     be provided) or email us directly at{" "}
                     <a
-                      href="mailto:clara.ma@inceptionconsulting.org"
+                      href="mailto:editor@young-innovator.org"
                       className="text-primary underline"
                       aria-label="Email us your application"
                     >
-                      this email
+                      editor@young-innovator.org
                     </a>
                     . Include a 250–300 word abstract outlining your idea,
                     approach, and significance.
@@ -299,11 +299,11 @@ export default function ScholarlyEvent() {
               <p className="">
                 For more information,{" "}
                 <a
-                  href="mailto:clara.ma@inceptionconsulting.org"
+                  href="mailto:editor@young-innovator.org"
                   className="text-primary underline"
                   aria-label="Email us for more information"
                 >
-                  email our team
+                  editor@young-innovator.org
                 </a>
                 .
               </p>
@@ -327,7 +327,7 @@ export default function ScholarlyEvent() {
                 for tertiary music institutions to assume responsibility for
                 safe learning environments and to recognize occupational health
                 as an essential area of knowledge and competency for all
-                musicians. Visit them here:{" "}
+                musicians. Visit:{" "}
                 <a
                   className="text-primary underline"
                   href="https://occupationalhealthinmusic.org"

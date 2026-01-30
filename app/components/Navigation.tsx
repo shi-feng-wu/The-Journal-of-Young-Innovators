@@ -26,9 +26,7 @@ const NavLink = ({
   <Link
     href={href}
     className={`text-sm ${
-      isScrolled
-        ? "text-primary hover:text-default-600"
-        : "text-white hover:text-white/80"
+      "text-white hover:text-white/80"
     }`}
   >
     {children}
@@ -65,15 +63,25 @@ export default function Navigation() {
   return (
     <nav
       className={`font-semibold fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-200 ease-in ${
-        isScrolled ? "bg-background shadow-lg" : "bg-transparent"
+        isScrolled
+          ? "bg-gradient-to-b from-primary/40 to-primary/20 backdrop-blur-md"
+          : "bg-transparent"
       }`}
+      style={
+        isScrolled
+          ? {
+              backdropFilter: "blur(14px)",
+              WebkitBackdropFilter: "blur(14px)",
+            }
+          : undefined
+      }
     >
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center h-16 space-x-8">
           <div className="flex items-center ">
             <Link href="/" className="flex items-center">
               <img
-                src={isScrolled ? "/logodark.png" : "/logolight.png"}
+                src="/logolight.png"
                 alt="Logo"
                 className="h-10 mr-3 transition-opacity"
               />

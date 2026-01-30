@@ -220,6 +220,7 @@ subtitle="We welcome submissions from high school and college students who are
                   variant="solid"
                   size="lg"
                   type="submit"
+                  variantStyle="whiteHover"
                   isDisabled={isDisabled}
                   className="hover:ring-1 hover:ring-white"
                 >

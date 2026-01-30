@@ -4,18 +4,26 @@ interface HeroProps {
   additionalContent?: React.ReactNode;
   titleClassName?: string; // allows per-page font/style overrides for the main title
   subtitleClassName?: string; // allows per-page font/style overrides for the subtitle
+  sectionClassName?: string; // allows per-page layout overrides for the section wrapper
+  contentClassName?: string; // allows per-page layout overrides for the inner container
 }
 
 export default function Hero({
   title,
   subtitle,
   additionalContent,
-  titleClassName = "",
-  subtitleClassName = "",
+  titleClassName = "font-kenao",
+  subtitleClassName = "font-times font-medium",
+  sectionClassName = "",
+  contentClassName = "",
 }: HeroProps) {
   return (
-    <section className="bg-primary text-white pb-20 pt-30 font-kenao">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-20">
+    <section
+      className={`bg-primary text-white pb-20 pt-30 ${sectionClassName}`}
+    >
+      <div
+        className={`max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-20 ${contentClassName}`}
+      >
         <div className="">
           <h1 className={`text-4xl md:text-6xl mb-6 ${titleClassName}`}>
             {title}

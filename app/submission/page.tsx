@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Hero from "@/components/Hero";
 import { ContentSection, TableOfContents } from "@/components/PageComponents";
 import SiteButton from "@/components/SiteButton";
@@ -30,19 +31,17 @@ export default function Home() {
               researchers, educators, and editors dedicated to helping young
               scholars grow through rigorous feedback and mentorship."
         additionalContent={
-          <a
-            href="/form"
-            aria-label="Submit a paper"
-          >
+          <Link href="/form" aria-label="Submit a paper">
             <SiteButton
               color="primary"
               variant="shadow"
               size="lg"
-              className="border-2 rounded-lg p-4 !bg-primary !text-white hover:!bg-white hover:!text-primary"
+              variantStyle="whiteHover"
+              className="border-2 rounded-lg p-4 !bg-primary !text-white"
             >
               Submit to Our Journal
             </SiteButton>
-          </a>
+          </Link>
         }
       />
 
@@ -244,10 +243,10 @@ export default function Home() {
                 For any questions, contact our editorial team via
                 <a
                   className="text-primary underline ml-1"
-                  href="mailto:fma4@jh.edu"
+                  href="mailto:editor@young-innovator.org"
                   aria-label="Email the editorial team"
                 >
-                  email
+                  editor@young-innovator.org
                 </a>
                 . Please include:
               </p>
