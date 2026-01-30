@@ -88,6 +88,37 @@ export async function POST(request: Request) {
       attachments,
     });
 
+    if (email) {
+      const confirmationBody = [
+        `Hi ${firstName || "there"},`,
+        "",
+        "Thanks for submitting your manuscript to The Journal of Young Innovators.",
+        "Here is a summary of your submission:",
+        "",
+        `Name: ${[firstName, lastName].filter(Boolean).join(" ") || "(not provided)"}`,
+        `Email: ${email}`,
+        `Phone: ${phone || "(not provided)"}`,
+        `School: ${school || "(not provided)"}`,
+        `Grade Level: ${gradeLevel || "(not provided)"}`,
+        `Manuscript Title: ${manuscriptTitle || "(not provided)"}`,
+        `Need-Based Scholarship Requested: ${needScholarship ? "Yes" : "No"}`,
+        `Scholarship Statement: ${scholarshipStatement || "(none)"}`,
+        `Fast Track Review: ${fastTrack ? "Yes" : "No"}`,
+        "",
+        "If anything looks incorrect, reply to this email to let us know.",
+        "",
+        "— The Journal of Young Innovators",
+      ].join("\n");
+
+      await transporter.sendMail({
+        from: fromEmail,
+        to: email,
+        replyTo: process.env.SUBMISSION_TO ?? smtpUser,
+        subject: `Submission Received: ${manuscriptTitle || "Untitled"}`,
+        text: confirmationBody,
+      });
+    }
+
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (error) {
     return new Response(
