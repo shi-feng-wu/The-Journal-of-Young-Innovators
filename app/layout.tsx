@@ -53,8 +53,8 @@ export default function RootLayout({
             <Navigation />
             <main className="flex-grow pt-16">{children}</main>
             <footer className="absolute inset-x-0 bottom-4 px-4 sm:px-6 lg:px-20 text-center text-[0.5rem] text-white mix-blend-difference">
-              Published by Inception Education Consulting LLC - Baltimore,
-              Maryland, USA
+              An online academic journal for high school and college students. Published by Inception Education Consulting LLC - Baltimore,
+              Maryland, USA.
             </footer>
           </div>
         </Providers>

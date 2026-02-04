@@ -10,6 +10,24 @@ const greatVibes = Great_Vibes({
 
 const issue1Articles = [
   {
+    id: 10,
+    title: "The Next Big Arenas of Competition",
+    author:
+      "Chris Bradley, Michael Chui, Kevin Russell, Kweilin Ellingrud, Michael Birshan, Suhayl Chettih",
+    school: "McKinsey Global Institute",
+    image: "/images/optimized/arenas-1600.webp",
+    abstract: `This report from the McKinsey Global Institute identifies and describes a category of industries that
+could account for much of the future change in the business landscape and transform the world. We
+call these industries arenas of competition. To identify the arenas of tomorrow, we look back at the
+arenas of today to see how they evolved. Arenas are defined by two characteristics: they capture an
+outsize share of the economy’s growth, and market share within them changes hands to an outsize
+degree. The presence of those two attributes indicates that a new competitive game has begun,
+usually prompted by a new bundle of technologies and business models.`,
+    publishDate: "2024-10-1",
+    category: "Opinion Pieces",
+    link: "/articles/Arenas of Competition.pdf",
+  },
+  {
     id: 1,
     title:
       "From Neurons to Leaders: A Brain-Targeted Framework for Leadership Education",
@@ -200,6 +218,51 @@ world.`,
     link: "/articles/Friend or Foe.pdf",
     issue: "Volume 2, Issue 1",
   },
+  {
+    id: 9,
+    title:
+      "Beyond the Fairway: Access, Equity, and Inclusion in the New Golf Economy",
+    author: "Aaron Xu",
+    image: "/images/optimized/golf-1600.webp",
+    abstract: `This article examines how shifts in golf’s business model and cultural profile are reshaping
+access to the sport, with particular attention to affordability, public infrastructure, and who
+benefits from the industry’s growth. It evaluates barriers to entry, the role of municipal courses
+and youth programs, and the impact of new capital on community access. The piece argues that
+expansion alone is insufficient without intentional equity and inclusion strategies that ensure the
+new golf economy serves a broader and more diverse public.`,
+    publishDate: "2026-01-22",
+    category: "Research Articles",
+    link: "/articles/Beyond the Fairway.pdf",
+    issue: "Volume 2, Issue 1",
+  },
+  {
+    id: 11,
+    title: "A Quantitative Analysis of Natural Resource Economics on Global Wealth",
+    author: "Andrew Leibowitz",
+    school: "Cornell University",
+    image: "/images/optimized/agri-1600.webp",
+    abstract: `This paper presents a quantitative analysis of the implications of natural resource
+economics on global wealth, encompassing an extensive observational study of growth models
+from 1970 to 2022 across a diverse set of countries. It scrutinizes the relationships between
+natural resource rents (as a percentage of Gross Domestic Product) and natural resource
+depletion (relative to Gross National Income), and their correlation with Gross Domestic Product
+per capita. The primary aim is to assess whether increased economic prosperity, as derived
+from natural resources, aligns with sustainable resource management or exacerbates
+environmental degradation. The study utilizes data from The World Bank and employs logistic
+regression analysis to explore these relationships. Despite the broad temporal and geographic
+scope, preliminary results suggest weak correlations, as indicated by low R² values, which imply
+that only a minimal portion of the variance in GDP per capita can be explained by changes in
+natural resource rents and depletion percentages. This outcome challenges the efficacy of
+current economic models in balancing economic development with environmental stewardship
+and suggests a need for further research using more granular data and advanced analytical
+models. The findings emphasize the complexity of natural resource economics and the critical
+role of innovative policies and management strategies in fostering sustainable economic growth
+without compromising environmental integrity.`,
+    publishDate: "2026-01-07",
+    category: "Research Articles",
+    link: "/articles/Natural Resources Economics.pdf",
+    issue: "Volume 2, Issue 1",
+  },
 ];
 
 export default function Issues() {
@@ -255,7 +318,7 @@ export default function Issues() {
   );
 
   return (
-    <div className="min-h-screen -mt-16 bg-gradient-to-b from-primary via-primary to-white relative overflow-hidden">
+    <div className="min-h-screen -mt-16 bg-gradient-to-b from-primary via-primary to-gray-100 relative overflow-hidden">
       <Hero
         title="Issues"
         subtitle="Explore our published issues and articles."

@@ -78,7 +78,7 @@ realize their full potential.
     id: 4,
     title: "A Quantitative Analysis of Natural Resource Economics on Global Wealth",
     author: "Andrew Leibowitz",
-    school: "Mercersburg Academy",
+    school: "Cornell University",
     image: "/images/optimized/agri-1600.webp",
     abstract: `This paper presents a quantitative analysis of the implications of natural resource
 economics on global wealth, encompassing an extensive observational study of growth models
