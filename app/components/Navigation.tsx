@@ -62,7 +62,7 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`font-semibold fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-200 ease-in ${
+      className={`font-roboto-mono font-semibold fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-200 ease-in ${
         isScrolled
           ? "bg-gradient-to-b from-primary/40 to-primary/20 backdrop-blur-md"
           : "bg-transparent"
@@ -76,9 +76,9 @@ export default function Navigation() {
           : undefined
       }
     >
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
-        <div className="flex items-center h-16 space-x-8">
-          <div className="flex items-center ">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 delayed-text">
+        <div className="relative flex items-center h-16">
+          <div className="absolute left-0 flex items-center">
             <Link href="/" className="flex items-center">
               <img
                 src="/logolight.png"
@@ -89,7 +89,7 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 mx-auto">
             <NavLink href="/about" isScrolled={isScrolled}>
               About
             </NavLink>
@@ -120,7 +120,7 @@ export default function Navigation() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="absolute right-0 md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`focus:outline-none hover:text-primary ${

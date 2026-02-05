@@ -172,8 +172,8 @@ Science Direct, and Google Scholar.`,
     id: 7,
     title:
       "Foul on the Play: Legal Discretion in Cases Brought Against Professional Athletes",
-    author: "C. Shuster",
-    image: "/images/optimized/boxing-800.webp",
+    author: "Cole Shuster",
+    image: "/images/optimized/basketball-800.webp",
     abstract: `This article offers an in-depth look at three high-profile legal cases in which professional athletes
 were charged with a crime. By examining the cases of football players Henry Ruggs III and
 Rashee Rice, as well as Olympic wrestler Kyle Snyder, this comparative analysis explores how
@@ -196,8 +196,8 @@ social strata.`,
     id: 8,
     title:
       "Combat Sports: Friend or Foe to Youth’s Socioemotional and Physical Development?",
-    author: "S. Shuster",
-    image: "/images/optimized/feminism-800.webp",
+    author: "Shane Shuster",
+    image: "/images/optimized/boxing-800.webp",
     abstract: `Combat sports, such as wrestling, boxing, and martials arts, have increased in popularity in
 recent years, particularly among young people. This increased attention has been mirrored within
 the scholarly literature on combat sports and their effects on young people’s physical and
@@ -272,14 +272,12 @@ export default function Issues() {
         <Link
           key={article.id}
           href={article.link}
-          target={article.link.startsWith("http") ? "_blank" : undefined}
-          rel={
-            article.link.startsWith("http") ? "noopener noreferrer" : undefined
-          }
+          target="_blank"
+          rel="noopener noreferrer"
           className="group block"
           aria-label={article.title}
         >
-          <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden h-[300px] ">
+          <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden h-[300px] font-text">
             <div
               className="absolute inset-0 bg-center bg-cover opacity-55 group-hover:opacity-100 transition-opacity duration-300"
               style={{ backgroundImage: `url(${(article as any).image})` }}
@@ -291,15 +289,23 @@ export default function Issues() {
             />
             <div className="relative p-6 h-full flex flex-col justify-start">
               <div className="mb-3">
-                <span className="bg-primary text-white text-xs font-semibold px-2 py-1 mr-0 mx-auto rounded">
+                <span className="ring-1 ring-default text-white text-xs font-semibold px-2 py-1 mr-0 mx-auto rounded">
                   {article.category}
                 </span>
                 <br />
-                <span className="text-white/80 text-xs">
-                  {new Date(article.publishDate).toLocaleDateString()}
-                </span>
-                <span className="text-white/60 mx-2 text-xs">·</span>
-                <span className="text-white/80 text-xs">{article.issue}</span>
+                {article.publishDate ? (
+                  <span className="text-white/80 text-xs">
+                    {new Date(article.publishDate).toLocaleDateString()}
+                  </span>
+                ) : null}
+                {article.publishDate && article.issue ? (
+                  <span className="text-white/60 mx-2 text-xs">·</span>
+                ) : null}
+                {article.issue ? (
+                  <span className="text-white/80 text-xs">
+                    {article.issue}
+                  </span>
+                ) : null}
               </div>
               <h3 className="text-lg leading-7 font-semibold text-white mb-2 line-clamp-3">
                 {article.title}
@@ -322,8 +328,7 @@ export default function Issues() {
       <Hero
         title="Issues"
         subtitle="Explore our published issues and articles."
-        titleClassName="font-kenao"
-        subtitleClassName="font-times mb-0"
+        subtitleClassName="mb-0"
         sectionClassName="pb-0"
         contentClassName="pb-0"
       />

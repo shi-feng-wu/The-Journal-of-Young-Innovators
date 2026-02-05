@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import { MuseoModerno } from "next/font/google";
+import { DM_Serif_Display } from "next/font/google";
 
 import "./globals.css";
 import { Providers } from "./providers.tsx";
 import Navigation from "./components/Navigation";
 
-const inter = Inter({
-  variable: "--font-inter",
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -15,6 +16,13 @@ const museoModerno = MuseoModerno({
   variable: "--font-museo-moderno",
   subsets: ["latin"],
 });
+
+const dmSerifDisplay = DM_Serif_Display({
+  variable: "--font-dm-serif-display",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 
 export const metadata: Metadata = {
   title: "The Journal of Young Innovators",
@@ -25,8 +33,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logodark.png", media: "(prefers-color-scheme: light)" },
-      { url: "/logolight.png", media: "(prefers-color-scheme: dark)" },
+      { url: "/logodark.ico", media: "(prefers-color-scheme: light)" },
+      { url: "/logolight.ico", media: "(prefers-color-scheme: dark)" },
     ],
   },
 };
@@ -47,7 +55,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={` antialiased`}>
+      <body className={`${dmSerifDisplay.variable} ${robotoMono.variable} antialiased`}>
         <Providers>
           <div className="min-h-screen flex flex-col relative">
             <Navigation />

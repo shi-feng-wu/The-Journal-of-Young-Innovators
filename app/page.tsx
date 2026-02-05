@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import { NoLoadOpacityTransition } from "@/components/NoLoadOpacityTransition";
 import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
 
@@ -102,27 +101,57 @@ without compromising environmental integrity.`,
     link: "/articles/Natural Resources Economics.pdf",
     issue: "Volume 2, Issue 1",
   },
+  {
+    id: 5,
+    title:
+      "Combat Sports: Friend or Foe to Youth’s Socioemotional and Physical Development?",
+    author: "Shane Shuster",
+    school: "",
+    image: "/images/optimized/boxing-1600.webp",
+    abstract: `Combat sports, such as wrestling, boxing, and martials arts, have increased in popularity in
+recent years, particularly among young people. This increased attention has been mirrored within
+the scholarly literature on combat sports and their effects on young people’s physical and
+socioemotional development. The verdict as to whether these impacts have been largely positive
+or negative, however, remains mixed. This article details the purported benefits of combat sports
+for youth athletes, citing evidence of value cultivation, protective effects against bullying, and
+interpersonal competency development. It then proceeds to outline how these competencies
+connect to improved academic and professional outcomes. At the same time, however, the article
+is careful to acknowledge the negative impacts of youth participation in combat sports. By
+examining the physiological and psychological effects of the rapid weight loss often implicitly
+promoted by combat sports, this article frames these impacts as decidedly mixed. To sway the
+effects more towards the side of benefits than risks, it concludes with concrete recommendations
+for intervention. These interventions will ideally guide both policy and practice to help ensure
+that combat sports continue to be a positive presence in the lives of young athletes throughout the
+world.`,
+    publishDate: "2026-01-07",
+    category: "Research Articles",
+    link: "/articles/Friend or Foe.pdf",
+    issue: "Volume 2, Issue 1",
+  },
 ];
 
 // Featured articles on the homepage
 const featuredArticles = allArticles;
 
 export default function Home() {
-  const articles = featuredArticles; // exactly two
+  const articles = featuredArticles.slice(0, 5);
 
   return (
-    <div className="min-h-screen -mt-16 bg-gray-100">
+    <div className="min-h-screen -mt-16 bg-[#F2F3F4]">
       {/* Hero Section */}
       <Hero
         title="The Journal of Young Innovators"
+        titleClassName="hero-text"
         subtitle="Leadership. Innovation. AI."
-        titleClassName="font-kenao"
-        subtitleClassName="font-times"
+        subtitleClassName="text-xl hero-text"
+        contentClassName="text-center pt-10!"
+        sectionClassName="text-center hero-animate flex items-center"
+        showWave
       />
 
-      <div className="pt-10 pb-50">
+      <div className="pb-50 -mt-18">
         {/* Featured Articles Section */}
-        <section className="py-10">
+        <section className="py-10 font-text">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
             <div className=" mb-12">
             </div>
@@ -139,26 +168,22 @@ export default function Home() {
                 article.issue && article.issue.trim().length > 0
               );
               return (
-                <div className="mb-8" key={article.id}>
+                <div className="mb-2 " key={article.id}>
                   <Link
                     href={article.link}
-                    target={
-                      article.link.startsWith("http") ? "_blank" : undefined
-                    }
-                    rel={
-                      article.link.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="block group"
                     aria-label={article.title}
                   >
-                    <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-                      <NoLoadOpacityTransition
-                        imageUrl={(article as any).image}
+                    <article className="relative bg-white rounded-md overflow-hidden">
+                      <div
+                        className="absolute inset-0 bg-center bg-cover opacity-60 group-hover:opacity-100 transition-opacity"
+                        style={{ backgroundImage: `url(${(article as any).image})` }}
+                        aria-hidden="true"
                       />
                       <div
-                        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
+                        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90"
                         aria-hidden="true"
                       />
                       <div className="relative p-8">
@@ -168,8 +193,8 @@ export default function Home() {
                           <div
                             className={`md:w-2/3 ${right ? "md:text-right" : ""}`}
                           >
-                            <div className="mb-4">
-                              <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded">
+                            <div className="mb-6">
+                              <span className="ring-default ring-1 text-white text-xs font-semibold px-2 py-1 rounded">
                                 {article.category}
                               </span>
                               {hasDate && (
