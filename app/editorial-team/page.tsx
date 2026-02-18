@@ -130,10 +130,10 @@ function PersonCard({ person }: { person: Person }) {
             </div>
           </div>
           <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">
+            <h4 className="text-md font-semibold leading-none text-default-600">
               {person.name}
             </h4>
-            <h5 className="text-small tracking-tight text-default-500">
+            <h5 className="text-xs tracking-tight text-default-500 font-mono">
               {person.affiliation}
             </h5>
           </div>
@@ -145,14 +145,14 @@ function PersonCard({ person }: { person: Person }) {
 
 export default function EditorialTeam() {
   return (
-    <div className="min-h-screen -mt-16 bg-gray-100">
+    <div className="min-h-screen bg-background">
       <Hero
         title="Editorial Team"
         subtitle="Meet the distinguished scholars and professionals guiding young innovators."
       />
 
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-30">
-        <section className="pb-20">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
+        <section className="pb-10">
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl md:text-4xl mb-12">Editorial Team</h2>
 
@@ -164,7 +164,7 @@ export default function EditorialTeam() {
           </div>
         </section>
 
-        <section className="pb-20">
+        <section className="pb-10">
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl md:text-4xl mb-12">Managing Editors</h2>
 
@@ -176,7 +176,7 @@ export default function EditorialTeam() {
           </div>
         </section>
 
-        <section className="pb-20">
+        <section className="pb-10">
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl md:text-4xl mb-12">
               Industry Collaborators
@@ -190,7 +190,7 @@ export default function EditorialTeam() {
           </div>
         </section>
 
-        <section className="pb-20">
+        <section className="pb-10">
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl md:text-4xl mb-8">Peer Editors</h2>
 
@@ -200,7 +200,7 @@ export default function EditorialTeam() {
               ))}
             </div>
 
-            <div className="w-202 bg-white border border-primary/40 rounded-lg shadow-sm p-6 space-y-4">
+            <div className="w-full lg:w-190 rounded-2xl border border-black/10 bg-white p-6 shadow-sm space-y-4">
               <p className="text-base leading-relaxed text-gray-700">
                 We are seeking a select group of exceptional student editors to
                 join our Peer Editor Team. As a Peer Editor, you will review and
@@ -220,7 +220,7 @@ export default function EditorialTeam() {
                   className="group inline-flex"
                 >
                   <SiteButton
-                    className="h-14 font-semibold pl-40 text-md border-primary text-primary"
+                    className="border-primary text-primary"
                     color="primary"
                     variant="ghost"
                     endContent={

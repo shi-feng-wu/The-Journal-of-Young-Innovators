@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import { MuseoModerno } from "next/font/google";
 import { DM_Serif_Display } from "next/font/google";
+import { Source_Sans_3 } from "next/font/google";
 
 import "./globals.css";
 import { Providers } from "./providers.tsx";
-import Navigation from "./components/Navigation";
+import BackToTop from "./components/BackToTop";
+import Footer from "./components/Footer";
 
 const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
@@ -23,6 +25,10 @@ const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
 });
 
+const sourceSans3 = Source_Sans_3({
+  variable: "--font-source-sans-3",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "The Journal of Young Innovators",
@@ -55,15 +61,14 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`${dmSerifDisplay.variable} ${robotoMono.variable} antialiased`}>
+      <body
+        className={`${dmSerifDisplay.variable} ${robotoMono.variable} ${sourceSans3.variable} antialiased`}
+      >
         <Providers>
           <div className="min-h-screen flex flex-col relative">
-            <Navigation />
-            <main className="flex-grow pt-16">{children}</main>
-            <footer className="absolute inset-x-0 bottom-4 px-4 sm:px-6 lg:px-20 text-center text-[0.5rem] text-white mix-blend-difference">
-              An online academic journal for high school and college students. Published by Inception Education Consulting LLC - Baltimore,
-              Maryland, USA.
-            </footer>
+            <main className="flex-grow">{children}</main>
+            <BackToTop />
+            <Footer />
           </div>
         </Providers>
       </body>

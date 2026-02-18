@@ -3,20 +3,50 @@
 @source "../node_modules/@heroui";
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
 :root {
   /* Ensure light theme has explicit colors to avoid white-on-white surprises */
   --background: #ffffff;
   --foreground: #111111;
   --primary: #002d72;
+  --highlight: #32965d;
 }
 
-html, body {
-  font-family: Georgia, "Times New Roman", Times, serif;
+html,
+body {
+  font-family:
+    var(--font-source-sans-3), "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family:
+    var(--font-dm-serif-display), Georgia, "Times New Roman", Times, serif;
 }
 
 body {
+  --font-display: var(--font-dm-serif-display);
+  --font-mono: var(--font-roboto-mono);
+  --font-text: var(--font-source-sans-3);
   color: var(--foreground);
   background: var(--primary);
+}
+
+::selection {
+  background: var(--highlight);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: var(--highlight);
+  color: #ffffff;
 }
 
 @keyframes checkmark-draw {
@@ -54,13 +84,12 @@ body {
   animation: checkmark-draw 480ms ease-out forwards;
 }
 
-
 @keyframes hero-height-expand {
   0% {
-    height: 115vh;
+    height: 100vh;
   }
   100% {
-    height: 90vh;
+    height: 70vh;
   }
 }
 
@@ -71,44 +100,73 @@ body {
   100% {
     opacity: 1;
   }
-
 }
 
 .hero-animate {
-  animation:
-    hero-height-expand 1500ms ease-in-out both;
-    animation-delay: 1200ms;
-
-}
-
-.hero-text {
-  animation: hero-text-fade 1200ms cubic-bezier(.55,0,.67,1.25) both;
-}
-
-.delayed-text {
-  animation: hero-text-fade 1200ms cubic-bezier(.55,0,.67,1.25) both;
+  animation: hero-height-expand 1500ms ease-in-out both;
   animation-delay: 1200ms;
 }
 
-/* Kenao Sans Serif */
-@font-face {
-  font-family: "Kenao";
-  src: url("/fonts/Kenao.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+.hero-text {
+  animation: hero-text-fade 1200ms cubic-bezier(0.55, 0, 0.67, 1.25) both;
 }
 
-.font-kenao {
-  font-family: var(--font-dm-serif-display), Georgia, "Times New Roman", Times,
-    serif;
+.delayed-text {
+  animation: hero-text-fade 1200ms cubic-bezier(0.55, 0, 0.67, 1.25) both;
+  animation-delay: 1200ms;
+}
+
+.font-display {
+  font-family:
+    var(--font-dm-serif-display), Georgia, "Times New Roman", Times, serif;
   letter-spacing: 0.2px;
 }
 
-.font-roboto-mono {
+.font-mono {
   font-family: var(--font-roboto-mono), "Helvetica Neue", Arial, sans-serif;
 }
 
 .font-text {
-  font-family: "Times New Roman", Times, serif;
+  font-family:
+    var(--font-source-sans-3), "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"] {
+  font-family: var(--font-roboto-mono), "Helvetica Neue", Arial, sans-serif;
+}
+
+.title-underline {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.title-underline-line {
+  display: block;
+}
+
+.title-underline-text {
+  display: inline-block;
+  position: relative;
+}
+
+.title-underline-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: auto;
+  width: var(--underline-length, 100%);
+  bottom: 0.1em;
+  border-top: var(--underline-thickness, 3px) solid currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1000ms cubic-bezier(0.315, 0.61, 0.355, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.title-underline:hover .title-underline-text::after {
+  transform: scaleX(1);
 }

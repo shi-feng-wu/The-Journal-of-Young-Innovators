@@ -2,8 +2,61 @@
 
 import Hero from "@/components/Hero";
 import { Image, Link } from "@heroui/react";
-import { ContentSection, TableOfContents } from "@/components/PageComponents";
-import { FaCalendarAlt, FaLightbulb, FaMedal, FaTrophy } from "react-icons/fa";
+import { TableOfContents } from "@/components/PageComponents";
+import { FaCalendarAlt, FaLightbulb, FaMedal } from "react-icons/fa";
+import { ReactNode } from "react";
+
+function EditorialSection({
+  id,
+  title,
+  children,
+  noTopBorder = false,
+}: {
+  id: string;
+  title: string;
+  children: ReactNode;
+  noTopBorder?: boolean;
+}) {
+  return (
+    <section
+      id={id}
+      className={`${noTopBorder ? "pb-12" : "py-12 border-t border-black/30"} font-text`}
+    >
+      <div className="mb-6 flex items-end justify-between gap-4">
+        <h2 className="font-display text-3xl md:text-4xl text-black tracking-wide">
+          {title}
+        </h2>
+      </div>
+      <div className="space-y-5 text-sm md:text-md leading-relaxed text-black/80">
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function InfoCard({
+  title,
+  icon,
+  children,
+}: {
+  title: string;
+  icon?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <article className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
+      <div className="mb-4 flex items-center gap-3">
+        {icon ? <span className="text-2xl text-primary">{icon}</span> : null}
+        <h3 className="font-display text-2xl text-black tracking-wide">
+          {title}
+        </h3>
+      </div>
+      <div className="font-text text-black/80 leading-relaxed [&_p]:text-sm [&_li]:text-sm md:[&_p]:text-md md:[&_li]:text-md [&_strong]:font-semibold [&_.card-subheading]:text-sm md:[&_.card-subheading]:text-md [&_.card-subheading]:font-semibold [&_.card-subheading]:text-black">
+        {children}
+      </div>
+    </article>
+  );
+}
 
 export default function ScholarlyEvent() {
   const challengeSections = [
@@ -19,24 +72,22 @@ export default function ScholarlyEvent() {
   ];
 
   return (
-    <div className="min-h-screen -mt-16 bg-gray-100 pb-30">
+    <div className="min-h-screen bg-background pb-10">
       <Hero
         title="Innovation Challenge Series"
         subtitle="National platforms for high school students and college students to showcase bold ideas and original work in AI, innovation, data ethics, biomedical technologies, and more."
       />
 
-      {/* Main Content Area with TOC as Second Column */}
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-30">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
-          {/* Main Content - Takes up 3/4 of the width */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 md:gap-14 lg:gap-20">
           <div className="lg:col-span-3">
-            <ContentSection
-              noPadding
-              className=""
+            <EditorialSection
+              id="innovation-case-challenge"
               title="Innovation Case Challenge"
+              noTopBorder
             >
-              <div className="bg-primary text-white rounded-lg p-8 mb-8">
-                <div className="flex items-center gap-4 sm:gap-6 justify-center">
+              <div className="bg-primary text-white rounded-2xl p-6 md:p-8 mb-8">
+                <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6 justify-center">
                   <div className="flex items-center gap-3">
                     <Link
                       href="https://dinglab.jh.edu/"
@@ -63,74 +114,81 @@ export default function ScholarlyEvent() {
                       />
                     </Link>
                   </div>
-                  <h3 className="text-3xl font-bold text-center">
+                  <h3 className="font-display text-2xl md:text-3xl text-center tracking-wide">
                     Fall 2025 Student Research & Innovation Competition
                   </h3>
                 </div>
               </div>
 
-              <p className="mb-6">
-                We’re thrilled to announce the Fall 2025 Annual Student Research
-                & Innovation Competition—a national platform for high school and
-                college students to showcase bold ideas and original work in AI,
-                social innovation, ethics, biomedical technologies, and more.
-                Proudly sponsored by the Johns Hopkins Ding Lab, this year’s
-                competition will take the form of a case competition, where
-                participants submit both a PowerPoint presentation and a final
-                written report.
-              </p>
+              <div className="space-y-5 mb-8">
+                <p>
+                  We’re thrilled to announce the Fall 2025 Annual Student
+                  Research & Innovation Competition—a national platform for high
+                  school and college students to showcase bold ideas and
+                  original work in AI, social innovation, ethics, biomedical
+                  technologies, and more. Proudly sponsored by the Johns Hopkins
+                  Ding Lab, this year’s competition will take the form of a case
+                  competition, where participants submit both a PowerPoint
+                  presentation and a final written report.
+                </p>
 
-              <p className="mb-6">
-                Projects may include prototypes, data analyses, literature
-                reviews, or ethical case studies exploring the frontiers of
-                emerging technologies.
-              </p>
+                <p>
+                  Projects may include prototypes, data analyses, literature
+                  reviews, or ethical case studies exploring the frontiers of
+                  emerging technologies.
+                </p>
 
-              <p className="mb-6">
-                Finalists will present their work to a panel of distinguished
-                judges from academia and industry. Top teams will be recognized
-                with awards, publication opportunities, and mentorship offers.
-              </p>
+                <p>
+                  Finalists will present their work to a panel of distinguished
+                  judges from academia and industry. Top teams will be
+                  recognized with awards, publication opportunities, and
+                  mentorship offers.
+                </p>
 
-              <p className="mb-8">
-                Whether you're investigating AI in mental health, proposing a
-                biotech solution, or evaluating ethical implications in data
-                science—this is your stage to be seen, celebrated, and
-                supported.
-              </p>
+                <p>
+                  Whether you're investigating AI in mental health, proposing a
+                  biotech solution, or evaluating ethical implications in data
+                  science—this is your stage to be seen, celebrated, and
+                  supported.
+                </p>
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="mb-4 flex justify-center">
-                    <FaCalendarAlt className="text-4xl" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">
-                    Timeline
-                  </h4>
-                  <ul className="text-gray-600 space-y-1 text-left">
-                    <li>Dec 15, 2025: Applications open</li>
-                    <li>Mar 1, 2026: Submission deadline</li>
-                    <li>Apr 3rd, 2026: Preliminary selection of finalists</li>
-                    <li>
-                      May 1st, 2026: Final competition (online presentations)
-                    </li>
-                  </ul>
-                </div>
+              <InfoCard title="Timeline" icon={<FaCalendarAlt />}>
+                <ol className="relative ml-1 border-l border-black/20 pl-6 space-y-5">
+                  <li className="relative">
+                    <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
+                    <p className="card-subheading">Dec 15, 2025</p>
+                    <p>Applications open</p>
+                  </li>
+                  <li className="relative">
+                    <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
+                    <p className="card-subheading">Mar 1, 2026</p>
+                    <p>Submission deadline</p>
+                  </li>
+                  <li className="relative">
+                    <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
+                    <p className="card-subheading">Apr 3rd, 2026</p>
+                    <p>Preliminary selection of finalists</p>
+                  </li>
+                  <li className="relative">
+                    <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
+                    <p className="card-subheading">May 1st, 2026</p>
+                    <p>Final competition (online presentations)</p>
+                  </li>
+                </ol>
+              </InfoCard>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="mb-4 flex justify-center">
-                    <FaLightbulb className="text-4xl" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">
-                    Categories & Guidelines
-                  </h4>
-                  {/* Categories */}
-                  <div className="text-gray-700 text-left space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <InfoCard
+                  title="Categories & Guidelines"
+                  icon={<FaLightbulb />}
+                >
+                  <div className="space-y-4">
                     <div>
-                      <p className="font-semibold">
+                      <p className="card-subheading">
                         Innovation & Future Solutions
                       </p>
-                      <p className="text-sm">
+                      <p>
                         Creative concepts, prototypes, new products, emerging
                         technologies, sustainability ideas, disruptive business
                         models, platforms, and ventures across any industry
@@ -139,10 +197,10 @@ export default function ScholarlyEvent() {
                       </p>
                     </div>
                     <div>
-                      <p className="font-semibold">
+                      <p className="card-subheading">
                         Science, Technology & Human Advancement
                       </p>
-                      <p className="text-sm">
+                      <p>
                         Research, applied science, AI, engineering, design
                         thinking, human performance, neuroscience,
                         biotechnology, AR/VR, climate tech, urban design —
@@ -150,8 +208,10 @@ export default function ScholarlyEvent() {
                       </p>
                     </div>
                     <div>
-                      <p className="font-semibold">Society, Policy & Ethics</p>
-                      <p className="text-sm">
+                      <p className="card-subheading">
+                        Society, Policy & Ethics
+                      </p>
+                      <p>
                         Ideas tackling real-world issues: governance, digital
                         equity, legal frameworks, global challenges, public
                         health, social innovation, ethics, human rights, future
@@ -159,20 +219,14 @@ export default function ScholarlyEvent() {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-3 text-gray-600 text-left">
+                  <div className="mt-3">
                     <p className="mb-1">Teams of 2–4; HS or undergraduate.</p>
                     <p>Submit 12-slide PPT and 2,000–3,000 word report.</p>
                   </div>
-                </div>
+                </InfoCard>
 
-                <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                  <div className="mb-4 flex justify-center">
-                    <FaMedal className="text-4xl" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">
-                    Awards & Recognition
-                  </h4>
-                  <ul className="text-gray-600 space-y-1 text-left">
+                <InfoCard title="Awards & Recognition" icon={<FaMedal />}>
+                  <ul className="space-y-2 list-disc pl-5">
                     <li>
                       First Place: USD $3,000, Certificate of Excellence, and
                       publication opportunity
@@ -186,68 +240,37 @@ export default function ScholarlyEvent() {
                       publication opportunity
                     </li>
                   </ul>
-                  <p className="text-gray-600 mt-3 text-left">
+                  <p className="mt-3">
                     Selected projects may also be featured in the Student
                     Research & Innovation Digest.
                   </p>
-                  <p className="text-gray-600 mt-3 text-left">
+                  <p className="mt-3">
                     Honorable Mentions will be recognized for creativity,
                     impact, and rigor.
                   </p>
-                </div>
+                </InfoCard>
               </div>
+            </EditorialSection>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">
-                    How to Apply
-                  </h4>
-                  <p className="text-gray-600 mb-3">
-                    Submit your application through our online portal (link to
-                    be provided) or email us directly at{" "}
-                    <a
-                      href="mailto:editor@young-innovator.org"
-                      className="text-primary underline"
-                      aria-label="Email us your application"
-                    >
-                      editor@young-innovator.org
-                    </a>
-                    . Include a 250–300 word abstract outlining your idea,
-                    approach, and significance.
-                  </p>
-                  <p className="text-gray-600">
-                    Format: Entirely online to allow national participation.
-                  </p>
-                </div>
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">Fees</h4>
-                  <p className="text-gray-600">
-                    Application fee: $500 per team. Fee waiver available upon
-                    request for students with financial need.
-                  </p>
-                </div>
-              </div>
-            </ContentSection>
-
-            <ContentSection title="Summer Research & Innovation Bootcamp">
-              <p className="mb-6">
+            <EditorialSection
+              id="summer-research-innovation-bootcamp"
+              title="Summer Research & Innovation Bootcamp"
+            >
+              <p>
                 Our Summer Research & Innovation Bootcamp is an intensive,
                 hands-on experience designed for curious and driven high school
                 students (grades 9–12) who want to explore real-world problems
                 through research, innovation, and leadership.
               </p>
 
-              <p className="mb-8">
+              <p>
                 Held over 2–4 weeks during the summer virtually, the camp
                 combines:
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div className="bg-white rounded-lg shadow-lg p-10">
-                  <h3 className="text-xl font-bold text-black mb-4">
-                    Program Components
-                  </h3>
-                  <ul className="space-y-3 text-gray">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <InfoCard title="Program Components">
+                  <ul className="space-y-2 list-disc pl-5">
                     <li>
                       Faculty-led workshops on AI, biomedical innovation,
                       ethics, and data science
@@ -263,23 +286,20 @@ export default function ScholarlyEvent() {
                     </li>
                     <li>Optional track: AI Case Challenge accelerator</li>
                   </ul>
-                </div>
+                </InfoCard>
 
-                <div className="bg-white rounded-lg shadow-lg p-10">
-                  <h3 className="text-xl font-bold text-black mb-4">
-                    What You'll Gain
-                  </h3>
-                  <ul className="space-y-3 text-gray">
+                <InfoCard title="What You'll Gain">
+                  <ul className="space-y-2 list-disc pl-5">
                     <li>Deeper understanding of academic research</li>
                     <li>A polished and publication-ready project</li>
                     <li>Confidence to pursue future STEM opportunities</li>
                     <li>College preparation and application support</li>
                     <li>Network of peers and mentors</li>
                   </ul>
-                </div>
+                </InfoCard>
               </div>
 
-              <p className="mb-6">
+              <p>
                 Students will leave this experience with a deeper understanding
                 of academic research, a polished and publication-ready project,
                 and the confidence to pursue future opportunities in STEM,
@@ -289,14 +309,14 @@ export default function ScholarlyEvent() {
                 seriously.
               </p>
 
-              <p className="">
+              <p>
                 All of our mentors and bootcamp trainers are renowned university
                 professors, each holding a Ph.D. and active appointments at top
                 institutions. They bring cutting-edge expertise, real-world
                 insights, and a deep commitment to nurturing the next generation
                 of thinkers and leaders.
               </p>
-              <p className="">
+              <p>
                 For more information,{" "}
                 <a
                   href="mailto:editor@young-innovator.org"
@@ -307,11 +327,11 @@ export default function ScholarlyEvent() {
                 </a>
                 .
               </p>
-            </ContentSection>
+            </EditorialSection>
 
-            <ContentSection
-              title="Occupation Health in Music"
-              id="Occupation Health in Music"
+            <EditorialSection
+              id="occupational-health-in-music"
+              title="Occupational Health in Music"
             >
               <p>
                 This Global Occupational Health Summit in Tertiary Music
@@ -338,10 +358,9 @@ export default function ScholarlyEvent() {
                 </a>
                 .
               </p>
-            </ContentSection>
+            </EditorialSection>
           </div>
 
-          {/* Table of Contents - hidden on small screens */}
           <div className="hidden lg:block lg:col-span-1">
             <TableOfContents sections={challengeSections} />
           </div>

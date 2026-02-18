@@ -38,21 +38,15 @@ Ding Research Lab is committed to empowering young innovators to explore bold id
 
 export default function Partners() {
   return (
-    <div className="min-h-screen -mt-16 bg-gray-100">
+    <div className="min-h-screen  bg-background">
       <Hero
         title="Strategic Partners"
         subtitle="Organizations supporting our mission."
       />
 
-      <div className="pt-10 pb-50">
-        <section className="py-10">
+      <div className="pb-50">
+        <section className="">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
-            <div className=" mb-12">
-              <h2 className="text-3xl md:text-4xl text-black mb-4">
-                Our partners.
-              </h2>
-            </div>
-
             {partners.map((p, idx) => {
               const right = idx % 2 === 1;
               const hasDate = false;
@@ -71,7 +65,7 @@ export default function Partners() {
                     className="block group"
                     aria-label={p.title}
                   >
-                    <article className="relative rounded-lg transition-colors hover:bg-white overflow-hidden bg-transparent border-primary border-1 duration-200 ease-in-out">
+                    <article className="relative rounded-lg transition-colors hover:bg-white overflow-hidden bg-transparent duration-200 ease-in-out">
                       <div className="relative p-8">
                         <div
                           className={`flex flex-col md:flex-row ${right ? "md:flex-row-reverse" : ""} gap-8 md:items-stretch`}

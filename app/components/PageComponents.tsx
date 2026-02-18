@@ -1,6 +1,8 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
+import { MotionHighlight } from "../../components/ui/motion-highlight";
 
 export interface ContentSectionProps {
   title: string;
@@ -66,52 +68,97 @@ export function TableOfContents({
   className = "",
 }: TableOfContentsProps) {
   const [activeSection, setActiveSection] = useState<string>("");
+  const lenis = useLenis();
+  const manualTargetRef = useRef<{ id: string; until: number } | null>(null);
+  const clearManualTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Get all currently intersecting entries
-        const intersectingEntries = entries.filter(
-          (entry) => entry.isIntersecting
-        );
+    const sectionElements = sections
+      .map(({ id }) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
 
-        if (intersectingEntries.length > 0) {
-          // Sort by their position in the document (top to bottom)
-          intersectingEntries.sort((a, b) => {
-            const aRect = a.target.getBoundingClientRect();
-            const bRect = b.target.getBoundingClientRect();
-            return aRect.top - bRect.top;
-          });
+    const getBestSection = () => {
+      const viewportHeight = window.innerHeight;
+      const viewportCenter = viewportHeight * 0.35;
+      let bestId = "";
+      let bestScore = -Infinity;
 
-          // Get the first (topmost) intersecting section
-          const topSection = intersectingEntries[0];
-          setActiveSection(topSection.target.id);
+      sectionElements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const visibleTop = Math.max(rect.top, 0);
+        const visibleBottom = Math.min(rect.bottom, viewportHeight);
+        const visible = Math.max(0, visibleBottom - visibleTop);
+        if (visible <= 0) return;
+
+        const visibleRatio = visible / Math.min(rect.height, viewportHeight);
+        const center = (rect.top + rect.bottom) / 2;
+        const distance = Math.abs(center - viewportCenter);
+        const score = visibleRatio - distance / viewportHeight;
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestId = el.id;
         }
-      },
-      { rootMargin: "-20% 0px -70% 0px" }
-    );
+      });
 
-    sections.forEach(({ id }) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
+      return bestId;
+    };
+
+    const shouldHoldManualTarget = () => {
+      const manual = manualTargetRef.current;
+      if (!manual) return false;
+      return Date.now() <= manual.until;
+    };
+
+    const updateActiveSection = () => {
+      if (shouldHoldManualTarget()) {
+        const manual = manualTargetRef.current;
+        if (manual && manual.id !== activeSection) {
+          setActiveSection(manual.id);
+        }
+        return;
+      }
+
+      const bestId = getBestSection();
+      if (bestId && bestId !== activeSection) {
+        setActiveSection(bestId);
+      }
+    };
+
+    const observer = new IntersectionObserver(updateActiveSection, {
+      rootMargin: "-15% 0px -55% 0px",
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
     });
 
-    return () => observer.disconnect();
-  }, [sections]);
+    sectionElements.forEach((element) => observer.observe(element));
+    updateActiveSection();
+
+    return () => {
+      observer.disconnect();
+      if (clearManualTimeoutRef.current) {
+        window.clearTimeout(clearManualTimeoutRef.current);
+      }
+    };
+  }, [sections, activeSection]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const elementRect = element.getBoundingClientRect();
-      const absoluteElementTop = elementRect.top + window.pageYOffset;
-      const viewportHeight = window.innerHeight;
-      // Scroll to position where element will be 20% from top (matching rootMargin)
-      const scrollToPosition = absoluteElementTop - viewportHeight * 0.2;
+      manualTargetRef.current = {
+        id,
+        until: Date.now() + 1800,
+      };
+      if (clearManualTimeoutRef.current) {
+        window.clearTimeout(clearManualTimeoutRef.current);
+      }
+      clearManualTimeoutRef.current = window.setTimeout(() => {
+        manualTargetRef.current = null;
+      }, 1800);
+      setActiveSection(id);
 
-      window.scrollTo({
-        top: scrollToPosition,
-        behavior: "smooth",
-      });
+      const viewportHeight = window.innerHeight;
+      const offset = -viewportHeight * 0.2;
+      if (lenis) lenis.scrollTo(element, { offset });
     }
   };
 
@@ -119,20 +166,30 @@ export function TableOfContents({
     <div
       className={`sticky ${stickyPosition} rounded-lg text-right ${className}`}
     >
-      <nav className="space-y-2 flex flex-col items-end">
-        {sections.map(({ id, title }) => (
-          <button
-            key={id}
-            onClick={() => scrollToSection(id)}
-            className={`block w-full text-right px-3 py-2 rounded-md text-sm transition-colors ${
-              activeSection === id
-                ? "bg-primary text-white"
-                : "text-gray hover:bg-primary hover:text-white"
-            }`}
-          >
-            {title}
-          </button>
-        ))}
+      <nav className="flex flex-col items-end">
+        <MotionHighlight
+          mode="parent"
+          value={activeSection || null}
+          className="rounded-md bg-primary"
+          containerClassName="flex flex-col items-end gap-2"
+          itemsClassName="relative z-[1]"
+          transition={{ type: "tween" }}
+        >
+          {sections.map(({ id, title }) => (
+            <button
+              key={id}
+              data-value={id}
+              onClick={() => scrollToSection(id)}
+              className={`block w-full text-right px-3 py-2 rounded-md text-sm transition-colors duration-200 cursor-pointer hover:bg-primary hover:text-white ${
+                activeSection === id
+                  ? "text-white delay-40"
+                  : "text-gray delay-0"
+              }`}
+            >
+              {title}
+            </button>
+          ))}
+        </MotionHighlight>
       </nav>
     </div>
   );

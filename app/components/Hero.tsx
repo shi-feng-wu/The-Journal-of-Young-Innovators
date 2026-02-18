@@ -1,8 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Wave from "react-wavify";
 import { useEffect, useState } from "react";
+import Navigation from "./Navigation";
 
 interface HeroProps {
   title?: string;
@@ -14,24 +14,27 @@ interface HeroProps {
   contentClassName?: string; // allows per-page layout overrides for the inner container
   waterEffect?: boolean;
   showWave?: boolean;
+  animate?: boolean;
+  delay?: boolean;
 }
 
 export default function Hero({
   title,
   subtitle,
   additionalContent,
-  titleClassName = "",
-  subtitleClassName = "",
-  sectionClassName = "",
-  contentClassName = "",
-  waterEffect = false,
-  showWave = false,
+  titleClassName = "hero-text",
+  subtitleClassName = "text-xl hero-text",
+  sectionClassName = "text-center",
+  contentClassName = "text-center",
+  showWave = true,
+  animate = false,
+  delay = false,
 }: HeroProps) {
   const [wavePaused, setWavePaused] = useState(true);
   const [waveAmplitude, setWaveAmplitude] = useState(0);
 
   useEffect(() => {
-    const delayMs = 1600;
+    const delayMs = delay ? 1600 : 0;
     const durationMs = 1600;
     const targetAmplitude = 28;
     let rafId: number;
@@ -59,25 +62,33 @@ export default function Hero({
 
   return (
     <section
-      className={`relative bg-primary text-white pt-10 pb-20 overflow-hidden ${sectionClassName}`}
+      className={`relative bg-primary text-white pb-10 mb-40 items-center flex flex-col ${sectionClassName} ${
+        animate ? "hero-animate" : "h-120"
+      }`}
     >
+      <div className="relative z-20 w-full">
+        <Navigation delay={delay} />
+      </div>
       <div
-        className={`relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-25 ${contentClassName}`}
+        className={`relative ${showWave ? "mt-32" : ""} h-full flex flex-col items-center justify-center z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 ${contentClassName}`}
       >
-        <div className="">
-          <h1 className={`text-4xl md:text-6xl mb-6 font-normal font-kenao ${titleClassName}`}>
-            {title}
-          </h1>
-          <h3 className={`mb-12 font-roboto-mono font-normal ${subtitleClassName}`}>{subtitle}</h3>
-
-          {additionalContent}
-        </div>
+        <h1
+          className={`text-5xl md:text-6xl mb-6 font-normal font-display ${titleClassName}`}
+        >
+          {title}
+        </h1>
+        <h3 className={`mb-12 font-mono font-normal ${subtitleClassName}`}>
+          {subtitle}
+        </h3>
+        {additionalContent ? (
+          <div className="hero-text">{additionalContent}</div>
+        ) : null}
       </div>
       {showWave && (
-        <div className="absolute left-0 right-0 -bottom-8 h-32 pointer-events-none">
+        <div className="absolute left-0 right-0 top-full h-32 pointer-events-none">
           <Wave
-            className="w-full h-full transform"
-            fill="#F2F3F4"
+            className="w-full h-full transform -scale-y-100"
+            fill="#002d72"
             paused={wavePaused}
             options={{
               height: 20,

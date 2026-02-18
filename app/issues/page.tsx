@@ -1,12 +1,18 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import ParallaxWatermark from "@/components/ParallaxWatermark";
+import TitleLink from "@/components/TitleLink";
 import { Great_Vibes } from "next/font/google";
-
-const greatVibes = Great_Vibes({
-  subsets: ["latin"],
-  weight: "400",
-});
+import { useLenis } from "lenis/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
+import TypingText from "@/components/TypingText";
+import SiteButton from "@/components/SiteButton";
+import { FaChevronCircleRight } from "react-icons/fa";
 
 const issue1Articles = [
   {
@@ -26,6 +32,8 @@ usually prompted by a new bundle of technologies and business models.`,
     publishDate: "2024-10-1",
     category: "Opinion Pieces",
     link: "/articles/Arenas of Competition.pdf",
+    volume: 1,
+    issueNumber: 1,
   },
   {
     id: 1,
@@ -56,7 +64,8 @@ realize their full potential.
     publishDate: "2025-04-02",
     category: "Opinion Pieces",
     link: "/articles/Neurons to Leaders.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: 1,
+    issueNumber: 1,
   },
   {
     id: 2,
@@ -75,7 +84,8 @@ framework for international students navigating complex and inequitable systems.
     publishDate: "2025-04-03",
     category: "Opinion Pieces",
     link: "/articles/Standing Steady.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: 1,
+    issueNumber: 1,
   },
   {
     id: 3,
@@ -97,7 +107,8 @@ physician.`,
     publishDate: "2025-04-05",
     category: "Research Articles",
     link: "/articles/Religion.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: 1,
+    issueNumber: 1,
   },
   {
     id: 4,
@@ -122,7 +133,8 @@ existing approaches to provide more comprehensive care to those in need.`,
     publishDate: "2025-04-08",
     category: "Research Articles",
     link: "/articles/Meet Your Therapist.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: 1,
+    issueNumber: 1,
   },
   {
     id: 5,
@@ -151,7 +163,8 @@ industry.`,
     publishDate: "2025-04-10",
     category: "Research Articles",
     link: "/articles/Seas Sustainable.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: 1,
+    issueNumber: 1,
   },
   {
     id: 6,
@@ -166,7 +179,8 @@ Science Direct, and Google Scholar.`,
     publishDate: "2025-04-15",
     category: "Research Articles",
     link: "/articles/The Plastic Problem.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: 1,
+    issueNumber: 1,
   },
   {
     id: 7,
@@ -190,7 +204,8 @@ social strata.`,
     publishDate: "2026-01-07",
     category: "Research Articles",
     link: "/articles/Foul on the Play.pdf",
-    issue: "Volume 2, Issue 1",
+    volume: 2,
+    issueNumber: 1,
   },
   {
     id: 8,
@@ -216,7 +231,8 @@ world.`,
     publishDate: "2026-01-07",
     category: "Research Articles",
     link: "/articles/Friend or Foe.pdf",
-    issue: "Volume 2, Issue 1",
+    volume: 2,
+    issueNumber: 1,
   },
   {
     id: 9,
@@ -233,11 +249,13 @@ new golf economy serves a broader and more diverse public.`,
     publishDate: "2026-01-22",
     category: "Research Articles",
     link: "/articles/Beyond the Fairway.pdf",
-    issue: "Volume 2, Issue 1",
+    volume: 2,
+    issueNumber: 1,
   },
   {
     id: 11,
-    title: "A Quantitative Analysis of Natural Resource Economics on Global Wealth",
+    title:
+      "A Quantitative Analysis of Natural Resource Economics on Global Wealth",
     author: "Andrew Leibowitz",
     school: "Cornell University",
     image: "/images/optimized/agri-1600.webp",
@@ -261,82 +279,317 @@ without compromising environmental integrity.`,
     publishDate: "2026-01-07",
     category: "Research Articles",
     link: "/articles/Natural Resources Economics.pdf",
-    issue: "Volume 2, Issue 1",
+    volume: 2,
+    issueNumber: 1,
   },
 ];
 
 export default function Issues() {
-  const renderGrid = (articles: typeof issue1Articles) => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-      {articles.map((article) => (
-        <Link
-          key={article.id}
-          href={article.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group block"
-          aria-label={article.title}
-        >
-          <article className="relative rounded-lg shadow-lg hover:shadow-xl transition-shadow overflow-hidden h-[300px] font-text">
-            <div
-              className="absolute inset-0 bg-center bg-cover opacity-55 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ backgroundImage: `url(${(article as any).image})` }}
-              aria-hidden="true"
-            />
-            <div
-              className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90"
-              aria-hidden="true"
-            />
-            <div className="relative p-6 h-full flex flex-col justify-start">
-              <div className="mb-3">
-                <span className="ring-1 ring-default text-white text-xs font-semibold px-2 py-1 mr-0 mx-auto rounded">
-                  {article.category}
-                </span>
-                <br />
-                {article.publishDate ? (
-                  <span className="text-white/80 text-xs">
-                    {new Date(article.publishDate).toLocaleDateString()}
-                  </span>
-                ) : null}
-                {article.publishDate && article.issue ? (
-                  <span className="text-white/60 mx-2 text-xs">·</span>
-                ) : null}
-                {article.issue ? (
-                  <span className="text-white/80 text-xs">
-                    {article.issue}
-                  </span>
-                ) : null}
+  const lenis = useLenis();
+  const pinSectionRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [activeIssue, setActiveIssue] = useState("");
+
+  const groupedByIssue = useMemo(
+    () =>
+      issue1Articles.reduce(
+        (acc, article) => {
+          const issueKey =
+            article.volume && article.issueNumber
+              ? `Volume ${article.volume}, Issue ${article.issueNumber}.`
+              : "Other";
+          acc[issueKey] = acc[issueKey]
+            ? [...acc[issueKey], article]
+            : [article];
+          return acc;
+        },
+        {} as Record<string, typeof issue1Articles>,
+      ),
+    [],
+  );
+  const issueEntries = useMemo(
+    () => Object.entries(groupedByIssue),
+    [groupedByIssue],
+  );
+  const firstDateByIssue = useMemo(
+    () =>
+      issueEntries.reduce<Record<string, string>>((acc, [issue, articles]) => {
+        const firstDate = articles[0]?.publishDate
+          ? new Date(articles[0].publishDate)
+          : null;
+        acc[issue] =
+          firstDate && !Number.isNaN(firstDate.getTime())
+            ? firstDate.toLocaleDateString(undefined, {
+                month: "long",
+                year: "numeric",
+              })
+            : "";
+        return acc;
+      }, {}),
+    [issueEntries],
+  );
+
+  const activeIssueNumber = useMemo(() => {
+    const match = activeIssue.match(/Issue\s*(\d+)/i);
+    return match ? Number(match[1]) : null;
+  }, [activeIssue]);
+
+  const activeVolumeNumber = useMemo(() => {
+    const match = activeIssue.match(/Volume\s*(\d+)/i);
+    return match ? Number(match[1]) : null;
+  }, [activeIssue]);
+
+  const [displayIssue, setDisplayIssue] = useState("");
+
+  useEffect(() => {
+    if (activeIssue) {
+      setDisplayIssue(activeIssue);
+    }
+  }, [activeIssue]);
+
+  const displayIssueNumber = useMemo(() => {
+    const match = displayIssue.match(/Issue\s*(\d+)/i);
+    return match ? Number(match[1]) : null;
+  }, [displayIssue]);
+
+  const displayVolumeNumber = useMemo(() => {
+    const match = displayIssue.match(/Volume\s*(\d+)/i);
+    return match ? Number(match[1]) : null;
+  }, [displayIssue]);
+
+  useEffect(() => {
+    if (!lenis) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const track = trackRef.current;
+      const pinSection = pinSectionRef.current;
+      if (!track || !pinSection) return;
+
+      const scrollDistance = Math.max(0, track.scrollWidth - track.clientWidth);
+
+      if (scrollDistance <= 0) return;
+
+      const issueStarts = Array.from(
+        track.querySelectorAll<HTMLElement>("[data-issue-start='true']"),
+      ).map((el) => ({
+        issue: el.dataset.issue ?? "",
+        offset: el.offsetLeft,
+      }));
+
+      const updateActiveIssue = () => {
+        const x = Math.abs(gsap.getProperty(track, "x") as number) || 0;
+        const midpoint = x + track.clientWidth / 2;
+        const current = issueStarts.reduce(
+          (acc, item) => (item.offset <= midpoint ? item.issue : acc),
+          issueStarts[0]?.issue ?? "",
+        );
+        setActiveIssue(current);
+      };
+
+      gsap.to(track, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          trigger: pinSection,
+          start: "bottom 95%",
+          end: `+=${scrollDistance}`,
+          scrub: true,
+          pin: true,
+          invalidateOnRefresh: true,
+          onUpdate: updateActiveIssue,
+          onEnter: updateActiveIssue,
+          onEnterBack: updateActiveIssue,
+          onLeave: () => setActiveIssue(""),
+          onLeaveBack: () => setActiveIssue(""),
+        },
+      });
+    });
+
+    const onResize = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", onResize);
+
+    const onLenisScroll = () => ScrollTrigger.update();
+    lenis.on("scroll", onLenisScroll);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      lenis.off("scroll", onLenisScroll);
+      ctx.revert();
+    };
+  }, [lenis, issueEntries]);
+
+  const renderScrollableRow = () => (
+    <div ref={pinSectionRef} className="relative">
+      <div className="overflow-hidden">
+        <div ref={trackRef} className="flex gap-6 pb-4">
+          {issueEntries.flatMap(([issue, articles], issueIndex) =>
+            articles.map((article, articleIndex) => (
+              <article
+                key={article.id}
+                data-issue-start={articleIndex === 0 ? "true" : undefined}
+                data-issue={articleIndex === 0 ? issue : undefined}
+                className={`relative text-black overflow-hidden font-text w-[88vw] max-w-[30rem] sm:w-[40rem] sm:max-w-none lg:w-150 h-135 flex-shrink-0 ${
+                  issueIndex === 0 && articleIndex === 0 ? "" : "pl-6"
+                }`}
+              >
+                {(issueIndex !== 0 || articleIndex !== 0) && (
+                  <span className="absolute left-0 top-1/2 h-3/5 w-px -translate-y-1/2 bg-black/30" />
+                )}
+                <div className="grid h-full grid-cols-1 md:grid-cols-[240px_minmax(0,1fr)] gap-6 p-6">
+                  <Link
+                    href={article.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={article.title}
+                    className="block w-full h-32 sm:h-40 md:h-full"
+                  >
+                    <div
+                      className="relative w-full h-full bg-center bg-cover"
+                      style={{
+                        backgroundImage: `url(${(article as any).image})`,
+                      }}
+                      aria-hidden="true"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
+                      <div className="absolute top-4 right-4 text-right font-mono text-white">
+                        {article.volume && article.issueNumber ? (
+                          <div className="text-sm md:text-base tracking-widest mb-0">
+                            {`Volume ${article.volume}, Issue ${article.issueNumber}`}
+                          </div>
+                        ) : null}
+                        <div className="mt-2 text-[10px] uppercase tracking-[0.35em]">
+                          {article.publishDate
+                            ? new Date(article.publishDate).toLocaleDateString()
+                            : ""}
+                        </div>
+                        <div className="mt-2 text-[10px] uppercase tracking-[0.35em]">
+                          {article.category}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                  <div className="flex flex-col min-h-0 min-w-0">
+                    <h3 className="text-2xl font-semibold text-black mb-3 tracking-wide font-display whitespace-normal break-words">
+                      <TitleLink
+                        href={article.link}
+                        label={article.title}
+                        className="block w-full"
+                        underlineThickness="2px"
+                      />
+                    </h3>
+                    <p className="text-black/80 font-mono text-sm whitespace-normal break-words">
+                      {article.author}
+                    </p>
+                    {article.school && (
+                      <p className="text-black/70 font-mono text-tiny whitespace-normal break-words">
+                        {article.school}
+                      </p>
+                    )}
+                    <p className="text-black/70 mt-3 leading-relaxed font-text text-sm line-clamp-11 whitespace-normal break-words">
+                      {article.abstract}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            )),
+          )}
+          <article className="relative text-black overflow-hidden font-text w-[100vw] max-w-[30rem] sm:w-[40rem] sm:max-w-none lg:w-150 flex-shrink-0">
+            <span className="absolute left-0 top-1/2 h-4/5 w-px -translate-y-1/2 bg-black/30" />
+            <div className="h-full p-6 flex items-center">
+              <div className="w-full h-full p-8 md:p-10 flex flex-col justify-center">
+                <div className="space-y-2 md:space-y-3">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-black/70 leading-none">
+                    Next Issue
+                  </p>
+                  <h3 className="font-display text-3xl md:text-4xl tracking-wide leading-[1.08]">
+                    More issues coming soon.
+                  </h3>
+                  <p className="text-black/75 text-sm md:text-base leading-6 md:leading-7 font-mono max-w-[40ch]">
+                    Have an article, paper, or idea worth publishing? We’re
+                    accepting new submissions now.
+                  </p>
+                </div>
+                <div className="mt-6 md:mt-7">
+                  <Link
+                    href="/submission"
+                    aria-label="Submit your article"
+                    className="group"
+                  >
+                    <SiteButton
+                      className="border-primary text-primary"
+                      color="primary"
+                      variant="ghost"
+                      endContent={
+                        <FaChevronCircleRight className="ml-1 text-lg text-current" />
+                      }
+                    >
+                      Submissions
+                    </SiteButton>
+                  </Link>
+                </div>
               </div>
-              <h3 className="text-lg leading-7 font-semibold text-white mb-2 line-clamp-3">
-                {article.title}
-              </h3>
-              <p className="text-white/90 text-xs line-clamp-1">
-                {article.author}
-              </p>
-              <p className="text-white/80 text-xs mt-2 line-clamp-4">
-                {article.abstract}
-              </p>
             </div>
           </article>
-        </Link>
-      ))}
+        </div>
+      </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen -mt-16 bg-gradient-to-b from-primary via-primary to-gray-100 relative overflow-hidden">
+    <div className="bg-background relative overflow-hidden">
+      <div className="pointer-events-none fixed inset-x-0 top-20 sm:top-16 lg:top-12 z-0">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-14 text-right">
+          <NumberFlowGroup>
+            <div
+              style={
+                { "--number-flow-char-height": "0.85em" } as React.CSSProperties
+              }
+              className="text-4xl xs:text-6xl lg:text-7xl leading-none font-display text-black whitespace-nowrap"
+            >
+              {displayVolumeNumber !== null && displayIssueNumber !== null ? (
+                <>
+                  <NumberFlow
+                    value={displayVolumeNumber}
+                    prefix="Volume "
+                    suffix=", "
+                  />
+                  <NumberFlow
+                    value={displayIssueNumber}
+                    suffix="."
+                    prefix="Issue "
+                  />
+                </>
+              ) : (
+                displayIssue
+              )}
+            </div>
+          </NumberFlowGroup>
+          <div
+            className={`-mt-0.5 text-[11px] sm:text-sm font-mono uppercase tracking-[0.2em] sm:tracking-[0.3em] text-black/80 transition-opacity duration-300 ease-out ${
+              activeIssue ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <span>Published </span>
+            <TypingText
+              text={
+                activeIssue ? `${firstDateByIssue[activeIssue] ?? ""}.` : ""
+              }
+              speed={75}
+              cursor={true}
+            />
+          </div>
+        </div>
+      </div>
       <Hero
         title="Issues"
         subtitle="Explore our published issues and articles."
-        subtitleClassName="mb-0"
-        sectionClassName="pb-0"
-        contentClassName="pb-0"
+        sectionClassName="mb-16!"
       />
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-0 pb-30">
-        <section className="pb-16">
-          {renderGrid(issue1Articles)}
-        </section>
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-14 pt-20 ">
+        <section>{renderScrollableRow()}</section>
       </div>
     </div>
   );

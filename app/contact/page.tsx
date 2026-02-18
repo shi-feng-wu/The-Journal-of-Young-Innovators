@@ -3,31 +3,27 @@ import SiteButton from "@/components/SiteButton";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen -mt-16 bg-primary">
+    <div className="h-screen bg-primary">
       <Hero
+        showWave={false}
         title="Contact Us"
-        subtitle="Have questions or want to get involved? We'd love to hear from you!"
+        subtitle="Have questions or want to get involved? We'd love to hear from you! Email us at editor@young-innovator.org and make sure to include your full name, school name, grade level."
+        sectionClassName="h-screen"
         additionalContent={
-          <div>
-            <p className="mb-2">Please include:</p>
-            <ul className="list-disc pl-6 space-y-1 mb-12">
-              <li>Your Full Name</li>
-              <li>School Name</li>
-              <li>Current Grade Level</li>
-              <li>Your specific question</li>
-            </ul>
-            <a href="mailto:editor@young-innovator.org">
-              <SiteButton
-                color="primary"
-                variant="shadow"
-                size="lg"
-                variantStyle="whiteHover"
-                className="border-2 rounded-lg p-4"
-              >
-                Contact our Editorial Team
-              </SiteButton>
-            </a>
-          </div>
+          <a
+            href="mailto:editor@young-innovator.org"
+            aria-label="Email the editorial team"
+          >
+            <SiteButton
+              color="primary"
+              variant="shadow"
+              size="lg"
+              variantStyle="whiteHover"
+              className="border-white text-white"
+            >
+              Contact our Editorial Team
+            </SiteButton>
+          </a>
         }
       />
     </div>

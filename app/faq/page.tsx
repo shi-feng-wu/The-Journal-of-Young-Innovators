@@ -68,7 +68,7 @@ const faqData = [
 
 export default function FAQ() {
   return (
-    <div className="min-h-screen -mt-16 bg-gray-100">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <Hero
         title="Frequently Asked Questions"
@@ -77,7 +77,7 @@ export default function FAQ() {
 
       {/* FAQ Section (aligned with other pages) */}
       <div className="pb-40">
-        <section className="py-30">
+        <section className="pb-10 pt-10">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
             <Accordion variant="splitted">
               {faqData.map((faq) => (
@@ -87,7 +87,7 @@ export default function FAQ() {
                   title={faq.question}
                   className="mb-4 bg-transparent border-none shadow-none"
                   classNames={{
-                    title: "text-3xl font-medium mr-2",
+                    title: "text-3xl font-medium mr-2 cursor-pointer",
                     base: "p-0",
                   }}
                 >

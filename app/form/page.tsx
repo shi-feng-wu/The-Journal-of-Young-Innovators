@@ -2,11 +2,21 @@
 
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
-import { Checkbox, Form, Input, Select, SelectItem, Textarea } from "@heroui/react";
+import {
+  Checkbox,
+  Form,
+  Input,
+  Select,
+  SelectItem,
+  Textarea,
+} from "@heroui/react";
 import { useState } from "react";
+import { FaChevronCircleRight } from "react-icons/fa";
 
 export default function Submit() {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const isDisabled = status === "sending" || status === "success";
   const USE_DEFAULT_VALUES = false;
@@ -29,7 +39,9 @@ export default function Submit() {
     setErrorMessage("");
 
     try {
-      const manuscript = form.querySelector<HTMLInputElement>("input[name='manuscript']")?.files?.[0];
+      const manuscript = form.querySelector<HTMLInputElement>(
+        "input[name='manuscript']",
+      )?.files?.[0];
       if (manuscript && manuscript.size > MAX_FILE_BYTES) {
         setErrorMessage("Manuscript must be 25MB or less.");
         setStatus("error");
@@ -66,37 +78,50 @@ export default function Submit() {
       setErrorMessage(serverMessage);
       setStatus("error");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to submit. Please try again.";
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to submit. Please try again.";
       setErrorMessage(message);
       setStatus("error");
     }
   };
 
   return (
-    <div className="min-h-screen -mt-16 bg-primary">
+    <div className="min-h-screen bg-primary">
       <Hero
         title="Submit a Manuscript"
-subtitle="We welcome submissions from high school and college students who are
+        subtitle="We welcome submissions from high school and college students who are
               passionate about academic inquiry and eager to contribute to
               meaningful scholarship. Our editorial board includes experienced
               researchers, educators, and editors dedicated to helping young
-              scholars grow through rigorous feedback and mentorship."        additionalContent={
-          <Form className="max-w-4xl font-mono text-black space-y-8 relative" onSubmit={handleSubmit}>
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white font-kenao">Author Information</h3>
+              scholars grow through rigorous feedback and mentorship."
+        sectionClassName="text-left h-auto pb-0!"
+        contentClassName="text-left items-start justify-start mt-20!"
+        additionalContent={
+          <Form
+            className="w-full max-w-4xl items-stretch font-mono text-black space-y-6 sm:space-y-8 relative"
+            onSubmit={handleSubmit}
+          >
+            <div className="w-full space-y-4">
+              <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
+                Author Information
+              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
+                  className="w-full"
                   label="First Name"
                   name="firstName"
-                  classNames={{ label: "font-serif" }}
+                  classNames={{ base: "w-full", label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
                   defaultValue={USE_DEFAULT_VALUES ? "Jane" : undefined}
                 />
                 <Input
+                  className="w-full"
                   label="Last Name"
                   name="lastName"
-                  classNames={{ label: "font-serif" }}
+                  classNames={{ base: "w-full", label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
                   defaultValue={USE_DEFAULT_VALUES ? "Doe" : undefined}
@@ -104,19 +129,23 @@ subtitle="We welcome submissions from high school and college students who are
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
+                  className="w-full"
                   label="Email Address"
                   name="email"
                   type="email"
-                  classNames={{ label: "font-serif" }}
+                  classNames={{ base: "w-full", label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
-                  defaultValue={USE_DEFAULT_VALUES ? "jane.doe@example.com" : undefined}
+                  defaultValue={
+                    USE_DEFAULT_VALUES ? "jane.doe@example.com" : undefined
+                  }
                 />
                 <Input
+                  className="w-full"
                   label="Phone Number"
                   name="phone"
                   type="tel"
-                  classNames={{ label: "font-serif" }}
+                  classNames={{ base: "w-full", label: "font-serif" }}
                   isDisabled={isDisabled}
                   value={phone}
                   onValueChange={(value) => setPhone(formatPhone(value))}
@@ -124,39 +153,49 @@ subtitle="We welcome submissions from high school and college students who are
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
+                  className="w-full"
                   label="School Name"
                   name="school"
-                  classNames={{ label: "font-serif" }}
+                  classNames={{ base: "w-full", label: "font-serif" }}
                   isRequired
                   isDisabled={isDisabled}
-                  defaultValue={USE_DEFAULT_VALUES ? "Example High School" : undefined}
+                  defaultValue={
+                    USE_DEFAULT_VALUES ? "Example High School" : undefined
+                  }
                 />
                 <Select
+                  className="w-full"
                   label="Grade Level"
                   name="gradeLevel"
                   isRequired
                   isDisabled={isDisabled}
-                  defaultSelectedKeys={USE_DEFAULT_VALUES ? ["hs-11"] : undefined}
+                  defaultSelectedKeys={
+                    USE_DEFAULT_VALUES ? ["hs-11"] : undefined
+                  }
                   classNames={{
+                    base: "w-full",
                     label: "font-serif",
+                    mainWrapper: "w-full",
                     trigger: "font-mono",
                     value: "font-mono",
                     listbox: "font-mono",
                     popoverContent: "font-mono",
                   }}
-                  listboxProps={{
-                    className: "max-h-64 overscroll-contain overflow-y-auto",
-                    onWheelCapture: (event: React.WheelEvent) => {
-                      event.stopPropagation();
-                      event.preventDefault();
-                    },
-                    onTouchMoveCapture: (event: React.TouchEvent) => {
-                      event.stopPropagation();
-                    },
-                    "data-lenis-prevent": "true",
-                    "data-lenis-prevent-wheel": "true",
-                    "data-lenis-prevent-touch": "true",
-                  } as any}
+                  listboxProps={
+                    {
+                      className: "max-h-64 overscroll-contain overflow-y-auto",
+                      onWheelCapture: (event: React.WheelEvent) => {
+                        event.stopPropagation();
+                        event.preventDefault();
+                      },
+                      onTouchMoveCapture: (event: React.TouchEvent) => {
+                        event.stopPropagation();
+                      },
+                      "data-lenis-prevent": "true",
+                      "data-lenis-prevent-wheel": "true",
+                      "data-lenis-prevent-touch": "true",
+                    } as any
+                  }
                 >
                   <SelectItem key="hs-9">Grade 9</SelectItem>
                   <SelectItem key="hs-10">Grade 10</SelectItem>
@@ -171,17 +210,25 @@ subtitle="We welcome submissions from high school and college students who are
               </div>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-white font-kenao">Manuscript Details</h3>
+            <div className="w-full space-y-4">
+              <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
+                Manuscript Details
+              </h3>
               <Input
+                className="w-full"
                 label="Manuscript Title"
                 name="manuscriptTitle"
                 classNames={{ label: "font-serif" }}
                 isRequired
                 isDisabled={isDisabled}
-                defaultValue={USE_DEFAULT_VALUES ? "AI and Innovation in Education" : undefined}
+                defaultValue={
+                  USE_DEFAULT_VALUES
+                    ? "AI and Innovation in Education"
+                    : undefined
+                }
               />
               <Input
+                className="w-full"
                 label="Manuscript"
                 name="manuscript"
                 type="file"
@@ -191,38 +238,62 @@ subtitle="We welcome submissions from high school and college students who are
                 accept=".docx,.doc"
               />
             </div>
-            <div className="space-y-4 text-white" >
-              <h3 className="text-xl font-semibold text-white font-kenao">Additional Information</h3>
-              <Checkbox color="default" classNames={{
-                label: "text-white font-serif"
-              }} name="needScholarship" value="yes" isDisabled={isDisabled} defaultSelected={USE_DEFAULT_VALUES}>
+            <div className="w-full space-y-4 text-white">
+              <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
+                Additional Information
+              </h3>
+              <Checkbox
+                color="default"
+                classNames={{
+                  label: "text-white font-serif",
+                }}
+                name="needScholarship"
+                value="yes"
+                isDisabled={isDisabled}
+                defaultSelected={USE_DEFAULT_VALUES}
+              >
                 I am requesting a need-based fee scholarship.
               </Checkbox>
               <Textarea
-                className="mt-4"
+                className="mt-4 w-full"
                 label="Need-Based Scholarship Statement"
                 name="scholarshipStatement"
                 classNames={{ label: "font-serif" }}
                 minRows={3}
                 isDisabled={isDisabled}
-                defaultValue={USE_DEFAULT_VALUES ? "Requesting a fee waiver due to financial need." : undefined}
+                defaultValue={
+                  USE_DEFAULT_VALUES
+                    ? "Requesting a fee waiver due to financial need."
+                    : undefined
+                }
               />
-              <Checkbox color="default" classNames={{
-                label: "text-white font-serif"
-              }} name="fastTrack" value="yes" isDisabled={isDisabled} defaultSelected={USE_DEFAULT_VALUES}>
+              <Checkbox
+                color="default"
+                classNames={{
+                  label: "text-white font-serif",
+                }}
+                name="fastTrack"
+                value="yes"
+                isDisabled={isDisabled}
+                defaultSelected={USE_DEFAULT_VALUES}
+              >
                 Fast Track Review (expedited fees apply).
               </Checkbox>
             </div>
 
             <div className="pt-2 relative">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <SiteButton
-                  variant="solid"
+                  color="primary"
+                  variant="ghost"
                   size="lg"
                   type="submit"
                   variantStyle="whiteHover"
                   isDisabled={isDisabled}
-                  className="hover:ring-1 hover:ring-white"
+                  className="w-[90vw] sm:w-120 justify-center border-white text-white"
+                  endContent={
+                    <FaChevronCircleRight className="ml-2 text-base text-current" />
+                  }
                 >
                   {status === "sending" && "Submitting..."}
                   {status === "idle" && "Submit Manuscript"}
@@ -237,7 +308,13 @@ subtitle="We welcome submissions from high school and college students who are
                         fill="none"
                         aria-hidden="true"
                       >
-                        <circle cx="12" cy="12" r="10" stroke="black" strokeWidth="2" />
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="black"
+                          strokeWidth="2"
+                        />
                         <path
                           className="checkmark__path"
                           d="M7 12.5l3 3 7-7"
@@ -254,9 +331,11 @@ subtitle="We welcome submissions from high school and college students who are
               </div>
 
               {(status === "success" || status === "error") && (
-                <div className="absolute left-0 top-full mt-2 max-w-lg whitespace-nowrap">
+                <div className="absolute left-0 top-full mt-2 max-w-lg pr-4">
                   {status === "success" && (
-                    <p className="text-green-200 text-sm">Submission sent successfully.</p>
+                    <p className="text-green-200 text-sm">
+                      Submission sent successfully.
+                    </p>
                   )}
                   {status === "error" && (
                     <p className="text-red-200 text-sm">{errorMessage}</p>
@@ -265,7 +344,6 @@ subtitle="We welcome submissions from high school and college students who are
               )}
             </div>
           </Form>
-
         }
       />
     </div>

@@ -22,7 +22,7 @@ function isAllowedOrigin(origin: string | null): boolean {
   return !!origin && allowed.has(origin);
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const userAgent = req.headers.get("user-agent") ?? "";
   if (/\bRCE-Injector\b/i.test(userAgent)) {
     return new NextResponse("Forbidden", { status: 403 });

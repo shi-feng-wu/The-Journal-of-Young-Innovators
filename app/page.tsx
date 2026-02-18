@@ -2,6 +2,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
+import TitleLink from "@/components/TitleLink";
 
 const allArticles = [
   {
@@ -21,6 +22,7 @@ usually prompted by a new bundle of technologies and business models.`,
     publishDate: "2024-10-1",
     category: "Opinion Pieces",
     link: "/articles/Arenas of Competition.pdf",
+    volume: "Feature",
   },
   {
     id: 2,
@@ -40,7 +42,8 @@ framework for international students navigating complex and inequitable systems.
     publishDate: "2025-04-03",
     category: "Opinion Pieces",
     link: "/articles/Leadership Education.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: "Vol. 1",
+    issue: "Issue 1",
   },
   {
     id: 3,
@@ -71,11 +74,13 @@ realize their full potential.
     publishDate: "2025-04-02",
     category: "Opinion Pieces",
     link: "/articles/Neurons to Leaders.pdf",
-    issue: "Volume 1, Issue 1",
+    volume: "Vol. 1",
+    issue: "Issue 1",
   },
   {
     id: 4,
-    title: "A Quantitative Analysis of Natural Resource Economics on Global Wealth",
+    title:
+      "A Quantitative Analysis of Natural Resource Economics on Global Wealth",
     author: "Andrew Leibowitz",
     school: "Cornell University",
     image: "/images/optimized/agri-1600.webp",
@@ -99,7 +104,8 @@ without compromising environmental integrity.`,
     publishDate: "2026-01-07",
     category: "Research Articles",
     link: "/articles/Natural Resources Economics.pdf",
-    issue: "Volume 2, Issue 1",
+    volume: "Vol. 2",
+    issue: "Issue 1",
   },
   {
     id: 5,
@@ -126,120 +132,152 @@ world.`,
     publishDate: "2026-01-07",
     category: "Research Articles",
     link: "/articles/Friend or Foe.pdf",
-    issue: "Volume 2, Issue 1",
+    volume: "Vol. 2",
+    issue: "Issue 1",
   },
 ];
 
 // Featured articles on the homepage
 const featuredArticles = allArticles;
 
+const ABSTRACT_CHAR_LIMIT = 600;
+
+function clampAtSentence(text: string, maxChars: number) {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxChars) return normalized;
+  const slice = normalized.slice(0, maxChars);
+  const lastStop = Math.max(
+    slice.lastIndexOf("."),
+    slice.lastIndexOf("!"),
+    slice.lastIndexOf("?"),
+  );
+  if (lastStop > 40) {
+    return slice.slice(0, lastStop + 1).trim();
+  }
+  return `${slice.trim()}…`;
+}
+
 export default function Home() {
   const articles = featuredArticles.slice(0, 5);
 
   return (
-    <div className="min-h-screen -mt-16 bg-[#F2F3F4]">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <Hero
         title="The Journal of Young Innovators"
-        titleClassName="hero-text"
         subtitle="Leadership. Innovation. AI."
-        subtitleClassName="text-xl hero-text"
-        contentClassName="text-center pt-10!"
-        sectionClassName="text-center hero-animate flex items-center"
         showWave
+        animate
+        delay
       />
 
-      <div className="pb-50 -mt-18">
+      <div className="pb-25 mt-30">
         {/* Featured Articles Section */}
-        <section className="py-10 font-text">
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
-            <div className=" mb-12">
-            </div>
+        <section className="pb-10">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20">
+            <div className=" mb-12"></div>
 
-            {/* Two featured articles: both use the horizontal layout, one per row on all breakpoints */}
+            {/* Uncontained featured list */}
             {articles.map((article, idx) => {
-              const right = idx % 2 === 1; // alternate alignment for visual variety
               const dateObj = article.publishDate
                 ? new Date(article.publishDate)
                 : null;
               const hasDate = !!(dateObj && !isNaN(dateObj.getTime()));
               const dateStr = hasDate ? dateObj.toLocaleDateString() : "";
+              const hasVolume = !!(
+                (article as any).volume &&
+                (article as any).volume.trim().length > 0
+              );
               const hasIssue = !!(
                 article.issue && article.issue.trim().length > 0
               );
+              const abstractText = clampAtSentence(
+                article.abstract,
+                ABSTRACT_CHAR_LIMIT,
+              );
               return (
-                <div className="mb-2 " key={article.id}>
-                  <Link
-                    href={article.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block group"
-                    aria-label={article.title}
-                  >
-                    <article className="relative bg-white rounded-md overflow-hidden">
-                      <div
-                        className="absolute inset-0 bg-center bg-cover opacity-60 group-hover:opacity-100 transition-opacity"
-                        style={{ backgroundImage: `url(${(article as any).image})` }}
-                        aria-hidden="true"
-                      />
-                      <div
-                        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90"
-                        aria-hidden="true"
-                      />
-                      <div className="relative p-8">
+                <div
+                  key={article.id}
+                  className={`border-t border-black/30 last:border-b ${idx === 0 ? "border-t-0" : ""}`}
+                >
+                  <article className="py-8 md:py-12 font-text">
+                    <div className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)_200px] gap-6 md:gap-8 lg:gap-10 items-start lg:items-stretch">
+                      <div className="w-full max-w-none lg:max-w-[280px] mx-auto lg:mx-0 h-32 sm:h-40 md:h-48 lg:h-[373px]">
                         <div
-                          className={`flex flex-col md:flex-row ${right ? "md:flex-row-reverse" : ""} gap-8 md:items-stretch`}
+                          className="relative w-full h-full bg-center bg-cover"
+                          style={{
+                            backgroundImage: `url(${(article as any).image})`,
+                          }}
+                          aria-hidden="true"
                         >
-                          <div
-                            className={`md:w-2/3 ${right ? "md:text-right" : ""}`}
-                          >
-                            <div className="mb-6">
-                              <span className="ring-default ring-1 text-white text-xs font-semibold px-2 py-1 rounded">
-                                {article.category}
-                              </span>
-                              {hasDate && (
-                                <span className="text-white/80 ml-4 text-xs">
-                                  {dateStr}
-                                </span>
-                              )}
-                              {hasDate && hasIssue && (
-                                <span className="text-white/60 mx-2 text-xs">
-                                  ·
-                                </span>
-                              )}
-                              {hasIssue && (
-                                <span className="text-white/80 text-xs">
-                                  {article.issue}
-                                </span>
-                              )}
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-transparent" />
+                          <div className="absolute top-3 right-3 md:top-4 md:right-4 text-right font-mono text-white lg:hidden">
+                            {hasVolume && (
+                              <div className="text-xs sm:text-sm md:text-base tracking-widest">
+                                {(article as any).volume}
+                              </div>
+                            )}
+                            {hasIssue && (
+                              <div className="text-xs sm:text-sm md:text-base tracking-widest">
+                                {article.issue}
+                              </div>
+                            )}
+                            <div className="mt-2 text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em]">
+                              {hasDate ? dateStr : ""}
                             </div>
-                            <h3 className="text-2xl font-semibold text-white mb-2 line-clamp-2">
-                              {article.title}
-                            </h3>
-                            <div className="mb-4">
-                              <p className="text-white font-semibold text-sm">
-                                {article.author}
-                              </p>
-                              <p className="text-white/70 text-xs">
-                                {article.school}
-                              </p>
+                            <div className="mt-2 text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em]">
+                              {article.category}
                             </div>
-                            <p className="text-white text-sm mb-3 line-clamp-4 opacity-90 leading-relaxed">
-                              {article.abstract}
-                            </p>
                           </div>
-                          <div className="md:w-1/3 hidden md:block" />
                         </div>
                       </div>
-                    </article>
-                  </Link>
+                      <div className="lg:h-[373px] flex flex-col min-h-0">
+                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-3 md:mb-4 tracking-wide font-display">
+                          <TitleLink
+                            href={article.link}
+                            label={article.title}
+                            className="block w-full"
+                          />
+                        </h3>
+                        <p className="text-black/80 font-mono text-sm md:text-base">
+                          {article.author}
+                        </p>
+                        {article.school && (
+                          <p className="text-black/70 font-mono text-tiny">
+                            {article.school}
+                          </p>
+                        )}
+                        <p className="text-black/70 text-sm md:text-md mt-3 md:mt-4 leading-relaxed font-text flex-1 overflow-hidden">
+                          {abstractText}
+                        </p>
+                      </div>
+                      <div className="hidden lg:block font-mono lg:text-right lg:h-full mt-1 lg:mt-0">
+                        {hasVolume && (
+                          <div className="text-xl sm:text-2xl md:text-3xl tracking-widest">
+                            {(article as any).volume}
+                          </div>
+                        )}
+                        {hasIssue && (
+                          <div className="text-xl sm:text-2xl md:text-3xl tracking-widest">
+                            {article.issue}
+                          </div>
+                        )}
+                        <div className="mt-4 md:mt-6 text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] md:tracking-[0.4em]">
+                          {hasDate ? dateStr : ""}
+                        </div>
+                        <div className="mt-2 md:mt-3 text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em]">
+                          {article.category}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
                 </div>
               );
             })}
             <div className="mt-8 flex justify-end">
               <Link href="/issues" className="group">
                 <SiteButton
-                  className="h-14 font-semibold pl-40 text-md border-primary text-primary"
+                  className="border-primary text-primary"
                   color="primary"
                   variant="ghost"
                   endContent={

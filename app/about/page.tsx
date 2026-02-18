@@ -2,11 +2,11 @@ import Hero from "@/components/Hero";
 
 export default function About() {
   return (
-    <div className="min-h-screen -mt-16 bg-gray-100">
+    <div className="min-h-screen  bg-background">
       <Hero title="About" subtitle="Who we are and why we exist." />
 
-      <div className="pb-40">
-        <section className="py-30">
+      <div className="pb-40 mt-30">
+        <section className="pb-10 pt-10">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
             <h2 className="text-2xl md:text-4xl mb-6">Mission Statement</h2>
             <p className="text-sm md:text-md mb-12">
