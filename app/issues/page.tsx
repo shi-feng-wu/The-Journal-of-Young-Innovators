@@ -314,12 +314,19 @@ export default function Issues() {
   const firstDateByIssue = useMemo(
     () =>
       issueEntries.reduce<Record<string, string>>((acc, [issue, articles]) => {
-        const firstDate = articles[0]?.publishDate
-          ? new Date(articles[0].publishDate)
-          : null;
+        const latestDate = articles
+          .map((article) =>
+            article.publishDate ? new Date(article.publishDate) : null,
+          )
+          .filter((date): date is Date => Boolean(date))
+          .reduce<Date | null>((maxDate, date) => {
+            if (Number.isNaN(date.getTime())) return maxDate;
+            if (!maxDate) return date;
+            return date.getTime() > maxDate.getTime() ? date : maxDate;
+          }, null);
         acc[issue] =
-          firstDate && !Number.isNaN(firstDate.getTime())
-            ? firstDate.toLocaleDateString(undefined, {
+          latestDate && !Number.isNaN(latestDate.getTime())
+            ? latestDate.toLocaleDateString(undefined, {
                 month: "long",
                 year: "numeric",
               })
