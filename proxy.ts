@@ -29,6 +29,21 @@ export function proxy(req: NextRequest) {
   }
 
   const pathname = req.nextUrl.pathname;
+  const searchParams = req.nextUrl.searchParams;
+
+  // Block hacked/spam URLs that abuse path-like query keys, e.g.
+  // /?commodity/valentine/govt813712143848
+  const hasPathLikeQueryKey = Array.from(searchParams.keys()).some((key) =>
+    key.includes("/"),
+  );
+  if (hasPathLikeQueryKey) {
+    return new NextResponse("Gone", {
+      status: 410,
+      headers: {
+        "X-Robots-Tag": "noindex, nofollow, noarchive",
+      },
+    });
+  }
 
   // Block common secret paths that scanners probe for.
   if (
@@ -46,7 +61,14 @@ export function proxy(req: NextRequest) {
     return new NextResponse("Forbidden", { status: 403 });
   }
 
-  return NextResponse.next();
+  const res = NextResponse.next();
+
+  // Avoid indexing query-string variants (utm, spam leftovers, etc.).
+  if (searchParams.size > 0) {
+    res.headers.set("X-Robots-Tag", "noindex, follow");
+  }
+
+  return res;
 }
 
 export const config = {

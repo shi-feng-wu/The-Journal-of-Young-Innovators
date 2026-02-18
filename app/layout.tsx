@@ -73,9 +73,6 @@ export const metadata: Metadata = {
       "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
     images: ["/logolight.png"],
   },
-  verification: {
-    google: "xet0nZILNVZJv0OOTKDsnME0Xfo8WAJJu2eYOjkG6U",
-  },
   icons: {
     icon: [
       { url: "/logodark.ico", media: "(prefers-color-scheme: light)" },
