@@ -229,7 +229,7 @@ export default function Home() {
       <Hero
         title="JYI | The Journal of Young Innovators"
         subtitle="Leadership. Innovation. AI."
-        contentClassName="text-center translate-y-6 sm:translate-y-8"
+        contentClassName="text-center mt-24!"
         showWave
         animate
         delay

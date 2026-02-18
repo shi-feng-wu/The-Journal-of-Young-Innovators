@@ -66,11 +66,11 @@ export default function Hero({
         animate ? "hero-animate" : "h-120"
       }`}
     >
-      <div className="absolute inset-x-0 top-0 z-20 w-full">
+      <div className="relative z-20 w-full">
         <Navigation delay={delay} />
       </div>
       <div
-        className={`relative h-full pt-16 flex flex-col items-center justify-center z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 ${contentClassName}`}
+        className={`relative ${showWave ? "mt-32" : ""} h-full flex flex-col items-center justify-center z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 ${contentClassName}`}
       >
         <h1
           className={`text-5xl md:text-6xl mb-6 font-normal font-display ${titleClassName}`}
