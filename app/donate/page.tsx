@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
+
+export const metadata: Metadata = {
+  title: "Donate",
+  description:
+    "Support JYI programs, scholarships, and student research initiatives by donating to The Journal of Young Innovators.",
+  alternates: {
+    canonical: "/donate",
+  },
+};
 
 export default function Donate() {
   return (

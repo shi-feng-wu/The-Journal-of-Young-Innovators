@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Contact JYI (The Journal of Young Innovators) editorial team for questions, collaborations, and support.",
+  alternates: {
+    canonical: "/contact",
+  },
+};
 
 export default function Contact() {
   return (

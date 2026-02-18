@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
 import TitleLink from "@/components/TitleLink";
+
+export const metadata: Metadata = {
+  title: "JYI | The Journal of Young Innovators",
+  description:
+    "JYI (The Journal of Young Innovators) publishes student scholarship on leadership, innovation, and AI.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 const allArticles = [
   {
@@ -159,13 +169,67 @@ function clampAtSentence(text: string, maxChars: number) {
 
 export default function Home() {
   const articles = featuredArticles.slice(0, 5);
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "JYI | The Journal of Young Innovators",
+    alternateName: ["JYI", "The Journal of Young Innovators"],
+    url: "https://young-innovator.org",
+    logo: "https://young-innovator.org/logolight.png",
+    description:
+      "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "JYI | The Journal of Young Innovators",
+    alternateName: ["JYI", "The Journal of Young Innovators"],
+    url: "https://young-innovator.org",
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is JYI?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "JYI stands for The Journal of Young Innovators.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What does JYI publish?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "JYI publishes student scholarship on leadership, innovation, and AI.",
+        },
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* Hero Section */}
       <Hero
-        title="The Journal of Young Innovators"
+        title="JYI | The Journal of Young Innovators"
         subtitle="Leadership. Innovation. AI."
+        contentClassName="text-center translate-y-6 sm:translate-y-8"
         showWave
         animate
         delay

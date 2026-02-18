@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn about JYI (The Journal of Young Innovators), our mission, and how we support young scholars in AI and innovation.",
+  alternates: {
+    canonical: "/about",
+  },
+};
 
 export default function About() {
   return (

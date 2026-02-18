@@ -31,9 +31,48 @@ const sourceSans3 = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "The Journal of Young Innovators",
+  metadataBase: new URL("https://young-innovator.org"),
+  title: {
+    default: "JYI | The Journal of Young Innovators",
+    template: "%s | JYI",
+  },
   description:
-    "A global community of young scholars exploring the impacts of artificial intelligence and innovation across disciplines. Leadership. Innovation. AI.",
+    "JYI (The Journal of Young Innovators) is a global community of young scholars exploring artificial intelligence and innovation across disciplines. Leadership. Innovation. AI.",
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [
+    "JYI",
+    "Journal of Young Innovators",
+    "young innovators journal",
+    "student research journal",
+    "AI research students",
+    "high school research journal",
+    "college research journal",
+  ],
+  openGraph: {
+    type: "website",
+    url: "https://young-innovator.org",
+    siteName: "JYI | The Journal of Young Innovators",
+    title: "JYI | The Journal of Young Innovators",
+    description:
+      "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
+    images: [
+      {
+        url: "/logolight.png",
+        width: 1200,
+        height: 630,
+        alt: "JYI | The Journal of Young Innovators",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JYI | The Journal of Young Innovators",
+    description:
+      "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
+    images: ["/logolight.png"],
+  },
   verification: {
     google: "xet0nZILNVZJv0OOTKDsnME0Xfo8WAJJu2eYOjkG6U",
   },
