@@ -3,7 +3,6 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 import Hero from "@/components/Hero";
 
 const PdfClientViewer = dynamic(() => import("./PdfClientViewer"), {
@@ -22,6 +21,7 @@ type PdfArticleViewerProps = {
   publishDate: string;
   volume: number;
   issueNumber: number;
+  backFrom?: "home" | "issues";
 };
 
 export default function PdfArticleViewer({
@@ -33,14 +33,13 @@ export default function PdfArticleViewer({
   publishDate,
   volume,
   issueNumber,
+  backFrom,
 }: PdfArticleViewerProps) {
-  const searchParams = useSearchParams();
   const [citeStatus, setCiteStatus] = useState<"idle" | "copied" | "error">(
     "idle",
   );
 
-  const from = searchParams.get("from");
-  const isFromHome = from === "home";
+  const isFromHome = backFrom === "home";
   const backHref = isFromHome ? "/" : "/issues";
   const backLabel = isFromHome ? "Back to Home" : "Back to Issues";
 

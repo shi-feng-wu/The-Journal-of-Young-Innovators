@@ -8,6 +8,7 @@ import {
 
 type PageProps = {
   params: Promise<{ article: string }>;
+  searchParams?: Promise<{ from?: string | string[] }>;
 };
 
 export function generateStaticParams() {
@@ -38,8 +39,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function ArticlePage({ params }: PageProps) {
+export default async function ArticlePage({ params, searchParams }: PageProps) {
   const { article } = await params;
+  const resolvedSearchParams = await searchParams;
+  const fromValue = resolvedSearchParams?.from;
+  const from = Array.isArray(fromValue) ? fromValue[0] : fromValue;
   const articleData = getArticleFromSlug(article);
 
   if (!articleData) {
@@ -56,6 +60,7 @@ export default async function ArticlePage({ params }: PageProps) {
       volume={articleData.volume}
       issueNumber={articleData.issueNumber}
       documentUrl={articleData.pdfPath}
+      backFrom={from === "home" ? "home" : "issues"}
     />
   );
 }
