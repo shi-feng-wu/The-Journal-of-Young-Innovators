@@ -21,6 +21,7 @@ export default function TitleLink({
   const containerRef = useRef<HTMLSpanElement | null>(null);
   const [lines, setLines] = useState<string[]>([]);
   const displayLabel = label.replace(/-/g, "‑");
+  const isExternalHref = /^https?:\/\//i.test(href);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -89,8 +90,8 @@ export default function TitleLink({
   return (
     <Link
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={isExternalHref ? "_blank" : undefined}
+      rel={isExternalHref ? "noopener noreferrer" : undefined}
       className={`title-underline ${className}`}
       aria-label={label}
     >
@@ -100,15 +101,17 @@ export default function TitleLink({
               <span key={`${line}-${index}`} className="title-underline-line">
                 <span
                   className="title-underline-text"
-                  style={{
-                    ...(index > 0 ? { "--delay": `${index * 120}ms` } : {}),
-                    ...(underlineThickness
-                      ? { "--underline-thickness": underlineThickness }
-                      : {}),
-                    ...(underlineLength
-                      ? { "--underline-length": underlineLength }
-                      : {}),
-                  } as React.CSSProperties}
+                  style={
+                    {
+                      ...(index > 0 ? { "--delay": `${index * 120}ms` } : {}),
+                      ...(underlineThickness
+                        ? { "--underline-thickness": underlineThickness }
+                        : {}),
+                      ...(underlineLength
+                        ? { "--underline-length": underlineLength }
+                        : {}),
+                    } as React.CSSProperties
+                  }
                 >
                   {line}
                 </span>

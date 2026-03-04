@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
 import TitleLink from "@/components/TitleLink";
+import { toArticleViewerHrefWithSource } from "@/lib/articlePdfViewer";
 
 export const metadata: Metadata = {
   title: "JYI | The Journal of Young Innovators",
@@ -51,7 +52,7 @@ leaders. A global moral compass, as defined by Thompson (2010), offers an essent
 framework for international students navigating complex and inequitable systems.`,
     publishDate: "2025-04-03",
     category: "Opinion Pieces",
-    link: "/articles/Leadership Education.pdf",
+    link: "/articles/Standing Steady.pdf",
     volume: "Vol. 1",
     issue: "Issue 1",
   },
@@ -259,6 +260,10 @@ export default function Home() {
                 article.abstract,
                 ABSTRACT_CHAR_LIMIT,
               );
+              const articleViewerHref = toArticleViewerHrefWithSource(
+                article.link,
+                "home",
+              );
               return (
                 <div
                   key={article.id}
@@ -267,38 +272,44 @@ export default function Home() {
                   <article className="py-8 md:py-12 font-text">
                     <div className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)_200px] gap-6 md:gap-8 lg:gap-10 items-start lg:items-stretch">
                       <div className="w-full max-w-none lg:max-w-[280px] mx-auto lg:mx-0 h-32 sm:h-40 md:h-48 lg:h-[373px]">
-                        <div
-                          className="relative w-full h-full bg-center bg-cover"
-                          style={{
-                            backgroundImage: `url(${(article as any).image})`,
-                          }}
-                          aria-hidden="true"
+                        <Link
+                          href={articleViewerHref}
+                          aria-label={article.title}
+                          className="block w-full h-full"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-transparent" />
-                          <div className="absolute top-3 right-3 md:top-4 md:right-4 text-right font-mono text-white lg:hidden">
-                            {hasVolume && (
-                              <div className="text-xs sm:text-sm md:text-base tracking-widest">
-                                {(article as any).volume}
+                          <div
+                            className="relative w-full h-full bg-center bg-cover"
+                            style={{
+                              backgroundImage: `url(${(article as any).image})`,
+                            }}
+                            aria-hidden="true"
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-transparent" />
+                            <div className="absolute top-3 right-3 md:top-4 md:right-4 text-right font-mono text-white lg:hidden">
+                              {hasVolume && (
+                                <div className="text-xs sm:text-sm md:text-base tracking-widest">
+                                  {(article as any).volume}
+                                </div>
+                              )}
+                              {hasIssue && (
+                                <div className="text-xs sm:text-sm md:text-base tracking-widest">
+                                  {article.issue}
+                                </div>
+                              )}
+                              <div className="mt-2 text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em]">
+                                {hasDate ? dateStr : ""}
                               </div>
-                            )}
-                            {hasIssue && (
-                              <div className="text-xs sm:text-sm md:text-base tracking-widest">
-                                {article.issue}
+                              <div className="mt-2 text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em]">
+                                {article.category}
                               </div>
-                            )}
-                            <div className="mt-2 text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em]">
-                              {hasDate ? dateStr : ""}
-                            </div>
-                            <div className="mt-2 text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.35em]">
-                              {article.category}
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       </div>
                       <div className="lg:h-[373px] flex flex-col min-h-0">
                         <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-black mb-3 md:mb-4 tracking-wide font-display">
                           <TitleLink
-                            href={article.link}
+                            href={articleViewerHref}
                             label={article.title}
                             className="block w-full"
                           />

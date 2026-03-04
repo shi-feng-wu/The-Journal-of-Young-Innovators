@@ -13,6 +13,7 @@ import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
 import TypingText from "@/components/TypingText";
 import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
+import { toArticleViewerHrefWithSource } from "@/lib/articlePdfViewer";
 
 const issue1Articles = [
   {
@@ -367,6 +368,16 @@ export default function Issues() {
   useEffect(() => {
     if (!lenis) return;
 
+    const setIssuesFooterPinned = (isPinned: boolean) => {
+      window.dispatchEvent(
+        new CustomEvent("issues-first-row-pin", {
+          detail: { isPinned },
+        }),
+      );
+    };
+
+    setIssuesFooterPinned(false);
+
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
@@ -400,16 +411,23 @@ export default function Issues() {
         ease: "none",
         scrollTrigger: {
           trigger: pinSection,
-          start: "bottom 95%",
+          start: "bottom 94%",
           end: `+=${scrollDistance}`,
           scrub: true,
           pin: true,
           invalidateOnRefresh: true,
+          onToggle: (self) => setIssuesFooterPinned(self.isActive),
           onUpdate: updateActiveIssue,
           onEnter: updateActiveIssue,
           onEnterBack: updateActiveIssue,
-          onLeave: () => setActiveIssue(""),
-          onLeaveBack: () => setActiveIssue(""),
+          onLeave: () => {
+            setActiveIssue("");
+            setIssuesFooterPinned(false);
+          },
+          onLeaveBack: () => {
+            setActiveIssue("");
+            setIssuesFooterPinned(false);
+          },
         },
       });
     });
@@ -421,6 +439,7 @@ export default function Issues() {
     lenis.on("scroll", onLenisScroll);
 
     return () => {
+      setIssuesFooterPinned(false);
       window.removeEventListener("resize", onResize);
       lenis.off("scroll", onLenisScroll);
       ctx.revert();
@@ -432,75 +451,82 @@ export default function Issues() {
       <div className="overflow-hidden">
         <div ref={trackRef} className="flex gap-6 pb-4">
           {issueEntries.flatMap(([issue, articles], issueIndex) =>
-            articles.map((article, articleIndex) => (
-              <article
-                key={article.id}
-                data-issue-start={articleIndex === 0 ? "true" : undefined}
-                data-issue={articleIndex === 0 ? issue : undefined}
-                className={`relative text-black overflow-hidden font-text w-[88vw] max-w-[30rem] sm:w-[40rem] sm:max-w-none lg:w-150 h-135 flex-shrink-0 ${
-                  issueIndex === 0 && articleIndex === 0 ? "" : "pl-6"
-                }`}
-              >
-                {(issueIndex !== 0 || articleIndex !== 0) && (
-                  <span className="absolute left-0 top-1/2 h-3/5 w-px -translate-y-1/2 bg-black/30" />
-                )}
-                <div className="grid h-full grid-cols-1 md:grid-cols-[240px_minmax(0,1fr)] gap-6 p-6">
-                  <Link
-                    href={article.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={article.title}
-                    className="block w-full h-32 sm:h-40 md:h-full"
-                  >
-                    <div
-                      className="relative w-full h-full bg-center bg-cover"
-                      style={{
-                        backgroundImage: `url(${(article as any).image})`,
-                      }}
-                      aria-hidden="true"
+            articles.map((article, articleIndex) => {
+              const articleViewerHref = toArticleViewerHrefWithSource(
+                article.link,
+                "issues",
+              );
+
+              return (
+                <article
+                  key={article.id}
+                  data-issue-start={articleIndex === 0 ? "true" : undefined}
+                  data-issue={articleIndex === 0 ? issue : undefined}
+                  className={`relative text-black overflow-hidden font-text w-[88vw] max-w-[30rem] sm:w-[40rem] sm:max-w-none lg:w-150 h-135 flex-shrink-0 ${
+                    issueIndex === 0 && articleIndex === 0 ? "" : "pl-6"
+                  }`}
+                >
+                  {(issueIndex !== 0 || articleIndex !== 0) && (
+                    <span className="absolute left-0 top-1/2 h-3/5 w-px -translate-y-1/2 bg-black/30" />
+                  )}
+                  <div className="grid h-full grid-cols-1 md:grid-cols-[240px_minmax(0,1fr)] gap-6 p-6">
+                    <Link
+                      href={articleViewerHref}
+                      aria-label={article.title}
+                      className="block w-full h-32 sm:h-40 md:h-full"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
-                      <div className="absolute top-4 right-4 text-right font-mono text-white">
-                        {article.volume && article.issueNumber ? (
-                          <div className="text-sm md:text-base tracking-widest mb-0">
-                            {`Volume ${article.volume}, Issue ${article.issueNumber}`}
+                      <div
+                        className="relative w-full h-full bg-center bg-cover"
+                        style={{
+                          backgroundImage: `url(${(article as any).image})`,
+                        }}
+                        aria-hidden="true"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
+                        <div className="absolute top-4 right-4 text-right font-mono text-white">
+                          {article.volume && article.issueNumber ? (
+                            <div className="text-sm md:text-base tracking-widest mb-0">
+                              {`Volume ${article.volume}, Issue ${article.issueNumber}`}
+                            </div>
+                          ) : null}
+                          <div className="mt-2 text-[10px] uppercase tracking-[0.35em]">
+                            {article.publishDate
+                              ? new Date(
+                                  article.publishDate,
+                                ).toLocaleDateString()
+                              : ""}
                           </div>
-                        ) : null}
-                        <div className="mt-2 text-[10px] uppercase tracking-[0.35em]">
-                          {article.publishDate
-                            ? new Date(article.publishDate).toLocaleDateString()
-                            : ""}
-                        </div>
-                        <div className="mt-2 text-[10px] uppercase tracking-[0.35em]">
-                          {article.category}
+                          <div className="mt-2 text-[10px] uppercase tracking-[0.35em]">
+                            {article.category}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                  <div className="flex flex-col min-h-0 min-w-0">
-                    <h3 className="text-2xl font-semibold text-black mb-3 tracking-wide font-display whitespace-normal break-words">
-                      <TitleLink
-                        href={article.link}
-                        label={article.title}
-                        className="block w-full"
-                        underlineThickness="2px"
-                      />
-                    </h3>
-                    <p className="text-black/80 font-mono text-sm whitespace-normal break-words">
-                      {article.author}
-                    </p>
-                    {article.school && (
-                      <p className="text-black/70 font-mono text-tiny whitespace-normal break-words">
-                        {article.school}
+                    </Link>
+                    <div className="flex flex-col min-h-0 min-w-0">
+                      <h3 className="text-2xl font-semibold text-black mb-3 tracking-wide font-display whitespace-normal break-words">
+                        <TitleLink
+                          href={articleViewerHref}
+                          label={article.title}
+                          className="block w-full"
+                          underlineThickness="2px"
+                        />
+                      </h3>
+                      <p className="text-black/80 font-mono text-sm whitespace-normal break-words">
+                        {article.author}
                       </p>
-                    )}
-                    <p className="text-black/70 mt-3 leading-relaxed font-text text-sm line-clamp-11 whitespace-normal break-words">
-                      {article.abstract}
-                    </p>
+                      {article.school && (
+                        <p className="text-black/70 font-mono text-tiny whitespace-normal break-words">
+                          {article.school}
+                        </p>
+                      )}
+                      <p className="text-black/70 mt-3 leading-relaxed font-text text-sm line-clamp-11 whitespace-normal break-words">
+                        {article.abstract}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </article>
-            )),
+                </article>
+              );
+            }),
           )}
           <article className="relative text-black overflow-hidden font-text w-[100vw] max-w-[30rem] sm:w-[40rem] sm:max-w-none lg:w-150 flex-shrink-0">
             <span className="absolute left-0 top-1/2 h-4/5 w-px -translate-y-1/2 bg-black/30" />
@@ -546,7 +572,7 @@ export default function Issues() {
 
   return (
     <div className="bg-background relative overflow-hidden">
-      <div className="pointer-events-none fixed inset-x-0 top-20 sm:top-16 lg:top-12 z-0">
+      <div className="pointer-events-none fixed inset-x-0 top-12 sm:top-10 lg:top-8 z-0">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-14 text-right">
           <NumberFlowGroup>
             <div

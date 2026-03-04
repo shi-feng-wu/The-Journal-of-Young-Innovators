@@ -27,6 +27,8 @@ export default function About() {
               technology, policy, law, and security—through research and
               interdisciplinary collaboration in a student-led, editorial
               board–reviewed scientific journal.
+              <br />
+              <strong>ISSN (Online):</strong> 3070-8885
             </p>
 
             <h2 className="text-2xl md:text-4xl mb-6">About Us</h2>

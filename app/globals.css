@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "@pdf-viewer/react/dist/assets/style.css";
+@import "react-pdf/dist/Page/TextLayer.css";
+@import "react-pdf/dist/Page/AnnotationLayer.css";
 @plugin './hero.ts';
 @source "../node_modules/@heroui";
 @custom-variant dark (&:is(.dark *));
@@ -169,4 +172,17 @@ input[type="reset"],
 
 .title-underline:hover .title-underline-text::after {
   transform: scaleX(1);
+}
+
+.hide-scrollbar,
+.hide-scrollbar * {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar,
+.hide-scrollbar *::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
