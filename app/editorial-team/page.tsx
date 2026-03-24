@@ -105,7 +105,7 @@ const industryCollaborators: Person[] = [
 
 const peerEditors: Person[] = [
   {
-    name: "Albert Zhou",
+    name: "Ashley Yu",
     affiliation: "Concord Academy",
     role: "Peer Editor",
   },
