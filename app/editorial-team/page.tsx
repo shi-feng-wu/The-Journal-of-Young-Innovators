@@ -114,6 +114,11 @@ const peerEditors: Person[] = [
     affiliation: "Cornell University",
     role: "Peer Editor",
   },
+  {
+    name: "Lilia Chesky",
+    affiliation: "Waseda University",
+    role: "Peer Editor",
+  },
 ];
 
 function PersonCard({ person }: { person: Person }) {
