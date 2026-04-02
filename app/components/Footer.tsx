@@ -43,8 +43,9 @@ export default function Footer() {
       } ${isWhiteFooterPage ? "text-white" : "text-primary"}`}
     >
       An online academic journal for high school and college students. Published
-      by Inception Education Consulting LLC - Baltimore, Maryland, USA. ISSN
-      (Online): 3070-8885.
+      by Inception Education - a non-profit collaboration dedicated to youth
+      educational advancement in Baltimore, Maryland, USA. ISSN (Online):
+      3070-8885
     </footer>
   );
 }

@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     const gradeLevel = String(formData.get("gradeLevel") ?? "");
     const manuscriptTitle = String(formData.get("manuscriptTitle") ?? "");
     const scholarshipStatement = String(
-      formData.get("scholarshipStatement") ?? ""
+      formData.get("scholarshipStatement") ?? "",
     );
     const needScholarship = formData.get("needScholarship") === "yes";
     const fastTrack = formData.get("fastTrack") === "yes";
@@ -25,12 +25,16 @@ export async function POST(request: Request) {
     const manuscript = formData.get("manuscript");
     const attachments: Array<{ filename: string; content: Buffer }> = [];
 
-    if (manuscript && typeof manuscript === "object" && "arrayBuffer" in manuscript) {
+    if (
+      manuscript &&
+      typeof manuscript === "object" &&
+      "arrayBuffer" in manuscript
+    ) {
       const file = manuscript as File;
       if (file.size > MAX_FILE_BYTES) {
         return new Response(
           JSON.stringify({ error: "Manuscript must be 25MB or less." }),
-          { status: 413 }
+          { status: 413 },
         );
       }
       const arrayBuffer = await file.arrayBuffer();
@@ -61,9 +65,10 @@ export async function POST(request: Request) {
     if (!smtpHost || !smtpUser || !smtpPass) {
       return new Response(
         JSON.stringify({
-          error: "Email service is not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASS.",
+          error:
+            "Email service is not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASS.",
         }),
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -77,7 +82,9 @@ export async function POST(request: Request) {
       },
     });
 
-    const fromEmail = process.env.SUBMISSION_FROM ?? `The Journal of Young Innovators <${smtpUser}>`;
+    const fromEmail =
+      process.env.SUBMISSION_FROM ??
+      `The Journal of Young Innovators <${smtpUser}>`;
 
     await transporter.sendMail({
       from: fromEmail,
@@ -123,7 +130,7 @@ export async function POST(request: Request) {
   } catch (error) {
     return new Response(
       JSON.stringify({ error: "Unable to send submission email." }),
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
