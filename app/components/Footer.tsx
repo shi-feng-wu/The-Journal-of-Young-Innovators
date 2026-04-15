@@ -42,10 +42,9 @@ export default function Footer() {
           : "opacity-100"
       } ${isWhiteFooterPage ? "text-white" : "text-primary"}`}
     >
-      An online academic journal for high school and college students. Published
-      by Inception Education - a non-profit collaboration dedicated to youth
-      educational advancement in Baltimore, Maryland, USA. ISSN (Online):
-      3070-8885
+      An online academic journal for high school and college students. A
+      non-profit collaboration dedicated to youth educational advancement,
+      published in Baltimore, Maryland, USA. ISSN (Online): 3070-8885
     </footer>
   );
 }
