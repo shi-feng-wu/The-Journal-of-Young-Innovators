@@ -50,6 +50,7 @@ const SITE_ARTICLE_SOURCE = [
     title:
       "Standing Steady in Shifting Ground: Why Leadership Education Matters for International Students",
     author: "Francella Ochillo, Clara Ma",
+    school: "Johns Hopkins University",
     publishDate: "2025-04-03",
     category: "Opinion Pieces",
     volume: 1,
@@ -171,6 +172,20 @@ const SITE_ARTICLE_SOURCE = [
       "A cross-country quantitative analysis of natural resource rents, depletion, and GDP per capita from 1970 to 2022.",
     image: "/images/optimized/agri-1600.webp",
     pdfBasename: "Natural Resources Economics",
+  },
+  {
+    id: 12,
+    title:
+      "Lessons from Arthur Miller's The Crucible: The Consequences of Merging Government and Religion",
+    author: "Kate Wheeler",
+    publishDate: "2026-04-28",
+    category: "Research Articles",
+    volume: 2,
+    issueNumber: 2,
+    abstract:
+      "A perspective piece using The Crucible and contemporary case studies to argue that merging religious doctrine with government authority undermines due process and democratic principles.",
+    image: "/images/optimized/crucible-1600.webp",
+    pdfBasename: "The Crucible",
   },
 ] as const;
 

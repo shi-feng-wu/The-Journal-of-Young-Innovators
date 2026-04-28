@@ -44,7 +44,8 @@ export default function Footer() {
     >
       An online academic journal for high school and college students. A
       non-profit collaboration dedicated to youth educational advancement,
-      published in Baltimore, Maryland, USA. ISSN (Online): 3070-8885
+      published in Baltimore, Maryland, USA. ISSN (Online): 3070-8885 ·
+      Contact: editor@young-innovator.org
     </footer>
   );
 }

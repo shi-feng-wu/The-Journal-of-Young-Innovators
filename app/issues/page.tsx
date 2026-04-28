@@ -1,19 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import Hero from "@/components/Hero";
-import ParallaxWatermark from "@/components/ParallaxWatermark";
+import SiteButton from "@/components/SiteButton";
 import TitleLink from "@/components/TitleLink";
-import { Great_Vibes } from "next/font/google";
-import { useLenis } from "lenis/react";
+import TypingText from "@/components/TypingText";
+import { toArticleViewerHrefWithSource } from "@/lib/articlePdfViewer";
+import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
-import TypingText from "@/components/TypingText";
-import SiteButton from "@/components/SiteButton";
+import { useLenis } from "lenis/react";
+import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaChevronCircleRight } from "react-icons/fa";
-import { toArticleViewerHrefWithSource } from "@/lib/articlePdfViewer";
 
 const issue1Articles = [
   {
@@ -282,6 +280,33 @@ without compromising environmental integrity.`,
     link: "/articles/Natural Resources Economics.pdf",
     volume: 2,
     issueNumber: 1,
+  },
+  {
+    id: 12,
+    title:
+      "Lessons from Arthur Miller's The Crucible: The Consequences of Merging Government and Religion",
+    author: "Kate Wheeler",
+    image: "/images/optimized/crucible-1600.webp",
+    abstract: `This perspective piece interrogates the implications of merging religious doctrine with
+government authority. Using both literary analysis of Arthur Miller’s The Crucible and drawing
+upon contemporary case studies, this paper argues that theoretical influence over legal systems
+incites widespread fear, undermines the tenet of due process, and promotes systemic injustice.
+The three illustrative case studies to be presented here include Stone v. Graham, the Taliban
+government in Afghanistan, and the proposed policy framework Project 2025. These different
+examples are collectively used to examine a wide range of government-state relations, from
+constitutional separation to full theocracy. The Stone v. Graham case upholds the separation of
+church and state in public schools. The Afghan example, on the other hand, serves as a direct
+contrast, demonstrating how religious doctrine’s impact on federal law results in severe
+restrictions to women’s rights. Finally, Project 2025 shows how religious influence may exert a
+more indirect but nonetheless consequential impact in a U.S. context. Findings from the analysis
+of these cases is used to advance the argument that maintaining a clear separation between
+church and state is essential for preserving democratic principles, protecting individual rights,
+and ensuring equitable governance`,
+    publishDate: "2026-04-28",
+    category: "Research Articles",
+    link: "/articles/The Crucible.pdf",
+    volume: 2,
+    issueNumber: 2,
   },
 ];
 

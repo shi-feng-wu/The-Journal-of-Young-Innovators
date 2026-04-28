@@ -5,6 +5,9 @@ import {
   getArticleFromSlug,
   getArticleViewerStaticParams,
 } from "@/lib/articlePdfViewer";
+import type { SiteArticle } from "@/lib/articles";
+
+const SITE_URL = "https://young-innovator.org";
 
 type PageProps = {
   params: Promise<{ article: string }>;
@@ -13,6 +16,22 @@ type PageProps = {
 
 export function generateStaticParams() {
   return getArticleViewerStaticParams();
+}
+
+function splitAuthors(author: string): string[] {
+  return author
+    .split(",")
+    .map((a) => a.trim())
+    .filter(Boolean);
+}
+
+function formatScholarDate(publishDate: string): string {
+  const d = new Date(publishDate);
+  if (Number.isNaN(d.getTime())) return publishDate;
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(d.getUTCDate()).padStart(2, "0");
+  return `${y}/${m}/${day}`;
 }
 
 export async function generateMetadata({
@@ -30,12 +49,102 @@ export async function generateMetadata({
     };
   }
 
+  const authors = splitAuthors(articleData.author);
+  const canonical = `/issues/articles/${articleData.slug}`;
+  const ogImage = articleData.image ?? "/logolight.png";
+  const pdfUrl = `${SITE_URL}${articleData.pdfPath}`;
+
   return {
     title: `${articleData.title} | JYI`,
-    description: `Read ${articleData.title} on JYI.`,
+    description: articleData.abstract,
+    authors: authors.map((name) => ({ name })),
     alternates: {
-      canonical: `/issues/articles/${articleData.slug}`,
+      canonical,
     },
+    openGraph: {
+      type: "article",
+      url: `${SITE_URL}${canonical}`,
+      title: articleData.title,
+      description: articleData.abstract,
+      siteName: "JYI | The Journal of Young Innovators",
+      publishedTime: articleData.publishDate,
+      authors,
+      images: [
+        {
+          url: ogImage,
+          alt: articleData.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: articleData.title,
+      description: articleData.abstract,
+      images: [ogImage],
+    },
+    other: {
+      citation_title: articleData.title,
+      citation_author: authors,
+      citation_publication_date: formatScholarDate(articleData.publishDate),
+      citation_journal_title: "The Journal of Young Innovators",
+      citation_issn: "3070-8885",
+      citation_volume: String(articleData.volume),
+      citation_issue: String(articleData.issueNumber),
+      citation_pdf_url: pdfUrl,
+      citation_abstract_html_url: `${SITE_URL}${canonical}`,
+    },
+  };
+}
+
+function buildArticleJsonLd(articleData: SiteArticle) {
+  const authors = splitAuthors(articleData.author);
+  const canonical = `${SITE_URL}/issues/articles/${articleData.slug}`;
+  const ogImage = articleData.image
+    ? `${SITE_URL}${articleData.image}`
+    : `${SITE_URL}/logolight.png`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    headline: articleData.title,
+    name: articleData.title,
+    abstract: articleData.abstract,
+    description: articleData.abstract,
+    datePublished: articleData.publishDate,
+    inLanguage: "en",
+    url: canonical,
+    mainEntityOfPage: canonical,
+    image: ogImage,
+    author: authors.map((name) => ({
+      "@type": "Person",
+      name,
+      ...(articleData.school ? { affiliation: articleData.school } : {}),
+    })),
+    isPartOf: {
+      "@type": "PublicationIssue",
+      issueNumber: articleData.issueNumber,
+      isPartOf: {
+        "@type": "PublicationVolume",
+        volumeNumber: articleData.volume,
+        isPartOf: {
+          "@type": "Periodical",
+          name: "The Journal of Young Innovators",
+          issn: "3070-8885",
+          url: SITE_URL,
+        },
+      },
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "The Journal of Young Innovators",
+      url: SITE_URL,
+    },
+    encoding: {
+      "@type": "MediaObject",
+      contentUrl: `${SITE_URL}${articleData.pdfPath}`,
+      encodingFormat: "application/pdf",
+    },
+    articleSection: articleData.category,
   };
 }
 
@@ -50,17 +159,26 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
     notFound();
   }
 
+  const jsonLd = buildArticleJsonLd(articleData);
+
   return (
-    <PdfArticleViewer
-      title={articleData.title}
-      author={articleData.author}
-      school={articleData.school}
-      category={articleData.category}
-      publishDate={articleData.publishDate}
-      volume={articleData.volume}
-      issueNumber={articleData.issueNumber}
-      documentUrl={articleData.pdfPath}
-      backFrom={from === "home" ? "home" : "issues"}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PdfArticleViewer
+        title={articleData.title}
+        author={articleData.author}
+        school={articleData.school}
+        category={articleData.category}
+        publishDate={articleData.publishDate}
+        volume={articleData.volume}
+        issueNumber={articleData.issueNumber}
+        abstract={articleData.abstract}
+        documentUrl={articleData.pdfPath}
+        backFrom={from === "home" ? "home" : "issues"}
+      />
+    </>
   );
 }

@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useState } from "react";
-import Hero from "@/components/Hero";
 
 const PdfClientViewer = dynamic(() => import("./PdfClientViewer"), {
   ssr: false,
@@ -21,6 +20,7 @@ type PdfArticleViewerProps = {
   publishDate: string;
   volume: number;
   issueNumber: number;
+  abstract: string;
   backFrom?: "home" | "issues";
 };
 
@@ -33,6 +33,7 @@ export default function PdfArticleViewer({
   publishDate,
   volume,
   issueNumber,
+  abstract,
   backFrom,
 }: PdfArticleViewerProps) {
   const [citeStatus, setCiteStatus] = useState<"idle" | "copied" | "error">(
@@ -80,6 +81,21 @@ export default function PdfArticleViewer({
               Volume {volume}, Issue {issueNumber}
             </p>
           </div>
+
+          <section
+            className="mt-5 border-t pt-4"
+            aria-labelledby="abstract-heading"
+          >
+            <h2
+              id="abstract-heading"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-black/70"
+            >
+              Abstract
+            </h2>
+            <p className="mt-2 font-serif text-sm leading-relaxed text-black/80">
+              {abstract}
+            </p>
+          </section>
 
           <div className="mt-7 flex flex-col gap-2">
             <a

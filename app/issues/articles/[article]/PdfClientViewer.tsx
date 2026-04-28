@@ -9,13 +9,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
-import {
-  VariableSizeList as List,
-  type ListChildComponentProps,
-  type ListOnItemsRenderedProps,
-  type VariableSizeList,
-} from "react-window";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -24,6 +17,13 @@ import {
   FaPlus,
   FaRotateLeft,
 } from "react-icons/fa6";
+import { Document, Page, pdfjs } from "react-pdf";
+import {
+  VariableSizeList as List,
+  type ListChildComponentProps,
+  type ListOnItemsRenderedProps,
+  type VariableSizeList,
+} from "react-window";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 

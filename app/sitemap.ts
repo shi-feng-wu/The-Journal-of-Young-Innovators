@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
+import { SITE_ARTICLES } from "@/lib/articles";
 
 const SITE_URL = "https://young-innovator.org";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const routes: Array<{ path: string; priority?: number }> = [
+  const staticRoutes: Array<{ path: string; priority?: number }> = [
     { path: "/", priority: 1 },
     { path: "/about", priority: 0.8 },
     { path: "/issues", priority: 0.9 },
@@ -19,10 +20,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/contact", priority: 0.4 },
   ];
 
-  return routes.map(({ path, priority }) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority,
-  }));
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map(
+    ({ path, priority }) => ({
+      url: `${SITE_URL}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority,
+    }),
+  );
+
+  const articleEntries: MetadataRoute.Sitemap = SITE_ARTICLES.map(
+    (article) => ({
+      url: `${SITE_URL}/issues/articles/${article.slug}`,
+      lastModified: new Date(article.publishDate),
+      changeFrequency: "yearly",
+      priority: 0.8,
+    }),
+  );
+
+  return [...staticEntries, ...articleEntries];
 }

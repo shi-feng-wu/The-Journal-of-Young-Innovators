@@ -81,6 +81,18 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Periodical",
+  name: "The Journal of Young Innovators",
+  alternateName: "JYI",
+  issn: "3070-8885",
+  url: "https://young-innovator.org",
+  logo: "https://young-innovator.org/logolight.png",
+  description:
+    "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -95,6 +107,12 @@ export default function RootLayout({
           as="font"
           type="font/otf"
           crossOrigin="anonymous"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
         />
       </head>
       <body
