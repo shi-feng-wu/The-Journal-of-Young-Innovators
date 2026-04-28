@@ -286,6 +286,7 @@ without compromising environmental integrity.`,
     title:
       "Lessons from Arthur Miller's The Crucible: The Consequences of Merging Government and Religion",
     author: "Kate Wheeler",
+    school: "State College Area High School",
     image: "/images/optimized/crucible-1600.webp",
     abstract: `This perspective piece interrogates the implications of merging religious doctrine with
 government authority. Using both literary analysis of Arthur Miller’s The Crucible and drawing
