@@ -11,7 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "lenis/react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FaChevronCircleRight } from "react-icons/fa";
+import { FaChevronCircleRight, FaChevronDown } from "react-icons/fa";
 
 const issue1Articles = [
   {
@@ -316,6 +316,10 @@ export default function Issues() {
   const pinSectionRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [activeIssue, setActiveIssue] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const stRef = useRef<ScrollTrigger | null>(null);
+  const issueStartsRef = useRef<Array<{ issue: string; offset: number }>>([]);
 
   const groupedByIssue = useMemo(
     () =>
@@ -421,6 +425,7 @@ export default function Issues() {
         issue: el.dataset.issue ?? "",
         offset: el.offsetLeft,
       }));
+      issueStartsRef.current = issueStarts;
 
       const updateActiveIssue = () => {
         const x = Math.abs(gsap.getProperty(track, "x") as number) || 0;
@@ -432,7 +437,7 @@ export default function Issues() {
         setActiveIssue(current);
       };
 
-      gsap.to(track, {
+      const tween = gsap.to(track, {
         x: -scrollDistance,
         ease: "none",
         scrollTrigger: {
@@ -456,6 +461,7 @@ export default function Issues() {
           },
         },
       });
+      stRef.current = tween.scrollTrigger ?? null;
     });
 
     const onResize = () => ScrollTrigger.refresh();
@@ -465,12 +471,36 @@ export default function Issues() {
     lenis.on("scroll", onLenisScroll);
 
     return () => {
+      stRef.current = null;
       setIssuesFooterPinned(false);
       window.removeEventListener("resize", onResize);
       lenis.off("scroll", onLenisScroll);
       ctx.revert();
     };
   }, [lenis, issueEntries]);
+
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [dropdownOpen]);
+
+  const scrollToIssue = (issue: string) => {
+    setDropdownOpen(false);
+    const st = stRef.current;
+    if (!st || !lenis) return;
+    const issueData = issueStartsRef.current.find((i) => i.issue === issue);
+    const offset = issueData?.offset ?? 0;
+    lenis.scrollTo(st.start + offset, { duration: 1.2 });
+  };
 
   const renderScrollableRow = () => (
     <div ref={pinSectionRef} className="relative">
@@ -598,33 +628,75 @@ export default function Issues() {
 
   return (
     <div className="bg-background relative overflow-hidden">
-      <div className="pointer-events-none fixed inset-x-0 top-12 sm:top-10 lg:top-8 z-0">
+      <div className="pointer-events-none fixed inset-x-0 top-12 sm:top-10 lg:top-8 z-20">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-14 text-right">
-          <NumberFlowGroup>
-            <div
-              style={
-                { "--number-flow-char-height": "0.85em" } as React.CSSProperties
-              }
-              className="text-4xl xs:text-6xl lg:text-7xl leading-none font-display text-black whitespace-nowrap"
+          <div
+            className="relative inline-block pointer-events-auto"
+            ref={dropdownRef}
+          >
+            <button
+              onClick={() => setDropdownOpen((o) => !o)}
+              className="focus:outline-none flex items-center gap-2 group cursor-pointer"
+              aria-expanded={dropdownOpen}
+              aria-haspopup="listbox"
             >
-              {displayVolumeNumber !== null && displayIssueNumber !== null ? (
-                <>
-                  <NumberFlow
-                    value={displayVolumeNumber}
-                    prefix="Volume "
-                    suffix=", "
-                  />
-                  <NumberFlow
-                    value={displayIssueNumber}
-                    suffix="."
-                    prefix="Issue "
-                  />
-                </>
-              ) : (
-                displayIssue
-              )}
-            </div>
-          </NumberFlowGroup>
+              <NumberFlowGroup>
+                <div
+                  style={
+                    {
+                      "--number-flow-char-height": "0.85em",
+                    } as React.CSSProperties
+                  }
+                  className="text-4xl xs:text-6xl lg:text-7xl leading-none font-display text-black whitespace-nowrap"
+                >
+                  {displayVolumeNumber !== null &&
+                  displayIssueNumber !== null ? (
+                    <>
+                      <NumberFlow
+                        value={displayVolumeNumber}
+                        prefix="Volume "
+                        suffix=", "
+                      />
+                      <NumberFlow
+                        value={displayIssueNumber}
+                        suffix="."
+                        prefix="Issue "
+                      />
+                    </>
+                  ) : (
+                    displayIssue
+                  )}
+                </div>
+              </NumberFlowGroup>
+              <FaChevronDown
+                className={`text-black ml-3 mt-1 text-xl sm:text-2xl lg:text-3xl shrink-0 transition-transform duration-200 ${
+                  dropdownOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+            {dropdownOpen && (
+              <div
+                role="listbox"
+                className="absolute right-0 top-full mt-2 bg-white shadow-xl rounded-xl py-1 z-50 min-w-55 border border-black/10"
+              >
+                {issueEntries.map(([issue]) => (
+                  <button
+                    key={issue}
+                    role="option"
+                    aria-selected={activeIssue === issue}
+                    onClick={() => scrollToIssue(issue)}
+                    className={`w-full text-left px-5 py-3 font-display text-base tracking-wide hover:bg-black/5 transition-colors ${
+                      activeIssue === issue
+                        ? "text-primary font-semibold"
+                        : "text-black"
+                    }`}
+                  >
+                    {issue.replace(/\.$/, "")}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           <div
             className={`-mt-0.5 text-[11px] sm:text-sm font-mono uppercase tracking-[0.2em] sm:tracking-[0.3em] text-black/80 transition-opacity duration-300 ease-out ${
               activeIssue ? "opacity-100" : "opacity-0"

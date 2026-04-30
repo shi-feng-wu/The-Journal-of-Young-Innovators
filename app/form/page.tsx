@@ -2,14 +2,7 @@
 
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
-import {
-  Checkbox,
-  Form,
-  Input,
-  Select,
-  SelectItem,
-  Textarea,
-} from "@heroui/react";
+import { Form, Input, Select, SelectItem } from "@heroui/react";
 import { useState } from "react";
 import { FaChevronCircleRight } from "react-icons/fa";
 
@@ -237,48 +230,6 @@ export default function Submit() {
                 isDisabled={isDisabled}
                 accept=".docx,.doc"
               />
-            </div>
-            <div className="w-full space-y-4 text-white">
-              <h3 className="text-lg sm:text-xl font-semibold text-white font-display">
-                Additional Information
-              </h3>
-              <Checkbox
-                color="default"
-                classNames={{
-                  label: "text-white font-serif",
-                }}
-                name="needScholarship"
-                value="yes"
-                isDisabled={isDisabled}
-                defaultSelected={USE_DEFAULT_VALUES}
-              >
-                I am requesting a need-based fee scholarship.
-              </Checkbox>
-              <Textarea
-                className="mt-4 w-full"
-                label="Need-Based Scholarship Statement"
-                name="scholarshipStatement"
-                classNames={{ label: "font-serif" }}
-                minRows={3}
-                isDisabled={isDisabled}
-                defaultValue={
-                  USE_DEFAULT_VALUES
-                    ? "Requesting a fee waiver due to financial need."
-                    : undefined
-                }
-              />
-              <Checkbox
-                color="default"
-                classNames={{
-                  label: "text-white font-serif",
-                }}
-                name="fastTrack"
-                value="yes"
-                isDisabled={isDisabled}
-                defaultSelected={USE_DEFAULT_VALUES}
-              >
-                Fast Track Review (expedited fees apply).
-              </Checkbox>
             </div>
 
             <div className="pt-2 relative">

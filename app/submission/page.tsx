@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import Hero from "@/components/Hero";
 import { TableOfContents } from "@/components/PageComponents";
 import SiteButton from "@/components/SiteButton";
-import { FaChevronCircleRight } from "react-icons/fa";
+import Link from "next/link";
 import { ReactNode } from "react";
+import { FaChevronCircleRight } from "react-icons/fa";
 
 function EditorialSection({
   id,
@@ -249,10 +249,14 @@ export default function Home() {
               title="Article Processing Charges"
             >
               <p>
-                We are a mission-driven, open-access journal committed to making
-                high-quality student research accessible globally. To support
-                editing, peer review, indexing, and digital hosting, we use a
-                two-stage fee structure:
+                We are honored to report that through generous grant funding
+                dedicated to making publishing accessible to students of all
+                income levels, APCs and submission fees will be waived for the
+                2026-2027 academic year. View our normal fee structure below.
+              </p>
+              <p>
+                To support editing, peer review, indexing, and digital hosting,
+                we use a two-stage fee structure:
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
                 <div className="rounded-2xl border border-black/10 bg-white p-5">

@@ -16,12 +16,6 @@ export async function POST(request: Request) {
     const school = String(formData.get("school") ?? "");
     const gradeLevel = String(formData.get("gradeLevel") ?? "");
     const manuscriptTitle = String(formData.get("manuscriptTitle") ?? "");
-    const scholarshipStatement = String(
-      formData.get("scholarshipStatement") ?? "",
-    );
-    const needScholarship = formData.get("needScholarship") === "yes";
-    const fastTrack = formData.get("fastTrack") === "yes";
-
     const manuscript = formData.get("manuscript");
     const attachments: Array<{ filename: string; content: Buffer }> = [];
 
@@ -52,9 +46,6 @@ export async function POST(request: Request) {
       `School: ${school}`,
       `Grade Level: ${gradeLevel}`,
       `Manuscript Title: ${manuscriptTitle}`,
-      `Need-Based Scholarship Requested: ${needScholarship ? "Yes" : "No"}`,
-      `Scholarship Statement: ${scholarshipStatement || "(none)"}`,
-      `Fast Track Review: ${fastTrack ? "Yes" : "No"}`,
     ].join("\n");
 
     const smtpHost = process.env.SMTP_HOST;
@@ -108,9 +99,7 @@ export async function POST(request: Request) {
         `School: ${school || "(not provided)"}`,
         `Grade Level: ${gradeLevel || "(not provided)"}`,
         `Manuscript Title: ${manuscriptTitle || "(not provided)"}`,
-        `Need-Based Scholarship Requested: ${needScholarship ? "Yes" : "No"}`,
-        `Scholarship Statement: ${scholarshipStatement || "(none)"}`,
-        `Fast Track Review: ${fastTrack ? "Yes" : "No"}`,
+
         "",
         "If anything looks incorrect, reply to this email to let us know.",
         "",
