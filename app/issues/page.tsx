@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
 import TitleLink from "@/components/TitleLink";
 import TypingText from "@/components/TypingText";
-import { toArticleViewerHrefWithSource } from "@/lib/articlePdfViewer";
+import { toArticleViewerHref } from "@/lib/articlePdfViewer";
 import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -510,10 +510,7 @@ export default function Issues() {
         <div ref={trackRef} className="flex gap-6 pb-4">
           {issueEntries.flatMap(([issue, articles], issueIndex) =>
             articles.map((article, articleIndex) => {
-              const articleViewerHref = toArticleViewerHrefWithSource(
-                article.link,
-                "issues",
-              );
+              const articleViewerHref = toArticleViewerHref(article.link);
 
               return (
                 <article

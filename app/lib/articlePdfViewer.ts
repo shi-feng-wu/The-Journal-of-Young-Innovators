@@ -11,16 +11,6 @@ export function toArticleViewerHref(pdfPath: string) {
   return `/issues/articles/${article.slug}`;
 }
 
-export function toArticleViewerHrefWithSource(
-  pdfPath: string,
-  from: "home" | "issues",
-) {
-  const article = getSiteArticleFromPdfPath(pdfPath);
-  if (!article) return pdfPath;
-
-  return `/issues/articles/${article.slug}?from=${from}`;
-}
-
 export function getArticleDisplayNameFromSlug(slug: string) {
   return getSiteArticleFromSlug(slug)?.title ?? null;
 }

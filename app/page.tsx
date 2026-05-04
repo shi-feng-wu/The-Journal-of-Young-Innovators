@@ -5,7 +5,7 @@ import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
 import TitleLink from "@/components/TitleLink";
-import { toArticleViewerHrefWithSource } from "@/lib/articlePdfViewer";
+import { toArticleViewerHref } from "@/lib/articlePdfViewer";
 
 export const metadata: Metadata = {
   title: "The Journal of Young Innovators (JYI)",
@@ -261,10 +261,7 @@ export default function Home() {
                 article.abstract,
                 ABSTRACT_CHAR_LIMIT,
               );
-              const articleViewerHref = toArticleViewerHrefWithSource(
-                article.link,
-                "home",
-              );
+              const articleViewerHref = toArticleViewerHref(article.link);
               return (
                 <div
                   key={article.id}
