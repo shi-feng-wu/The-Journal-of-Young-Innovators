@@ -78,6 +78,7 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
                 src="/logolight.png"
                 alt="The Journal of Young Innovators home"
                 className="h-10 transition-opacity"
+                fetchPriority="low"
               />
             </Link>
           </div>
@@ -101,6 +102,7 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
                     src="/logolight.png"
                     alt="The Journal of Young Innovators home"
                     className="h-10 transition-opacity"
+                    fetchPriority="low"
                   />
                 </Link>
               </MotionHighlightItem>
@@ -139,7 +141,7 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
                 aria-hidden="true"
                 className="inline-flex items-center rounded-md px-2 py-1 opacity-0 pointer-events-none"
               >
-                <img src="/logolight.png" alt="" className="h-10" />
+                <img src="/logolight.png" alt="" className="h-10" fetchPriority="low" />
               </div>
             </MotionHighlight>
           </div>

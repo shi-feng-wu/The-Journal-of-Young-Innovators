@@ -1,8 +1,13 @@
 "use client";
 
-import Wave from "react-wavify";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Navigation from "./Navigation";
+
+const Wave = dynamic(() => import("react-wavify"), {
+  ssr: false,
+  loading: () => null,
+});
 
 interface HeroProps {
   title?: string;
