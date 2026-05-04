@@ -87,15 +87,6 @@ body {
   animation: checkmark-draw 480ms ease-out forwards;
 }
 
-@keyframes hero-height-expand {
-  0% {
-    height: 100vh;
-  }
-  100% {
-    height: 70vh;
-  }
-}
-
 @keyframes hero-text-fade {
   0% {
     opacity: 0;
@@ -106,8 +97,7 @@ body {
 }
 
 .hero-animate {
-  animation: hero-height-expand 1500ms ease-in-out both;
-  animation-delay: 1200ms;
+  height: 70vh;
 }
 
 .hero-text {
