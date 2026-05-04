@@ -382,6 +382,8 @@ export default function Issues() {
   useEffect(() => {
     if (activeIssue) {
       setDisplayIssue(activeIssue);
+    } else {
+      setDropdownOpen(false);
     }
   }, [activeIssue]);
 
@@ -636,9 +638,15 @@ export default function Issues() {
           >
             <button
               onClick={() => setDropdownOpen((o) => !o)}
-              className="focus:outline-none flex items-center gap-2 group cursor-pointer"
+              className={`focus:outline-none flex items-center gap-2 group cursor-pointer transition-opacity duration-300 ease-out ${
+                activeIssue
+                  ? "opacity-100"
+                  : "opacity-0 pointer-events-none"
+              }`}
               aria-expanded={dropdownOpen}
               aria-haspopup="listbox"
+              aria-hidden={!activeIssue}
+              tabIndex={activeIssue ? 0 : -1}
             >
               <NumberFlowGroup>
                 <div

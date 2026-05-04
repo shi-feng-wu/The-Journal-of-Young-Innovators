@@ -281,7 +281,7 @@ export default function Home() {
                           <div className="relative w-full h-full overflow-hidden">
                             <Image
                               src={(article as any).image}
-                              alt=""
+                              alt={article.title}
                               fill
                               priority={idx === 0}
                               loading={idx === 0 ? undefined : "lazy"}

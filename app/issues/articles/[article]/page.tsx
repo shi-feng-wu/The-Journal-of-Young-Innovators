@@ -11,7 +11,6 @@ const SITE_URL = "https://young-innovator.org";
 
 type PageProps = {
   params: Promise<{ article: string }>;
-  searchParams?: Promise<{ from?: string | string[] }>;
 };
 
 export function generateStaticParams() {
@@ -51,8 +50,7 @@ export async function generateMetadata({
 
   const authors = splitAuthors(articleData.author);
   const canonical = `/issues/articles/${articleData.slug}`;
-  const ogImage = articleData.image ?? "/og-image.png";
-  const pdfUrl = `${SITE_URL}${articleData.pdfPath}`;
+  const pdfUrl = `${SITE_URL}/articles/${encodeURIComponent(articleData.pdfBasename)}.pdf`;
 
   return {
     title: `${articleData.title} | JYI`,
@@ -69,18 +67,11 @@ export async function generateMetadata({
       siteName: "The Journal of Young Innovators",
       publishedTime: articleData.publishDate,
       authors,
-      images: [
-        {
-          url: ogImage,
-          alt: articleData.title,
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
       title: articleData.title,
       description: articleData.abstract,
-      images: [ogImage],
     },
     other: {
       citation_title: articleData.title,
@@ -141,7 +132,7 @@ function buildArticleJsonLd(articleData: SiteArticle) {
     },
     encoding: {
       "@type": "MediaObject",
-      contentUrl: `${SITE_URL}${articleData.pdfPath}`,
+      contentUrl: `${SITE_URL}/articles/${encodeURIComponent(articleData.pdfBasename)}.pdf`,
       encodingFormat: "application/pdf",
     },
     articleSection: articleData.category,
@@ -175,11 +166,8 @@ function buildBreadcrumbJsonLd(articleData: SiteArticle) {
   };
 }
 
-export default async function ArticlePage({ params, searchParams }: PageProps) {
+export default async function ArticlePage({ params }: PageProps) {
   const { article } = await params;
-  const resolvedSearchParams = await searchParams;
-  const fromValue = resolvedSearchParams?.from;
-  const from = Array.isArray(fromValue) ? fromValue[0] : fromValue;
   const articleData = getArticleFromSlug(article);
 
   if (!articleData) {
@@ -209,7 +197,6 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
         issueNumber={articleData.issueNumber}
         abstract={articleData.abstract}
         documentUrl={articleData.pdfPath}
-        backFrom={from === "home" ? "home" : "issues"}
       />
     </>
   );

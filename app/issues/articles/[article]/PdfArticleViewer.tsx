@@ -21,7 +21,6 @@ type PdfArticleViewerProps = {
   volume: number;
   issueNumber: number;
   abstract: string;
-  backFrom?: "home" | "issues";
 };
 
 export default function PdfArticleViewer({
@@ -34,15 +33,10 @@ export default function PdfArticleViewer({
   volume,
   issueNumber,
   abstract,
-  backFrom,
 }: PdfArticleViewerProps) {
   const [citeStatus, setCiteStatus] = useState<"idle" | "copied" | "error">(
     "idle",
   );
-
-  const isFromHome = backFrom === "home";
-  const backHref = isFromHome ? "/" : "/issues";
-  const backLabel = isFromHome ? "Back to Home" : "Back to Issues";
 
   const formattedDate = new Date(publishDate).toLocaleDateString();
   const citationText = `${author}. "${title}." The Journal of Young Innovators, Volume ${volume}, Issue ${issueNumber}, ${formattedDate}.`;
@@ -60,17 +54,38 @@ export default function PdfArticleViewer({
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-[1400px] pt-10 mx-auto px-4 sm:px-6 lg:px-14 lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
-        <aside className="lg:sticky lg:self-start rounded-lg border bg-white p-5">
-          <Link
-            href={backHref}
-            aria-label={backLabel}
-            className="text-xs font-mono uppercase tracking-[0.2em] text-black/70 hover:text-black"
+      <nav
+        aria-label="Breadcrumb"
+        className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-14 pt-6"
+      >
+        <ol className="flex flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-[0.2em] text-black/60">
+          <li className="shrink-0">
+            <Link href="/" className="hover:text-black transition-colors">
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true" className="text-black/40 shrink-0">
+            ›
+          </li>
+          <li className="shrink-0">
+            <Link href="/issues" className="hover:text-black transition-colors">
+              Issues
+            </Link>
+          </li>
+          <li aria-hidden="true" className="text-black/40 shrink-0">
+            ›
+          </li>
+          <li
+            className="text-black/80 min-w-0 break-words"
+            aria-current="page"
           >
-            {`← ${backLabel}`}
-          </Link>
-
-          <h1 className="font-display text-2xl text-balance mt-3">{title}</h1>
+            {title}
+          </li>
+        </ol>
+      </nav>
+      <div className="max-w-[1400px] pt-6 mx-auto px-4 sm:px-6 lg:px-14 lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
+        <aside className="lg:sticky lg:self-start rounded-lg border bg-white p-5">
+          <h1 className="font-display text-2xl text-balance">{title}</h1>
 
           <div className="mt-4 font-mono text-xs uppercase text-black/70">
             <p>{author}</p>

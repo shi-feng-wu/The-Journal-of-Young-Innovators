@@ -8,6 +8,7 @@ import "./globals.css";
 import { Providers } from "./providers.tsx";
 import BackToTop from "./components/BackToTop";
 import Footer from "./components/Footer";
+import WebVitals from "./components/WebVitals";
 
 const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
@@ -40,6 +41,11 @@ export const metadata: Metadata = {
     "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": [
+        { url: "/feed.xml", title: "The Journal of Young Innovators" },
+      ],
+    },
   },
   openGraph: {
     type: "website",
@@ -70,6 +76,12 @@ export const metadata: Metadata = {
       { url: "/logodark.ico", media: "(prefers-color-scheme: light)" },
       { url: "/logolight.ico", media: "(prefers-color-scheme: dark)" },
     ],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: {
+      "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ?? "",
+    },
   },
 };
 
@@ -104,6 +116,7 @@ export default function RootLayout({
         className={`${dmSerifDisplay.variable} ${robotoMono.variable} ${sourceSans3.variable} antialiased`}
       >
         <Providers>
+          <WebVitals />
           <div className="min-h-screen flex flex-col relative">
             <main className="flex-grow">{children}</main>
             <BackToTop />
