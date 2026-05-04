@@ -3,8 +3,8 @@
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
 import { Form, Input, Select, SelectItem } from "@heroui/react";
-import { useState } from "react";
-import { FaChevronCircleRight } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { FaChevronCircleRight, FaFileAlt } from "react-icons/fa";
 
 export default function Submit() {
   const [status, setStatus] = useState<
@@ -16,6 +16,9 @@ export default function Submit() {
   const defaultPhone = USE_DEFAULT_VALUES ? "(555) 123-4567" : "";
   const [phone, setPhone] = useState<string>(defaultPhone);
   const MAX_FILE_BYTES = 25 * 1024 * 1024;
+  const [manuscriptFile, setManuscriptFile] = useState<File | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const formatPhone = (value: string) => {
     const digits = value.replace(/\D/g, "").slice(0, 10);
@@ -32,9 +35,7 @@ export default function Submit() {
     setErrorMessage("");
 
     try {
-      const manuscript = form.querySelector<HTMLInputElement>(
-        "input[name='manuscript']",
-      )?.files?.[0];
+      const manuscript = manuscriptFile;
       if (manuscript && manuscript.size > MAX_FILE_BYTES) {
         setErrorMessage("Manuscript must be 25MB or less.");
         setStatus("error");
@@ -42,6 +43,9 @@ export default function Submit() {
       }
 
       const formData = new FormData(form);
+      if (manuscriptFile) {
+        formData.set("manuscript", manuscriptFile);
+      }
       const response = await fetch("/api/submit", {
         method: "POST",
         body: formData,
@@ -50,6 +54,7 @@ export default function Submit() {
       if (response.ok) {
         form?.reset();
         setPhone(defaultPhone);
+        setManuscriptFile(null);
         setStatus("success");
         return;
       }
@@ -220,16 +225,70 @@ export default function Submit() {
                     : undefined
                 }
               />
-              <Input
-                className="w-full"
-                label="Manuscript"
-                name="manuscript"
-                type="file"
-                classNames={{ label: "font-serif" }}
-                isRequired
-                isDisabled={isDisabled}
-                accept=".docx,.doc"
-              />
+              <div>
+                <p className="text-white/70 text-xs font-serif mb-1.5 ml-0.5">
+                  Manuscript <span className="text-white/50">(required)</span>
+                </p>
+                <div
+                  role="button"
+                  tabIndex={isDisabled ? -1 : 0}
+                  aria-label="Upload manuscript"
+                  onClick={() => !isDisabled && fileInputRef.current?.click()}
+                  onKeyDown={(e) => {
+                    if (!isDisabled && (e.key === "Enter" || e.key === " ")) {
+                      fileInputRef.current?.click();
+                    }
+                  }}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    if (!isDisabled) setIsDragging(true);
+                  }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setIsDragging(false);
+                    if (isDisabled) return;
+                    const file = e.dataTransfer.files?.[0];
+                    if (file) setManuscriptFile(file);
+                  }}
+                  className={`w-full rounded-xl border-2 border-dashed px-5 py-6 flex flex-col items-center justify-center gap-2 transition-colors cursor-pointer select-none ${
+                    isDisabled
+                      ? "opacity-40 cursor-not-allowed border-white/20"
+                      : isDragging
+                        ? "border-white bg-white/10"
+                        : "border-white/30 hover:border-white/60 hover:bg-white/5"
+                  }`}
+                >
+                  <FaFileAlt className="text-white/60 text-2xl" />
+                  {manuscriptFile ? (
+                    <p className="text-white text-sm font-mono text-center break-all">
+                      {manuscriptFile.name}
+                    </p>
+                  ) : (
+                    <>
+                      <p className="text-white/80 text-sm font-serif">
+                        Click or drag &amp; drop to upload
+                      </p>
+                      <p className="text-white/40 text-xs font-mono">
+                        .doc, .docx, .pdf — max 25 MB
+                      </p>
+                    </>
+                  )}
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  name="manuscript"
+                  accept=".doc,.docx,.pdf"
+                  required
+                  disabled={isDisabled}
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] ?? null;
+                    setManuscriptFile(file);
+                  }}
+                />
+              </div>
             </div>
 
             <div className="pt-2 relative">

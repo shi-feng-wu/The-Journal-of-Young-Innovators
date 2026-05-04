@@ -76,7 +76,7 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
             <Link href="/" className="flex items-center lg:hidden">
               <img
                 src="/logolight.png"
-                alt="Logo"
+                alt="The Journal of Young Innovators home"
                 className="h-10 transition-opacity"
               />
             </Link>
@@ -99,7 +99,7 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
                 >
                   <img
                     src="/logolight.png"
-                    alt="Logo"
+                    alt="The Journal of Young Innovators home"
                     className="h-10 transition-opacity"
                   />
                 </Link>

@@ -33,48 +33,40 @@ const sourceSans3 = Source_Sans_3({
 export const metadata: Metadata = {
   metadataBase: new URL("https://young-innovator.org"),
   title: {
-    default: "JYI | The Journal of Young Innovators",
+    default: "The Journal of Young Innovators (JYI)",
     template: "%s | JYI",
   },
   description:
-    "JYI (The Journal of Young Innovators) is a global community of young scholars exploring artificial intelligence and innovation across disciplines. Leadership. Innovation. AI.",
+    "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
   alternates: {
     canonical: "/",
   },
-  keywords: [
-    "JYI",
-    "Journal of Young Innovators",
-    "young innovators journal",
-    "student research journal",
-    "AI research students",
-    "high school research journal",
-    "college research journal",
-  ],
   openGraph: {
     type: "website",
     url: "https://young-innovator.org",
-    siteName: "JYI | The Journal of Young Innovators",
-    title: "JYI | The Journal of Young Innovators",
+    siteName: "The Journal of Young Innovators",
+    title: "The Journal of Young Innovators (JYI)",
     description:
-      "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
+      "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
     images: [
       {
-        url: "/logolight.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "JYI | The Journal of Young Innovators",
+        alt: "The Journal of Young Innovators (JYI)",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JYI | The Journal of Young Innovators",
+    title: "The Journal of Young Innovators (JYI)",
     description:
-      "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
-    images: ["/logolight.png"],
+      "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
       { url: "/logodark.ico", media: "(prefers-color-scheme: light)" },
       { url: "/logolight.ico", media: "(prefers-color-scheme: dark)" },
     ],
@@ -88,7 +80,7 @@ const organizationJsonLd = {
   alternateName: "JYI",
   issn: "3070-8885",
   url: "https://young-innovator.org",
-  logo: "https://young-innovator.org/logolight.png",
+  logo: "https://young-innovator.org/logodark.png",
   description:
     "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
 };

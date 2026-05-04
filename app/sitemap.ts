@@ -4,27 +4,28 @@ import { SITE_ARTICLES } from "@/lib/articles";
 const SITE_URL = "https://young-innovator.org";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  const staticRoutes: Array<{ path: string; priority?: number }> = [
-    { path: "/", priority: 1 },
-    { path: "/about", priority: 0.8 },
-    { path: "/issues", priority: 0.9 },
-    { path: "/form", priority: 0.85 },
-    { path: "/submission", priority: 0.7 },
-    { path: "/faq", priority: 0.6 },
-    { path: "/editorial-team", priority: 0.6 },
-    { path: "/scholarly-event", priority: 0.6 },
-    { path: "/partners", priority: 0.5 },
-    { path: "/donate", priority: 0.4 },
-    { path: "/contact", priority: 0.4 },
+  const staticRoutes: Array<{
+    path: string;
+    priority?: number;
+    changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"];
+  }> = [
+    { path: "/", priority: 1, changeFrequency: "weekly" },
+    { path: "/about", priority: 0.8, changeFrequency: "yearly" },
+    { path: "/issues", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/form", priority: 0.85, changeFrequency: "yearly" },
+    { path: "/submission", priority: 0.7, changeFrequency: "yearly" },
+    { path: "/faq", priority: 0.6, changeFrequency: "yearly" },
+    { path: "/editorial-team", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/scholarly-event", priority: 0.6, changeFrequency: "monthly" },
+    { path: "/partners", priority: 0.5, changeFrequency: "yearly" },
+    { path: "/donate", priority: 0.4, changeFrequency: "yearly" },
+    { path: "/contact", priority: 0.4, changeFrequency: "yearly" },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map(
-    ({ path, priority }) => ({
+    ({ path, priority, changeFrequency }) => ({
       url: `${SITE_URL}${path}`,
-      lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency,
       priority,
     }),
   );

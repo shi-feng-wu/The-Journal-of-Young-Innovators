@@ -51,7 +51,7 @@ export async function generateMetadata({
 
   const authors = splitAuthors(articleData.author);
   const canonical = `/issues/articles/${articleData.slug}`;
-  const ogImage = articleData.image ?? "/logolight.png";
+  const ogImage = articleData.image ?? "/og-image.png";
   const pdfUrl = `${SITE_URL}${articleData.pdfPath}`;
 
   return {
@@ -66,7 +66,7 @@ export async function generateMetadata({
       url: `${SITE_URL}${canonical}`,
       title: articleData.title,
       description: articleData.abstract,
-      siteName: "JYI | The Journal of Young Innovators",
+      siteName: "The Journal of Young Innovators",
       publishedTime: articleData.publishDate,
       authors,
       images: [
@@ -101,7 +101,7 @@ function buildArticleJsonLd(articleData: SiteArticle) {
   const canonical = `${SITE_URL}/issues/articles/${articleData.slug}`;
   const ogImage = articleData.image
     ? `${SITE_URL}${articleData.image}`
-    : `${SITE_URL}/logolight.png`;
+    : `${SITE_URL}/og-image.png`;
 
   return {
     "@context": "https://schema.org",
@@ -148,6 +148,33 @@ function buildArticleJsonLd(articleData: SiteArticle) {
   };
 }
 
+function buildBreadcrumbJsonLd(articleData: SiteArticle) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Issues",
+        item: `${SITE_URL}/issues`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: articleData.title,
+        item: `${SITE_URL}/issues/articles/${articleData.slug}`,
+      },
+    ],
+  };
+}
+
 export default async function ArticlePage({ params, searchParams }: PageProps) {
   const { article } = await params;
   const resolvedSearchParams = await searchParams;
@@ -160,12 +187,17 @@ export default async function ArticlePage({ params, searchParams }: PageProps) {
   }
 
   const jsonLd = buildArticleJsonLd(articleData);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(articleData);
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <PdfArticleViewer
         title={articleData.title}

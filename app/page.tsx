@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
@@ -7,9 +8,9 @@ import TitleLink from "@/components/TitleLink";
 import { toArticleViewerHrefWithSource } from "@/lib/articlePdfViewer";
 
 export const metadata: Metadata = {
-  title: "JYI | The Journal of Young Innovators",
+  title: "The Journal of Young Innovators (JYI)",
   description:
-    "JYI (The Journal of Young Innovators) publishes student scholarship on leadership, innovation, and AI.",
+    "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
   alternates: {
     canonical: "/",
   },
@@ -173,10 +174,10 @@ export default function Home() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "JYI | The Journal of Young Innovators",
+    name: "The Journal of Young Innovators",
     alternateName: ["JYI", "The Journal of Young Innovators"],
     url: "https://young-innovator.org",
-    logo: "https://young-innovator.org/logolight.png",
+    logo: "https://young-innovator.org/logodark.png",
     description:
       "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
   };
@@ -184,7 +185,7 @@ export default function Home() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "JYI | The Journal of Young Innovators",
+    name: "The Journal of Young Innovators",
     alternateName: ["JYI", "The Journal of Young Innovators"],
     url: "https://young-innovator.org",
   };
@@ -228,7 +229,7 @@ export default function Home() {
       />
       {/* Hero Section */}
       <Hero
-        title="JYI | The Journal of Young Innovators"
+        title="The Journal of Young Innovators"
         subtitle="Leadership. Innovation. AI."
         contentClassName="text-center mt-24!"
         showWave
@@ -277,13 +278,16 @@ export default function Home() {
                           aria-label={article.title}
                           className="block w-full h-full"
                         >
-                          <div
-                            className="relative w-full h-full bg-center bg-cover"
-                            style={{
-                              backgroundImage: `url(${(article as any).image})`,
-                            }}
-                            aria-hidden="true"
-                          >
+                          <div className="relative w-full h-full overflow-hidden">
+                            <Image
+                              src={(article as any).image}
+                              alt=""
+                              fill
+                              priority={idx === 0}
+                              loading={idx === 0 ? undefined : "lazy"}
+                              sizes="(min-width: 1024px) 280px, 100vw"
+                              className="object-cover object-center"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-transparent" />
                             <div className="absolute top-3 right-3 md:top-4 md:right-4 text-right font-mono text-white lg:hidden">
                               {hasVolume && (
