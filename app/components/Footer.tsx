@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -45,7 +46,10 @@ export default function Footer() {
       An online academic journal for high school and college students. A
       non-profit collaboration dedicated to youth educational advancement,
       published in Baltimore, Maryland, USA. ISSN (Online): 3070-8885 ·
-      Contact: editor@young-innovator.org
+      Contact: editor@young-innovator.org ·{" "}
+      <Link href="/policies" className="hover:underline">
+        Policies
+      </Link>
     </footer>
   );
 }

@@ -8,6 +8,8 @@ import {
 import type { SiteArticle } from "@/lib/articles";
 
 const SITE_URL = "https://young-innovator.org";
+const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
+const LICENSE_NAME = "CC BY 4.0";
 
 type PageProps = {
   params: Promise<{ article: string }>;
@@ -83,6 +85,9 @@ export async function generateMetadata({
       citation_issue: String(articleData.issueNumber),
       citation_pdf_url: pdfUrl,
       citation_abstract_html_url: `${SITE_URL}${canonical}`,
+      "DC.rights": LICENSE_URL,
+      "dcterms.license": LICENSE_URL,
+      "dc.rights.holder": authors.join(", "),
     },
   };
 }
@@ -136,6 +141,9 @@ function buildArticleJsonLd(articleData: SiteArticle) {
       encodingFormat: "application/pdf",
     },
     articleSection: articleData.category,
+    license: LICENSE_URL,
+    copyrightHolder: authors.map((name) => ({ "@type": "Person", name })),
+    isAccessibleForFree: true,
   };
 }
 

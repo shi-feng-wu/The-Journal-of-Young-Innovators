@@ -56,6 +56,7 @@ export default function Home() {
     { id: "submission-rules", title: "Submission Rules" },
     { id: "formatting-requirements", title: "Formatting Requirements" },
     { id: "review-process", title: "Review Process" },
+    { id: "license-and-copyright", title: "License and Copyright" },
     {
       id: "article-processing-charges-apc",
       title: "Article Processing Charges",
@@ -242,6 +243,38 @@ export default function Home() {
                   Accepted papers may require revision before publication.
                 </li>
               </ul>
+            </EditorialSection>
+
+            <EditorialSection
+              id="license-and-copyright"
+              title="License and Copyright"
+            >
+              <p>
+                By submitting to The Journal of Young Innovators, authors agree
+                that their accepted article will be published open access under
+                a{" "}
+                <Link
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  className="underline underline-offset-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Creative Commons Attribution 4.0 International License (CC BY
+                  4.0)
+                </Link>
+                .
+              </p>
+              <p>
+                Authors retain copyright of their work and grant JYI a
+                non-exclusive license to publish. Full details on our{" "}
+                <Link
+                  href="/policies#license"
+                  className="underline underline-offset-2"
+                >
+                  Policies page
+                </Link>
+                .
+              </p>
             </EditorialSection>
 
             <EditorialSection

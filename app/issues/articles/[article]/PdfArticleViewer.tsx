@@ -143,6 +143,33 @@ export default function PdfArticleViewer({
               </span>
             </button>
           </div>
+
+          <section
+            className="mt-7 border-t pt-4"
+            aria-labelledby="license-heading"
+          >
+            <h2
+              id="license-heading"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-black/70"
+            >
+              License
+            </h2>
+            <p className="mt-2 font-serif text-xs leading-relaxed text-black/75">
+              © {new Date(publishDate).getUTCFullYear() || ""}{" "}
+              <span className="font-medium">{author}</span>. This article is
+              published open access under a{" "}
+              <a
+                href="https://creativecommons.org/licenses/by/4.0/"
+                target="_blank"
+                rel="license noopener noreferrer"
+                className="underline underline-offset-2 hover:text-black"
+              >
+                Creative Commons Attribution 4.0 International License (CC BY
+                4.0)
+              </a>
+              .
+            </p>
+          </section>
         </aside>
 
         <div className="mt-6 lg:mt-0">
