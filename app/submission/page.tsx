@@ -285,36 +285,7 @@ export default function Home() {
                 We are honored to report that through generous grant funding
                 dedicated to making publishing accessible to students of all
                 income levels, APCs and submission fees will be waived for the
-                2026-2027 academic year. View our normal fee structure below.
-              </p>
-              <p>
-                To support editing, peer review, indexing, and digital hosting,
-                we use a two-stage fee structure:
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
-                <div className="rounded-2xl border border-black/10 bg-white p-5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-black/60 mb-2">
-                    Stage 1
-                  </p>
-                  <p className="font-display text-2xl text-black mb-1">$50</p>
-                  <p className="font-text text-sm text-black/80 leading-relaxed">
-                    Submission Fee — due at submission.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-black/10 bg-white p-5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-black/60 mb-2">
-                    Stage 2
-                  </p>
-                  <p className="font-display text-2xl text-black mb-1">$300</p>
-                  <p className="font-text text-sm text-black/80 leading-relaxed">
-                    Publication Fee — due upon acceptance.
-                  </p>
-                </div>
-              </div>
-              <p>
-                Need-based scholarships are available by request. Applicants may
-                submit a brief statement of need during the submission process.
-                All fees are non-refundable.
+                2026-2027 academic year.
               </p>
             </EditorialSection>
 

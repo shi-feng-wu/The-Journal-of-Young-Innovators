@@ -80,6 +80,9 @@ export default function DesktopNavHighlight() {
         <MotionHighlightItem asChild>
           <NavLink href="/contact">Contact</NavLink>
         </MotionHighlightItem>
+        <MotionHighlightItem asChild>
+          <NavLink href="/policies">Policies</NavLink>
+        </MotionHighlightItem>
       </div>
 
       <div

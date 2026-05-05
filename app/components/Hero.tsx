@@ -1,13 +1,19 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import Navigation from "./Navigation";
 
-const Wave = dynamic(() => import("react-wavify"), {
-  ssr: false,
-  loading: () => null,
-});
+type WaveComponent = ComponentType<{
+  className?: string;
+  fill?: string;
+  paused?: boolean;
+  options?: {
+    height?: number;
+    amplitude?: number;
+    speed?: number;
+    points?: number;
+  };
+}>;
 
 interface HeroProps {
   title?: string;
@@ -37,11 +43,37 @@ export default function Hero({
   delay = false,
   navOnly = false,
 }: HeroProps) {
+  const [Wave, setWave] = useState<WaveComponent | null>(null);
   const [wavePaused, setWavePaused] = useState(true);
   const [waveAmplitude, setWaveAmplitude] = useState(0);
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
 
   useEffect(() => {
-    const delayMs = delay ? 1600 : 0;
+    if (!showWave) return;
+    let mounted = true;
+    import("react-wavify").then((mod) => {
+      if (mounted) setWave(() => mod.default as WaveComponent);
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [showWave]);
+
+  useEffect(() => {
+    if (!Wave) return;
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => setShowPlaceholder(false));
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      if (raf2) cancelAnimationFrame(raf2);
+    };
+  }, [Wave]);
+
+  useEffect(() => {
+    if (!Wave) return;
+    const delayMs = delay ? 600 : 0;
     const durationMs = 1600;
     const targetAmplitude = 28;
     let rafId: number;
@@ -65,7 +97,7 @@ export default function Hero({
       window.clearTimeout(timerId);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [Wave, delay]);
 
   return (
     <section
@@ -99,17 +131,25 @@ export default function Hero({
       ) : null}
       {showWave && (
         <div className="absolute left-0 right-0 top-full h-32 pointer-events-none">
-          <Wave
-            className="w-full h-full transform -scale-y-100"
-            fill="#002d72"
-            paused={wavePaused}
-            options={{
-              height: 20,
-              amplitude: waveAmplitude,
-              speed: 0.1,
-              points: 4,
-            }}
-          />
+          {showPlaceholder && (
+            <div
+              className="absolute inset-x-0 top-0 bg-[#002d72]"
+              style={{ height: "calc(100% - 20px)" }}
+            />
+          )}
+          {Wave && (
+            <Wave
+              className="w-full h-full transform -scale-y-100"
+              fill="#002d72"
+              paused={wavePaused}
+              options={{
+                height: 20,
+                amplitude: waveAmplitude,
+                speed: 0.1,
+                points: 4,
+              }}
+            />
+          )}
         </div>
       )}
     </section>

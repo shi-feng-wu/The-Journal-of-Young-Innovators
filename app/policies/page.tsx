@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
+import { TableOfContents } from "@/components/PageComponents";
 
 export const metadata: Metadata = {
   title: "Policies",
@@ -25,17 +26,24 @@ function PolicySection({
   id,
   title,
   children,
+  noTopBorder = false,
 }: {
   id: string;
   title: string;
   children: React.ReactNode;
+  noTopBorder?: boolean;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 py-8 border-t border-black/15">
-      <h2 className="text-2xl md:text-4xl mb-4 font-display tracking-wide">
-        {title}
-      </h2>
-      <div className="text-sm md:text-md leading-relaxed text-black/80 space-y-3 [&_a]:underline [&_a]:underline-offset-2">
+    <section
+      id={id}
+      className={`${noTopBorder ? "pb-12" : "py-12 border-t border-black/30"} font-text scroll-mt-24`}
+    >
+      <div className="mb-6 flex items-end justify-between gap-4">
+        <h2 className="font-display text-3xl md:text-4xl text-black tracking-wide">
+          {title}
+        </h2>
+      </div>
+      <div className="space-y-5 text-sm md:text-md leading-relaxed text-black/80 [&_a]:underline [&_a]:underline-offset-2">
         {children}
       </div>
     </section>
@@ -44,30 +52,16 @@ function PolicySection({
 
 export default function PoliciesPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-10">
       <Hero
         title="Policies"
         subtitle="Open access, licensing, peer review, ethics, and preservation policies."
       />
 
-      <div className="pb-40 mt-30">
-        <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-20">
-          <nav aria-label="Policy sections" className="mb-10">
-            <ul className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-black/60">
-              {sections.map((s) => (
-                <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    className="hover:text-black transition-colors"
-                  >
-                    {s.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <PolicySection id="open-access" title="Open Access">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 md:gap-14 lg:gap-20">
+          <div className="lg:col-span-3">
+            <PolicySection id="open-access" title="Open Access" noTopBorder>
             <p>
               The Journal of Young Innovators (JYI) is a fully open-access
               journal. All articles published in JYI are freely available to
@@ -261,6 +255,11 @@ export default function PoliciesPage() {
               .
             </p>
           </PolicySection>
+          </div>
+
+          <div className="hidden lg:block lg:col-span-1">
+            <TableOfContents sections={sections} />
+          </div>
         </div>
       </div>
     </div>

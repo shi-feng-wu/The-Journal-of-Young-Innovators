@@ -58,6 +58,7 @@ function DesktopNavStatic() {
         <NavLink href="/partners">Strategic Partners</NavLink>
         <NavLink href="/donate">Donate</NavLink>
         <NavLink href="/contact">Contact</NavLink>
+        <NavLink href="/policies">Policies</NavLink>
       </div>
       <div
         aria-hidden="true"
@@ -217,6 +218,12 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
             </MobileNavLink>
             <MobileNavLink href="/contact" onClick={() => setIsMenuOpen(false)}>
               Contact
+            </MobileNavLink>
+            <MobileNavLink
+              href="/policies"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Policies
             </MobileNavLink>
           </div>
         </div>
