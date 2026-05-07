@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Hero from "@/components/Hero";
-import { Card, CardHeader } from "@heroui/react";
 import SiteButton from "@/components/SiteButton";
+import { Card, CardHeader } from "@heroui/react";
+import Link from "next/link";
 import { FaChevronCircleRight } from "react-icons/fa";
 
 interface Person {
