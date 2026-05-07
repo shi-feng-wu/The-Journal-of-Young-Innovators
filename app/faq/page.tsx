@@ -14,13 +14,13 @@ const faqData = [
     id: 2,
     question: "What's the total cost to publish?",
     answer:
-      "There is a $50 submission fee per author and a $300 post-acceptance fee, covering editing, peer review, indexing, and open access publishing.",
+      "For the 2026–2027 academic year, submission and publication in JYI are free of charge — no submission fees, no article processing charges (APCs), and no publication fees. The journal is fully open access at no cost to authors or readers. See our Policies page for full details.",
   },
   {
     id: 3,
     question: "How long will the review process take?",
     answer:
-      "Our standard review takes 4–8 weeks. You can request a Fast Track Review for a 2–4 week turnaround (additional fee applies).",
+      "Editorial decisions are typically communicated within 4–8 weeks of submission, including detailed reviewer feedback regardless of the final decision.",
   },
   {
     id: 4,
@@ -31,7 +31,8 @@ const faqData = [
   {
     id: 5,
     question: "Can more than one student be listed as an author?",
-    answer: "Yes. The submission fee is paid per author.",
+    answer:
+      "Yes. Co-authorship is welcomed when each listed author has made a substantive contribution to the work.",
   },
   {
     id: 6,
@@ -55,14 +56,7 @@ const faqData = [
     id: 9,
     question: "What happens after my paper is accepted?",
     answer:
-      "After acceptance, you'll pay the publication fee, complete any final revisions requested by editors, and your paper will be published in our open-access journal with full attribution.",
-  },
-  {
-    id: 10,
-    question:
-      "Are scholarships available for the submission and publication fees?",
-    answer:
-      "Yes, need-based scholarships are available by request. Applicants may submit a brief statement of need during the submission process.",
+      "After acceptance, you'll complete any final revisions requested by editors, sign a non-exclusive publishing agreement (you retain copyright), and your paper will be published open access under a CC BY 4.0 license with full attribution.",
   },
 ];
 

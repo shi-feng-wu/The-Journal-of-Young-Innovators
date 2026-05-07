@@ -61,7 +61,6 @@ export default function Home() {
       id: "article-processing-charges-apc",
       title: "Article Processing Charges",
     },
-    { id: "fast-track-review-optional", title: "Fast Track Review" },
     { id: "need-help", title: "Need Help?" },
   ];
 
@@ -282,21 +281,12 @@ export default function Home() {
               title="Article Processing Charges"
             >
               <p>
-                We are honored to report that through generous grant funding
-                dedicated to making publishing accessible to students of all
-                income levels, APCs and submission fees will be waived for the
-                2026-2027 academic year.
-              </p>
-            </EditorialSection>
-
-            <EditorialSection
-              id="fast-track-review-optional"
-              title="Fast Track Review"
-            >
-              <p>
-                We offer an optional Fast Track review (2–3 week turnaround).
-                You can request this in the submission form. Expedited fees
-                apply.
+                For the 2026–2027 academic year, submission and publication in
+                JYI are free of charge. There are no submission fees, no
+                article processing charges (APCs), and no publication fees,
+                thanks to grant funding dedicated to making scholarly
+                publishing accessible to students of all income levels.
+                Need-based waivers are also available by request.
               </p>
             </EditorialSection>
 

@@ -56,21 +56,21 @@ const editors: Person[] = [
   },
 ];
 
-const managingEditors: Person[] = [
+const editorsInChief: Person[] = [
   {
     name: "Shelby Forbes",
     affiliation: "UNC–Chapel Hill",
-    role: "Managing Editor",
+    role: "Editor-in-Chief",
   },
   {
     name: "Kai Ding",
     affiliation: "Johns Hopkins University",
-    role: "Managing Editor",
+    role: "Editor-in-Chief",
   },
   {
     name: "Agu Emmanuel",
     affiliation: "Worcester Polytechnic Institute",
-    role: "Managing Editor",
+    role: "Editor-in-Chief",
   },
 ];
 
@@ -159,10 +159,10 @@ export default function EditorialTeam() {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
         <section className="pb-10">
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-4xl mb-12">Editorial Team</h2>
+            <h2 className="text-2xl md:text-4xl mb-12">Editors-in-Chief</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {editors.map((editor, index) => (
+              {editorsInChief.map((editor, index) => (
                 <PersonCard key={index} person={editor} />
               ))}
             </div>
@@ -171,10 +171,10 @@ export default function EditorialTeam() {
 
         <section className="pb-10">
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-4xl mb-12">Managing Editors</h2>
+            <h2 className="text-2xl md:text-4xl mb-12">Editorial Board</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {managingEditors.map((editor, index) => (
+              {editors.map((editor, index) => (
                 <PersonCard key={index} person={editor} />
               ))}
             </div>
