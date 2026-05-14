@@ -8,7 +8,7 @@ import TitleLink from "@/components/TitleLink";
 import { toArticleViewerHref } from "@/lib/articlePdfViewer";
 
 export const metadata: Metadata = {
-  title: "The Journal of Young Innovators (JYI)",
+  title: "The Journal of Young Innovators",
   description:
     "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
   alternates: {

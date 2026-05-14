@@ -34,7 +34,7 @@ const sourceSans3 = Source_Sans_3({
 export const metadata: Metadata = {
   metadataBase: new URL("https://young-innovator.org"),
   title: {
-    default: "The Journal of Young Innovators (JYI)",
+    default: "The Journal of Young Innovators",
     template: "%s | JYI",
   },
   description:
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://young-innovator.org",
     siteName: "The Journal of Young Innovators",
-    title: "The Journal of Young Innovators (JYI)",
+    title: "The Journal of Young Innovators",
     description:
       "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
     images: [
@@ -59,13 +59,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "The Journal of Young Innovators (JYI)",
+        alt: "The Journal of Young Innovators",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Journal of Young Innovators (JYI)",
+    title: "The Journal of Young Innovators",
     description:
       "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
     images: ["/og-image.png"],
@@ -83,6 +83,14 @@ export const metadata: Metadata = {
       "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ?? "",
     },
   },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "The Journal of Young Innovators",
+  alternateName: "JYI",
+  url: "https://young-innovator.org/",
 };
 
 const organizationJsonLd = {
@@ -105,6 +113,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
