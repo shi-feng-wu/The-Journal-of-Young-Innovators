@@ -40,5 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...staticEntries, ...articleEntries];
+  const pdfEntries: MetadataRoute.Sitemap = SITE_ARTICLES.map((article) => ({
+    url: `${SITE_URL}/articles/${encodeURI(article.pdfBasename)}.pdf`,
+    lastModified: new Date(article.publishDate),
+    changeFrequency: "yearly",
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...articleEntries, ...pdfEntries];
 }

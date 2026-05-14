@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import { SITE_ARTICLES } from "./app/lib/articles";
+
+const SITE_URL = "https://young-innovator.org";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -53,6 +56,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      ...SITE_ARTICLES.map((article) => ({
+        source: `/articles/${article.pdfBasename}.pdf`,
+        headers: [
+          {
+            key: "Link",
+            value: `<${SITE_URL}/issues/articles/${article.slug}>; rel="canonical"`,
+          },
+        ],
+      })),
       {
         source: "/fonts/:path*",
         headers: [
