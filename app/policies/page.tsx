@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Hero from "@/components/Hero";
 import { TableOfContents } from "@/components/PageComponents";
 
@@ -18,7 +19,7 @@ const sections = [
   { id: "self-archiving", title: "Author Self-Archiving" },
   { id: "peer-review", title: "Peer Review" },
   { id: "frequency", title: "Publication Frequency" },
-  { id: "apc", title: "Article Processing Charges" },
+  { id: "apc", title: "Submission Fee & Waivers" },
   { id: "plagiarism", title: "Plagiarism" },
   { id: "ethics", title: "Publication Ethics" },
   { id: "ai", title: "Generative AI Policy" },
@@ -183,20 +184,35 @@ export default function PoliciesPage() {
 
           <PolicySection
             id="apc"
-            title="Article Processing Charges (APCs)"
+            title="Submission Fee & Waivers"
           >
             <p>
-              <strong>For the 2026–2027 academic year, submission and
-              publication in JYI are free of charge.</strong> There are no
-              submission fees, no article processing charges (APCs), no
-              publication fees, no page charges, no color charges, and no
-              reader fees. The journal is fully open access at no cost to
-              authors or readers.
+              <strong>JYI charges a one-time $55 USD submission fee</strong>,
+              paid when a manuscript is submitted. The fee supports editorial
+              operations and plagiarism screening. It does not influence
+              editorial decisions in any way — reviewers are never told
+              whether a fee has been paid or waived, and payment does not
+              guarantee acceptance. The fee is not refunded if a submission
+              is declined.
             </p>
             <p>
-              This is made possible by grant funding dedicated to making
-              scholarly publishing accessible to students of all income
-              levels. Need-based waivers are also available by request.
+              Beyond the submission fee, JYI has no article processing
+              charges (APCs), no publication fees, and no page, color, or
+              reader charges. The journal is fully open access at no cost to
+              readers.
+            </p>
+            <p>
+              Need-based waivers are available to any author for whom the
+              fee is a barrier. Request a waiver at{" "}
+              <Link
+                href="/waiver"
+                className="underline underline-offset-2"
+              >
+                young-innovator.org/waiver
+              </Link>{" "}
+              before submitting. Approved authors receive a code that waives
+              the fee in full at checkout. Waiver decisions are made
+              independently of, and are never disclosed to, peer reviewers.
             </p>
           </PolicySection>
 

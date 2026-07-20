@@ -59,7 +59,7 @@ export default function Home() {
     { id: "license-and-copyright", title: "License and Copyright" },
     {
       id: "article-processing-charges-apc",
-      title: "Article Processing Charges",
+      title: "Submission Fee",
     },
     { id: "need-help", title: "Need Help?" },
   ];
@@ -278,15 +278,33 @@ export default function Home() {
 
             <EditorialSection
               id="article-processing-charges-apc"
-              title="Article Processing Charges"
+              title="Submission Fee"
             >
               <p>
-                For the 2026–2027 academic year, submission and publication in
-                JYI are free of charge. There are no submission fees, no
-                article processing charges (APCs), and no publication fees,
-                thanks to grant funding dedicated to making scholarly
-                publishing accessible to students of all income levels.
-                Need-based waivers are also available by request.
+                JYI charges a one-time $55 USD submission fee, paid when a
+                manuscript is submitted. There are no article processing
+                charges (APCs) and no publication fees — the journal is
+                fully open access at no cost to readers, and the fee never
+                influences editorial decisions.
+              </p>
+              <p>
+                Need-based waivers are available to any student for whom
+                the fee is a barrier. Request one at{" "}
+                <Link
+                  href="/waiver"
+                  className="text-primary underline underline-offset-2"
+                >
+                  /waiver
+                </Link>{" "}
+                before submitting — approved requests receive a code that
+                waives the fee in full at checkout. See our{" "}
+                <Link
+                  href="/policies#apc"
+                  className="text-primary underline underline-offset-2"
+                >
+                  Policies page
+                </Link>{" "}
+                for full details.
               </p>
             </EditorialSection>
 

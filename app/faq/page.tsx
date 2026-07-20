@@ -2,6 +2,7 @@
 
 import { Accordion, AccordionItem } from "@heroui/react";
 import Hero from "@/components/Hero";
+import Link from "next/link";
 
 const faqData = [
   {
@@ -13,8 +14,20 @@ const faqData = [
   {
     id: 2,
     question: "What's the total cost to publish?",
-    answer:
-      "For the 2026–2027 academic year, submission and publication in JYI are free of charge — no submission fees, no article processing charges (APCs), and no publication fees. The journal is fully open access at no cost to authors or readers. See our Policies page for full details.",
+    answer: (
+      <>
+        JYI charges a one-time $55 submission fee, collected when a
+        manuscript is submitted. It's the only fee we charge — there are no
+        article processing charges (APCs), no publication fees, and no
+        reader fees. The journal is fully open access at no cost to readers.
+        Need-based waivers are available to any student for whom the fee is
+        a barrier; request one at{" "}
+        <Link href="/waiver" className="underline underline-offset-2">
+          /waiver
+        </Link>
+        . See our Policies page for full details.
+      </>
+    ),
   },
   {
     id: 3,

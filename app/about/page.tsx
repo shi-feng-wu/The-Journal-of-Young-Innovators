@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -90,8 +91,15 @@ export default function About() {
                 International (CC BY 4.0)
               </li>
               <li>
-                <strong>Article processing charges:</strong> None for 2026–2027
-                (no submission fees, no APCs, no publication fees)
+                <strong>Submission fee:</strong> $55 USD one-time, paid at
+                submission (need-based waivers available at{" "}
+                <Link
+                  href="/waiver"
+                  className="underline underline-offset-2"
+                >
+                  /waiver
+                </Link>
+                ) — no APCs or publication fees
               </li>
               <li>
                 <strong>Contact:</strong>{" "}
