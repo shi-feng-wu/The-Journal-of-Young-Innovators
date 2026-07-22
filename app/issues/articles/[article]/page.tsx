@@ -81,6 +81,7 @@ export async function generateMetadata({
       citation_publication_date: formatScholarDate(articleData.publishDate),
       citation_journal_title: "The Journal of Young Innovators",
       citation_issn: "3070-8885",
+      citation_doi: articleData.doi,
       citation_volume: String(articleData.volume),
       citation_issue: String(articleData.issueNumber),
       citation_pdf_url: pdfUrl,
@@ -110,6 +111,14 @@ function buildArticleJsonLd(articleData: SiteArticle) {
     inLanguage: "en",
     url: canonical,
     mainEntityOfPage: canonical,
+    identifier: [
+      {
+        "@type": "PropertyValue",
+        propertyID: "DOI",
+        value: articleData.doi,
+      },
+    ],
+    sameAs: `https://doi.org/${articleData.doi}`,
     image: ogImage,
     author: authors.map((name) => ({
       "@type": "Person",
@@ -204,6 +213,7 @@ export default async function ArticlePage({ params }: PageProps) {
         volume={articleData.volume}
         issueNumber={articleData.issueNumber}
         abstract={articleData.abstract}
+        doi={articleData.doi}
         documentUrl={articleData.pdfPath}
       />
     </>

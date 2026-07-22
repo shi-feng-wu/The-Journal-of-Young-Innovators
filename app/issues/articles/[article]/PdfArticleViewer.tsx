@@ -21,6 +21,7 @@ type PdfArticleViewerProps = {
   volume: number;
   issueNumber: number;
   abstract: string;
+  doi: string;
 };
 
 export default function PdfArticleViewer({
@@ -33,13 +34,14 @@ export default function PdfArticleViewer({
   volume,
   issueNumber,
   abstract,
+  doi,
 }: PdfArticleViewerProps) {
   const [citeStatus, setCiteStatus] = useState<"idle" | "copied" | "error">(
     "idle",
   );
 
   const formattedDate = new Date(publishDate).toLocaleDateString();
-  const citationText = `${author}. "${title}." The Journal of Young Innovators, Volume ${volume}, Issue ${issueNumber}, ${formattedDate}.`;
+  const citationText = `${author}. "${title}." The Journal of Young Innovators, Volume ${volume}, Issue ${issueNumber}, ${formattedDate}. https://doi.org/${doi}`;
 
   const handleCopyCitation = async () => {
     try {
@@ -94,6 +96,16 @@ export default function PdfArticleViewer({
             <p className="mt-0.5">{category}</p>
             <p className="mt-0.5">
               Volume {volume}, Issue {issueNumber}
+            </p>
+            <p className="mt-0.5 normal-case">
+              <a
+                href={`https://doi.org/${doi}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 hover:text-black"
+              >
+                https://doi.org/{doi}
+              </a>
             </p>
           </div>
 

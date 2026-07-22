@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_batch xmlns="http://www.crossref.org/schema/5.3.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.crossref.org/schema/5.3.1 http://www.crossref.org/schemas/crossref5.3.1.xsd"
+           version="5.3.1">
+  <head>
+    <doi_batch_id>jyi-20260722141912</doi_batch_id>
+    <timestamp>20260722141912</timestamp>
+    <depositor>
+      <depositor_name>The Journal of Young Innovators</depositor_name>
+      <email_address>shifeng@inceptionpad.com</email_address>
+    </depositor>
+    <registrant>The Journal of Young Innovators</registrant>
+  </head>
+  <body>
+  <journal>
+    <journal_metadata language="en">
+      <full_title>The Journal of Young Innovators</full_title>
+      <abbrev_title>JYI</abbrev_title>
+      <issn media_type="electronic">3070-8885</issn>
+      <doi_data>
+        <doi>10.67419/jyi</doi>
+        <resource>https://young-innovator.org</resource>
+      </doi_data>
+    </journal_metadata>
+    <journal_issue>
+      <publication_date media_type="online">
+        <month>10</month>
+        <day>01</day>
+        <year>2024</year>
+      </publication_date>
+      <journal_volume>
+        <volume>1</volume>
+      </journal_volume>
+      <issue>1</issue>
+    </journal_issue>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>The Next Big Arenas of Competition</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Chris</given_name>
+          <surname>Bradley</surname>
+          <affiliations>
+            <institution>
+              <institution_name>McKinsey Global Institute</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+        <person_name sequence="additional" contributor_role="author">
+          <given_name>Michael</given_name>
+          <surname>Chui</surname>
+          <affiliations>
+            <institution>
+              <institution_name>McKinsey Global Institute</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+        <person_name sequence="additional" contributor_role="author">
+          <given_name>Kevin</given_name>
+          <surname>Russell</surname>
+          <affiliations>
+            <institution>
+              <institution_name>McKinsey Global Institute</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+        <person_name sequence="additional" contributor_role="author">
+          <given_name>Kweilin</given_name>
+          <surname>Ellingrud</surname>
+          <affiliations>
+            <institution>
+              <institution_name>McKinsey Global Institute</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+        <person_name sequence="additional" contributor_role="author">
+          <given_name>Michael</given_name>
+          <surname>Birshan</surname>
+          <affiliations>
+            <institution>
+              <institution_name>McKinsey Global Institute</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+        <person_name sequence="additional" contributor_role="author">
+          <given_name>Suhayl</given_name>
+          <surname>Chettih</surname>
+          <affiliations>
+            <institution>
+              <institution_name>McKinsey Global Institute</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This report from the McKinsey Global Institute identifies and describes a category of industries that could account for much of the future change in the business landscape and transform the world.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>10</month>
+        <day>01</day>
+        <year>2024</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v1i1.10</doi>
+        <resource>https://young-innovator.org/issues/articles/arenas-of-competition</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Arenas%20of%20Competition.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Arenas%20of%20Competition.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>From Neurons to Leaders: A Brain-Targeted Framework for Leadership Education</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Mariale</given_name>
+          <surname>Hardiman</surname>
+          <affiliations>
+            <institution>
+              <institution_name>Johns Hopkins University</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>The rapidly evolving fields of neuroleadership and neuroeducation hold immense potential for transforming our understanding of effective leadership and learning.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>02</day>
+        <year>2025</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v1i1.1</doi>
+        <resource>https://young-innovator.org/issues/articles/neurons-to-leaders</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Neurons%20to%20Leaders.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Neurons%20to%20Leaders.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Standing Steady in Shifting Ground: Why Leadership Education Matters for International Students</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Francella</given_name>
+          <surname>Ochillo</surname>
+          <affiliations>
+            <institution>
+              <institution_name>Johns Hopkins University</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+        <person_name sequence="additional" contributor_role="author">
+          <given_name>Clara</given_name>
+          <surname>Ma</surname>
+          <affiliations>
+            <institution>
+              <institution_name>Johns Hopkins University</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>International students in U.S. higher education face increasing uncertainty due to policy shifts, xenophobia, and systemic support gaps.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>03</day>
+        <year>2025</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v1i1.2</doi>
+        <resource>https://young-innovator.org/issues/articles/standing-steady</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Standing%20Steady.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Standing%20Steady.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Religion, Ethics, and Medicine at End of Life: When It Is Acceptable for Physicians to Refuse Care?</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Guanxi Adam</given_name>
+          <surname>Luo</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This article examines physicians' right to refuse participation in medically assisted death when care conflicts with religious beliefs or moral convictions.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>05</day>
+        <year>2025</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v1i1.3</doi>
+        <resource>https://young-innovator.org/issues/articles/religion</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Religion.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Religion.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Meet Your Therapist: Exploring the Promise and Drawbacks of AI for Treating Digital Addictive Behavior among Adolescents</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Ray</given_name>
+          <surname>Gao</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This paper reviews the potential and limits of AI-assisted interventions for adolescent digital addiction and mental health support.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>08</day>
+        <year>2025</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v1i1.4</doi>
+        <resource>https://young-innovator.org/issues/articles/meet-your-therapist</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Meet%20Your%20Therapist.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Meet%20Your%20Therapist.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Making Our Seas Sustainable: Examining Iceland’s Maritime Sector through a Commercial, Legal, and Ethical Lens</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Jiahong Julia</given_name>
+          <surname>Fu</surname>
+        </person_name>
+        <person_name sequence="additional" contributor_role="author">
+          <given_name>Siyi Lisa</given_name>
+          <surname>Feng</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This article evaluates Iceland's fishing sector through commercial, legal, and ethical dimensions to surface transferable sustainability lessons.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>10</day>
+        <year>2025</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v1i1.5</doi>
+        <resource>https://young-innovator.org/issues/articles/seas-sustainable</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Seas%20Sustainable.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Seas%20Sustainable.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>The Plastic Problem: The Ecological and Epidemiological Implications of Bacteria-Plastic Relationships</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Albert</given_name>
+          <surname>Zhou</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>A literature review of bacteria-plastic interactions and their ecological and public health implications across the plastic pollution crisis.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>15</day>
+        <year>2025</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v1i1.6</doi>
+        <resource>https://young-innovator.org/issues/articles/the-plastic-problem</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/The%20Plastic%20Problem.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/The%20Plastic%20Problem.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+  </journal>
+  <journal>
+    <journal_metadata language="en">
+      <full_title>The Journal of Young Innovators</full_title>
+      <abbrev_title>JYI</abbrev_title>
+      <issn media_type="electronic">3070-8885</issn>
+    </journal_metadata>
+    <journal_issue>
+      <publication_date media_type="online">
+        <month>01</month>
+        <day>07</day>
+        <year>2026</year>
+      </publication_date>
+      <journal_volume>
+        <volume>2</volume>
+      </journal_volume>
+      <issue>1</issue>
+    </journal_issue>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Foul on the Play: Legal Discretion in Cases Brought Against Professional Athletes</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Cole</given_name>
+          <surname>Shuster</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>A comparative analysis of prominent athlete criminal cases examining how status, institutions, and media can shape legal outcomes.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>01</month>
+        <day>07</day>
+        <year>2026</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i1.7</doi>
+        <resource>https://young-innovator.org/issues/articles/foul-on-the-play</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Foul%20on%20the%20Play.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Foul%20on%20the%20Play.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Combat Sports: Friend or Foe to Youth’s Socioemotional and Physical Development?</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Shane</given_name>
+          <surname>Shuster</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This article surveys mixed evidence on youth combat sports and offers recommendations to improve outcomes while reducing harm.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>01</month>
+        <day>07</day>
+        <year>2026</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i1.8</doi>
+        <resource>https://young-innovator.org/issues/articles/friend-or-foe</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Friend%20or%20Foe.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Friend%20or%20Foe.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>A Quantitative Analysis of Natural Resource Economics on Global Wealth</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Andrew</given_name>
+          <surname>Leibowitz</surname>
+          <affiliations>
+            <institution>
+              <institution_name>Cornell University</institution_name>
+            </institution>
+          </affiliations>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>A cross-country quantitative analysis of natural resource rents, depletion, and GDP per capita from 1970 to 2022.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>01</month>
+        <day>07</day>
+        <year>2026</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i1.11</doi>
+        <resource>https://young-innovator.org/issues/articles/natural-resources-economics</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Natural%20Resources%20Economics.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Natural%20Resources%20Economics.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Beyond the Fairway: Access, Equity, and Inclusion in the New Golf Economy</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Aaron</given_name>
+          <surname>Xu</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>An analysis of golf's changing business model and whether growth can expand equitable access without intentional inclusion strategies.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>01</month>
+        <day>22</day>
+        <year>2026</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i1.9</doi>
+        <resource>https://young-innovator.org/issues/articles/beyond-the-fairway</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/Beyond%20the%20Fairway.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/Beyond%20the%20Fairway.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+  </journal>
+  <journal>
+    <journal_metadata language="en">
+      <full_title>The Journal of Young Innovators</full_title>
+      <abbrev_title>JYI</abbrev_title>
+      <issn media_type="electronic">3070-8885</issn>
+    </journal_metadata>
+    <journal_issue>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>28</day>
+        <year>2026</year>
+      </publication_date>
+      <journal_volume>
+        <volume>2</volume>
+      </journal_volume>
+      <issue>2</issue>
+    </journal_issue>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Lessons from Arthur Miller's The Crucible: The Consequences of Merging Government and Religion</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Kate</given_name>
+          <surname>Wheeler</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>A perspective piece using The Crucible and contemporary case studies to argue that merging religious doctrine with government authority undermines due process and democratic principles.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>28</day>
+        <year>2026</year>
+      </publication_date>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i2.12</doi>
+        <resource>https://young-innovator.org/issues/articles/the-crucible</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/articles/The%20Crucible.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/articles/The%20Crucible.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+  </journal>
+  </body>
+</doi_batch>

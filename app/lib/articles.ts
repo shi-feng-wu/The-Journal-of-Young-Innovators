@@ -1,6 +1,9 @@
+export const DOI_PREFIX = "10.67419";
+
 export interface SiteArticle {
   id: number;
   slug: string;
+  doi: string;
   title: string;
   author: string;
   school?: string;
@@ -210,6 +213,7 @@ export const SITE_ARTICLES: SiteArticle[] = SITE_ARTICLE_SOURCE.map(
   (article) => ({
     ...article,
     slug: toArticleSlug(article.pdfBasename),
+    doi: `${DOI_PREFIX}/jyi.v${article.volume}i${article.issueNumber}.${article.id}`,
     pdfPath: `/articles/${article.pdfBasename}.pdf`,
   }),
 );

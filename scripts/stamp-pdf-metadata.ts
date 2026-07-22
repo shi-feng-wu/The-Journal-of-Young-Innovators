@@ -12,11 +12,12 @@ const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
 const projectRoot = path.resolve(process.cwd());
 const pdfDir = path.join(projectRoot, "public", "articles");
 
-function buildKeywords(category: string, year: string) {
+function buildKeywords(category: string, year: string, doi: string) {
   return [
     JOURNAL_NAME,
     JOURNAL_SHORT,
     `ISSN ${JOURNAL_ISSN}`,
+    `doi:${doi}`,
     category,
     `Year ${year}`,
     "Open Access",
@@ -46,7 +47,7 @@ async function stampOne(article: (typeof SITE_ARTICLES)[number]) {
     title: article.title,
     author: authorWithSchool,
     subject: article.abstract,
-    keywords: buildKeywords(article.category, year),
+    keywords: buildKeywords(article.category, year, article.doi),
     producer: JOURNAL_NAME,
     creator: `${JOURNAL_NAME} (Vol. ${article.volume}, Issue ${article.issueNumber})`,
     creationDate: new Date(article.publishDate).getTime(),
