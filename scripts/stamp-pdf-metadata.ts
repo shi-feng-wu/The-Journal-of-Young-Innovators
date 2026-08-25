@@ -261,42 +261,64 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     SLATE,
   );
 
-  // ── Title in the site's display serif, authors right below.
-  let y = eyebrowY - 40;
-  y = drawWrapped(article.title, y, display, 27, 34, NAVY);
-
-  y -= 10;
-  y = drawWrapped(article.author, y, bodySemibold, 13.5, 19, INK);
-
-  if (article.school) {
-    y = drawWrapped(article.school, y, bodyItalic, 11, 15, SLATE);
-  }
-
-  // ── Abstract. Pre-measure the full column; if the citation panel would
-  //    crowd the footer (rule at y=106), set the abstract slightly smaller.
+  // ── Fit ladder: measure the whole column before drawing anything and
+  //    step the abstract (then the title) down until the citation panel
+  //    clears the footer rule at y=106.
   const citation = `${article.author} (${year}). ${article.title}. ${JOURNAL_NAME}, ${article.volume}(${article.issueNumber}), pp. ${pageRange}.`;
   const PAD = 16;
   const panelTextW = CONTENT_WIDTH - PAD * 2;
   const citationLines = wrapText(citation, body, 10, panelTextW);
   const panelH = 12 + 15 + citationLines.length * 13.5 + 8 + 14 + 14 + 12;
 
-  let absSize = 10.5;
-  let absLeading = 15;
-  const measure = (size: number, leading: number) =>
-    y -
+  const bottomFor = (
+    ts: number,
+    tl: number,
+    as_: number,
+    al: number,
+  ) =>
+    eyebrowY -
+    40 -
+    wrapText(article.title, display, ts, CONTENT_WIDTH).length * tl -
+    10 -
+    wrapText(article.author, bodySemibold, 13.5, CONTENT_WIDTH).length * 19 -
+    (article.school
+      ? wrapText(article.school, bodyItalic, 11, CONTENT_WIDTH).length * 15
+      : 0) -
     22 -
     17 -
-    wrapText(article.abstract, body, size, CONTENT_WIDTH).length * leading -
+    wrapText(article.abstract, body, as_, CONTENT_WIDTH).length * al -
     24 -
     panelH;
-  if (measure(absSize, absLeading) < 118) {
-    absSize = 9.75;
-    absLeading = 13.5;
-    if (measure(absSize, absLeading) < 118) {
-      console.warn(
-        `  ⚠ ${article.slug}: cover content runs long even at reduced size — check the layout`,
-      );
+
+  const ladder: Array<[number, number, number, number]> = [
+    [27, 34, 10.5, 15],
+    [27, 34, 9.75, 13.5],
+    [25, 31, 9.75, 13.5],
+    [25, 31, 9, 12.5],
+  ];
+  let [titleSize, titleLeading, absSize, absLeading] =
+    ladder[ladder.length - 1];
+  for (const cand of ladder) {
+    if (bottomFor(...cand) >= 118) {
+      [titleSize, titleLeading, absSize, absLeading] = cand;
+      break;
     }
+  }
+  if (bottomFor(titleSize, titleLeading, absSize, absLeading) < 118) {
+    console.warn(
+      `  ⚠ ${article.slug}: cover content runs long even at the smallest ladder step — check the layout`,
+    );
+  }
+
+  // ── Title in the site's display serif, authors right below.
+  let y = eyebrowY - 40;
+  y = drawWrapped(article.title, y, display, titleSize, titleLeading, NAVY);
+
+  y -= 10;
+  y = drawWrapped(article.author, y, bodySemibold, 13.5, 19, INK);
+
+  if (article.school) {
+    y = drawWrapped(article.school, y, bodyItalic, 11, 15, SLATE);
   }
 
   y -= 22;
