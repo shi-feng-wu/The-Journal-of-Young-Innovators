@@ -52,7 +52,7 @@ export async function generateMetadata({
 
   const authors = splitAuthors(articleData.author);
   const canonical = `/issues/articles/${articleData.slug}`;
-  const pdfUrl = `${SITE_URL}/articles/${encodeURIComponent(articleData.pdfBasename)}.pdf`;
+  const pdfUrl = `${SITE_URL}${articleData.pdfPath}`;
 
   return {
     title: `${articleData.title} | JYI`,
@@ -84,6 +84,8 @@ export async function generateMetadata({
       citation_doi: articleData.doi,
       citation_volume: String(articleData.volume),
       citation_issue: String(articleData.issueNumber),
+      citation_firstpage: String(articleData.firstPage),
+      citation_lastpage: String(articleData.lastPage),
       citation_pdf_url: pdfUrl,
       citation_abstract_html_url: `${SITE_URL}${canonical}`,
       "DC.rights": LICENSE_URL,
@@ -109,6 +111,9 @@ function buildArticleJsonLd(articleData: SiteArticle) {
     description: articleData.abstract,
     datePublished: articleData.publishDate,
     inLanguage: "en",
+    pageStart: String(articleData.firstPage),
+    pageEnd: String(articleData.lastPage),
+    pagination: `${articleData.firstPage}-${articleData.lastPage}`,
     url: canonical,
     mainEntityOfPage: canonical,
     identifier: [
@@ -146,7 +151,7 @@ function buildArticleJsonLd(articleData: SiteArticle) {
     },
     encoding: {
       "@type": "MediaObject",
-      contentUrl: `${SITE_URL}/articles/${encodeURIComponent(articleData.pdfBasename)}.pdf`,
+      contentUrl: `${SITE_URL}${articleData.pdfPath}`,
       encodingFormat: "application/pdf",
     },
     articleSection: articleData.category,
@@ -214,6 +219,8 @@ export default async function ArticlePage({ params }: PageProps) {
         issueNumber={articleData.issueNumber}
         abstract={articleData.abstract}
         doi={articleData.doi}
+        firstPage={articleData.firstPage}
+        lastPage={articleData.lastPage}
         documentUrl={articleData.pdfPath}
       />
     </>

@@ -41,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   const pdfEntries: MetadataRoute.Sitemap = SITE_ARTICLES.map((article) => ({
-    url: `${SITE_URL}/articles/${encodeURI(article.pdfBasename)}.pdf`,
+    url: `${SITE_URL}${article.pdfPath}`,
     lastModified: new Date(article.publishDate),
     changeFrequency: "yearly",
     priority: 0.6,

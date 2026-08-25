@@ -22,6 +22,8 @@ type PdfArticleViewerProps = {
   issueNumber: number;
   abstract: string;
   doi: string;
+  firstPage: number;
+  lastPage: number;
 };
 
 export default function PdfArticleViewer({
@@ -35,13 +37,15 @@ export default function PdfArticleViewer({
   issueNumber,
   abstract,
   doi,
+  firstPage,
+  lastPage,
 }: PdfArticleViewerProps) {
   const [citeStatus, setCiteStatus] = useState<"idle" | "copied" | "error">(
     "idle",
   );
 
   const formattedDate = new Date(publishDate).toLocaleDateString();
-  const citationText = `${author}. "${title}." The Journal of Young Innovators, Volume ${volume}, Issue ${issueNumber}, ${formattedDate}. https://doi.org/${doi}`;
+  const citationText = `${author}. "${title}." The Journal of Young Innovators, Volume ${volume}, Issue ${issueNumber}, pp. ${firstPage}–${lastPage}, ${formattedDate}. https://doi.org/${doi}`;
 
   const handleCopyCitation = async () => {
     try {

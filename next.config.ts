@@ -32,6 +32,14 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: true,
+  async redirects() {
+    return SITE_ARTICLES.map((article) => ({
+      // Redirect sources are matched against the percent-encoded path.
+      source: encodeURI(article.legacyPdfPath),
+      destination: article.pdfPath,
+      statusCode: 301,
+    }));
+  },
   async headers() {
     return [
       {
@@ -57,11 +65,15 @@ const nextConfig: NextConfig = {
         ],
       },
       ...SITE_ARTICLES.map((article) => ({
-        source: `/articles/${article.pdfBasename}.pdf`,
+        source: article.pdfPath,
         headers: [
           {
             key: "Link",
             value: `<${SITE_URL}/issues/articles/${article.slug}>; rel="canonical"`,
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, must-revalidate",
           },
         ],
       })),

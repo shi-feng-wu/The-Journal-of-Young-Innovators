@@ -77,7 +77,7 @@ function contributorsXml(article: SiteArticle) {
 
 function articleXml(article: SiteArticle) {
   const canonical = `${SITE_URL}/issues/articles/${article.slug}`;
-  const pdfUrl = `${SITE_URL}/articles/${encodeURIComponent(article.pdfBasename)}.pdf`;
+  const pdfUrl = `${SITE_URL}${article.pdfPath}`;
 
   return [
     `      <journal_article publication_type="full_text">`,
@@ -89,6 +89,10 @@ function articleXml(article: SiteArticle) {
     `        <jats:p>${esc(article.abstract)}</jats:p>`,
     `      </jats:abstract>`,
     publicationDateXml(article.publishDate, "      "),
+    `      <pages>`,
+    `        <first_page>${article.firstPage}</first_page>`,
+    `        <last_page>${article.lastPage}</last_page>`,
+    `      </pages>`,
     `      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">`,
     `        <ai:free_to_read/>`,
     `        <ai:license_ref applies_to="vor">${LICENSE_URL}</ai:license_ref>`,

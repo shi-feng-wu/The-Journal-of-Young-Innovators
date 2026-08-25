@@ -14,7 +14,11 @@ export interface SiteArticle {
   abstract: string;
   image?: string;
   pdfBasename: string;
+  pageCount: number;
+  firstPage: number;
+  lastPage: number;
   pdfPath: string;
+  legacyPdfPath: string;
 }
 
 const SITE_ARTICLE_SOURCE = [
@@ -32,6 +36,7 @@ const SITE_ARTICLE_SOURCE = [
       "This report from the McKinsey Global Institute identifies and describes a category of industries that could account for much of the future change in the business landscape and transform the world.",
     image: "/images/optimized/arenas-1600.webp",
     pdfBasename: "Arenas of Competition",
+    pageCount: 213,
   },
   {
     id: 1,
@@ -47,6 +52,7 @@ const SITE_ARTICLE_SOURCE = [
       "The rapidly evolving fields of neuroleadership and neuroeducation hold immense potential for transforming our understanding of effective leadership and learning.",
     image: "/images/optimized/leadership-800.webp",
     pdfBasename: "Neurons to Leaders",
+    pageCount: 12,
   },
   {
     id: 2,
@@ -62,6 +68,7 @@ const SITE_ARTICLE_SOURCE = [
       "International students in U.S. higher education face increasing uncertainty due to policy shifts, xenophobia, and systemic support gaps.",
     image: "/images/optimized/neuroleadership-1600.webp",
     pdfBasename: "Standing Steady",
+    pageCount: 6,
   },
   {
     id: 3,
@@ -76,6 +83,7 @@ const SITE_ARTICLE_SOURCE = [
       "This article examines physicians' right to refuse participation in medically assisted death when care conflicts with religious beliefs or moral convictions.",
     image: "/images/optimized/ethics-1600.webp",
     pdfBasename: "Religion",
+    pageCount: 15,
   },
   {
     id: 4,
@@ -90,6 +98,7 @@ const SITE_ARTICLE_SOURCE = [
       "This paper reviews the potential and limits of AI-assisted interventions for adolescent digital addiction and mental health support.",
     image: "/images/optimized/therapy-800.webp",
     pdfBasename: "Meet Your Therapist",
+    pageCount: 17,
   },
   {
     id: 5,
@@ -104,6 +113,7 @@ const SITE_ARTICLE_SOURCE = [
       "This article evaluates Iceland's fishing sector through commercial, legal, and ethical dimensions to surface transferable sustainability lessons.",
     image: "/images/optimized/iceland-1600.webp",
     pdfBasename: "Seas Sustainable",
+    pageCount: 19,
   },
   {
     id: 6,
@@ -118,6 +128,7 @@ const SITE_ARTICLE_SOURCE = [
       "A literature review of bacteria-plastic interactions and their ecological and public health implications across the plastic pollution crisis.",
     image: "/images/optimized/bacteria-1600.webp",
     pdfBasename: "The Plastic Problem",
+    pageCount: 33,
   },
   {
     id: 7,
@@ -132,6 +143,7 @@ const SITE_ARTICLE_SOURCE = [
       "A comparative analysis of prominent athlete criminal cases examining how status, institutions, and media can shape legal outcomes.",
     image: "/images/optimized/basketball-800.webp",
     pdfBasename: "Foul on the Play",
+    pageCount: 27,
   },
   {
     id: 8,
@@ -146,6 +158,7 @@ const SITE_ARTICLE_SOURCE = [
       "This article surveys mixed evidence on youth combat sports and offers recommendations to improve outcomes while reducing harm.",
     image: "/images/optimized/boxing-800.webp",
     pdfBasename: "Friend or Foe",
+    pageCount: 20,
   },
   {
     id: 9,
@@ -160,6 +173,7 @@ const SITE_ARTICLE_SOURCE = [
       "An analysis of golf's changing business model and whether growth can expand equitable access without intentional inclusion strategies.",
     image: "/images/optimized/golf-1600.webp",
     pdfBasename: "Beyond the Fairway",
+    pageCount: 20,
   },
   {
     id: 11,
@@ -175,6 +189,7 @@ const SITE_ARTICLE_SOURCE = [
       "A cross-country quantitative analysis of natural resource rents, depletion, and GDP per capita from 1970 to 2022.",
     image: "/images/optimized/agri-1600.webp",
     pdfBasename: "Natural Resources Economics",
+    pageCount: 28,
   },
   {
     id: 12,
@@ -189,6 +204,7 @@ const SITE_ARTICLE_SOURCE = [
       "A perspective piece using The Crucible and contemporary case studies to argue that merging religious doctrine with government authority undermines due process and democratic principles.",
     image: "/images/optimized/crucible-1600.webp",
     pdfBasename: "The Crucible",
+    pageCount: 10,
   },
 ] as const;
 
@@ -210,12 +226,20 @@ function safeDecodeURIComponent(value: string) {
 }
 
 export const SITE_ARTICLES: SiteArticle[] = SITE_ARTICLE_SOURCE.map(
-  (article) => ({
-    ...article,
-    slug: toArticleSlug(article.pdfBasename),
-    doi: `${DOI_PREFIX}/jyi.v${article.volume}i${article.issueNumber}.${article.id}`,
-    pdfPath: `/articles/${article.pdfBasename}.pdf`,
-  }),
+  (article) => {
+    const slug = toArticleSlug(article.pdfBasename);
+    return {
+      ...article,
+      slug,
+      doi: `${DOI_PREFIX}/jyi.v${article.volume}i${article.issueNumber}.${article.id}`,
+      firstPage: 1,
+      lastPage: article.pageCount,
+      // Google Scholar requires the PDF to live in the same subdirectory as
+      // the HTML abstract page (/issues/articles/<slug>).
+      pdfPath: `/issues/articles/${slug}.pdf`,
+      legacyPdfPath: `/articles/${article.pdfBasename}.pdf`,
+    };
+  },
 );
 
 const SITE_ARTICLE_BY_SLUG = new Map(
@@ -242,9 +266,13 @@ export function getSiteArticleFromSlug(slug: string) {
 }
 
 export function getSiteArticleFromPdfPath(pdfPath: string) {
-  const match = pdfPath.match(/^\/articles\/(.+)\.pdf$/i);
+  const match = pdfPath.match(/^(?:\/issues)?\/articles\/(.+)\.pdf$/i);
   if (!match) return null;
 
-  const basename = safeDecodeURIComponent(match[1].trim());
-  return SITE_ARTICLE_BY_PDF_BASENAME.get(basename) ?? null;
+  const name = safeDecodeURIComponent(match[1].trim());
+  return (
+    SITE_ARTICLE_BY_PDF_BASENAME.get(name) ??
+    SITE_ARTICLE_BY_SLUG.get(name.toLowerCase()) ??
+    null
+  );
 }
