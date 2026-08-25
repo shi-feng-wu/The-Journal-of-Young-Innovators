@@ -22,7 +22,7 @@ const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
 
 // Bump the version suffix to re-generate covers on already-stamped files
 // (the old cover is NOT removed automatically — regenerate from originals).
-const COVER_MARKER = "JYI-Cover-v3";
+const COVER_MARKER = "JYI-Cover-v4";
 
 const PAGE_WIDTH = 612;
 const PAGE_HEIGHT = 792;
@@ -31,7 +31,6 @@ const CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2;
 
 // Site palette (app/globals.css): --primary, --highlight, --foreground
 const NAVY = rgb(0 / 255, 45 / 255, 114 / 255); // #002d72
-const GREEN = rgb(50 / 255, 150 / 255, 93 / 255); // #32965d
 const INK = rgb(17 / 255, 17 / 255, 17 / 255); // #111111
 const SLATE = rgb(82 / 255, 98 / 255, 122 / 255); // navy-tinted muted
 const MIST = rgb(238 / 255, 242 / 255, 248 / 255); // citation panel tint
@@ -273,18 +272,39 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     y = drawWrapped(article.school, y, bodyItalic, 11, 15, SLATE);
   }
 
-  // ── Abstract.
-  y -= 22;
-  drawTracked("ABSTRACT", MARGIN, y, monoMedium, 8, 1.6, SLATE);
-  y -= 17;
-  y = drawWrapped(article.abstract, y, body, 10.5, 15, INK);
-
-  // ── Citation panel: mist tint, navy accent bar, links in mono green.
+  // ── Abstract. Pre-measure the full column; if the citation panel would
+  //    crowd the footer (rule at y=106), set the abstract slightly smaller.
   const citation = `${article.author} (${year}). ${article.title}. ${JOURNAL_NAME}, ${article.volume}(${article.issueNumber}), pp. ${pageRange}.`;
   const PAD = 16;
   const panelTextW = CONTENT_WIDTH - PAD * 2;
   const citationLines = wrapText(citation, body, 10, panelTextW);
   const panelH = 12 + 15 + citationLines.length * 13.5 + 8 + 14 + 14 + 12;
+
+  let absSize = 10.5;
+  let absLeading = 15;
+  const measure = (size: number, leading: number) =>
+    y -
+    22 -
+    17 -
+    wrapText(article.abstract, body, size, CONTENT_WIDTH).length * leading -
+    24 -
+    panelH;
+  if (measure(absSize, absLeading) < 118) {
+    absSize = 9.75;
+    absLeading = 13.5;
+    if (measure(absSize, absLeading) < 118) {
+      console.warn(
+        `  ⚠ ${article.slug}: cover content runs long even at reduced size — check the layout`,
+      );
+    }
+  }
+
+  y -= 22;
+  drawTracked("ABSTRACT", MARGIN, y, monoMedium, 8, 1.6, SLATE);
+  y -= 17;
+  y = drawWrapped(article.abstract, y, body, absSize, absLeading, INK);
+
+  // ── Citation panel: mist tint, navy accent bar, links in mono navy.
   const panelTop = y - 24;
   page.drawRectangle({
     x: MARGIN,
@@ -334,7 +354,7 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     const labelW = trackedWidth(label, monoMedium, size, 1);
     drawTracked(label, MARGIN + PAD, ly, monoMedium, size, 1, SLATE);
     const x = MARGIN + PAD + labelW + 8;
-    page.drawText(linkText, { x, y: ly, size, font: mono, color: GREEN });
+    page.drawText(linkText, { x, y: ly, size, font: mono, color: NAVY });
     const w = mono.widthOfTextAtSize(linkText, size);
     annots.push(makeLinkAnnotation(doc, [x, ly - 3, x + w, ly + size], url));
   };
@@ -360,7 +380,7 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     y: 56,
     size: 8,
     font: mono,
-    color: GREEN,
+    color: NAVY,
   });
   const licW = mono.widthOfTextAtSize(LICENSE_URL, 8);
   annots.push(makeLinkAnnotation(doc, [licX, 53, licX + licW, 64], LICENSE_URL));

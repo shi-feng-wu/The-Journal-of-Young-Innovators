@@ -4,8 +4,8 @@
            xsi:schemaLocation="http://www.crossref.org/schema/5.3.1 http://www.crossref.org/schemas/crossref5.3.1.xsd"
            version="5.3.1">
   <head>
-    <doi_batch_id>jyi-20260722141912</doi_batch_id>
-    <timestamp>20260722141912</timestamp>
+    <doi_batch_id>jyi-20260825184738</doi_batch_id>
+    <timestamp>20260825184738</timestamp>
     <depositor>
       <depositor_name>The Journal of Young Innovators</depositor_name>
       <email_address>shifeng@inceptionpad.com</email_address>
@@ -95,13 +95,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>This report from the McKinsey Global Institute identifies and describes a category of industries that could account for much of the future change in the business landscape and transform the world.</jats:p>
+        <jats:p>This report from the McKinsey Global Institute investigates &quot;arenas of competition,&quot; a category of industries distinguished by two attributes: capture of an outsize share of economic growth and unusually large shifts in market share among their participants. Drawing on a customized data set of the world's 3,000 largest companies by market capitalization, reclassified into 57 competitive categories, the authors identify twelve arenas that formed between 2005 and 2020 and quantify how they diverged from other industries, including a 10 percent revenue compound annual growth rate against 4 percent elsewhere, a rise from 9 to 49 percent of global economic profit, greater openness to new entrants, and stronger international reach. The analysis attributes arena formation to a three-part &quot;potion&quot; of technology or business model step changes, escalatory investment incentives, and large or growing addressable markets. Applying these criteria prospectively, the authors identify eighteen candidate future arenas that could produce $29 trillion to $48 trillion in revenues by 2040.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>10</month>
         <day>01</day>
         <year>2024</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>213</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -111,12 +115,12 @@
         <resource>https://young-innovator.org/issues/articles/arenas-of-competition</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Arenas%20of%20Competition.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/arenas-of-competition.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Arenas%20of%20Competition.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/arenas-of-competition.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -137,13 +141,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>The rapidly evolving fields of neuroleadership and neuroeducation hold immense potential for transforming our understanding of effective leadership and learning.</jats:p>
+        <jats:p>The rapidly evolving fields of neuroleadership and neuroeducation share a common aim of translating neuroscience research into practical strategies for human development, yet they have evolved largely independently. This opinion piece argues for their integration and proposes a unified framework that aligns the Brain-Targeted Teaching model with established leadership theories, including emotional intelligence, transformational, supportive, servant, adaptive, and authentic leadership. After reviewing traditional neuroleadership research on the neural correlates of leadership behavior and the role of neuroplasticity, the article examines each of the model's six brain targets in turn: emotional climate, physical environment, learning design, teaching for mastery, teaching for application, and evaluating learning. For each target, it identifies conditions that undermine learning and performance in organizational settings and offers research-based leadership practices to address them. The author concludes that this holistic, neuroscience-grounded approach enables leaders to cultivate cultures of continuous learning, well-being, and innovation.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>04</month>
         <day>02</day>
         <year>2025</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>12</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -153,12 +161,12 @@
         <resource>https://young-innovator.org/issues/articles/neurons-to-leaders</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Neurons%20to%20Leaders.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/neurons-to-leaders.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Neurons%20to%20Leaders.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/neurons-to-leaders.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -188,13 +196,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>International students in U.S. higher education face increasing uncertainty due to policy shifts, xenophobia, and systemic support gaps.</jats:p>
+        <jats:p>International students in United States higher education increasingly confront visa revocations, suspended interviews, expanded vetting, and rising anti-immigrant sentiment, compounded by the retreat of institutional diversity and support structures. This opinion piece argues that leadership education, far from being an extracurricular luxury, constitutes core curriculum for such students. Drawing on a personal narrative from a women's leadership conference, recent United States immigration policy developments in spring 2025, and Thompson's concept of a global moral compass, the authors identify three capacities international students require: resilience to remain grounded within systems that pressure them toward invisibility, creativity to imagine futures beyond institutional prescription, and ethical clarity to choose integrity over assimilation. Because these students routinely reconcile conflicting cultural norms, institutional rules, and personal values, ethical reflection functions as a daily necessity rather than abstract theory. The authors conclude that institutions must embed leadership development across disciplines, preparing students for cross-border leadership whether they remain or return home.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>04</month>
         <day>03</day>
         <year>2025</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>6</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -204,12 +216,12 @@
         <resource>https://young-innovator.org/issues/articles/standing-steady</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Standing%20Steady.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/standing-steady.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Standing%20Steady.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/standing-steady.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -225,13 +237,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>This article examines physicians' right to refuse participation in medically assisted death when care conflicts with religious beliefs or moral convictions.</jats:p>
+        <jats:p>This review article examines whether physicians may permissibly refuse to participate in end-of-life care involving medically assisted death on religious or moral grounds. Noting that scholarship on religion and end-of-life care has centered on patients while neglecting providers' own convictions, the author asks to what extent clinicians should receive the same protections patients enjoy. The article traces the historical entanglement of religion and medicine from ancient Egyptian priest-healers through early Christian hospitals to contemporary religiously affiliated healthcare, then analyzes landmark Right-to-Die cases involving Quinlan, Cruzan, Schiavo, and Maynard, alongside shifting terminology from physician-assisted suicide to medical aid in dying. Drawing on the Hippocratic tradition, cross-religious prohibitions against killing, and the conscientious-objection literature, the author argues that providers are moral agents entitled to refuse. It concludes that referral to a willing provider preserves both parties' free will while preventing systemic abandonment of terminally ill patients.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>04</month>
         <day>05</day>
         <year>2025</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>15</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -241,12 +257,12 @@
         <resource>https://young-innovator.org/issues/articles/religion</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Religion.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/religion.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Religion.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/religion.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -262,13 +278,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>This paper reviews the potential and limits of AI-assisted interventions for adolescent digital addiction and mental health support.</jats:p>
+        <jats:p>Adolescent addiction to digital technologies, including excessive video gaming, social media misuse, and online gambling, has emerged as a significant public health concern, yet conventional therapeutic responses remain difficult for many young people to obtain. This literature review synthesizes existing research to define behavioral addiction, document its neurological and psychosocial effects on youth aged nine to eighteen, and evaluate whether artificial intelligence can address the shortcomings of traditional treatment. The review identifies cost, clinician shortages and long wait times, and gender- and culture-inflected stigma as the principal barriers to care, and argues that natural language processing, machine learning, and conversational agents mitigate each through affordability, continuous availability, anonymity, objective screening, and personalized engagement. It further examines drawbacks including data privacy risks, algorithmic bias from unrepresentative training data, and the inability of machines to replicate empathy. The paper concludes that artificial intelligence should supplement rather than replace human clinicians within a hybrid model of care.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>04</month>
         <day>08</day>
         <year>2025</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>17</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -278,12 +298,12 @@
         <resource>https://young-innovator.org/issues/articles/meet-your-therapist</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Meet%20Your%20Therapist.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/meet-your-therapist.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Meet%20Your%20Therapist.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/meet-your-therapist.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -303,13 +323,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>This article evaluates Iceland's fishing sector through commercial, legal, and ethical dimensions to surface transferable sustainability lessons.</jats:p>
+        <jats:p>This article examines Iceland's fishing industry as a case study in sustainable commerce, developing a tri-part framework that treats sustainability through commercial, legal, and ethical lenses. Motivated by widespread consumer confusion over eco-labels and by the projected expansion of seafood as a lower-impact alternative to land-based meat, the authors argue that Iceland offers an instructive model because its fisheries are economically central, culturally embedded, and organized around environmental, social, and governance principles. Commercially, the sector maximizes resource efficiency through value-added byproducts and protects workers through crew certification and federal labor law; legally, an individual transferable quota system and third-party ecolabeling such as Marine Stewardship Council certification constrain overfishing and secure export advantages; ethically, bycatch mitigation and aquaculture reforms address animal welfare. The authors also identify shortcomings, notably quota concentration that excludes smaller and younger fishers, and conclude that Iceland's lessons should be adapted, not replicated wholesale.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>04</month>
         <day>10</day>
         <year>2025</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>19</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -319,12 +343,12 @@
         <resource>https://young-innovator.org/issues/articles/seas-sustainable</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Seas%20Sustainable.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/seas-sustainable.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Seas%20Sustainable.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/seas-sustainable.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -340,13 +364,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>A literature review of bacteria-plastic interactions and their ecological and public health implications across the plastic pollution crisis.</jats:p>
+        <jats:p>Plastic pollution has become a pervasive environmental and public health concern, yet its epidemiological and ecological dimensions are typically examined in isolation. This review adopts an adapted PRISMA protocol, searching PubMed, Web of Science, ScienceDirect, and Google Scholar for English-language literature published between 2000 and 2024, and synthesizes the findings narratively to examine the relationship between bacteria and microplastics. The analysis finds that microplastics are associated with disruption of the human gut microbiome, damage to the intestinal epithelium, and endocrine interference, and that microplastic surfaces support biofilms that can harbor pathogenic and antibiotic-resistant bacteria, functioning as mobile disease vectors. Ecologically, microplastics reduce soil microbial diversity, alter soil structure and nutrient cycling, and depress crop performance. The review evaluates plastic-degrading bacteria, antimicrobial polymers, and plant-based alternatives such as hemp and bamboo, noting concerns about byproducts, biocontainment, scalability, and regulation, and argues for an integrated framework linking human and ecological health.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>04</month>
         <day>15</day>
         <year>2025</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>33</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -356,12 +384,12 @@
         <resource>https://young-innovator.org/issues/articles/the-plastic-problem</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/The%20Plastic%20Problem.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/the-plastic-problem.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/The%20Plastic%20Problem.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/the-plastic-problem.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -395,13 +423,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>A comparative analysis of prominent athlete criminal cases examining how status, institutions, and media can shape legal outcomes.</jats:p>
+        <jats:p>This article examines how legal discretion operates in criminal cases brought against professional athletes, asking whether justice is genuinely blind when fame, wealth, and perceived social value are involved. Employing a qualitative comparative case-study design with purposively sampled cases selected against six criteria, it analyzes the prosecutions of football players Henry Ruggs III and Rashee Rice and Olympic wrestler Kyle Snyder using a five-part framework attending to the nature of the offense, legal proceedings, resource access, media framing, and institutional response. The comparison reveals a spectrum of legal elasticity in which the severity of resulting harm constrains leniency while financial and social capital consistently shape procedural outcomes, and in which sports leagues and governing bodies function as a parallel, largely opaque punitive system. The article concludes by recommending greater procedural transparency, standardized institutional disciplinary guidelines, improved public media literacy, and future research incorporating race.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>01</month>
         <day>07</day>
         <year>2026</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>27</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -411,12 +443,12 @@
         <resource>https://young-innovator.org/issues/articles/foul-on-the-play</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Foul%20on%20the%20Play.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/foul-on-the-play.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Foul%20on%20the%20Play.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/foul-on-the-play.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -432,13 +464,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>This article surveys mixed evidence on youth combat sports and offers recommendations to improve outcomes while reducing harm.</jats:p>
+        <jats:p>Combat sports such as wrestling, boxing, and jiu-jitsu have grown in popularity among young people, yet scholarly assessments of their developmental impact remain divided. This article employs a narrative, interdisciplinary literature review, drawing on peer-reviewed research in sports medicine, developmental and educational psychology, pediatrics, and public health, alongside institutional position statements, to evaluate how participation shapes youth socioemotional and physical development. The review finds that combat sports cultivate humility, self-regulation, and perseverance, which function protectively against bullying, strengthen interpersonal relationships, and predict improved academic and professional outcomes into adulthood. Countervailing evidence indicates that weight-class structures implicitly encourage rapid weight loss, producing dehydration, impaired growth and bone development, heightened injury risk, diminished executive functioning, and body-image disturbance. Concluding that the effects are mixed, the article recommends standardized regulatory oversight of weight certification, comprehensive risk education for athletes and parents, and coach training in risk recognition and intervention.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>01</month>
         <day>07</day>
         <year>2026</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>20</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -448,12 +484,12 @@
         <resource>https://young-innovator.org/issues/articles/friend-or-foe</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Friend%20or%20Foe.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/friend-or-foe.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Friend%20or%20Foe.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/friend-or-foe.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -474,13 +510,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>A cross-country quantitative analysis of natural resource rents, depletion, and GDP per capita from 1970 to 2022.</jats:p>
+        <jats:p>This paper presents a quantitative observational study of the relationship between natural resource economics and national wealth across the period 1970 to 2022. Drawing on World Bank data for a random sample of eighteen countries, the author compares total natural resource rents as a percentage of gross domestic product and natural resource depletion as a percentage of gross national income against gross domestic product per capita, fitting logarithmic regression models in R and evaluating them through coefficients of determination and residual plots. Mean R-squared values of approximately 0.183 for rents and 0.240 for depletion, with medians below 0.10, fall well beneath the conventional 0.3 threshold, and most residual plots display clumping and non-random patterns. The results therefore support the null hypothesis of no significant logarithmic correlation, underscoring the heterogeneity of global economic conditions and the need for more granular data, additional trials, and more complex nonlinear models.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>01</month>
         <day>07</day>
         <year>2026</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>28</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -490,12 +530,12 @@
         <resource>https://young-innovator.org/issues/articles/natural-resources-economics</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Natural%20Resources%20Economics.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/natural-resources-economics.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Natural%20Resources%20Economics.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/natural-resources-economics.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -511,13 +551,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>An analysis of golf's changing business model and whether growth can expand equitable access without intentional inclusion strategies.</jats:p>
+        <jats:p>Golf has expanded into an $88 billion global industry, yet its participant base remains narrow. This article examines the structural barriers that continue to restrict access to the sport along four intersecting dimensions: socioeconomic status, race, gender, and ability. Employing an interdisciplinary literature review drawing on sports sociology, disability studies, and labor economics, it analyzes peer-reviewed scholarship alongside government documents, legal mandates, and industry data. The review finds that private club initiation fees, equipment costs, dress codes, legacy membership systems, irregular low-wage work schedules, course siting in affluent suburbs, historical and informal racial exclusion, gendered wage gaps, and inaccessible course design jointly reproduce privilege and limit upward mobility through golf's networking function. It also identifies countervailing developments, including entertainment golf venues, publicly subsidized courses, school-based instruction, adaptive technologies, and adaptive tournaments, concluding that these intervention points must be scaled and paired with diverse leadership to convert symbolic inclusion into genuine inclusion.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>01</month>
         <day>22</day>
         <year>2026</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>20</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -527,12 +571,12 @@
         <resource>https://young-innovator.org/issues/articles/beyond-the-fairway</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/Beyond%20the%20Fairway.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/beyond-the-fairway.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/Beyond%20the%20Fairway.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/beyond-the-fairway.pdf</resource>
           </item>
         </collection>
       </doi_data>
@@ -566,13 +610,17 @@
         </person_name>
       </contributors>
       <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
-        <jats:p>A perspective piece using The Crucible and contemporary case studies to argue that merging religious doctrine with government authority undermines due process and democratic principles.</jats:p>
+        <jats:p>This perspective piece examines the implications of merging religious doctrine with governmental authority, using Arthur Miller's The Crucible as an interpretive lens for contemporary church-state relations. Combining literary analysis of the play's depiction of Puritan Salem with three illustrative case studies, the paper traces a spectrum ranging from constitutional separation to full theocracy. Stone v. Graham demonstrates judicial enforcement of First Amendment neutrality by striking down a Kentucky law mandating Ten Commandments displays in public-school classrooms. Taliban-governed Afghanistan, where religious law constitutes state law, illustrates the severe curtailment of women's education, employment, and freedom of movement that follows from theocratic rule. Project 2025 occupies an intermediate position, reflecting indirect yet consequential religious influence on proposed United States policy. The analysis argues that theological influence over legal systems incites fear, erodes due process, and produces systemic injustice, concluding that clear church-state separation is essential to democratic principles, individual rights, and equitable governance.</jats:p>
       </jats:abstract>
       <publication_date media_type="online">
         <month>04</month>
         <day>28</day>
         <year>2026</year>
       </publication_date>
+      <pages>
+        <first_page>1</first_page>
+        <last_page>10</last_page>
+      </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
         <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
@@ -582,12 +630,12 @@
         <resource>https://young-innovator.org/issues/articles/the-crucible</resource>
         <collection property="crawler-based">
           <item crawler="google">
-            <resource>https://young-innovator.org/articles/The%20Crucible.pdf</resource>
+            <resource>https://young-innovator.org/issues/articles/the-crucible.pdf</resource>
           </item>
         </collection>
         <collection property="text-mining">
           <item>
-            <resource mime_type="application/pdf">https://young-innovator.org/articles/The%20Crucible.pdf</resource>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/the-crucible.pdf</resource>
           </item>
         </collection>
       </doi_data>
