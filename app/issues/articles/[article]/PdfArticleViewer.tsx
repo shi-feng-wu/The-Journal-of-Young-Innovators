@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { parseArticleDate } from "@/lib/articles";
 import { useState } from "react";
 
 const PdfClientViewer = dynamic(() => import("./PdfClientViewer"), {
@@ -44,7 +45,7 @@ export default function PdfArticleViewer({
     "idle",
   );
 
-  const formattedDate = new Date(publishDate).toLocaleDateString();
+  const formattedDate = parseArticleDate(publishDate).toLocaleDateString();
   const citationText = `${author}. "${title}." The Journal of Young Innovators, Volume ${volume}, Issue ${issueNumber}, pp. ${firstPage}–${lastPage}, ${formattedDate}. https://doi.org/${doi}`;
 
   const handleCopyCitation = async () => {
@@ -171,7 +172,7 @@ export default function PdfArticleViewer({
               License
             </h2>
             <p className="mt-2 font-serif text-xs leading-relaxed text-black/75">
-              © {new Date(publishDate).getUTCFullYear() || ""}{" "}
+              © {parseArticleDate(publishDate).getFullYear() || ""}{" "}
               <span className="font-medium">{author}</span>. This article is
               published open access under a{" "}
               <a

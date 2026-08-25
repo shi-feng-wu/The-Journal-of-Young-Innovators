@@ -301,6 +301,13 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
   },
 ];
 
+/** Parse a YYYY-M-D publish date in local time (ISO strings otherwise parse
+ *  as UTC midnight and render one day early in US timezones). */
+export function parseArticleDate(publishDate: string) {
+  const [y, m, d] = publishDate.split("-").map(Number);
+  return new Date(y, (m || 1) - 1, d || 1);
+}
+
 function toArticleSlug(title: string) {
   return title
     .toLowerCase()

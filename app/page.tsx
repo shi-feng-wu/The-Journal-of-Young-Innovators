@@ -6,6 +6,7 @@ import SiteButton from "@/components/SiteButton";
 import { FaChevronCircleRight } from "react-icons/fa";
 import TitleLink from "@/components/TitleLink";
 import { toArticleViewerHref } from "@/lib/articlePdfViewer";
+import { parseArticleDate } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "The Journal of Young Innovators",
@@ -246,7 +247,7 @@ export default function Home() {
             {/* Uncontained featured list */}
             {articles.map((article, idx) => {
               const dateObj = article.publishDate
-                ? new Date(article.publishDate)
+                ? parseArticleDate(article.publishDate)
                 : null;
               const hasDate = !!(dateObj && !isNaN(dateObj.getTime()));
               const dateStr = hasDate ? dateObj.toLocaleDateString() : "";

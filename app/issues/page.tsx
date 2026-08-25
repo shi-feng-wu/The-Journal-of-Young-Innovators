@@ -5,7 +5,7 @@ import SiteButton from "@/components/SiteButton";
 import TitleLink from "@/components/TitleLink";
 import TypingText from "@/components/TypingText";
 import { toArticleViewerHref } from "@/lib/articlePdfViewer";
-import { SITE_ARTICLES } from "@/lib/articles";
+import { SITE_ARTICLES, parseArticleDate } from "@/lib/articles";
 import NumberFlow, { NumberFlowGroup } from "@number-flow/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -65,7 +65,7 @@ export default function Issues() {
       issueEntries.reduce<Record<string, string>>((acc, [issue, articles]) => {
         const latestDate = articles
           .map((article) =>
-            article.publishDate ? new Date(article.publishDate) : null,
+            article.publishDate ? parseArticleDate(article.publishDate) : null,
           )
           .filter((date): date is Date => Boolean(date))
           .reduce<Date | null>((maxDate, date) => {
@@ -264,7 +264,7 @@ export default function Issues() {
                           ) : null}
                           <div className="mt-2 text-[10px] uppercase tracking-[0.35em]">
                             {article.publishDate
-                              ? new Date(
+                              ? parseArticleDate(
                                   article.publishDate,
                                 ).toLocaleDateString()
                               : ""}
