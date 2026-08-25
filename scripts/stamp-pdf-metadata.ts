@@ -22,7 +22,7 @@ const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
 
 // Bump the version suffix to re-generate covers on already-stamped files
 // (the old cover is NOT removed automatically — regenerate from originals).
-const COVER_MARKER = "JYI-Cover-v2";
+const COVER_MARKER = "JYI-Cover-v3";
 
 const PAGE_WIDTH = 612;
 const PAGE_HEIGHT = 792;
@@ -35,6 +35,7 @@ const GREEN = rgb(50 / 255, 150 / 255, 93 / 255); // #32965d
 const INK = rgb(17 / 255, 17 / 255, 17 / 255); // #111111
 const SLATE = rgb(82 / 255, 98 / 255, 122 / 255); // navy-tinted muted
 const MIST = rgb(238 / 255, 242 / 255, 248 / 255); // citation panel tint
+const RULE = rgb(204 / 255, 213 / 255, 227 / 255); // hairline, navy-tinted
 
 const projectRoot = path.resolve(process.cwd());
 const pdfDir = path.join(projectRoot, "public", "issues", "articles");
@@ -206,10 +207,8 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
   const articleUrl = `${SITE_URL}/issues/articles/${article.slug}`;
   const pageRange = `${article.firstPage}–${article.lastPage}`;
 
-  // ── Masthead: full-bleed navy band with reversed logo + wordmark,
-  //    closed by the site's green highlight as a keyline.
+  // ── Masthead: full-bleed navy band with reversed logo + wordmark.
   const BAND_H = 96;
-  const KEYLINE_H = 3;
   const bandBottom = PAGE_HEIGHT - BAND_H;
   page.drawRectangle({
     x: 0,
@@ -217,13 +216,6 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     width: PAGE_WIDTH,
     height: BAND_H,
     color: NAVY,
-  });
-  page.drawRectangle({
-    x: 0,
-    y: bandBottom - KEYLINE_H,
-    width: PAGE_WIDTH,
-    height: KEYLINE_H,
-    color: GREEN,
   });
 
   const logoH = 34;
@@ -283,7 +275,7 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
 
   // ── Abstract.
   y -= 22;
-  drawTracked("ABSTRACT", MARGIN, y, monoMedium, 8, 1.6, GREEN);
+  drawTracked("ABSTRACT", MARGIN, y, monoMedium, 8, 1.6, SLATE);
   y -= 17;
   y = drawWrapped(article.abstract, y, body, 10.5, 15, INK);
 
@@ -356,7 +348,7 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     start: { x: MARGIN, y: 106 },
     end: { x: PAGE_WIDTH - MARGIN, y: 106 },
     thickness: 0.75,
-    color: GREEN,
+    color: RULE,
   });
   const licenseText = `© ${year} The Author(s). Published by ${JOURNAL_NAME}. This is an open-access article distributed under the terms of the Creative Commons Attribution 4.0 International License (CC BY 4.0).`;
   drawWrapped(licenseText, 92, body, 8.5, 12, SLATE);
