@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import Stripe from "stripe";
+import { SUBMISSION_FEE_ENABLED } from "@/lib/fees";
 
 export const runtime = "nodejs";
 
@@ -43,84 +44,89 @@ export async function POST(request: Request) {
       });
     }
 
-    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+    let stripe: Stripe | null = null;
+    let session: Stripe.Checkout.Session | null = null;
+    let pi: Stripe.PaymentIntent | null = null;
 
-    if (!stripeSecretKey) {
-      return new Response(
-        JSON.stringify({
-          error:
-            "Payments are not configured. Please email editor@young-innovator.org.",
-        }),
-        { status: 500 },
-      );
-    }
+    if (SUBMISSION_FEE_ENABLED) {
+      const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
-    if (!checkoutSessionId.startsWith("cs_")) {
-      return new Response(
-        JSON.stringify({ error: "Payment is required before submitting." }),
-        { status: 402 },
-      );
-    }
-
-    const stripe = new Stripe(stripeSecretKey);
-
-    let session: Stripe.Checkout.Session;
-    try {
-      session = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
-        expand: ["payment_intent"],
-      });
-    } catch {
-      return new Response(
-        JSON.stringify({
-          error:
-            "Payment could not be verified. Please try again or email editor@young-innovator.org.",
-        }),
-        { status: 402 },
-      );
-    }
-
-    const paymentStatusOk =
-      session.payment_status === "paid" ||
-      session.payment_status === "no_payment_required";
-
-    if (
-      !paymentStatusOk ||
-      session.metadata?.source !== "jyi-submission-fee" ||
-      session.currency !== "usd" ||
-      session.amount_subtotal !== 5500
-    ) {
-      return new Response(
-        JSON.stringify({ error: "Payment not completed or invalid." }),
-        { status: 402 },
-      );
-    }
-
-    const pi = session.payment_intent as Stripe.PaymentIntent | null;
-
-    if (pi && pi.metadata?.submission_used === "true") {
-      return new Response(
-        JSON.stringify({
-          error: "This payment has already been used for a submission.",
-        }),
-        { status: 409 },
-      );
-    }
-
-    if (!pi) {
-      const sessionAgeSeconds =
-        Math.floor(Date.now() / 1000) - session.created;
-      if (sessionAgeSeconds >= 24 * 60 * 60) {
+      if (!stripeSecretKey) {
         return new Response(
           JSON.stringify({
             error:
-              "Payment session expired. Please contact editor@young-innovator.org.",
+              "Payments are not configured. Please email editor@young-innovator.org.",
+          }),
+          { status: 500 },
+        );
+      }
+
+      if (!checkoutSessionId.startsWith("cs_")) {
+        return new Response(
+          JSON.stringify({ error: "Payment is required before submitting." }),
+          { status: 402 },
+        );
+      }
+
+      stripe = new Stripe(stripeSecretKey);
+
+      try {
+        session = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
+          expand: ["payment_intent"],
+        });
+      } catch {
+        return new Response(
+          JSON.stringify({
+            error:
+              "Payment could not be verified. Please try again or email editor@young-innovator.org.",
           }),
           { status: 402 },
         );
       }
-    }
 
-    paymentVerified = true;
+      const paymentStatusOk =
+        session.payment_status === "paid" ||
+        session.payment_status === "no_payment_required";
+
+      if (
+        !paymentStatusOk ||
+        session.metadata?.source !== "jyi-submission-fee" ||
+        session.currency !== "usd" ||
+        session.amount_subtotal !== 5500
+      ) {
+        return new Response(
+          JSON.stringify({ error: "Payment not completed or invalid." }),
+          { status: 402 },
+        );
+      }
+
+      pi = session.payment_intent as Stripe.PaymentIntent | null;
+
+      if (pi && pi.metadata?.submission_used === "true") {
+        return new Response(
+          JSON.stringify({
+            error: "This payment has already been used for a submission.",
+          }),
+          { status: 409 },
+        );
+      }
+
+      if (!pi) {
+        const sessionAgeSeconds =
+          Math.floor(Date.now() / 1000) - session.created;
+        if (sessionAgeSeconds >= 24 * 60 * 60) {
+          return new Response(
+            JSON.stringify({
+              error:
+                "Payment session expired. Please contact editor@young-innovator.org.",
+            }),
+            { status: 402 },
+          );
+        }
+      }
+
+      paymentVerified = true;
+    }
 
     const textBody = [
       `First Name: ${firstName}`,
@@ -130,9 +136,13 @@ export async function POST(request: Request) {
       `School: ${school}`,
       `Grade Level: ${gradeLevel}`,
       `Manuscript Title: ${manuscriptTitle}`,
-      "",
-      `Payment reference: ${session.id}`,
-      `Payment status: ${session.payment_status}`,
+      ...(session
+        ? [
+            "",
+            `Payment reference: ${session.id}`,
+            `Payment status: ${session.payment_status}`,
+          ]
+        : []),
     ].join("\n");
 
     const smtpHost = process.env.SMTP_HOST;
@@ -186,10 +196,14 @@ export async function POST(request: Request) {
         `School: ${school || "(not provided)"}`,
         `Grade Level: ${gradeLevel || "(not provided)"}`,
         `Manuscript Title: ${manuscriptTitle || "(not provided)"}`,
-        "",
-        `Payment reference: ${session.id}`,
-        ...(session.payment_status === "no_payment_required"
-          ? ["A fee waiver was applied to this submission."]
+        ...(session
+          ? [
+              "",
+              `Payment reference: ${session.id}`,
+              ...(session.payment_status === "no_payment_required"
+                ? ["A fee waiver was applied to this submission."]
+                : []),
+            ]
           : []),
         "",
         "If anything looks incorrect, reply to this email to let us know.",
@@ -206,7 +220,7 @@ export async function POST(request: Request) {
       });
     }
 
-    if (pi) {
+    if (pi && stripe) {
       await stripe.paymentIntents
         .update(pi.id, {
           metadata: {

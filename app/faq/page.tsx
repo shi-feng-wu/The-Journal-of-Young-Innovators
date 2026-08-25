@@ -16,14 +16,13 @@ const faqData = [
     question: "What's the total cost to publish?",
     answer: (
       <>
-        JYI charges a one-time $55 submission fee, collected when a
-        manuscript is submitted. It's the only fee we charge — there are no
-        article processing charges (APCs), no publication fees, and no
-        reader fees. The journal is fully open access at no cost to readers.
-        Need-based waivers are available to any student for whom the fee is
-        a barrier; request one at{" "}
+        For the 2025–2026 academic year, submission and publication in JYI are
+        free of charge — no submission fees, article processing charges (APCs),
+        or publication fees. Beginning with the 2026–2027 academic year, a $65
+        USD publication fee per article applies, payable only after acceptance;
+        there is no fee to submit for review. Need-based waivers are available{" "}
         <Link href="/waiver" className="underline underline-offset-2">
-          /waiver
+          upon request
         </Link>
         . See our Policies page for full details.
       </>

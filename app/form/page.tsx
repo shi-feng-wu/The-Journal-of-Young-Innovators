@@ -3,6 +3,7 @@
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
 import PaymentStep from "@/components/PaymentStep";
+import { SUBMISSION_FEE_ENABLED } from "@/lib/fees";
 import { Form, Input, Select, SelectItem } from "@heroui/react";
 import { useRef, useState } from "react";
 import { FaChevronCircleRight, FaFileAlt } from "react-icons/fa";
@@ -30,8 +31,7 @@ export default function Submit() {
   );
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [paymentError, setPaymentError] = useState<string>("");
-  const canPay =
-    !checkoutClientSecret && !paymentComplete && !isDisabled;
+  const canPay = !checkoutClientSecret && !paymentComplete && !isDisabled;
 
   const handlePay = async () => {
     setPaymentError("");
@@ -83,10 +83,8 @@ export default function Submit() {
     event.preventDefault();
     const form = event.currentTarget;
 
-    if (!paymentComplete || !checkoutSessionId) {
-      setErrorMessage(
-        "Please complete the $55 submission fee payment first.",
-      );
+    if (SUBMISSION_FEE_ENABLED && (!paymentComplete || !checkoutSessionId)) {
+      setErrorMessage("Please complete the $55 submission fee payment first.");
       setStatus("error");
       return;
     }
@@ -106,7 +104,9 @@ export default function Submit() {
       if (manuscriptFile) {
         formData.set("manuscript", manuscriptFile);
       }
-      formData.set("checkoutSessionId", checkoutSessionId);
+      if (SUBMISSION_FEE_ENABLED && checkoutSessionId) {
+        formData.set("checkoutSessionId", checkoutSessionId);
+      }
       const response = await fetch("/api/submit", {
         method: "POST",
         body: formData,
@@ -158,9 +158,9 @@ export default function Submit() {
               passionate about academic inquiry and eager to contribute to
               meaningful scholarship. Our editorial board includes experienced
               researchers, educators, and editors dedicated to helping young
-              scholars grow through rigorous feedback and mentorship. A
-              one-time $55 submission fee applies at checkout — need-based fee
-              waivers are available."
+              scholars grow through rigorous feedback and mentorship. There is
+              no fee to submit for review — see our Policies page for details
+              on publication fees."
         sectionClassName="text-left h-auto pb-0!"
         contentClassName="text-left items-start justify-start mt-20!"
         additionalContent={
@@ -359,15 +359,17 @@ export default function Submit() {
               </div>
             </div>
 
-            <PaymentStep
-              canPay={canPay}
-              checkoutClientSecret={checkoutClientSecret}
-              checkoutSessionId={checkoutSessionId}
-              paymentComplete={paymentComplete}
-              paymentError={paymentError}
-              onPay={handlePay}
-              onComplete={() => setPaymentComplete(true)}
-            />
+            {SUBMISSION_FEE_ENABLED && (
+              <PaymentStep
+                canPay={canPay}
+                checkoutClientSecret={checkoutClientSecret}
+                checkoutSessionId={checkoutSessionId}
+                paymentComplete={paymentComplete}
+                paymentError={paymentError}
+                onPay={handlePay}
+                onComplete={() => setPaymentComplete(true)}
+              />
+            )}
 
             <div className="pt-2 relative">
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -377,7 +379,9 @@ export default function Submit() {
                   size="lg"
                   type="submit"
                   variantStyle="whiteHover"
-                  isDisabled={isDisabled || !paymentComplete}
+                  isDisabled={
+                    isDisabled || (SUBMISSION_FEE_ENABLED && !paymentComplete)
+                  }
                   className="w-[90vw] sm:w-120 justify-center border-white text-white"
                   endContent={
                     <FaChevronCircleRight className="ml-2 text-base text-current" />

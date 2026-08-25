@@ -91,15 +91,14 @@ export default function About() {
                 International (CC BY 4.0)
               </li>
               <li>
-                <strong>Submission fee:</strong> $55 USD one-time, paid at
-                submission (need-based waivers available at{" "}
-                <Link
-                  href="/waiver"
-                  className="underline underline-offset-2"
-                >
+                <strong>Fees:</strong> none for the 2025–2026 academic year — no
+                submission fees, APCs, or publication fees. From 2026–2027, a
+                $65 USD publication fee applies only after acceptance
+                (need-based waivers available at{" "}
+                <Link href="/waiver" className="underline underline-offset-2">
                   /waiver
                 </Link>
-                ) — no APCs or publication fees
+                )
               </li>
               <li>
                 <strong>Contact:</strong>{" "}

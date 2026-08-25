@@ -74,10 +74,11 @@ export default function WaiverRequest() {
     <div className="min-h-screen bg-primary">
       <Hero
         title="Fee Waiver Request"
-        subtitle="JYI charges a one-time $55 submission fee. Need-based waivers are
-              available to any student for whom that fee is a barrier to
-              submitting — this form takes a few minutes. Requests are kept
-              confidential and reviewed independently of editorial
+        subtitle="Submitting to JYI is free. Beginning with the 2026–2027 academic
+              year, a $65 publication fee applies to accepted articles —
+              need-based waivers are available to any student for whom that
+              fee is a barrier, and this form takes a few minutes. Requests
+              are kept confidential and reviewed independently of editorial
               decisions; approving your request has no effect on how your
               manuscript is evaluated."
         sectionClassName="text-left h-auto pb-0!"
@@ -115,7 +116,7 @@ export default function WaiverRequest() {
               />
               <Textarea
                 className="w-full"
-                label="Tell us why the submission fee is a barrier for you"
+                label="Tell us why the publication fee is a barrier for you"
                 name="statement"
                 classNames={{ base: "w-full", label: "font-serif" }}
                 isRequired
