@@ -91,7 +91,10 @@ export default function PdfArticleViewer({
         </ol>
       </nav>
       <div className="max-w-[1400px] pt-6 mx-auto px-4 sm:px-6 lg:px-14 lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
-        <aside className="lg:sticky lg:self-start rounded-lg border bg-white p-5">
+        <aside
+          data-lenis-prevent
+          className="lg:sticky lg:top-6 lg:self-start lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto overscroll-contain rounded-lg border bg-white p-5"
+        >
           <h1 className="font-display text-2xl text-balance">{title}</h1>
 
           <div className="mt-4 font-mono text-xs uppercase text-black/70">
