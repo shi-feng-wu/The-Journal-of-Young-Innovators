@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Hero from "@/components/Hero";
 import { TableOfContents } from "@/components/PageComponents";
 
@@ -197,10 +196,14 @@ export default function PoliciesPage() {
                 (APCs), or publication fees, thanks to the generous support of
                 the Brain-Targeted Teaching Institute, and grant funding
                 dedicated to making scholarly publishing accessible to students
-                of all income levels. Need-based waivers are also available{" "}
-                <Link href="/waiver" className="underline underline-offset-2">
-                  upon request
-                </Link>
+                of all income levels. Need-based waivers are also available by
+                request to{" "}
+                <a
+                  href="mailto:editor@young-innovator.org"
+                  className="underline underline-offset-2"
+                >
+                  editor@young-innovator.org
+                </a>
                 .
               </p>
               <p>

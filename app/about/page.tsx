@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -94,10 +93,13 @@ export default function About() {
                 <strong>Fees:</strong> none for the 2025–2026 academic year — no
                 submission fees, APCs, or publication fees. From 2026–2027, a
                 $65 USD publication fee applies only after acceptance
-                (need-based waivers available at{" "}
-                <Link href="/waiver" className="underline underline-offset-2">
-                  /waiver
-                </Link>
+                (need-based waivers available by request to{" "}
+                <a
+                  href="mailto:editor@young-innovator.org"
+                  className="underline underline-offset-2"
+                >
+                  editor@young-innovator.org
+                </a>
                 )
               </li>
               <li>

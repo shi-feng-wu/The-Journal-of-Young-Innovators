@@ -2,7 +2,6 @@
 
 import { Accordion, AccordionItem } from "@heroui/react";
 import Hero from "@/components/Hero";
-import Link from "next/link";
 
 const faqData = [
   {
@@ -20,10 +19,14 @@ const faqData = [
         free of charge — no submission fees, article processing charges (APCs),
         or publication fees. Beginning with the 2026–2027 academic year, a $65
         USD publication fee per article applies, payable only after acceptance;
-        there is no fee to submit for review. Need-based waivers are available{" "}
-        <Link href="/waiver" className="underline underline-offset-2">
-          upon request
-        </Link>
+        there is no fee to submit for review. Need-based waivers are available
+        by request to{" "}
+        <a
+          href="mailto:editor@young-innovator.org"
+          className="underline underline-offset-2"
+        >
+          editor@young-innovator.org
+        </a>
         . See our Policies page for full details.
       </>
     ),

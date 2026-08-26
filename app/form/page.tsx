@@ -2,8 +2,6 @@
 
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
-import PaymentStep from "@/components/PaymentStep";
-import { SUBMISSION_FEE_ENABLED } from "@/lib/fees";
 import { Form, Input, Select, SelectItem } from "@heroui/react";
 import { useRef, useState } from "react";
 import { FaChevronCircleRight, FaFileAlt } from "react-icons/fa";
@@ -21,55 +19,6 @@ export default function Submit() {
   const [manuscriptFile, setManuscriptFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const [checkoutClientSecret, setCheckoutClientSecret] = useState<
-    string | null
-  >(null);
-  const [checkoutSessionId, setCheckoutSessionId] = useState<string | null>(
-    null,
-  );
-  const [paymentComplete, setPaymentComplete] = useState(false);
-  const [paymentError, setPaymentError] = useState<string>("");
-  const canPay = !checkoutClientSecret && !paymentComplete && !isDisabled;
-
-  const handlePay = async () => {
-    setPaymentError("");
-    const form = formRef.current;
-    const formData = form ? new FormData(form) : null;
-    const manuscriptTitle = String(
-      formData?.get("manuscriptTitle") ?? "",
-    ).trim();
-    const email = String(formData?.get("email") ?? "").trim();
-
-    if (!manuscriptTitle || !email) {
-      setPaymentError(
-        "Please fill in your email and manuscript title before paying.",
-      );
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ manuscriptTitle, email }),
-      });
-      const payload = await response.json().catch(() => null);
-      if (!response.ok || !payload?.clientSecret) {
-        setPaymentError(
-          payload?.error ?? "Failed to start checkout. Please try again.",
-        );
-        return;
-      }
-      setCheckoutClientSecret(payload.clientSecret);
-      setCheckoutSessionId(payload.sessionId);
-    } catch (error) {
-      setPaymentError(
-        error instanceof Error ? error.message : "Failed to start checkout.",
-      );
-    }
-  };
 
   const formatPhone = (value: string) => {
     const digits = value.replace(/\D/g, "").slice(0, 10);
@@ -82,13 +31,6 @@ export default function Submit() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-
-    if (SUBMISSION_FEE_ENABLED && (!paymentComplete || !checkoutSessionId)) {
-      setErrorMessage("Please complete the $55 submission fee payment first.");
-      setStatus("error");
-      return;
-    }
-
     setStatus("sending");
     setErrorMessage("");
 
@@ -104,9 +46,6 @@ export default function Submit() {
       if (manuscriptFile) {
         formData.set("manuscript", manuscriptFile);
       }
-      if (SUBMISSION_FEE_ENABLED && checkoutSessionId) {
-        formData.set("checkoutSessionId", checkoutSessionId);
-      }
       const response = await fetch("/api/submit", {
         method: "POST",
         body: formData,
@@ -116,10 +55,6 @@ export default function Submit() {
         form?.reset();
         setPhone(defaultPhone);
         setManuscriptFile(null);
-        setCheckoutClientSecret(null);
-        setCheckoutSessionId(null);
-        setPaymentComplete(false);
-        setPaymentError("");
         setStatus("success");
         return;
       }
@@ -165,7 +100,6 @@ export default function Submit() {
         contentClassName="text-left items-start justify-start mt-20!"
         additionalContent={
           <Form
-            ref={formRef}
             className="w-full max-w-4xl items-stretch font-mono text-black space-y-6 sm:space-y-8 relative"
             onSubmit={handleSubmit}
           >
@@ -359,18 +293,6 @@ export default function Submit() {
               </div>
             </div>
 
-            {SUBMISSION_FEE_ENABLED && (
-              <PaymentStep
-                canPay={canPay}
-                checkoutClientSecret={checkoutClientSecret}
-                checkoutSessionId={checkoutSessionId}
-                paymentComplete={paymentComplete}
-                paymentError={paymentError}
-                onPay={handlePay}
-                onComplete={() => setPaymentComplete(true)}
-              />
-            )}
-
             <div className="pt-2 relative">
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <SiteButton
@@ -379,9 +301,7 @@ export default function Submit() {
                   size="lg"
                   type="submit"
                   variantStyle="whiteHover"
-                  isDisabled={
-                    isDisabled || (SUBMISSION_FEE_ENABLED && !paymentComplete)
-                  }
+                  isDisabled={isDisabled}
                   className="w-[90vw] sm:w-120 justify-center border-white text-white"
                   endContent={
                     <FaChevronCircleRight className="ml-2 text-base text-current" />
