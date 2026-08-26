@@ -22,7 +22,7 @@ const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
 
 // Bump the version suffix to re-generate covers on already-stamped files
 // (the old cover is NOT removed automatically — regenerate from originals).
-const COVER_MARKER = "JYI-Cover-v4";
+const COVER_MARKER = "JYI-Cover-v5";
 
 const PAGE_WIDTH = 612;
 const PAGE_HEIGHT = 792;
@@ -40,8 +40,40 @@ const projectRoot = path.resolve(process.cwd());
 const pdfDir = path.join(projectRoot, "public", "issues", "articles");
 const fontDir = path.join(projectRoot, "scripts", "pdf-fonts");
 const logoPath = path.join(projectRoot, "public", "logolight.png");
+const typesetDir = path.join(projectRoot, "scripts", "typeset");
+const keywordsPath = path.join(typesetDir, "keywords.json");
+const previewDir = path.join(typesetDir, "out");
 
 type Article = (typeof SITE_ARTICLES)[number];
+
+// Optional author keywords, keyed by article slug (scripts/typeset/keywords.json).
+// Missing file, missing entry, or an empty string ⇒ no KEYWORDS block is drawn.
+let keywordsBySlug: Record<string, string> = {};
+
+async function loadKeywords() {
+  let raw: string;
+  try {
+    raw = await fs.readFile(keywordsPath, "utf8");
+  } catch {
+    keywordsBySlug = {};
+    return;
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    console.warn(`  ⚠ ${keywordsPath} is not valid JSON — ignoring keywords`);
+    keywordsBySlug = {};
+    return;
+  }
+  const next: Record<string, string> = {};
+  if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+    for (const [slug, value] of Object.entries(parsed)) {
+      if (typeof value === "string" && value.trim()) next[slug] = value.trim();
+    }
+  }
+  keywordsBySlug = next;
+}
 
 function buildKeywords(category: string, year: string, doi: string) {
   return [
@@ -217,19 +249,24 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     color: NAVY,
   });
 
-  const logoH = 34;
+  // Logo spans the three-line text block: DOI baseline (+26) to wordmark
+  // cap-top (≈ +68.3).
+  const logoH = 42;
   const logoW = (assets.logo.width / assets.logo.height) * logoH;
   page.drawImage(assets.logo, {
     x: MARGIN,
-    y: bandBottom + (BAND_H - logoH) / 2,
+    y: bandBottom + 26.3,
     width: logoW,
     height: logoH,
   });
 
+  // Three baselines inside the 96pt band — wordmark cap-top (≈ +55 + 13.3) and
+  // the DOI baseline (+26) straddle the band's midpoint (+48), so the stack
+  // stays optically centred against the 34pt logo beside it.
   const wordmarkX = MARGIN + logoW + 16;
   page.drawText(JOURNAL_NAME, {
     x: wordmarkX,
-    y: bandBottom + 47,
+    y: bandBottom + 55,
     size: 19,
     font: display,
     color: rgb(1, 1, 1),
@@ -237,12 +274,41 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
   drawTracked(
     `OPEN ACCESS · ISSN ${JOURNAL_ISSN} (ONLINE) · YOUNG-INNOVATOR.ORG`,
     wordmarkX + 1,
-    bandBottom + 32,
+    bandBottom + 40,
     mono,
     6.5,
     0.9,
     rgb(1, 1, 1),
     0.75,
+  );
+  // DOI, BMC-style: the resolvable URL sits directly under the ISSN line, a
+  // touch brighter, with near-zero tracking so the URL stays readable.
+  const bandDoiX = wordmarkX + 1;
+  const bandDoiY = bandBottom + 30;
+  const bandDoiSize = 6.5;
+  const bandDoiTracking = 0.3;
+  drawTracked(
+    doiUrl,
+    bandDoiX,
+    bandDoiY,
+    mono,
+    bandDoiSize,
+    bandDoiTracking,
+    rgb(1, 1, 1),
+    0.9,
+  );
+  const bandDoiW = trackedWidth(doiUrl, mono, bandDoiSize, bandDoiTracking);
+  annots.push(
+    makeLinkAnnotation(
+      doc,
+      [
+        bandDoiX,
+        bandDoiY - 2.5,
+        bandDoiX + bandDoiW,
+        bandDoiY + bandDoiSize + 1,
+      ],
+      doiUrl,
+    ),
   );
 
   // ── Eyebrow: issue metadata in tracked mono, publish date right-aligned.
@@ -270,6 +336,19 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
   const citationLines = wrapText(citation, body, 10, panelTextW);
   const panelH = 12 + 15 + citationLines.length * 13.5 + 8 + 14 + 14 + 12;
 
+  // ── Optional author keywords, drawn between the abstract and the panel.
+  const KW_SIZE = 9.5;
+  const KW_LEADING = 13;
+  const KW_GAP_BEFORE = 12; // abstract block → KEYWORDS label baseline
+  const KW_LABEL_TO_TEXT = 14; // 8pt label + a 6pt gap
+  const keywords = keywordsBySlug[article.slug] ?? "";
+  const keywordLines = keywords
+    ? wrapText(keywords, body, KW_SIZE, CONTENT_WIDTH)
+    : [];
+  const keywordBlockH = keywordLines.length
+    ? KW_GAP_BEFORE + KW_LABEL_TO_TEXT + keywordLines.length * KW_LEADING
+    : 0;
+
   const bottomFor = (
     ts: number,
     tl: number,
@@ -287,6 +366,7 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
     22 -
     17 -
     wrapText(article.abstract, body, as_, CONTENT_WIDTH).length * al -
+    keywordBlockH -
     24 -
     panelH;
 
@@ -325,6 +405,22 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
   drawTracked("ABSTRACT", MARGIN, y, monoMedium, 8, 1.6, SLATE);
   y -= 17;
   y = drawWrapped(article.abstract, y, body, absSize, absLeading, INK);
+
+  if (keywordLines.length) {
+    y -= KW_GAP_BEFORE;
+    drawTracked("KEYWORDS", MARGIN, y, monoMedium, 8, 1.6, SLATE);
+    y -= KW_LABEL_TO_TEXT;
+    for (const line of keywordLines) {
+      page.drawText(line, {
+        x: MARGIN,
+        y,
+        size: KW_SIZE,
+        font: body,
+        color: INK,
+      });
+      y -= KW_LEADING;
+    }
+  }
 
   // ── Citation panel: mist tint, navy accent bar, links in mono navy.
   const panelTop = y - 24;
@@ -483,7 +579,61 @@ async function stampOne(article: Article) {
   );
 }
 
+/**
+ * `--preview <slug>` — render just the cover page for one article to
+ * scripts/typeset/out/cover-preview-<slug>.pdf. Uses the same articles.ts
+ * metadata and the same drawCoverPage() the stamper uses, but never reads or
+ * writes any article PDF, and does not require one to exist. (The only file it
+ * touches outside scripts/ is the read-only masthead logo asset.)
+ */
+async function previewOne(slug: string) {
+  const article = SITE_ARTICLES.find((a) => a.slug === slug);
+  if (!article) {
+    console.error(`Unknown article slug: ${slug}`);
+    console.error("Known slugs:");
+    for (const a of SITE_ARTICLES) console.error(`  ${a.slug}`);
+    process.exit(1);
+  }
+
+  const doc = await PDFDocument.create();
+  const assets = await embedAssets(doc);
+  drawCoverPage(doc, assets, article);
+
+  const year = publishYear(article.publishDate);
+  doc.setTitle(`${article.title} — cover preview`);
+  doc.setAuthor(
+    article.school ? `${article.author} (${article.school})` : article.author,
+  );
+  doc.setSubject(article.abstract);
+  doc.setKeywords([buildKeywords(article.category, year, article.doi)]);
+  doc.setProducer(JOURNAL_NAME);
+  doc.setCreator(`${JOURNAL_NAME} cover preview (${COVER_MARKER})`);
+
+  await fs.mkdir(previewDir, { recursive: true });
+  const outPath = path.join(previewDir, `cover-preview-${slug}.pdf`);
+  await fs.writeFile(outPath, await doc.save({ useObjectStreams: false }));
+
+  const kw = keywordsBySlug[slug];
+  console.log(`Cover preview: ${outPath}`);
+  console.log(`  doi   ${`https://doi.org/${article.doi}`}`);
+  console.log(`  kw    ${kw ? kw : "(none)"}`);
+}
+
 async function main() {
+  await loadKeywords();
+
+  const argv = process.argv.slice(2);
+  const previewIdx = argv.indexOf("--preview");
+  if (previewIdx !== -1) {
+    const slug = argv[previewIdx + 1];
+    if (!slug || slug.startsWith("--")) {
+      console.error("Usage: tsx scripts/stamp-pdf-metadata.ts --preview <slug>");
+      process.exit(1);
+    }
+    await previewOne(slug);
+    return;
+  }
+
   console.log(`Stamping cover + metadata on ${SITE_ARTICLES.length} PDFs...`);
   console.log(`License URL embedded: ${LICENSE_URL}`);
   console.log("");

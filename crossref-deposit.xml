@@ -4,8 +4,8 @@
            xsi:schemaLocation="http://www.crossref.org/schema/5.3.1 http://www.crossref.org/schemas/crossref5.3.1.xsd"
            version="5.3.1">
   <head>
-    <doi_batch_id>jyi-20260825190934</doi_batch_id>
-    <timestamp>20260825190934</timestamp>
+    <doi_batch_id>jyi-20260826190109</doi_batch_id>
+    <timestamp>20260826190109</timestamp>
     <depositor>
       <depositor_name>The Journal of Young Innovators</depositor_name>
       <email_address>shifeng@inceptionpad.com</email_address>
@@ -150,7 +150,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>12</last_page>
+        <last_page>8</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -205,7 +205,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>6</last_page>
+        <last_page>4</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -246,7 +246,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>15</last_page>
+        <last_page>10</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -287,7 +287,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>17</last_page>
+        <last_page>11</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -332,7 +332,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>19</last_page>
+        <last_page>13</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -373,7 +373,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>33</last_page>
+        <last_page>22</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -432,7 +432,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>27</last_page>
+        <last_page>18</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -473,7 +473,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>20</last_page>
+        <last_page>13</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -519,7 +519,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>28</last_page>
+        <last_page>23</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -560,7 +560,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>20</last_page>
+        <last_page>14</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -619,7 +619,7 @@
       </publication_date>
       <pages>
         <first_page>1</first_page>
-        <last_page>10</last_page>
+        <last_page>7</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -659,8 +659,8 @@
         <year>2026</year>
       </publication_date>
       <pages>
-        <first_page>11</first_page>
-        <last_page>24</last_page>
+        <first_page>8</first_page>
+        <last_page>15</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -700,8 +700,8 @@
         <year>2026</year>
       </publication_date>
       <pages>
-        <first_page>25</first_page>
-        <last_page>36</last_page>
+        <first_page>16</first_page>
+        <last_page>21</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -741,8 +741,8 @@
         <year>2026</year>
       </publication_date>
       <pages>
-        <first_page>37</first_page>
-        <last_page>51</last_page>
+        <first_page>22</first_page>
+        <last_page>30</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -782,8 +782,8 @@
         <year>2026</year>
       </publication_date>
       <pages>
-        <first_page>52</first_page>
-        <last_page>78</last_page>
+        <first_page>31</first_page>
+        <last_page>47</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>
@@ -823,8 +823,8 @@
         <year>2026</year>
       </publication_date>
       <pages>
-        <first_page>79</first_page>
-        <last_page>86</last_page>
+        <first_page>48</first_page>
+        <last_page>51</last_page>
       </pages>
       <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
         <ai:free_to_read/>

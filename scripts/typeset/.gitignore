@@ -1,0 +1,6 @@
+# Working artifacts for the galley re-typesetting pipeline.
+# Sources of truth that DO get committed: *.mjs, *.css, typeset.config.mjs,
+# content/ (authored HTML fragments) and figures/ (cropped figure art).
+originals/
+pagesrc/
+out/

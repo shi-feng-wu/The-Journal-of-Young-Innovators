@@ -70,7 +70,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Neuroleadership and neuroeducation both try to turn neuroscience research into practical strategies for human development, yet the two fields have grown up with little reference to each other. This opinion piece proposes joining them through the Brain-Targeted Teaching model, which the author aligns with emotional intelligence theory and with transformational, supportive, servant, adaptive, and authentic leadership. The article first reviews neuroleadership research on the neural correlates of leadership behavior and on neuroplasticity. It then works through the model's six brain targets, from emotional climate and physical environment through learning design, mastery, application, and evaluation, and for each target pairs conditions that undermine learning and performance in organizations with research-based leadership practices that counter them. Leaders who attend to how brains actually learn, the author argues, are better placed to build workplaces where continuous learning, well-being, and innovation become ordinary.",
     image: "/images/optimized/leadership-800.webp",
     pdfBasename: "Neurons to Leaders",
-    pageCount: 12,
+    pageCount: 8,
   },
   {
     id: 2,
@@ -86,7 +86,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "International students in United States higher education faced a hard spring in 2025: visa revocations, suspended interviews, expanded vetting, and a broader anti-immigrant turn, at the same time as many institutions were dismantling diversity and support programs. Against that backdrop, the authors argue that leadership education belongs in the core curriculum for these students. The argument draws on a personal narrative from a women's leadership conference and on Thompson's idea of a global moral compass. Three capacities matter most, the authors contend. Students need resilience to stay grounded inside systems that pressure them toward invisibility, creativity to imagine futures their institutions have not prescribed, and ethical clarity for the moments when integrity and assimilation pull in different directions. Because such students reconcile competing cultural norms, institutional rules, and personal values every day, ethical reflection is for them a working skill. The piece closes by urging institutions to embed leadership development across disciplines, since these students will lead across borders whether they stay or return home.",
     image: "/images/optimized/neuroleadership-1600.webp",
     pdfBasename: "Standing Steady",
-    pageCount: 6,
+    pageCount: 4,
   },
   {
     id: 3,
@@ -101,7 +101,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Whether physicians may refuse on religious or moral grounds to take part in medically assisted death is the central question of this review. Scholarship on religion at the end of life has concentrated on patients; this article turns toward providers and asks how far their convictions deserve the protections patients already enjoy. It traces the long entanglement of religion and medicine, from Egyptian priest-healers and early Christian hospitals to today's religiously affiliated health systems, and revisits the right-to-die cases of Karen Ann Quinlan, Nancy Cruzan, Terri Schiavo, and Brittany Maynard along with the shift in terminology from physician-assisted suicide to medical aid in dying. On the strength of the Hippocratic tradition, prohibitions against killing shared across major religions, and the conscientious-objection literature, the author argues that clinicians are moral agents with a right to refuse. Referral to a willing provider, the review concludes, protects the physician's conscience without abandoning the patient.",
     image: "/images/optimized/ethics-1600.webp",
     pdfBasename: "Religion",
-    pageCount: 15,
+    pageCount: 10,
   },
   {
     id: 4,
@@ -116,7 +116,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Many adolescents who compulsively game, scroll, or gamble online never receive treatment. Therapy is expensive, clinicians are scarce and waitlisted, and stigma weighs differently on boys and girls and across cultures. This literature review defines behavioral addiction, documents its neurological and psychosocial effects on youth aged nine to eighteen, and asks whether artificial intelligence can close the treatment gap. The evidence reviewed suggests that natural language processing, machine learning, and conversational agents answer the barriers point by point: they cost little, are available at any hour, preserve anonymity, screen objectively, and can personalize engagement. The review weighs those advantages against data privacy risks, algorithmic bias inherited from unrepresentative training data, and the plain fact that a machine cannot feel empathy. The paper concludes that artificial intelligence works best as a supplement to human clinicians within a hybrid model of care.",
     image: "/images/optimized/therapy-800.webp",
     pdfBasename: "Meet Your Therapist",
-    pageCount: 17,
+    pageCount: 11,
   },
   {
     id: 5,
@@ -131,7 +131,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Consumers who want sustainable seafood face a wall of eco-labels they mostly do not understand, even as seafood is projected to expand as a lower-impact alternative to land-based meat. This article treats Iceland's fishing industry as a case study in how sustainable commerce can be organized, examining the sector through the commercial, legal, and ethical lenses of a three-part framework. Iceland makes an instructive model because fishing is central to both its economy and its culture. Commercially, the industry extracts value from byproducts and protects its workers, foreign and temporary crews included, through certification requirements and federal labor law. Legally, individual transferable quotas and third-party ecolabels such as Marine Stewardship Council certification hold overfishing in check while securing export advantages. Ethically, bycatch mitigation and aquaculture reform address animal welfare. The model has flaws, and the clearest is quota concentration that shuts out smaller and younger fishers. Other nations, the authors argue, should adapt Iceland's lessons to their own circumstances instead of copying them outright.",
     image: "/images/optimized/iceland-1600.webp",
     pdfBasename: "Seas Sustainable",
-    pageCount: 19,
+    pageCount: 13,
   },
   {
     id: 6,
@@ -146,7 +146,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Research on plastic pollution tends to split its epidemiological consequences from its ecological ones. This review reads the two literatures together. Following an adapted PRISMA protocol, it searches PubMed, Web of Science, ScienceDirect, and Google Scholar for English-language studies published between 2000 and 2024 and synthesizes the findings narratively. In the human body, microplastics are associated with disruption of the gut microbiome, damage to the intestinal epithelium, and endocrine interference. Their surfaces also carry biofilms in which pathogenic and antibiotic-resistant bacteria can travel, so the particles themselves become mobile disease vectors. In soil, microplastics reduce microbial diversity and alter both structure and nutrient cycling; crop performance suffers as a result. The review then evaluates candidate responses, among them plastic-degrading bacteria, antimicrobial polymers, and plant-based alternatives such as hemp and bamboo, and it flags unresolved problems with byproducts, biocontainment, scalability, and regulation. The case made throughout is for a single framework that ties human health to ecological health.",
     image: "/images/optimized/bacteria-1600.webp",
     pdfBasename: "The Plastic Problem",
-    pageCount: 33,
+    pageCount: 22,
   },
   {
     id: 7,
@@ -161,7 +161,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Is justice blind when the defendant is famous? This article studies how legal discretion operates in criminal cases brought against professional athletes, using a qualitative comparative design with cases purposively sampled against six criteria. The prosecutions of football players Henry Ruggs III and Rashee Rice and of Olympic wrestler Kyle Snyder are analyzed through a five-part framework covering the offense itself, the legal proceedings, access to resources, media framing, and institutional response. What emerges is a spectrum of legal elasticity. Severe harm limits how much leniency money can buy, but financial and social capital shape procedural outcomes in every case examined, and leagues and governing bodies run what amounts to a parallel disciplinary system with little transparency. The article closes with recommendations: publish and standardize institutional disciplinary guidelines, open the procedural record, invest in public media literacy, and bring race into future research designs.",
     image: "/images/optimized/basketball-800.webp",
     pdfBasename: "Foul on the Play",
-    pageCount: 27,
+    pageCount: 18,
   },
   {
     id: 8,
@@ -176,7 +176,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Wrestling, boxing, and jiu-jitsu keep drawing more young athletes, and researchers keep disagreeing about what the sports do to them. This narrative review reads across sports medicine, developmental and educational psychology, pediatrics, and public health, together with institutional position statements, to weigh the evidence on both sides. Participation builds self-regulation, humility, and perseverance, and those traits appear to protect against bullying and to predict stronger relationships and better academic and professional outcomes well into adulthood. The costs cluster around weight. Weight-class structures push athletes toward rapid weight cutting, and the documented consequences include dehydration, impaired growth and bone development, more injuries, weaker executive functioning, and disturbed body image. Given evidence this mixed, the article calls for standardized oversight of weight certification and comprehensive risk education for athletes and parents, and it asks that coaches be trained to recognize danger signs and step in.",
     image: "/images/optimized/boxing-800.webp",
     pdfBasename: "Friend or Foe",
-    pageCount: 20,
+    pageCount: 13,
   },
   {
     id: 9,
@@ -191,7 +191,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Golf now anchors an $88 billion global economy. Its player base has not widened to match. Through an interdisciplinary review spanning sports sociology, disability studies, and labor economics, read alongside government documents, legal mandates, and industry data, this article maps the barriers that still decide who plays: initiation fees and equipment costs, dress codes, legacy and referral membership systems, irregular low-wage work schedules, courses sited in affluent suburbs, a history of formal and informal racial exclusion, gendered wage gaps, and course designs that exclude players with disabilities. Because so much professional networking happens on the course, the same barriers also limit upward mobility. The article weighs countervailing developments too, among them entertainment golf venues, publicly subsidized courses, school-based instruction, adaptive equipment, the Americans with Disabilities Act, and adaptive tournaments. Whether those interventions amount to more than symbolism, it concludes, will depend on scale and on who ends up leading the institutions of the sport.",
     image: "/images/optimized/golf-1600.webp",
     pdfBasename: "Beyond the Fairway",
-    pageCount: 20,
+    pageCount: 14,
   },
   {
     id: 11,
@@ -207,7 +207,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "This study asks whether natural resource wealth predicts national wealth. It puts the question to World Bank data for a random sample of eighteen countries over the period 1970 to 2022, comparing total natural resource rents as a share of gross domestic product, and natural resource depletion as a share of gross national income, against GDP per capita. Logarithmic regressions fitted in R are evaluated through coefficients of determination and residual plots. The models perform poorly. Mean R-squared values reach only about 0.183 for rents and 0.240 for depletion, the medians fall below 0.10, and most residual plots show clumping and other non-random patterns. The results therefore support the null hypothesis of no significant logarithmic correlation. Global economic conditions are too heterogeneous for so simple a relationship, the author suggests, and progress on the question will require finer-grained data, repeated trials, and nonlinear models.",
     image: "/images/optimized/agri-1600.webp",
     pdfBasename: "Natural Resources Economics",
-    pageCount: 28,
+    pageCount: 23,
   },
   {
     id: 12,
@@ -222,7 +222,9 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
       "Arthur Miller's The Crucible dramatizes what happens when a government's authority and a church's doctrine become one, and this perspective piece uses the play to read contemporary church-state relations. Literary analysis of Puritan Salem is set beside three case studies arranged along a spectrum that runs from constitutional separation to theocracy. At one end, Stone v. Graham shows a court enforcing First Amendment neutrality by striking down Kentucky's mandate that public-school classrooms display the Ten Commandments. At the other, Taliban-governed Afghanistan shows religious law operating as state law, with severe limits on women's education, employment, and movement. Project 2025 sits between the two, an instance of indirect but consequential religious influence on proposed United States policy. Across the play and the cases the paper finds the same pattern: when theology steers the legal system, fear spreads, due process erodes, and injustice becomes systemic. Separating church from state, the author concludes, is what keeps governance equitable and individual rights secure.",
     image: "/images/optimized/crucible-1600.webp",
     pdfBasename: "The Crucible",
-    pageCount: 10,
+    pageCount: 7,
+    firstPage: 1,
+    lastPage: 7,
   },
   {
     id: 13,
@@ -235,9 +237,9 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     abstract: "Standardized English proficiency tests such as the Test of English as a Foreign Language (TOEFL) serve as gatekeepers to higher education for millions of students each year, yet the assumption that a single timed test fairly measures a student's ability is seldom examined critically. This review consolidates research on the global testing industry across three connected questions raised by the field: how standardized tests fail diverse learners, how the commercial testing business profits from exclusion, and how assessment might be reimagined beyond a single score. Drawing on educational psychology, language assessment, and the political economy of education, and using the theory of test validity and fairness as a connecting thread, the review argues that a standardized test measures something real but narrow, and does so under conditions that introduce systematic disadvantage for students who think, process information, or approach knowledge differently. The aim is to bring dispersed evidence within reach of students, educators, and admissions practitioners who encounter these concerns one at a time rather than as parts of a single problem.",
     image: "/images/optimized/testing-1600.webp",
     pdfBasename: "Global Testing",
-    pageCount: 14,
-    firstPage: 11,
-    lastPage: 24,
+    pageCount: 8,
+    firstPage: 8,
+    lastPage: 15,
   },
   {
     id: 14,
@@ -250,9 +252,9 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     abstract: "This paper reviews empirical research on algorithmic trading in the U.S. stock market and argues that its effects on price efficiency, transaction costs, and market volatility all stem from a single underlying behavior: the voluntary supply of liquidity by algorithmic and high-frequency trading firms. These firms are not required to keep trading when conditions turn unfavorable, so they supply liquidity when doing so is profitable and withdraw it when it is not. Under ordinary market conditions, this behavior narrows bid-ask spreads, speeds up the incorporation of new information into prices, and lowers trading costs for participants who can move as quickly as the market does. The same behavior also explains why these benefits break down during rare, correlated market shocks: firms that reliably supply liquidity on calm days can withdraw from the market in unison once conditions become risky, an event best illustrated by the Flash Crash of May 6, 2010. Bringing these three strands of research together shows that algorithmic trading has not simply made U.S. equity markets more efficient or more fragile. Instead, it has tied everyday market quality to a form of liquidity supply that is dependable under normal conditions and prone to sudden, collective withdrawal exactly when markets need it most.",
     image: "/images/optimized/trading-1600.webp",
     pdfBasename: "Algorithmic Trading",
-    pageCount: 12,
-    firstPage: 25,
-    lastPage: 36,
+    pageCount: 6,
+    firstPage: 16,
+    lastPage: 21,
   },
   {
     id: 15,
@@ -265,9 +267,9 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     abstract: "This literature review examines whether bilingual and bicultural students, individuals who grow up speaking two languages and navigating multiple cultural contexts, such as immigrants and green-card holders, possess greater charisma, adaptability, and social capability than their monolingual peers. Drawing on research from cultural psychology, sociolinguistics, and organizational behavior, the review synthesizes findings on cultural intelligence (CQ), cultural frame-switching, code-switching, bicultural identity integration (BII), and the individualism-collectivism dimension. The evidence suggests that bilingual students often develop enhanced cognitive flexibility, empathy, and cross-cultural communication skills that contribute to social adaptability and a charismatic presence. However, these advantages are accompanied by significant psychological costs: code-switching fatigue, identity confusion, and a persistent sense of not fully belonging to any single cultural group. Critically, because charisma itself is defined differently across individualistic and collectivistic cultures, the very skills that make bilingual students adaptable may be perceived as charismatic in one context and inauthentic in another. The review concludes that while bilingualism confers measurable interpersonal and cognitive benefits, the relationship between multicultural experience and charisma is mediated by BII and cultural context, factors that determine whether the bilingual experience becomes a source of strength or strain.",
     image: "/images/optimized/bilingual-1600.webp",
     pdfBasename: "Bilingual Charisma",
-    pageCount: 16,
-    firstPage: 37,
-    lastPage: 51,
+    pageCount: 9,
+    firstPage: 22,
+    lastPage: 30,
   },
   {
     id: 16,
@@ -280,9 +282,9 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     abstract: "This article examines the erasure of the South Vietnamese perspective in Vietnam War films and documentaries, arguing that this absence distorts public memory and historical understanding of the conflict. While the narratives of American soldiers and North Vietnamese ideologies are frequently centered in cinematic portrayals, the experiences, ideologies, and motivations of the South Vietnamese\u2013those who fought to defend their sovereignty\u2013are often sidelined, stereotyped, or omitted altogether. This line of research begins by defining the three major perspectives of the war\u2013American, North Vietnamese, and South Vietnamese\u2013to contextualize those which are missing. Through an analysis of documentaries like Ken Burns\u2019 The Vietnam War, Lloyd Ellison\u2019s Vietnam: A Television History, and other Hollywood films, this article seeks to identify recurring cinematic patterns that contribute to the marginalization of South Vietnamese characters and negates their agency, which together, produce a myopic cinematic representation of the war itself. It then explores historical factors (i.e., the intellectual climate typifying postwar academia, American reactions to refugees, and cultural stereotypes) that have contributed to this erasure. Finally, the article considers methods for addressing such displacement, including the formation of community-led film festivals and the construction of public memorials, that seek to reclaim and amplify the South Vietnamese perspective. By exposing the absence of a crucial voice of the Vietnam War in film and offering paths toward repair, this article calls for a more complete historical narrative of the war itself.",
     image: "/images/optimized/vietnam-1600.webp",
     pdfBasename: "American Lens",
-    pageCount: 27,
-    firstPage: 52,
-    lastPage: 78,
+    pageCount: 17,
+    firstPage: 31,
+    lastPage: 47,
   },
   {
     id: 17,
@@ -295,9 +297,9 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     abstract: "This research paper evaluates how artificial intelligence, or AI, is changing the way companies around the world come up with new ideas and run their businesses. By looking at over 100 high-quality studies published between 2018 and 2024, we discovered that AI is much more than just a cool new gadget; it is actually a powerful force that is helping businesses create better products, work more efficiently, and understand their customers on a much deeper level. We found that while AI can do things like help doctors find diseases faster or help banks stop hackers, it also brings up big questions about fairness, privacy, and how humans and robots should work together. This paper explains how AI-driven innovation works and what the future might look like for students and workers in a world filled with smart technology.",
     image: "/images/optimized/blackbox-1600.webp",
     pdfBasename: "Black Box",
-    pageCount: 8,
-    firstPage: 79,
-    lastPage: 86,
+    pageCount: 4,
+    firstPage: 48,
+    lastPage: 51,
   },
 ];
 
