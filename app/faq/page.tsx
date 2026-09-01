@@ -1,6 +1,7 @@
 "use client";
 
 import { Accordion, AccordionItem } from "@heroui/react";
+import Link from "next/link";
 import Hero from "@/components/Hero";
 
 const faqData = [
@@ -16,26 +17,34 @@ const faqData = [
     answer: (
       <>
         For the 2025–2026 academic year, submission and publication in JYI are
-        free of charge — no submission fees, article processing charges (APCs),
-        or publication fees. Beginning with the 2026–2027 academic year, a $65
-        USD publication fee per article applies, payable only after acceptance;
-        there is no fee to submit for review. Need-based waivers are available
-        by request to{" "}
-        <a
-          href="mailto:editor@young-innovator.org"
-          className="underline underline-offset-2"
+        free of charge. A $65 USD publication fee per article begins with the
+        2026–2027 academic year, payable only after acceptance. See{" "}
+        <Link
+          href="/policies#apc"
+          className="text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary"
         >
-          editor@young-innovator.org
-        </a>
-        . See our Policies page for full details.
+          Article Processing Charges
+        </Link>{" "}
+        for waivers and full details.
       </>
     ),
   },
   {
     id: 3,
     question: "How long will the review process take?",
-    answer:
-      "Editorial decisions are typically communicated within 4–8 weeks of submission, including detailed reviewer feedback regardless of the final decision.",
+    answer: (
+      <>
+        Editorial decisions are typically communicated within 4–8 weeks of
+        submission. See{" "}
+        <Link
+          href="/policies#peer-review"
+          className="text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary"
+        >
+          Peer Review
+        </Link>{" "}
+        for how manuscripts are evaluated.
+      </>
+    ),
   },
   {
     id: 4,
@@ -59,7 +68,7 @@ const faqData = [
     id: 7,
     question: "What disciplines do you accept papers from?",
     answer:
-      "We welcome research across all disciplines, including but not limited to healthcare, ethics, humanities, business, science and technology, policy, law, and security—particularly as they relate to AI and innovation.",
+      "We welcome research across all disciplines, including but not limited to healthcare, ethics, humanities, business, science and technology, policy, law, and security, particularly as they relate to AI and innovation.",
   },
   {
     id: 8,
@@ -87,20 +96,23 @@ export default function FAQ() {
       {/* FAQ Section (aligned with other pages) */}
       <div className="pb-40">
         <section className="pb-10 pt-10">
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
-            <Accordion variant="splitted">
+          <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-20">
+            <Accordion variant="light" className="px-0">
               {faqData.map((faq) => (
                 <AccordionItem
                   key={faq.id}
                   aria-label={faq.question}
                   title={faq.question}
-                  className="mb-4 bg-transparent border-none shadow-none"
                   classNames={{
-                    title: "text-3xl font-medium mr-2 cursor-pointer",
-                    base: "p-0",
+                    base: "border-b border-black/30",
+                    trigger: "py-5 px-0 cursor-pointer",
+                    title:
+                      "font-display font-normal text-xl md:text-2xl text-left text-black",
+                    indicator: "text-black/60",
+                    content: "px-0 pt-0 pb-6",
                   }}
                 >
-                  <p className="text-foreground/80 leading-relaxed">
+                  <p className="font-text text-sm md:text-base leading-relaxed text-black/80">
                     {faq.answer}
                   </p>
                 </AccordionItem>

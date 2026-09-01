@@ -25,7 +25,7 @@ const NavLink = ({
 >) => (
   <Link
     href={href}
-    className={`relative z-[1] inline-flex items-center px-3 py-2 text-sm text-white transition-colors rounded-md hover:text-white/90 hover:bg-white/10 ${className ?? ""}`}
+    className={`relative z-[1] inline-flex items-center whitespace-nowrap px-3 py-2 text-sm text-white transition-colors rounded-md hover:text-white/90 hover:bg-white/10 ${className ?? ""}`}
     {...props}
   >
     {children}
@@ -94,7 +94,7 @@ const MobileNavLink = ({
   </Link>
 );
 
-export default function Navigation({ delay = true }: { delay?: boolean }) {
+export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -105,13 +105,18 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
     }
 
     document.body.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
     };
   }, [isMenuOpen]);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
+    const mq = window.matchMedia("(min-width: 1280px)");
     const update = () => setIsDesktop(mq.matches);
     update();
     mq.addEventListener("change", update);
@@ -119,15 +124,14 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
   }, []);
 
   return (
-    <nav className="font-mono font-semibold bg-transparent relative z-50">
-      <div
-        className={`max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 ${
-          delay ? "delayed-text" : ""
-        }`}
-      >
+    <nav
+      aria-label="Primary"
+      className="font-mono font-semibold bg-transparent relative z-50"
+    >
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center h-16 gap-4">
-          <div className="flex items-center shrink-0 lg:hidden">
-            <Link href="/" className="flex items-center lg:hidden">
+          <div className="flex items-center shrink-0 xl:hidden">
+            <Link href="/" className="flex items-center xl:hidden">
               <img
                 src="/logolight.png"
                 alt="The Journal of Young Innovators home"
@@ -138,17 +142,18 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
           </div>
 
           {/* Desktop Navigation — MotionHighlight only loads on desktop */}
-          <div className="hidden lg:flex items-center flex-1">
+          <div className="hidden xl:flex items-center flex-1">
             {isDesktop ? <DesktopNavHighlight /> : <DesktopNavStatic />}
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center ml-auto">
+          <div className="xl:hidden flex items-center ml-auto">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="focus:outline-none text-white relative z-[70]"
+              className="flex h-11 w-11 items-center justify-center -mr-2 rounded-md text-white relative z-[70] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
               <svg
                 className="h-6 w-6"
@@ -173,7 +178,8 @@ export default function Navigation({ delay = true }: { delay?: boolean }) {
 
         {/* Mobile Navigation */}
         <div
-          className={`fixed inset-x-0 top-16 bottom-0 lg:hidden bg-primary/95 backdrop-blur-sm border-t border-white/20 transition-all duration-300 ease-out ${
+          id="mobile-menu"
+          className={`fixed inset-x-0 top-16 bottom-0 xl:hidden bg-primary/95 backdrop-blur-sm border-t border-white/20 transition-all duration-300 ease-out ${
             isMenuOpen
               ? "opacity-100 translate-y-0 pointer-events-auto"
               : "opacity-0 -translate-y-4 pointer-events-none"

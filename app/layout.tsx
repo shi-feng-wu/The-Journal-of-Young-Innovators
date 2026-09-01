@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
-import { MuseoModerno } from "next/font/google";
 import { DM_Serif_Display } from "next/font/google";
 import { Source_Sans_3 } from "next/font/google";
 
@@ -12,11 +11,6 @@ import WebVitals from "./components/WebVitals";
 
 const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
-  subsets: ["latin"],
-});
-
-const museoModerno = MuseoModerno({
-  variable: "--font-museo-moderno",
   subsets: ["latin"],
 });
 
@@ -129,10 +123,18 @@ export default function RootLayout({
       <body
         className={`${dmSerifDisplay.variable} ${robotoMono.variable} ${sourceSans3.variable} antialiased`}
       >
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-primary"
+        >
+          Skip to content
+        </a>
         <Providers>
           <WebVitals />
           <div className="min-h-screen flex flex-col relative">
-            <main className="flex-grow">{children}</main>
+            <main id="main" className="flex-grow">
+              {children}
+            </main>
             <BackToTop />
             <Footer />
           </div>

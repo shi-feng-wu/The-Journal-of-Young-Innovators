@@ -33,12 +33,22 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: true,
   async redirects() {
-    return SITE_ARTICLES.map((article) => ({
-      // Redirect sources are matched against the percent-encoded path.
-      source: encodeURI(article.legacyPdfPath),
-      destination: article.pdfPath,
-      statusCode: 301,
-    }));
+    return [
+      { source: "/jyi", destination: "/", permanent: true },
+      {
+        // Pre-restructure filename for standing-steady, older than its
+        // legacyPdfPath ("Standing Steady.pdf") covered by the map below.
+        source: encodeURI("/articles/Leadership Education.pdf"),
+        destination: "/issues/articles/standing-steady.pdf",
+        statusCode: 301 as const,
+      },
+      ...SITE_ARTICLES.map((article) => ({
+        // Redirect sources are matched against the percent-encoded path.
+        source: encodeURI(article.legacyPdfPath),
+        destination: article.pdfPath,
+        statusCode: 301 as const,
+      })),
+    ];
   },
   async headers() {
     return [

@@ -13,15 +13,20 @@ export default function Footer() {
 
   return (
     <footer
-      className={`hero-text font-mono absolute inset-x-0 bottom-4 px-4 sm:px-6 lg:px-20 text-center text-[0.5rem] ${
+      className={`hero-text font-mono absolute inset-x-0 bottom-2 px-4 sm:px-6 lg:px-20 text-center text-[11px] leading-relaxed ${
         isWhiteFooterPage ? "text-white" : "text-primary"
       }`}
     >
-      An online academic journal for high school and college students. A
-      non-profit collaboration dedicated to youth educational advancement,
-      published in Baltimore, Maryland, USA. ISSN (Online): 3070-8885 ·
-      Contact: editor@young-innovator.org ·{" "}
-      <Link href="/policies" className="hover:underline">
+      <span className="hidden sm:inline">
+        An online academic journal for high school and college students. A
+        non-profit collaboration dedicated to youth educational advancement,
+        published in Baltimore, Maryland, USA.{" "}
+      </span>
+      ISSN (Online): 3070-8885 · Contact: editor@young-innovator.org ·{" "}
+      <Link
+        href="/policies"
+        className="inline-block px-1 py-1 hover:underline"
+      >
         Policies
       </Link>
     </footer>

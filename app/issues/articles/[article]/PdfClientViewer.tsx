@@ -39,7 +39,7 @@ type ThumbnailPagePreviewProps = {
 const THUMB_WIDTH = 115;
 const THUMB_GAP = 10;
 const THUMB_FIRST_ROW_PAD = 2;
-const DEFAULT_PAGE_WIDTH_FACTOR = 0.75;
+const DEFAULT_PAGE_WIDTH_FACTOR = 0.95;
 
 type ThumbnailRailProps = {
   documentUrl: string;
@@ -398,7 +398,7 @@ export default function PdfClientViewer({ documentUrl }: PdfClientViewerProps) {
       return (
         <div style={style} className="flex justify-center py-2">
           <Page
-            className="border-b border-black/50"
+            className="border border-black/20 shadow-md"
             pageNumber={pageNumber}
             width={pageRenderWidth}
             renderAnnotationLayer
@@ -538,13 +538,13 @@ export default function PdfClientViewer({ documentUrl }: PdfClientViewerProps) {
   }
 
   return (
-    <div className="flex h-[90vh] w-full flex-col overflow-hidden rounded-lg border bg-white">
-      <div className="sticky top-0 z-10 flex flex-wrap items-center gap-2 border-b border-black bg-primary px-3 py-2 text-white">
+    <div className="flex h-[70vh] w-full flex-col overflow-hidden rounded-lg border border-black/20 bg-white lg:h-[calc(100vh-7rem)]">
+      <div className="sticky top-0 z-10 flex flex-wrap items-center gap-1 sm:gap-2 border-b border-white/20 bg-primary px-3 py-2 text-white">
         <button
           type="button"
           onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage <= 1}
-          className="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em] disabled:cursor-not-allowed disabled:opacity-40"
+          className="cursor-pointer inline-flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-md border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em] disabled:cursor-not-allowed disabled:opacity-40"
           aria-label="Previous page"
         >
           <FaChevronLeft />
@@ -578,7 +578,7 @@ export default function PdfClientViewer({ documentUrl }: PdfClientViewerProps) {
                 pageInputRef.current?.blur();
               }
             }}
-            className="h-8 w-12 rounded border border-white/70 bg-transparent px-1 text-center text-[11px] text-white outline-none placeholder:text-white/60"
+            className="h-11 w-12 md:h-8 rounded-md border border-white/70 bg-transparent px-1 text-center text-[11px] text-white outline-none placeholder:text-white/60"
             aria-label="Page number"
           />
           <span>/ {numPages || 1}</span>
@@ -588,29 +588,32 @@ export default function PdfClientViewer({ documentUrl }: PdfClientViewerProps) {
           type="button"
           onClick={() => goToPage(currentPage + 1)}
           disabled={!numPages || currentPage >= numPages}
-          className="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em] disabled:cursor-not-allowed disabled:opacity-40"
+          className="cursor-pointer inline-flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-md border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em] disabled:cursor-not-allowed disabled:opacity-40"
           aria-label="Next page"
         >
           <FaChevronRight />
         </button>
 
-        <div className="mx-1 h-5 w-px bg-white/40" aria-hidden />
+        <div
+          className="mx-1 hidden h-5 w-px bg-white/40 sm:block"
+          aria-hidden
+        />
 
         <button
           type="button"
           onClick={zoomOut}
-          className="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
+          className="cursor-pointer inline-flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-md border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
           aria-label="Zoom out"
         >
           <FaMinus />
         </button>
-        <span className="font-mono text-[11px] uppercase tracking-[0.12em]">
+        <span className="hidden items-center font-mono text-[11px] uppercase tracking-[0.12em] sm:inline-flex">
           {Math.round(scale * 100)}%
         </span>
         <button
           type="button"
           onClick={zoomIn}
-          className="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
+          className="cursor-pointer inline-flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-md border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
           aria-label="Zoom in"
         >
           <FaPlus />
@@ -618,7 +621,7 @@ export default function PdfClientViewer({ documentUrl }: PdfClientViewerProps) {
         <button
           type="button"
           onClick={() => setScale(1)}
-          className="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
+          className="cursor-pointer hidden sm:inline-flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-md border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
           aria-label="Reset zoom"
         >
           <FaRotateLeft />
@@ -627,22 +630,19 @@ export default function PdfClientViewer({ documentUrl }: PdfClientViewerProps) {
         <a
           href={documentUrl}
           download
-          className="ml-auto cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
+          className="ml-auto cursor-pointer inline-flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-md border border-white/70 p-0 font-mono text-[11px] uppercase tracking-[0.12em]"
           aria-label="Download PDF"
         >
           <FaDownload />
         </a>
       </div>
 
-      <div
-        className="min-h-0 flex-1 overflow-hidden"
-        data-lenis-prevent
-        data-lenis-prevent-wheel
-        data-lenis-prevent-touch
-        onWheelCapture={(event) => event.stopPropagation()}
-      >
+      <div className="min-h-0 flex-1 overflow-hidden">
         <div className="flex h-full min-h-0">
-          <div ref={containerRef} className="min-h-0 flex-1 overflow-hidden">
+          <div
+            ref={containerRef}
+            className="min-h-0 flex-1 overflow-hidden bg-black/5"
+          >
             <Document
               file={documentUrl}
               onLoadSuccess={(nextPdf) => {
@@ -675,7 +675,7 @@ export default function PdfClientViewer({ documentUrl }: PdfClientViewerProps) {
             </Document>
           </div>
 
-          <aside className="hidden min-h-0 w-40 shrink-0 overflow-hidden border-l border-black bg-primary p-4 pt-3 md:block">
+          <aside className="hidden min-h-0 w-40 shrink-0 overflow-hidden border-l border-white/20 bg-primary p-4 pt-3 md:block">
             <div
               ref={thumbContainerRef}
               className="hide-scrollbar h-full min-h-0"

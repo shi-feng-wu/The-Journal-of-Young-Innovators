@@ -53,7 +53,7 @@ function PolicySection({
           {title}
         </h2>
       </div>
-      <div className="space-y-5 text-sm md:text-md leading-relaxed text-black/80 [&_a]:underline [&_a]:underline-offset-2">
+      <div className="space-y-5 text-sm md:text-base leading-relaxed text-black/80 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-primary/40 hover:[&_a]:decoration-primary">
         {children}
       </div>
     </section>
@@ -70,7 +70,27 @@ export default function PoliciesPage() {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 md:gap-14 lg:gap-20">
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 max-w-[68ch]">
+            <details className="lg:hidden mb-8 border-b border-black/30 pb-4 font-text">
+              <summary className="cursor-pointer font-mono text-xs uppercase tracking-[0.2em] text-black/70">
+                On this page
+              </summary>
+              <nav aria-label="On this page" className="mt-4">
+                <ul className="grid grid-cols-1 xs:grid-cols-2 gap-y-2 gap-x-6 text-sm text-black/80">
+                  {sections.map((section) => (
+                    <li key={section.id}>
+                      <a
+                        href={`#${section.id}`}
+                        className="underline-offset-2 hover:underline"
+                      >
+                        {section.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </details>
+
             <PolicySection id="open-access" title="Open Access" noTopBorder>
               <p>
                 The Journal of Young Innovators (JYI) is a fully open-access
@@ -198,10 +218,7 @@ export default function PoliciesPage() {
                 dedicated to making scholarly publishing accessible to students
                 of all income levels. Need-based waivers are also available by
                 request to{" "}
-                <a
-                  href="mailto:editor@young-innovator.org"
-                  className="underline underline-offset-2"
-                >
+                <a href="mailto:editor@young-innovator.org">
                   editor@young-innovator.org
                 </a>
                 .
@@ -233,10 +250,9 @@ export default function PoliciesPage() {
                 nature of the match.
               </p>
               <p>
-                Plagiarism — including verbatim copying, substantial
-                paraphrasing without attribution, self-plagiarism, and
-                improperly attributed quotations — is grounds for immediate
-                rejection. If plagiarism is detected after publication, the
+                Plagiarism, including verbatim copying, substantial paraphrasing
+                without attribution, self-plagiarism, and improperly attributed
+                quotations, is grounds for immediate rejection. If plagiarism is detected after publication, the
                 journal will issue a correction or retract the article in
                 accordance with{" "}
                 <a
@@ -253,8 +269,7 @@ export default function PoliciesPage() {
 
             <PolicySection id="ethics" title="Publication Ethics">
               <p>
-                JYI is committed to the highest standards of publication ethics
-                and follows the principles articulated by the{" "}
+                JYI follows the principles articulated by the{" "}
                 <a
                   href="https://publicationethics.org/core-practices"
                   target="_blank"
@@ -264,27 +279,34 @@ export default function PoliciesPage() {
                 </a>
                 .
               </p>
-              <p>
-                <strong>Author responsibilities.</strong> Authors must submit
-                original work, properly cite all sources, disclose any conflicts
-                of interest or sources of funding, and obtain permission for any
-                third-party material they reproduce. Submissions must not be
-                under consideration at another journal.
-              </p>
-              <p>
-                <strong>Reviewer responsibilities.</strong> Reviewers must keep
-                manuscripts confidential, declare conflicts of interest, provide
-                fair and constructive feedback, and complete reviews in a timely
-                manner.
-              </p>
-              <p>
-                <strong>Editor responsibilities.</strong> Editors are
-                responsible for the integrity of the published record. They make
-                publication decisions free from commercial influence, handle
-                complaints and corrections promptly, ensure the confidentiality
-                of submissions, and act to prevent the publication of work in
-                which a conflict of interest has not been declared.
-              </p>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Author responsibilities.
+                </h3>{" "}
+                Authors must submit original work, properly cite all sources,
+                disclose any conflicts of interest or sources of funding, and
+                obtain permission for any third-party material they reproduce.
+                Submissions must not be under consideration at another journal.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Reviewer responsibilities.
+                </h3>{" "}
+                Reviewers must keep manuscripts confidential, declare conflicts
+                of interest, provide fair and constructive feedback, and
+                complete reviews in a timely manner.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Editor responsibilities.
+                </h3>{" "}
+                Editors are responsible for the integrity of the published
+                record. They make publication decisions free from commercial
+                influence, handle complaints and corrections promptly, ensure
+                the confidentiality of submissions, and act to prevent the
+                publication of work in which a conflict of interest has not been
+                declared.
+              </div>
               <p>
                 Concerns about misconduct, including data fabrication,
                 falsification, plagiarism, or undisclosed conflicts of interest,
@@ -297,30 +319,37 @@ export default function PoliciesPage() {
             </PolicySection>
 
             <PolicySection id="ai" title="Generative AI Policy">
-              <p>
-                <strong>Authors.</strong> Generative AI tools (such as large
-                language models) may be used to assist with language polishing,
-                spelling, and grammar. They may not be used to generate
-                substantive scholarly content, analysis, citations, data, or
-                figures. Any use of AI tools beyond minor language assistance
-                must be disclosed in the manuscript&apos;s methods or
-                acknowledgements section, including the tool name, version, and
-                how it was used. AI tools cannot be listed as authors and cannot
-                be cited as a source of authority — the human authors are fully
-                responsible for the integrity, accuracy, and originality of all
-                submitted content.
-              </p>
-              <p>
-                <strong>Reviewers.</strong> Reviewers must not upload
-                manuscripts, in whole or in part, to generative AI tools, as
-                doing so violates the confidentiality of the peer review
-                process.
-              </p>
-              <p>
-                <strong>Editors.</strong> Editors may use AI-assisted tools for
-                administrative tasks (e.g., similarity screening) but final
-                editorial decisions are made by human editors.
-              </p>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Authors.
+                </h3>{" "}
+                Generative AI tools (such as large language models) may be used
+                to assist with language polishing, spelling, and grammar. They
+                may not be used to generate substantive scholarly content,
+                analysis, citations, data, or figures. Any use of AI tools
+                beyond minor language assistance must be disclosed in the
+                manuscript&apos;s methods or acknowledgements section, including
+                the tool name, version, and how it was used. AI tools cannot be
+                listed as authors and cannot be cited as a source of authority.
+                The human authors are fully responsible for the integrity,
+                accuracy, and originality of all submitted content.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Reviewers.
+                </h3>{" "}
+                Reviewers must not upload manuscripts, in whole or in part, to
+                generative AI tools, as doing so violates the confidentiality of
+                the peer review process.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Editors.
+                </h3>{" "}
+                Editors may use AI-assisted tools for administrative tasks
+                (e.g., similarity screening) but final editorial decisions are
+                made by human editors.
+              </div>
             </PolicySection>
 
             <PolicySection
@@ -390,9 +419,12 @@ export default function PoliciesPage() {
                 </a>
                 .
               </p>
-              <p>
-                <strong>Step 1.</strong> Direct your complaint or appeal to the
-                handling editor by emailing{" "}
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 1.
+                </h3>{" "}
+                Direct your complaint or appeal to the handling editor by
+                emailing{" "}
                 <a href="mailto:editor@young-innovator.org">
                   editor@young-innovator.org
                 </a>{" "}
@@ -400,18 +432,23 @@ export default function PoliciesPage() {
                 &ldquo;Complaint&rdquo;. Include the manuscript or article
                 title, the nature of the concern, and any supporting evidence.
                 We acknowledge receipt within 5 business days.
-              </p>
-              <p>
-                <strong>Step 2.</strong> If the response from the handling
-                editor does not resolve the matter, the appeal is escalated to
-                the Editor-in-Chief, who reviews the case independently.
-                Decisions at this stage are final within JYI.
-              </p>
-              <p>
-                <strong>Step 3.</strong> If the complaint concerns the
-                Editor-in-Chief, an editor with no conflict of interest is
-                designated to handle the case. Unresolved disputes about
-                publication ethics may be referred to{" "}
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 2.
+                </h3>{" "}
+                If the response from the handling editor does not resolve the
+                matter, the appeal is escalated to the Editor-in-Chief, who
+                reviews the case independently. Decisions at this stage are
+                final within JYI.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 3.
+                </h3>{" "}
+                If the complaint concerns the Editor-in-Chief, an editor with no
+                conflict of interest is designated to handle the case.
+                Unresolved disputes about publication ethics may be referred to{" "}
                 <a
                   href="https://publicationethics.org/"
                   target="_blank"
@@ -420,7 +457,7 @@ export default function PoliciesPage() {
                   COPE
                 </a>{" "}
                 for external guidance.
-              </p>
+              </div>
               <p>
                 Retaliation against complainants in good faith is prohibited.
               </p>
@@ -428,8 +465,7 @@ export default function PoliciesPage() {
 
             <PolicySection id="corrections" title="Corrections and Retractions">
               <p>
-                JYI is committed to maintaining the integrity of the published
-                record and follows{" "}
+                JYI follows{" "}
                 <a
                   href="https://publicationethics.org/retraction-guidelines"
                   target="_blank"
@@ -439,30 +475,38 @@ export default function PoliciesPage() {
                 </a>
                 .
               </p>
-              <p>
-                <strong>Corrections (errata).</strong> Minor errors that do not
-                affect the conclusions of an article (e.g., typographical
-                errors, errors in author affiliations, mislabelled figures) are
-                addressed by issuing a correction notice. The original article
-                remains in place and is updated with a clearly visible link to
-                the correction notice.
-              </p>
-              <p>
-                <strong>Expressions of concern.</strong> If a credible concern
-                is raised about the integrity of an article and an investigation
-                is required, JYI may issue an Expression of Concern linked to
-                the article while the matter is being resolved.
-              </p>
-              <p>
-                <strong>Retractions.</strong> Articles are retracted when there
-                is clear evidence of unreliable findings (resulting from
-                misconduct or honest error), redundant publication, plagiarism,
-                undisclosed major conflicts of interest, or unethical research
-                practices. Retracted articles are not removed from the site —
-                they remain accessible with a clearly displayed retraction
-                notice and a watermark on the PDF, so the scholarly record
-                remains intact and citing parties can identify the retraction.
-              </p>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Corrections (errata).
+                </h3>{" "}
+                Minor errors that do not affect the conclusions of an article
+                (e.g., typographical errors, errors in author affiliations,
+                mislabelled figures) are addressed by issuing a correction
+                notice. The original article remains in place and is updated
+                with a clearly visible link to the correction notice.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Expressions of concern.
+                </h3>{" "}
+                If a credible concern is raised about the integrity of an
+                article and an investigation is required, JYI may issue an
+                Expression of Concern linked to the article while the matter is
+                being resolved.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Retractions.
+                </h3>{" "}
+                Articles are retracted when there is clear evidence of
+                unreliable findings (resulting from misconduct or honest error),
+                redundant publication, plagiarism, undisclosed major conflicts
+                of interest, or unethical research practices. Retracted articles
+                are not removed from the site. They remain accessible with a
+                clearly displayed retraction notice and a watermark on the PDF,
+                so the scholarly record remains intact and citing parties can
+                identify the retraction.
+              </div>
               <p>
                 All correction, expression-of-concern, and retraction notices
                 are open access, freely linked from the original article, and
@@ -484,12 +528,15 @@ export default function PoliciesPage() {
                 . Each article is hosted as a downloadable PDF with a stable URL
                 based on its title slug.
               </p>
-              <p>
-                <strong>Web archiving.</strong> Every JYI article URL is
-                captured by the Internet Archive&apos;s Wayback Machine at the
-                time of publication and at regular intervals thereafter, so the
-                full content of the journal — including the article landing page
-                and the article PDF — can be retrieved through{" "}
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Web archiving.
+                </h3>{" "}
+                Every JYI article URL is captured by the Internet
+                Archive&apos;s Wayback Machine at the time of publication and at
+                regular intervals thereafter, so the full content of the
+                journal, including the article landing page and the article PDF,
+                can be retrieved through{" "}
                 <a
                   href="https://web.archive.org/"
                   target="_blank"
@@ -498,23 +545,24 @@ export default function PoliciesPage() {
                   web.archive.org
                 </a>{" "}
                 even if young-innovator.org becomes unavailable.
-              </p>
-              <p>
-                <strong>Author deposit.</strong> Because every article is
-                published under a CC BY 4.0 license with no embargo, authors are
-                encouraged — and explicitly permitted — to deposit the published
-                version in their institutional or subject repository for
-                additional preservation redundancy. See the{" "}
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Author deposit.
+                </h3>{" "}
+                Because every article is published under a CC BY 4.0 license
+                with no embargo, authors are encouraged, and explicitly
+                permitted, to deposit the published version in their
+                institutional or subject repository for additional preservation
+                redundancy. See the{" "}
                 <a href="#self-archiving">Author Self-Archiving</a> section
                 above.
-              </p>
+              </div>
               <p>
-                JYI is committed to maintaining long-term access to the
-                scholarly record it publishes. In the event the journal ceases
-                publication, the editorial team will ensure that the existing
-                article archive remains accessible through web archives and,
-                where possible, through transfer to a partner institution or
-                repository.
+                In the event the journal ceases publication, the editorial team
+                will ensure that the existing article archive remains accessible
+                through web archives and, where possible, through transfer to a
+                partner institution or repository.
               </p>
             </PolicySection>
 

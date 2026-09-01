@@ -3,7 +3,6 @@
 import Hero from "@/components/Hero";
 import { Image, Link } from "@heroui/react";
 import { TableOfContents } from "@/components/PageComponents";
-import { FaCalendarAlt, FaLightbulb, FaMedal } from "react-icons/fa";
 import { ReactNode } from "react";
 
 function EditorialSection({
@@ -20,14 +19,14 @@ function EditorialSection({
   return (
     <section
       id={id}
-      className={`${noTopBorder ? "pb-12" : "py-12 border-t border-black/30"} font-text`}
+      className={`${noTopBorder ? "pb-12" : "py-12 border-t border-black/30"} scroll-mt-24 font-text`}
     >
       <div className="mb-6 flex items-end justify-between gap-4">
-        <h2 className="font-display text-3xl md:text-4xl text-black tracking-wide">
+        <h2 className="font-display text-3xl md:text-4xl text-black">
           {title}
         </h2>
       </div>
-      <div className="space-y-5 text-sm md:text-md leading-relaxed text-black/80">
+      <div className="space-y-5 text-sm md:text-base leading-relaxed text-black/80">
         {children}
       </div>
     </section>
@@ -36,22 +35,17 @@ function EditorialSection({
 
 function InfoCard({
   title,
-  icon,
   children,
 }: {
   title: string;
-  icon?: ReactNode;
   children: ReactNode;
 }) {
   return (
-    <article className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
-      <div className="mb-4 flex items-center gap-3">
-        {icon ? <span className="text-2xl text-primary">{icon}</span> : null}
-        <h3 className="font-display text-2xl text-black tracking-wide">
-          {title}
-        </h3>
+    <article className="border-t border-black/30 pt-5">
+      <div className="mb-4">
+        <h3 className="font-display text-2xl text-black">{title}</h3>
       </div>
-      <div className="font-text text-black/80 leading-relaxed [&_p]:text-sm [&_li]:text-sm md:[&_p]:text-md md:[&_li]:text-md [&_strong]:font-semibold [&_.card-subheading]:text-sm md:[&_.card-subheading]:text-md [&_.card-subheading]:font-semibold [&_.card-subheading]:text-black">
+      <div className="font-text text-black/80 leading-relaxed [&_p]:text-sm [&_li]:text-sm md:[&_p]:text-base md:[&_li]:text-base [&_strong]:font-semibold [&_.card-subheading]:text-sm md:[&_.card-subheading]:text-base [&_.card-subheading]:font-semibold [&_.card-subheading]:text-black">
         {children}
       </div>
     </article>
@@ -72,10 +66,10 @@ export default function ScholarlyEvent() {
   ];
 
   return (
-    <div className="min-h-screen bg-background pb-10">
+    <div className="min-h-screen bg-background pb-24">
       <Hero
         title="Innovation Challenge Series"
-        subtitle="National platforms for high school students and college students to showcase bold ideas and original work in AI, innovation, data ethics, biomedical technologies, and more."
+        subtitle="Competitions and summer programs for high school and college student researchers."
       />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
@@ -86,7 +80,7 @@ export default function ScholarlyEvent() {
               title="Innovation Case Challenge"
               noTopBorder
             >
-              <div className="bg-primary text-white rounded-2xl p-6 md:p-8 mb-8">
+              <div className="bg-primary text-white p-6 md:p-8 mb-8">
                 <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6 justify-center">
                   <div className="flex items-center gap-3">
                     <Link
@@ -96,7 +90,7 @@ export default function ScholarlyEvent() {
                       className="inline-flex"
                     >
                       <Image
-                        className="h-8 w-8 sm:h-10 object-contain"
+                        className="h-10 sm:h-12 w-auto object-contain"
                         src={"/images/logos/dinglab.png"}
                         alt="Ding Lab"
                       />
@@ -108,13 +102,13 @@ export default function ScholarlyEvent() {
                       className="inline-flex"
                     >
                       <Image
-                        className="h-8 w-8 sm:h-10 object-contain brightness-0 invert"
+                        className="h-10 sm:h-12 w-auto object-contain brightness-0 invert"
                         src={"/images/logos/jhu.png"}
                         alt="Johns Hopkins University"
                       />
                     </Link>
                   </div>
-                  <h3 className="font-display text-2xl md:text-3xl text-center tracking-wide">
+                  <h3 className="font-display text-2xl md:text-3xl text-center">
                     Fall 2025 Student Research & Innovation Competition
                   </h3>
                 </div>
@@ -122,43 +116,34 @@ export default function ScholarlyEvent() {
 
               <div className="space-y-5 mb-8">
                 <p>
-                  We’re thrilled to announce the Fall 2025 Annual Student
-                  Research & Innovation Competition—a national platform for high
-                  school and college students to showcase bold ideas and
-                  original work in AI, social innovation, ethics, biomedical
-                  technologies, and more. Proudly sponsored by the Johns Hopkins
-                  Ding Lab, this year’s competition will take the form of a case
-                  competition, where participants submit both a PowerPoint
-                  presentation and a final written report.
+                  The Fall 2025 Annual Student Research & Innovation Competition
+                  was a national competition for high school and college
+                  students working in AI, social innovation, ethics, biomedical
+                  technologies, and related fields. It was sponsored by the
+                  Johns Hopkins Ding Lab and run as a case competition, so
+                  participants submitted both a PowerPoint presentation and a
+                  final written report.
                 </p>
 
                 <p>
-                  Projects may include prototypes, data analyses, literature
-                  reviews, or ethical case studies exploring the frontiers of
-                  emerging technologies.
+                  Entries could take the form of prototypes, data analyses,
+                  literature reviews, or ethical case studies on emerging
+                  technologies.
                 </p>
 
                 <p>
-                  Finalists will present their work to a panel of distinguished
-                  judges from academia and industry. Top teams will be
-                  recognized with awards, publication opportunities, and
-                  mentorship offers.
-                </p>
-
-                <p>
-                  Whether you're investigating AI in mental health, proposing a
-                  biotech solution, or evaluating ethical implications in data
-                  science—this is your stage to be seen, celebrated, and
-                  supported.
+                  Finalists presented their work to a panel of judges from
+                  academia and industry. Top teams received awards, publication
+                  opportunities, and mentorship offers.
                 </p>
               </div>
 
-              <InfoCard title="Timeline" icon={<FaCalendarAlt />}>
+              <InfoCard title="Timeline">
                 <ol className="relative ml-1 border-l border-black/20 pl-6 space-y-5">
                   <li className="relative">
                     <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
                     <p className="card-subheading">Dec 15, 2025</p>
-                    <p>Applications open</p>
+                    <p>Applications opened</p>
                   </li>
                   <li className="relative">
                     <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
@@ -178,11 +163,8 @@ export default function ScholarlyEvent() {
                 </ol>
               </InfoCard>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <InfoCard
-                  title="Categories & Guidelines"
-                  icon={<FaLightbulb />}
-                >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 items-start">
+                <InfoCard title="Categories & Guidelines">
                   <div className="space-y-4">
                     <div>
                       <p className="card-subheading">
@@ -203,7 +185,7 @@ export default function ScholarlyEvent() {
                       <p>
                         Research, applied science, AI, engineering, design
                         thinking, human performance, neuroscience,
-                        biotechnology, AR/VR, climate tech, urban design —
+                        biotechnology, AR/VR, climate tech, urban design:
                         anything that pushes knowledge or capability forward.
                       </p>
                     </div>
@@ -220,12 +202,17 @@ export default function ScholarlyEvent() {
                     </div>
                   </div>
                   <div className="mt-3">
-                    <p className="mb-1">Teams of 2–4; HS or undergraduate.</p>
-                    <p>Submit 12-slide PPT and 2,000–3,000 word report.</p>
+                    <p className="mb-1">
+                      Teams of 2–4, high school or undergraduate.
+                    </p>
+                    <p>
+                      Each team submitted a 12-slide presentation and a
+                      2,000–3,000 word report.
+                    </p>
                   </div>
                 </InfoCard>
 
-                <InfoCard title="Awards & Recognition" icon={<FaMedal />}>
+                <InfoCard title="Awards & Recognition">
                   <ul className="space-y-2 list-disc pl-5">
                     <li>
                       First Place: USD $3,000, Certificate of Excellence, and
@@ -241,15 +228,25 @@ export default function ScholarlyEvent() {
                     </li>
                   </ul>
                   <p className="mt-3">
-                    Selected projects may also be featured in the Student
-                    Research & Innovation Digest.
+                    Selected projects were also eligible to be featured in the
+                    Student Research & Innovation Digest.
                   </p>
                   <p className="mt-3">
-                    Honorable Mentions will be recognized for creativity,
-                    impact, and rigor.
+                    Honorable Mentions were recognized as well.
                   </p>
                 </InfoCard>
               </div>
+
+              <p className="mt-8">
+                Questions about the competition can go to{" "}
+                <a
+                  href="mailto:editor@young-innovator.org"
+                  className="text-primary underline"
+                >
+                  editor@young-innovator.org
+                </a>
+                .
+              </p>
             </EditorialSection>
 
             <EditorialSection
@@ -257,18 +254,17 @@ export default function ScholarlyEvent() {
               title="Summer Research & Innovation Bootcamp"
             >
               <p>
-                Our Summer Research & Innovation Bootcamp is an intensive,
-                hands-on experience designed for curious and driven high school
-                students (grades 9–12) who want to explore real-world problems
-                through research, innovation, and leadership.
+                Our Summer Research & Innovation Bootcamp is a hands-on program
+                for high school students in grades 9–12 who want to work on
+                real-world problems through research.
               </p>
 
               <p>
-                Held over 2–4 weeks during the summer virtually, the camp
-                combines:
+                The camp runs online over 2–4 weeks during the summer and
+                includes:
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                 <InfoCard title="Program Components">
                   <ul className="space-y-2 list-disc pl-5">
                     <li>
@@ -300,21 +296,9 @@ export default function ScholarlyEvent() {
               </div>
 
               <p>
-                Students will leave this experience with a deeper understanding
-                of academic research, a polished and publication-ready project,
-                and the confidence to pursue future opportunities in STEM,
-                policy, innovation, and beyond. Whether you're preparing for
-                college, aiming for a journal publication, or ready to launch
-                your first big idea, this is the summer to take your potential
-                seriously.
-              </p>
-
-              <p>
-                All of our mentors and bootcamp trainers are renowned university
-                professors, each holding a Ph.D. and active appointments at top
-                institutions. They bring cutting-edge expertise, real-world
-                insights, and a deep commitment to nurturing the next generation
-                of thinkers and leaders.
+                Our mentors and bootcamp trainers are university professors,
+                each holding a Ph.D. and an active appointment at a top
+                institution.
               </p>
               <p>
                 For more information,{" "}

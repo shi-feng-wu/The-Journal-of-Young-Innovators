@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Editorial Team",
   description:
-    "Meet the editors, advisors, and reviewers guiding JYI — scholars and professionals from Stanford, Harvard, Johns Hopkins, and beyond.",
+    "The editors, industry collaborators, and peer editors of The Journal of Young Innovators.",
   alternates: {
     canonical: "/editorial-team",
   },

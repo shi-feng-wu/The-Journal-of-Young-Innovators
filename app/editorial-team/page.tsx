@@ -1,241 +1,123 @@
-"use client";
-
 import Hero from "@/components/Hero";
 import SiteButton from "@/components/SiteButton";
-import { Card, CardHeader } from "@heroui/react";
 import Link from "next/link";
 import { FaChevronCircleRight } from "react-icons/fa";
 
 interface Person {
   name: string;
   affiliation: string;
-  role: string;
-  team?: string;
-  bio?: string;
 }
 
 const editors: Person[] = [
-  {
-    name: "Shanjin Li",
-    affiliation: "Stanford University",
-    role: "Editor",
-    team: "Crystal",
-  },
-  {
-    name: "Geneva Jonathan",
-    affiliation: "Harvard University",
-    role: "Editor",
-    team: "Crystal",
-  },
-  {
-    name: "Jessie Ford",
-    affiliation: "Columbia University",
-    role: "Editor",
-    team: "Clara",
-  },
-  {
-    name: "Claire Chuter",
-    affiliation: "Johns Hopkins University",
-    role: "Editor",
-    team: "Clara",
-  },
-  {
-    name: "Michele Moreau",
-    affiliation: "Johns Hopkins University",
-    role: "Editor",
-  },
-  {
-    name: "Mariale Hardiman",
-    affiliation: "Johns Hopkins University",
-    role: "Editor",
-  },
-  {
-    name: "Kris Chesky",
-    affiliation: "Johns Hopkins University",
-    role: "Editor",
-  },
+  { name: "Shanjin Li", affiliation: "Stanford University" },
+  { name: "Geneva Jonathan", affiliation: "Harvard University" },
+  { name: "Jessie Ford", affiliation: "Columbia University" },
+  { name: "Claire Chuter", affiliation: "Johns Hopkins University" },
+  { name: "Michele Moreau", affiliation: "Johns Hopkins University" },
+  { name: "Mariale Hardiman", affiliation: "Johns Hopkins University" },
+  { name: "Kris Chesky", affiliation: "Johns Hopkins University" },
 ];
 
 const editorsInChief: Person[] = [
-  {
-    name: "Shelby Forbes",
-    affiliation: "UNC–Chapel Hill",
-    role: "Editor-in-Chief",
-  },
-  {
-    name: "Kai Ding",
-    affiliation: "Johns Hopkins University",
-    role: "Editor-in-Chief",
-  },
-  {
-    name: "Agu Emmanuel",
-    affiliation: "Worcester Polytechnic Institute",
-    role: "Editor-in-Chief",
-  },
+  { name: "Shelby Forbes", affiliation: "UNC–Chapel Hill" },
+  { name: "Kai Ding", affiliation: "Johns Hopkins University" },
+  { name: "Agu Emmanuel", affiliation: "Worcester Polytechnic Institute" },
 ];
 
 const industryCollaborators: Person[] = [
-  {
-    name: "Tina Hou",
-    affiliation: "McKinsey",
-    role: "Industry Collaborator",
-    team: "Crystal",
-  },
-  {
-    name: "Fuxiao Liu",
-    affiliation: "Nvidia",
-    role: "Industry Collaborator",
-  },
-  {
-    name: "Jenna Cohen",
-    affiliation: "ACT",
-    role: "Industry Collaborator",
-  },
-  {
-    name: "Lola Adeyemi",
-    affiliation: "Ministry of Health in Nigeria",
-    role: "Industry Collaborator",
-  },
-  {
-    name: "Annie Conderacci",
-    affiliation: "Center for the American Family",
-    role: "Industry Collaborator",
-  },
+  { name: "Tina Hou", affiliation: "McKinsey" },
+  { name: "Fuxiao Liu", affiliation: "Nvidia" },
+  { name: "Jenna Cohen", affiliation: "ACT" },
+  { name: "Lola Adeyemi", affiliation: "Ministry of Health in Nigeria" },
+  { name: "Annie Conderacci", affiliation: "Center for the American Family" },
 ];
 
 const peerEditors: Person[] = [
-  {
-    name: "Ashley Yu",
-    affiliation: "Concord Academy",
-    role: "Peer Editor",
-  },
-  {
-    name: "Andrew Leibowitz",
-    affiliation: "Cornell University",
-    role: "Peer Editor",
-  },
-  {
-    name: "Lilia Chesky",
-    affiliation: "Waseda University",
-    role: "Peer Editor",
-  },
+  { name: "Ashley Yu", affiliation: "Concord Academy" },
+  { name: "Andrew Leibowitz", affiliation: "Cornell University" },
+  { name: "Lilia Chesky", affiliation: "Waseda University" },
 ];
 
-function PersonCard({ person }: { person: Person }) {
+function PeopleList({ people }: { people: Person[] }) {
   return (
-    <Card className="max-w-[340px] w-full border-primary border-2 rounded-lg p-2">
-      <CardHeader className="justify-between">
-        <div className="flex gap-5">
-          <div className="w-12 h-12 bg-primary  shadow-md rounded-full flex flex-col items-center justify-center text-foreground shrink-0">
-            <div className="text-sm text-default font-medium leading-tight">
-              {person.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")}
-            </div>
-          </div>
-          <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-md font-semibold leading-none text-default-600">
-              {person.name}
-            </h4>
-            <h5 className="text-xs tracking-tight text-default-500 font-mono">
-              {person.affiliation}
-            </h5>
-          </div>
-        </div>
-      </CardHeader>
-    </Card>
+    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 lg:gap-x-16">
+      {people.map((person) => (
+        <li
+          key={person.name}
+          className="border-b border-black/10 py-4 flex flex-col gap-1"
+        >
+          <p className="font-display text-xl text-black leading-snug">
+            {person.name}
+          </p>
+          <p className="font-text text-sm text-black/60">
+            {person.affiliation}
+          </p>
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export default function EditorialTeam() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-10">
       <Hero
         title="Editorial Team"
-        subtitle="Meet the distinguished scholars and professionals guiding young innovators."
+        subtitle="Editors, industry collaborators, and peer editors of The Journal of Young Innovators."
       />
 
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
-        <section className="pb-10">
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-4xl mb-12">Editors-in-Chief</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {editorsInChief.map((editor, index) => (
-                <PersonCard key={index} person={editor} />
-              ))}
-            </div>
-          </div>
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24 space-y-16">
+        <section>
+          <h2 className="font-display text-2xl md:text-3xl text-black tracking-wide mb-6">
+            Editors-in-Chief
+          </h2>
+          <PeopleList people={editorsInChief} />
         </section>
 
-        <section className="pb-10">
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-4xl mb-12">Editorial Board</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {editors.map((editor, index) => (
-                <PersonCard key={index} person={editor} />
-              ))}
-            </div>
-          </div>
+        <section>
+          <h2 className="font-display text-2xl md:text-3xl text-black tracking-wide mb-6">
+            Editorial Board
+          </h2>
+          <PeopleList people={editors} />
         </section>
 
-        <section className="pb-10">
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-4xl mb-12">
-              Industry Collaborators
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {industryCollaborators.map((editor, index) => (
-                <PersonCard key={index} person={editor} />
-              ))}
-            </div>
-          </div>
+        <section>
+          <h2 className="font-display text-2xl md:text-3xl text-black tracking-wide mb-6">
+            Industry Collaborators
+          </h2>
+          <PeopleList people={industryCollaborators} />
         </section>
 
-        <section className="pb-10">
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-4xl mb-8">Peer Editors</h2>
+        <section>
+          <h2 className="font-display text-2xl md:text-3xl text-black tracking-wide mb-6">
+            Peer Editors
+          </h2>
+          <PeopleList people={peerEditors} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
-              {peerEditors.map((editor, index) => (
-                <PersonCard key={index} person={editor} />
-              ))}
-            </div>
-
-            <div className="w-full lg:w-190 rounded-2xl border border-black/10 bg-white p-6 shadow-sm space-y-4">
-              <p className="text-base leading-relaxed text-gray-700">
-                We are seeking a select group of exceptional student editors to
-                join our Peer Editor Team. As a Peer Editor, you will review and
-                provide feedback on submitted research papers, help maintain the
-                academic integrity and quality of the publications, and
-                collaborate with an international team of editors and mentors.
-              </p>
-              <p className="text-base leading-relaxed text-gray-700">
-                This is a highly competitive leadership opportunity for students
-                passionate about AI, innovative research, and ethics.
-              </p>
-              <div className="flex justify-end">
-                <Link
-                  href="https://docs.google.com/document/d/1Djo8TCZvwwE3tlrPlUXDpOaVyP8aH4PFOnbYlbFfQ78/edit?tab=t.0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex"
+          <div className="mt-16 border-t border-black/30 pt-6 font-text text-sm md:text-base leading-relaxed text-black/80 space-y-5">
+            <p className="max-w-[68ch]">
+              Peer editors review submitted research papers and write feedback
+              for the editorial board. They work alongside the journal&rsquo;s
+              editors and mentors.
+            </p>
+            <div>
+              <Link
+                href="https://docs.google.com/document/d/1Djo8TCZvwwE3tlrPlUXDpOaVyP8aH4PFOnbYlbFfQ78/edit?tab=t.0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex"
+              >
+                <SiteButton
+                  className="border-primary text-primary"
+                  color="primary"
+                  variant="ghost"
+                  endContent={
+                    <FaChevronCircleRight className="text-lg text-current" />
+                  }
                 >
-                  <SiteButton
-                    className="border-primary text-primary"
-                    color="primary"
-                    variant="ghost"
-                    endContent={
-                      <FaChevronCircleRight className="text-lg text-current" />
-                    }
-                  >
-                    Apply to be a Peer Editor
-                  </SiteButton>
-                </Link>
-              </div>
+                  Apply to be a Peer Editor
+                </SiteButton>
+              </Link>
             </div>
           </div>
         </section>

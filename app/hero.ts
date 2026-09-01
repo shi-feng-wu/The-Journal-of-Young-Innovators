@@ -8,6 +8,7 @@ export default heroui({
         primary: "#002d72",
         secondary: "#68ace5",
         background: "#F4EFEB",
+        focus: "#ffffff",
       },
     },
     dark: {
@@ -15,6 +16,7 @@ export default heroui({
         primary: "#002d72",
         secondary: "#68ace5",
         background: "#F4EFEB",
+        focus: "#ffffff",
       },
     },
   },

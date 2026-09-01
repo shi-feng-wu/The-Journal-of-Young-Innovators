@@ -21,14 +21,14 @@ function EditorialSection({
   return (
     <section
       id={id}
-      className={`${noTopBorder ? "pb-12" : "py-12 border-t border-black/30"} font-text`}
+      className={`${noTopBorder ? "pb-12" : "py-12 border-t border-black/30"} scroll-mt-24 font-text`}
     >
       <div className="mb-6 flex items-end justify-between gap-4">
         <h2 className="font-display text-3xl md:text-4xl text-black tracking-wide">
           {title}
         </h2>
       </div>
-      <div className="space-y-5 text-sm md:text-md leading-relaxed text-black/80">
+      <div className="space-y-5 text-sm md:text-base leading-relaxed text-black/80">
         {children}
       </div>
     </section>
@@ -37,11 +37,11 @@ function EditorialSection({
 
 function InfoCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <article className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
+    <article className="border-t border-black/30 pt-5">
       <h3 className="mb-4 font-display text-2xl text-black tracking-wide">
         {title}
       </h3>
-      <div className="font-text text-black/80 leading-relaxed [&_p]:text-sm [&_li]:text-sm md:[&_p]:text-md md:[&_li]:text-md [&_strong]:font-semibold">
+      <div className="font-text text-black/80 leading-relaxed [&_p]:text-sm [&_li]:text-sm md:[&_p]:text-base md:[&_li]:text-base [&_strong]:font-semibold">
         {children}
       </div>
     </article>
@@ -57,43 +57,66 @@ export default function Home() {
     { id: "formatting-requirements", title: "Formatting Requirements" },
     { id: "review-process", title: "Review Process" },
     { id: "license-and-copyright", title: "License and Copyright" },
-    {
-      id: "article-processing-charges-apc",
-      title: "Article Processing Charges",
-    },
+    { id: "fees", title: "Fees" },
     { id: "need-help", title: "Need Help?" },
   ];
 
   return (
-    <div className="min-h-screen bg-background pb-10">
+    <div className="min-h-screen bg-background pb-24">
       <Hero
         title="Submission Guidelines"
-        subtitle="We welcome submissions from high school and college students who are
-              passionate about academic inquiry and eager to contribute to
-              meaningful scholarship. Our editorial board includes experienced
-              researchers, educators, and editors dedicated to helping young
-              scholars grow through rigorous feedback and mentorship."
-        contentClassName="!mt-24"
+        subtitle="How to prepare, format, and submit a manuscript. Submissions from high school and college students are open for the 2025-2026 academic year."
         additionalContent={
-          <Link href="/form" aria-label="Submit a paper" className="group">
-            <SiteButton
-              color="primary"
-              variant="ghost"
-              variantStyle="whiteHover"
-              className="border-white text-white"
-              endContent={
-                <FaChevronCircleRight className="ml-2 text-base text-current" />
-              }
-            >
-              Submit to Our Journal
-            </SiteButton>
-          </Link>
+          <SiteButton
+            href="/form"
+            color="primary"
+            variant="ghost"
+            variantStyle="whiteHover"
+            className="mt-4 border-white text-white"
+            endContent={
+              <FaChevronCircleRight className="ml-2 text-base text-current" />
+            }
+          >
+            Submit a Manuscript
+          </SiteButton>
         }
       />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 md:gap-14 lg:gap-20">
           <div className="lg:col-span-3">
+            <details className="group lg:hidden mb-8 border-t border-b border-black/30 py-3">
+              <summary className="font-mono text-xs uppercase tracking-[0.16em] text-black/70 cursor-pointer list-none marker:hidden [&::-webkit-details-marker]:hidden flex items-center justify-between gap-4">
+                On this page
+                <span
+                  aria-hidden="true"
+                  className="text-black/40 group-open:hidden"
+                >
+                  +
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="hidden text-black/40 group-open:inline"
+                >
+                  &minus;
+                </span>
+              </summary>
+              <nav aria-label="Sections on this page" className="mt-3">
+                <ul className="font-text text-sm text-black/80 space-y-2">
+                  {submissionSections.map(({ id, title }) => (
+                    <li key={id}>
+                      <a
+                        href={`#${id}`}
+                        className="underline underline-offset-4 decoration-black/20 hover:decoration-black"
+                      >
+                        {title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </details>
+
             <EditorialSection id="selectivity" title="Selectivity" noTopBorder>
               <p>
                 We are a highly competitive journal that upholds rigorous
@@ -276,10 +299,7 @@ export default function Home() {
               </p>
             </EditorialSection>
 
-            <EditorialSection
-              id="article-processing-charges-apc"
-              title="Article Processing Charges"
-            >
+            <EditorialSection id="fees" title="Fees">
               <p>
                 For the 2025–2026 academic year, submission and publication in
                 JYI are free of charge. There are no submission fees, article
@@ -319,23 +339,18 @@ export default function Home() {
               </p>
             </EditorialSection>
 
-            <div className="mt-10 flex justify-end">
-              <Link
+            <div className="mt-10 flex justify-start">
+              <SiteButton
                 href="/form"
-                aria-label="Open submission form"
-                className="group"
+                className="border-primary text-primary"
+                color="primary"
+                variant="ghost"
+                endContent={
+                  <FaChevronCircleRight className="ml-2 text-lg text-current" />
+                }
               >
-                <SiteButton
-                  className="border-primary text-primary"
-                  color="primary"
-                  variant="ghost"
-                  endContent={
-                    <FaChevronCircleRight className="ml-2 text-lg text-current" />
-                  }
-                >
-                  Start Submission
-                </SiteButton>
-              </Link>
+                Submit a Manuscript
+              </SiteButton>
             </div>
           </div>
 

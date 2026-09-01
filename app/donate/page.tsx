@@ -13,24 +13,30 @@ export const metadata: Metadata = {
 
 export default function Donate() {
   return (
-    <div className="h-screen bg-primary">
+    <div className="min-h-screen bg-primary">
       <Hero
         title="Donate"
-        showWave={false}
-        sectionClassName="h-screen"
-        subtitle="We are a mission-driven organization committed to empowering young minds to pursue bold ideas and real-world impact. Our goal is not for profit, we aim to create opportunities for students through scholarships, mentor honorariums, research support, and competition awards. Your generous contribution directly fuels these programs and helps us continue making a difference."
-        additionalContent={
+        subtitle="The Journal of Young Innovators is a not-for-profit organization."
+      />
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24 text-white">
+        <p className="max-w-[62ch] font-text text-base leading-relaxed text-white/85">
+          Donations pay for student scholarships, mentor honorariums, research
+          support, and competition awards. There is no online donation form yet,
+          so gifts are arranged by email with the editorial team.
+        </p>
+        <div className="mt-10">
           <SiteButton
+            href="mailto:editor@young-innovator.org?subject=Donation"
             color="primary"
             variant="shadow"
             size="lg"
             variantStyle="whiteHover"
             className="border-white text-white"
           >
-            Make a Donation Today
+            Contact Us About Donating
           </SiteButton>
-        }
-      />
+        </div>
+      </div>
     </div>
   );
 }

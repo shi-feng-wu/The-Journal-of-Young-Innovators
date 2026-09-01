@@ -21,7 +21,7 @@ const NavLink = ({
 >) => (
   <Link
     href={href}
-    className={`relative z-[1] inline-flex items-center px-3 py-2 text-sm text-white transition-colors rounded-md hover:text-white/90 ${className ?? ""}`}
+    className={`relative z-[1] inline-flex items-center whitespace-nowrap px-3 py-2 text-sm text-white transition-colors rounded-md hover:text-white/90 ${className ?? ""}`}
     {...props}
   >
     {children}

@@ -5,7 +5,7 @@ import SiteButton from "@/components/SiteButton";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact JYI (The Journal of Young Innovators) editorial team for questions, collaborations, and support.",
+    "How to reach the editorial team of The Journal of Young Innovators.",
   alternates: {
     canonical: "/contact",
   },
@@ -13,29 +13,35 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <div className="h-screen bg-primary">
+    <div className="min-h-screen bg-primary">
       <Hero
-        showWave={false}
         title="Contact Us"
-        subtitle="Have questions or want to get involved? We'd love to hear from you! Email us at editor@young-innovator.org and make sure to include your full name, school name, grade level."
-        sectionClassName="h-screen"
-        additionalContent={
+        subtitle="Questions about submitting, reviewing, or working with the journal?"
+      />
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24 text-white">
+        <p className="max-w-[62ch] font-text text-base leading-relaxed text-white/85">
+          Email us at{" "}
           <a
             href="mailto:editor@young-innovator.org"
-            aria-label="Email the editorial team"
+            className="text-white underline underline-offset-4 whitespace-nowrap"
           >
-            <SiteButton
-              color="primary"
-              variant="shadow"
-              size="lg"
-              variantStyle="whiteHover"
-              className="border-white text-white"
-            >
-              Contact our Editorial Team
-            </SiteButton>
-          </a>
-        }
-      />
+            editor@young-innovator.org
+          </a>{" "}
+          and include your full name, school name, and grade level.
+        </p>
+        <div className="mt-10">
+          <SiteButton
+            href="mailto:editor@young-innovator.org"
+            color="primary"
+            variant="shadow"
+            size="lg"
+            variantStyle="whiteHover"
+            className="border-white text-white"
+          >
+            Contact our Editorial Team
+          </SiteButton>
+        </div>
+      </div>
     </div>
   );
 }
