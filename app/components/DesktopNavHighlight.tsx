@@ -21,7 +21,7 @@ const NavLink = ({
 >) => (
   <Link
     href={href}
-    className={`relative z-[1] inline-flex items-center whitespace-nowrap px-3 py-2 text-sm text-white transition-colors rounded-md hover:text-white/90 ${className ?? ""}`}
+    className={`relative z-[1] inline-flex items-center whitespace-nowrap px-2 py-2 text-[13px] 2xl:px-3 2xl:text-sm text-white transition-colors rounded-md hover:text-white/90 ${className ?? ""}`}
     {...props}
   >
     {children}
@@ -46,13 +46,13 @@ export default function DesktopNavHighlight() {
           <img
             src="/logolight.png"
             alt="The Journal of Young Innovators home"
-            className="h-10 transition-opacity"
+            className="h-10 w-auto max-w-none shrink-0 transition-opacity"
             fetchPriority="low"
           />
         </Link>
       </MotionHighlightItem>
 
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-1 2xl:gap-2">
         <MotionHighlightItem asChild>
           <NavLink href="/about">About</NavLink>
         </MotionHighlightItem>
@@ -92,7 +92,7 @@ export default function DesktopNavHighlight() {
         <img
           src="/logolight.png"
           alt=""
-          className="h-10"
+          className="h-10 w-auto max-w-none shrink-0"
           fetchPriority="low"
         />
       </div>

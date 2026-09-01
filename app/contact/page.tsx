@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Hero from "@/components/Hero";
+import Navigation from "@/components/Navigation";
 import SiteButton from "@/components/SiteButton";
 
 export const metadata: Metadata = {
@@ -13,13 +13,14 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-primary">
-      <Hero
-        title="Contact Us"
-        subtitle="Questions about submitting, reviewing, or working with the journal?"
-      />
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24 text-white">
-        <p className="max-w-[62ch] font-text text-base leading-relaxed text-white/85">
+    <div className="min-h-screen bg-primary text-white flex flex-col">
+      <Navigation />
+      <div className="flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 pb-16">
+        <h1 className="hero-text font-display font-normal text-5xl md:text-6xl mb-6">
+          Contact Us
+        </h1>
+        <p className="hero-text mb-12 max-w-[62ch] font-text text-base leading-relaxed text-white/85">
+          Questions about submitting, reviewing, or working with the journal?
           Email us at{" "}
           <a
             href="mailto:editor@young-innovator.org"
@@ -29,18 +30,16 @@ export default function Contact() {
           </a>{" "}
           and include your full name, school name, and grade level.
         </p>
-        <div className="mt-10">
-          <SiteButton
-            href="mailto:editor@young-innovator.org"
-            color="primary"
-            variant="shadow"
-            size="lg"
-            variantStyle="whiteHover"
-            className="border-white text-white"
-          >
-            Contact our Editorial Team
-          </SiteButton>
-        </div>
+        <SiteButton
+          href="mailto:editor@young-innovator.org"
+          color="primary"
+          variant="shadow"
+          size="lg"
+          variantStyle="whiteHover"
+          className="hero-text border-white text-white"
+        >
+          Contact our Editorial Team
+        </SiteButton>
       </div>
     </div>
   );
