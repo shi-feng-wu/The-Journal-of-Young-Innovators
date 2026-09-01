@@ -69,7 +69,7 @@
 
 /* --- Sheet ---------------------------------------------------------------
    The @page margins ARE the galley's content inset: 102pt of head margin,
-   84pt of side margin, 72pt of foot margin. Paged.js reserves them and prints
+   96pt of side margin, 72pt of foot margin. Paged.js reserves them and prints
    each .pagedjs_page at the full 612 x 792pt sheet, so Chrome must print with
    zero margins of its own.                                                   */
 @page {
