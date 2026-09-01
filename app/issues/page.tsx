@@ -257,7 +257,7 @@ export default function Issues() {
         subtitle="Explore our published issues and articles."
       />
 
-      <div className="mx-auto grid max-w-[1400px] px-4 pt-12 pb-35 sm:px-6 lg:grid-cols-[minmax(0,1fr)_184px] lg:gap-x-8 lg:px-14 lg:pt-14 lg:pb-40 xl:grid-cols-[minmax(0,1fr)_240px] xl:gap-x-12">
+      <div className="mx-auto grid max-w-[1400px] px-4 pt-12 pb-35 sm:px-6 lg:grid-cols-[minmax(0,1fr)_184px] lg:gap-x-8 lg:px-20 lg:pt-14 lg:pb-40 xl:grid-cols-[minmax(0,1fr)_240px] xl:gap-x-12">
         <div>
           {ISSUE_GROUPS.map((issue, index) => (
             <section

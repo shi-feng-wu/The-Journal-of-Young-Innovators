@@ -103,7 +103,7 @@ export default function Hero({
         <Navigation />
         <div className="border-t border-white/15">
           <div
-            className={`max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-6 pb-8 lg:pt-8 lg:pb-10 flex flex-col gap-2.5 text-left ${contentClassName}`}
+            className={`max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pt-6 pb-8 lg:pt-8 lg:pb-10 flex flex-col gap-2.5 text-left ${contentClassName}`}
           >
             {title ? (
               <h1
@@ -136,7 +136,7 @@ export default function Hero({
       {/* Cover composition: the title block anchors bottom-left above the
           wave, like a print cover's title plate. */}
       <div
-        className={`relative w-full flex-1 flex flex-col justify-end items-start text-left z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 lg:pb-12 gap-3.5 lg:gap-5 ${contentClassName}`}
+        className={`relative w-full flex-1 flex flex-col justify-end items-start text-left z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 lg:pb-12 gap-3.5 lg:gap-5 ${contentClassName}`}
       >
         {subtitle ? (
           <p className="hero-text font-mono font-medium text-[11px] uppercase tracking-[0.3em] lg:text-[13px] lg:tracking-[0.35em] text-white/85">

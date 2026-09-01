@@ -160,7 +160,7 @@ export default function Submit() {
         title="Submit a Manuscript"
         subtitle="Submissions from high school and college students are open for the 2025-2026 academic year. Submission and publication are free."
       />
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24">
         <Form
           className="w-full max-w-4xl items-stretch font-mono text-black space-y-6 sm:space-y-8"
           onSubmit={handleSubmit}

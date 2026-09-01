@@ -130,7 +130,7 @@ export default function PdfArticleViewer({
     <div className="min-h-screen bg-background pb-32 lg:pb-20">
       <nav
         aria-label="Breadcrumb"
-        className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-14 pt-6"
+        className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pt-6"
       >
         <ol className="flex flex-wrap items-center gap-x-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#111]/60">
           <li className="shrink-0">
@@ -160,7 +160,7 @@ export default function PdfArticleViewer({
           </li>
         </ol>
       </nav>
-      <div className="max-w-[1400px] pt-6 mx-auto px-4 sm:px-6 lg:px-14 flex flex-col lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
+      <div className="max-w-[1400px] pt-6 mx-auto px-4 sm:px-6 lg:px-20 flex flex-col lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
         <aside className="lg:sticky lg:top-6 lg:self-start lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto overscroll-contain rounded-lg border border-black/20 bg-white p-5">
           <h1 className="font-display text-2xl text-balance">{title}</h1>
 

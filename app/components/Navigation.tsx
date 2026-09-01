@@ -128,7 +128,7 @@ export default function Navigation() {
       aria-label="Primary"
       className="font-mono font-semibold bg-transparent relative z-50"
     >
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center h-16 gap-4">
           <div className="flex items-center shrink-0 xl:hidden">
             <Link href="/" className="flex items-center xl:hidden">
@@ -185,7 +185,7 @@ export default function Navigation() {
               : "opacity-0 -translate-y-4 pointer-events-none"
           }`}
         >
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20 py-4 h-full overflow-y-auto flex flex-col justify-center">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 py-4 h-full overflow-y-auto flex flex-col justify-center">
             <MobileNavLink href="/about" onClick={() => setIsMenuOpen(false)}>
               About
             </MobileNavLink>
