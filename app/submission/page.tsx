@@ -257,7 +257,10 @@ export default function Home() {
 
             <EditorialSection id="review-process" title="Review Process">
               <ul className="list-disc pl-6 space-y-2">
-                <li>Submissions undergo double-blind peer review.</li>
+                <li>
+                  Submissions undergo double-blind peer review by at least two
+                  independent reviewers.
+                </li>
                 <li>
                   Editorial feedback is typically provided within 4–8 weeks.
                 </li>

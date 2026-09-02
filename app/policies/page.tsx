@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Hero from "@/components/Hero";
+import { formatIssueDateRange, getIssueSummaries } from "@/lib/articles";
 import { TableOfContents } from "@/components/PageComponents";
 
 export const metadata: Metadata = {
@@ -61,6 +63,7 @@ function PolicySection({
 }
 
 export default function PoliciesPage() {
+  const issues = getIssueSummaries();
   return (
     <div className="min-h-screen bg-background pb-10">
       <Hero
@@ -176,34 +179,116 @@ export default function PoliciesPage() {
 
             <PolicySection id="peer-review" title="Peer Review">
               <p>
-                All research articles submitted to JYI undergo{" "}
-                <strong>double-blind peer review</strong>. Author identities and
-                affiliations are concealed from reviewers, and reviewer
-                identities are concealed from authors.
+                Every research article published in JYI undergoes{" "}
+                <strong>double-blind peer review</strong> by at least two
+                independent reviewers. Author identities and affiliations are
+                concealed from reviewers, and reviewer identities are concealed
+                from authors. Opinion pieces and interview features are not sent
+                for double-blind review. They are read and approved by at least
+                two members of the editorial board before publication.
               </p>
               <p>
-                Each manuscript is evaluated by at least two members of our
-                editorial board or external reviewers selected for their
-                expertise in the relevant subject area. Reviewers assess
+                Peer review and all editorial decisions are the responsibility
+                of the Editors-in-Chief and the Editorial Board, whose names and
+                affiliations are listed on the{" "}
+                <Link href="/editorial-team">Editorial Team</Link> page.
+              </p>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 1. Editorial screening.
+                </h3>{" "}
+                An Editor-in-Chief reads each submission to confirm that it
+                falls within the journal&rsquo;s aims and scope, is complete,
+                follows the author guidelines, and passes similarity screening
+                under the Plagiarism policy. Manuscripts that fail screening are
+                returned to the authors without external review, with the reason
+                stated.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 2. Reviewer selection.
+                </h3>{" "}
+                The handling editor assigns at least two reviewers with
+                expertise in the subject of the manuscript. Reviewers are drawn
+                from the Editorial Board and from external researchers and
+                practitioners invited for a specific manuscript. A reviewer may
+                not be affiliated with an author&rsquo;s school or institution
+                and may not have supervised or advised the work. Reviewers must
+                decline an assignment if any conflict of interest applies.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 3. Review.
+                </h3>{" "}
+                Each reviewer submits a written report that assesses
                 originality, scholarly rigor, methodological soundness, clarity,
-                and contribution to the field.
+                and contribution to the field, together with a recommendation to
+                accept, accept with minor revisions, revise and resubmit, or
+                reject.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 4. Decision.
+                </h3>{" "}
+                The handling editor weighs the reports and issues the decision.
+                Where reviewers disagree, the editor seeks a third review or
+                refers the manuscript to an Editor-in-Chief. Decisions are
+                typically communicated within 4–8 weeks of submission. The
+                anonymized reviewer reports are sent to the authors whatever the
+                outcome.
+              </div>
+              <div>
+                <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
+                  Step 5. Revision.
+                </h3>{" "}
+                The handling editor checks each revised manuscript against the
+                reviewer reports. Manuscripts returned for major revision go
+                back to the original reviewers where possible before a final
+                decision is made.
+              </div>
+              <p>
+                <strong>Peer editors.</strong> The journal&rsquo;s peer editors
+                are student editorial assistants. Under the supervision of the
+                Editorial Board they read submissions and draft developmental
+                comments on writing and structure, which authors receive
+                alongside the reviewer reports. Peer editors do not act as peer
+                reviewers, and their comments do not count toward the two
+                required reviews. They take no part in editorial decisions.
               </p>
               <p>
-                Editorial decisions (accept, accept with revisions, revise and
-                resubmit, or reject) are communicated to authors typically
-                within 4–8 weeks of submission. Detailed reviewer feedback is
-                provided to authors regardless of the final decision.
+                <strong>Editors as authors.</strong> A member of the editorial
+                team who submits to JYI is excluded from every stage of the
+                handling of that manuscript, as set out under Conflicts of
+                Interest. Authors who wish to contest a decision may follow the
+                procedure under Complaints and Appeals.
               </p>
             </PolicySection>
 
             <PolicySection id="frequency" title="Publication Frequency">
               <p>
-                JYI publishes <strong>two issues per year</strong> (biannual): a
-                winter issue and a spring issue. Articles are also released
-                continuously online as soon as they have completed peer review,
-                copyediting, and final author approval, and are subsequently
-                collected into the next scheduled issue.
+                JYI publishes one volume per year. Volume 1 (2024–2025) was
+                published as a single issue. From Volume 2 (2026) onward, each
+                volume is published in two issues. Articles are released online
+                continuously as soon as they have completed peer review,
+                copyediting, and final author approval, and each article is
+                assigned to the issue that is open at the time of publication.
               </p>
+              <p>
+                <strong>Publication history.</strong> The list below is
+                generated from the journal&rsquo;s article records.
+              </p>
+              <ul className="list-disc pl-6 space-y-1">
+                {issues.map((issue) => (
+                  <li key={`${issue.volume}-${issue.issueNumber}`}>
+                    Volume {issue.volume}, Issue {issue.issueNumber}:{" "}
+                    {formatIssueDateRange(issue)}, {issue.articleCount}{" "}
+                    {issue.articleCount === 1 ? "article" : "articles"}
+                    {issue.researchCount < issue.articleCount
+                      ? `, ${issue.researchCount} of them research articles`
+                      : ""}
+                  </li>
+                ))}
+              </ul>
             </PolicySection>
 
             <PolicySection id="apc" title="Article Processing Charges">
@@ -252,9 +337,9 @@ export default function PoliciesPage() {
               <p>
                 Plagiarism, including verbatim copying, substantial paraphrasing
                 without attribution, self-plagiarism, and improperly attributed
-                quotations, is grounds for immediate rejection. If plagiarism is detected after publication, the
-                journal will issue a correction or retract the article in
-                accordance with{" "}
+                quotations, is grounds for immediate rejection. If plagiarism is
+                detected after publication, the journal will issue a correction
+                or retract the article in accordance with{" "}
                 <a
                   href="https://publicationethics.org/guidance/Flowcharts"
                   target="_blank"
@@ -532,11 +617,11 @@ export default function PoliciesPage() {
                 <h3 className="inline text-[length:inherit] font-text font-semibold text-black">
                   Web archiving.
                 </h3>{" "}
-                Every JYI article URL is captured by the Internet
-                Archive&apos;s Wayback Machine at the time of publication and at
-                regular intervals thereafter, so the full content of the
-                journal, including the article landing page and the article PDF,
-                can be retrieved through{" "}
+                Every JYI article URL is captured by the Internet Archive&apos;s
+                Wayback Machine at the time of publication and at regular
+                intervals thereafter, so the full content of the journal,
+                including the article landing page and the article PDF, can be
+                retrieved through{" "}
                 <a
                   href="https://web.archive.org/"
                   target="_blank"

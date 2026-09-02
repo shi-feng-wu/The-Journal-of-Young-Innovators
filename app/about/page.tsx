@@ -92,13 +92,15 @@ export default function About() {
               Maryland)
             </li>
             <li>
-              <strong>Frequency:</strong> Two issues per year (biannual), with
-              continuous online publication of accepted articles
+              <strong>Frequency:</strong> One volume per year, published in two
+              issues from Volume 2 (2026) onward. Volume 1 (2024–2025) was
+              published as a single issue. Accepted articles are published
+              online continuously.
             </li>
             <li>
               <strong>Peer review:</strong>{" "}
               <Link href="/policies#peer-review">
-                Double-blind peer review
+                Double-blind peer review by at least two independent reviewers
               </Link>
             </li>
             <li>

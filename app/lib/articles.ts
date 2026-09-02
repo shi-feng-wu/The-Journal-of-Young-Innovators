@@ -228,13 +228,15 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
   },
   {
     id: 13,
-    title: "The Global Testing Business: Standardization, Inequality, and the Unfairness of One-Size-Fits-All Assessment",
+    title:
+      "The Global Testing Business: Standardization, Inequality, and the Unfairness of One-Size-Fits-All Assessment",
     author: "S. Tong",
     publishDate: "2026-05-26",
     category: "Research Articles",
     volume: 2,
     issueNumber: 2,
-    abstract: "Standardized English proficiency tests such as the Test of English as a Foreign Language (TOEFL) serve as gatekeepers to higher education for millions of students each year, yet the assumption that a single timed test fairly measures a student's ability is seldom examined critically. This review consolidates research on the global testing industry across three connected questions raised by the field: how standardized tests fail diverse learners, how the commercial testing business profits from exclusion, and how assessment might be reimagined beyond a single score. Drawing on educational psychology, language assessment, and the political economy of education, and using the theory of test validity and fairness as a connecting thread, the review argues that a standardized test measures something real but narrow, and does so under conditions that introduce systematic disadvantage for students who think, process information, or approach knowledge differently. The aim is to bring dispersed evidence within reach of students, educators, and admissions practitioners who encounter these concerns one at a time rather than as parts of a single problem.",
+    abstract:
+      "Standardized English proficiency tests such as the Test of English as a Foreign Language (TOEFL) serve as gatekeepers to higher education for millions of students each year, yet the assumption that a single timed test fairly measures a student's ability is seldom examined critically. This review consolidates research on the global testing industry across three connected questions raised by the field: how standardized tests fail diverse learners, how the commercial testing business profits from exclusion, and how assessment might be reimagined beyond a single score. Drawing on educational psychology, language assessment, and the political economy of education, and using the theory of test validity and fairness as a connecting thread, the review argues that a standardized test measures something real but narrow, and does so under conditions that introduce systematic disadvantage for students who think, process information, or approach knowledge differently. The aim is to bring dispersed evidence within reach of students, educators, and admissions practitioners who encounter these concerns one at a time rather than as parts of a single problem.",
     image: "/images/optimized/testing-1600.webp",
     pdfBasename: "Global Testing",
     pageCount: 8,
@@ -249,7 +251,8 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     category: "Research Articles",
     volume: 2,
     issueNumber: 2,
-    abstract: "This paper reviews empirical research on algorithmic trading in the U.S. stock market and argues that its effects on price efficiency, transaction costs, and market volatility all stem from a single underlying behavior: the voluntary supply of liquidity by algorithmic and high-frequency trading firms. These firms are not required to keep trading when conditions turn unfavorable, so they supply liquidity when doing so is profitable and withdraw it when it is not. Under ordinary market conditions, this behavior narrows bid-ask spreads, speeds up the incorporation of new information into prices, and lowers trading costs for participants who can move as quickly as the market does. The same behavior also explains why these benefits break down during rare, correlated market shocks: firms that reliably supply liquidity on calm days can withdraw from the market in unison once conditions become risky, an event best illustrated by the Flash Crash of May 6, 2010. Bringing these three strands of research together shows that algorithmic trading has not simply made U.S. equity markets more efficient or more fragile. Instead, it has tied everyday market quality to a form of liquidity supply that is dependable under normal conditions and prone to sudden, collective withdrawal exactly when markets need it most.",
+    abstract:
+      "This paper reviews empirical research on algorithmic trading in the U.S. stock market and argues that its effects on price efficiency, transaction costs, and market volatility all stem from a single underlying behavior: the voluntary supply of liquidity by algorithmic and high-frequency trading firms. These firms are not required to keep trading when conditions turn unfavorable, so they supply liquidity when doing so is profitable and withdraw it when it is not. Under ordinary market conditions, this behavior narrows bid-ask spreads, speeds up the incorporation of new information into prices, and lowers trading costs for participants who can move as quickly as the market does. The same behavior also explains why these benefits break down during rare, correlated market shocks: firms that reliably supply liquidity on calm days can withdraw from the market in unison once conditions become risky, an event best illustrated by the Flash Crash of May 6, 2010. Bringing these three strands of research together shows that algorithmic trading has not simply made U.S. equity markets more efficient or more fragile. Instead, it has tied everyday market quality to a form of liquidity supply that is dependable under normal conditions and prone to sudden, collective withdrawal exactly when markets need it most.",
     image: "/images/optimized/trading-1600.webp",
     pdfBasename: "Algorithmic Trading",
     pageCount: 6,
@@ -258,13 +261,15 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
   },
   {
     id: 15,
-    title: "Bilingual, Bicultural, and Charismatic? Reassessing Social Capability Among Students Who Grow Up Between Cultures",
+    title:
+      "Bilingual, Bicultural, and Charismatic? Reassessing Social Capability Among Students Who Grow Up Between Cultures",
     author: "M. Luo",
     publishDate: "2026-07-22",
     category: "Research Articles",
     volume: 2,
     issueNumber: 2,
-    abstract: "This literature review examines whether bilingual and bicultural students, individuals who grow up speaking two languages and navigating multiple cultural contexts, such as immigrants and green-card holders, possess greater charisma, adaptability, and social capability than their monolingual peers. Drawing on research from cultural psychology, sociolinguistics, and organizational behavior, the review synthesizes findings on cultural intelligence (CQ), cultural frame-switching, code-switching, bicultural identity integration (BII), and the individualism-collectivism dimension. The evidence suggests that bilingual students often develop enhanced cognitive flexibility, empathy, and cross-cultural communication skills that contribute to social adaptability and a charismatic presence. However, these advantages are accompanied by significant psychological costs: code-switching fatigue, identity confusion, and a persistent sense of not fully belonging to any single cultural group. Critically, because charisma itself is defined differently across individualistic and collectivistic cultures, the very skills that make bilingual students adaptable may be perceived as charismatic in one context and inauthentic in another. The review concludes that while bilingualism confers measurable interpersonal and cognitive benefits, the relationship between multicultural experience and charisma is mediated by BII and cultural context, factors that determine whether the bilingual experience becomes a source of strength or strain.",
+    abstract:
+      "This literature review examines whether bilingual and bicultural students, individuals who grow up speaking two languages and navigating multiple cultural contexts, such as immigrants and green-card holders, possess greater charisma, adaptability, and social capability than their monolingual peers. Drawing on research from cultural psychology, sociolinguistics, and organizational behavior, the review synthesizes findings on cultural intelligence (CQ), cultural frame-switching, code-switching, bicultural identity integration (BII), and the individualism-collectivism dimension. The evidence suggests that bilingual students often develop enhanced cognitive flexibility, empathy, and cross-cultural communication skills that contribute to social adaptability and a charismatic presence. However, these advantages are accompanied by significant psychological costs: code-switching fatigue, identity confusion, and a persistent sense of not fully belonging to any single cultural group. Critically, because charisma itself is defined differently across individualistic and collectivistic cultures, the very skills that make bilingual students adaptable may be perceived as charismatic in one context and inauthentic in another. The review concludes that while bilingualism confers measurable interpersonal and cognitive benefits, the relationship between multicultural experience and charisma is mediated by BII and cultural context, factors that determine whether the bilingual experience becomes a source of strength or strain.",
     image: "/images/optimized/bilingual-1600.webp",
     pdfBasename: "Bilingual Charisma",
     pageCount: 9,
@@ -273,13 +278,15 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
   },
   {
     id: 16,
-    title: "Beyond the American Lens: Examining the South Vietnamese Voice in Films and Documentaries",
+    title:
+      "Beyond the American Lens: Examining the South Vietnamese Voice in Films and Documentaries",
     author: "V. Le",
     publishDate: "2026-08-13",
     category: "Research Articles",
     volume: 2,
     issueNumber: 2,
-    abstract: "This article examines the erasure of the South Vietnamese perspective in Vietnam War films and documentaries, arguing that this absence distorts public memory and historical understanding of the conflict. While the narratives of American soldiers and North Vietnamese ideologies are frequently centered in cinematic portrayals, the experiences, ideologies, and motivations of the South Vietnamese\u2013those who fought to defend their sovereignty\u2013are often sidelined, stereotyped, or omitted altogether. This line of research begins by defining the three major perspectives of the war\u2013American, North Vietnamese, and South Vietnamese\u2013to contextualize those which are missing. Through an analysis of documentaries like Ken Burns\u2019 The Vietnam War, Lloyd Ellison\u2019s Vietnam: A Television History, and other Hollywood films, this article seeks to identify recurring cinematic patterns that contribute to the marginalization of South Vietnamese characters and negates their agency, which together, produce a myopic cinematic representation of the war itself. It then explores historical factors (i.e., the intellectual climate typifying postwar academia, American reactions to refugees, and cultural stereotypes) that have contributed to this erasure. Finally, the article considers methods for addressing such displacement, including the formation of community-led film festivals and the construction of public memorials, that seek to reclaim and amplify the South Vietnamese perspective. By exposing the absence of a crucial voice of the Vietnam War in film and offering paths toward repair, this article calls for a more complete historical narrative of the war itself.",
+    abstract:
+      "This article examines the erasure of the South Vietnamese perspective in Vietnam War films and documentaries, arguing that this absence distorts public memory and historical understanding of the conflict. While the narratives of American soldiers and North Vietnamese ideologies are frequently centered in cinematic portrayals, the experiences, ideologies, and motivations of the South Vietnamese\u2013those who fought to defend their sovereignty\u2013are often sidelined, stereotyped, or omitted altogether. This line of research begins by defining the three major perspectives of the war\u2013American, North Vietnamese, and South Vietnamese\u2013to contextualize those which are missing. Through an analysis of documentaries like Ken Burns\u2019 The Vietnam War, Lloyd Ellison\u2019s Vietnam: A Television History, and other Hollywood films, this article seeks to identify recurring cinematic patterns that contribute to the marginalization of South Vietnamese characters and negates their agency, which together, produce a myopic cinematic representation of the war itself. It then explores historical factors (i.e., the intellectual climate typifying postwar academia, American reactions to refugees, and cultural stereotypes) that have contributed to this erasure. Finally, the article considers methods for addressing such displacement, including the formation of community-led film festivals and the construction of public memorials, that seek to reclaim and amplify the South Vietnamese perspective. By exposing the absence of a crucial voice of the Vietnam War in film and offering paths toward repair, this article calls for a more complete historical narrative of the war itself.",
     image: "/images/optimized/vietnam-1600.webp",
     pdfBasename: "American Lens",
     pageCount: 17,
@@ -288,13 +295,15 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
   },
   {
     id: 17,
-    title: "Beyond the Black Box: What 103 Studies Reveal About AI and Business Innovation",
+    title:
+      "Beyond the Black Box: What 103 Studies Reveal About AI and Business Innovation",
     author: "T. Yang",
     publishDate: "2026-08-17",
     category: "Research Articles",
     volume: 2,
     issueNumber: 2,
-    abstract: "This research paper evaluates how artificial intelligence, or AI, is changing the way companies around the world come up with new ideas and run their businesses. By looking at over 100 high-quality studies published between 2018 and 2024, we discovered that AI is much more than just a cool new gadget; it is actually a powerful force that is helping businesses create better products, work more efficiently, and understand their customers on a much deeper level. We found that while AI can do things like help doctors find diseases faster or help banks stop hackers, it also brings up big questions about fairness, privacy, and how humans and robots should work together. This paper explains how AI-driven innovation works and what the future might look like for students and workers in a world filled with smart technology.",
+    abstract:
+      "This research paper evaluates how artificial intelligence, or AI, is changing the way companies around the world come up with new ideas and run their businesses. By looking at over 100 high-quality studies published between 2018 and 2024, we discovered that AI is much more than just a cool new gadget; it is actually a powerful force that is helping businesses create better products, work more efficiently, and understand their customers on a much deeper level. We found that while AI can do things like help doctors find diseases faster or help banks stop hackers, it also brings up big questions about fairness, privacy, and how humans and robots should work together. This paper explains how AI-driven innovation works and what the future might look like for students and workers in a world filled with smart technology.",
     image: "/images/optimized/blackbox-1600.webp",
     pdfBasename: "Black Box",
     pageCount: 4,
@@ -377,4 +386,59 @@ export function getSiteArticleFromPdfPath(pdfPath: string) {
     SITE_ARTICLE_BY_SLUG.get(name.toLowerCase()) ??
     null
   );
+}
+
+export interface IssueSummary {
+  volume: number;
+  issueNumber: number;
+  articleCount: number;
+  researchCount: number;
+  firstDate: Date;
+  lastDate: Date;
+}
+
+/** One entry per (volume, issue): publication span and counts, oldest first. */
+export function getIssueSummaries(): IssueSummary[] {
+  const byIssue = new Map<string, IssueSummary>();
+  for (const article of SITE_ARTICLES) {
+    const key = `${article.volume}-${article.issueNumber}`;
+    const date = parseArticleDate(article.publishDate);
+    const isResearch = article.category === "Research Articles";
+    const summary = byIssue.get(key);
+    if (!summary) {
+      byIssue.set(key, {
+        volume: article.volume,
+        issueNumber: article.issueNumber,
+        articleCount: 1,
+        researchCount: isResearch ? 1 : 0,
+        firstDate: date,
+        lastDate: date,
+      });
+      continue;
+    }
+    summary.articleCount += 1;
+    if (isResearch) summary.researchCount += 1;
+    if (date < summary.firstDate) summary.firstDate = date;
+    if (date > summary.lastDate) summary.lastDate = date;
+  }
+  return [...byIssue.values()].sort(
+    (a, b) => a.volume - b.volume || a.issueNumber - b.issueNumber,
+  );
+}
+
+const MONTH_YEAR = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+});
+const MONTH_ONLY = new Intl.DateTimeFormat("en-US", { month: "long" });
+
+/** "January 2026", "April to August 2026", or "October 2024 to April 2025". */
+export function formatIssueDateRange({ firstDate, lastDate }: IssueSummary) {
+  const sameYear = firstDate.getFullYear() === lastDate.getFullYear();
+  const sameMonth = sameYear && firstDate.getMonth() === lastDate.getMonth();
+  if (sameMonth) return MONTH_YEAR.format(firstDate);
+  if (sameYear) {
+    return `${MONTH_ONLY.format(firstDate)} to ${MONTH_YEAR.format(lastDate)}`;
+  }
+  return `${MONTH_YEAR.format(firstDate)} to ${MONTH_YEAR.format(lastDate)}`;
 }

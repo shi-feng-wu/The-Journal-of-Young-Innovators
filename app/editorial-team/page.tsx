@@ -67,6 +67,18 @@ export default function EditorialTeam() {
       />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24 space-y-16">
+        <p className="max-w-[68ch] font-text text-sm md:text-base leading-relaxed text-black/80">
+          Peer review and all editorial decisions are the responsibility of the
+          Editors-in-Chief and the Editorial Board. How manuscripts are reviewed
+          is set out in the{" "}
+          <Link
+            href="/policies#peer-review"
+            className="text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary"
+          >
+            Peer Review policy
+          </Link>
+          .
+        </p>
         <section>
           <h2 className="font-display text-2xl md:text-3xl text-black tracking-wide mb-6">
             Editors-in-Chief
@@ -92,14 +104,16 @@ export default function EditorialTeam() {
           <h2 className="font-display text-2xl md:text-3xl text-black tracking-wide mb-6">
             Peer Editors
           </h2>
+          <p className="max-w-[68ch] mb-8 font-text text-sm md:text-base leading-relaxed text-black/80">
+            Peer editors are student editorial assistants. Under the supervision
+            of the Editorial Board they read submissions and draft developmental
+            comments on writing and structure, which authors receive alongside
+            the reviewer reports. Peer editors do not act as peer reviewers and
+            take no part in editorial decisions.
+          </p>
           <PeopleList people={peerEditors} />
 
           <div className="mt-16 border-t border-black/30 pt-6 font-text text-sm md:text-base leading-relaxed text-black/80 space-y-5">
-            <p className="max-w-[68ch]">
-              Peer editors review submitted research papers and write feedback
-              for the editorial board. They work alongside the journal&rsquo;s
-              editors and mentors.
-            </p>
             <div>
               <Link
                 href="https://docs.google.com/document/d/1Djo8TCZvwwE3tlrPlUXDpOaVyP8aH4PFOnbYlbFfQ78/edit?tab=t.0"
