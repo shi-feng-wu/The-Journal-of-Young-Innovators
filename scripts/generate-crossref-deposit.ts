@@ -119,9 +119,33 @@ function issueKey(article: SiteArticle) {
   return `${article.volume}.${article.issueNumber}`;
 }
 
+function readArg(name: string) {
+  const index = process.argv.indexOf(name);
+  return index === -1 ? undefined : process.argv[index + 1];
+}
+
+/**
+ * Usage: tsx scripts/generate-crossref-deposit.ts [--ids 13,14,15] [--out file.xml]
+ * Without --ids every article is deposited (a full re-deposit updates
+ * existing records). With --ids only those article ids are included, which is
+ * the normal case after publishing new articles.
+ */
 async function main() {
+  const idsArg = readArg("--ids");
+  const selectedIds = idsArg
+    ? new Set(idsArg.split(",").map((id) => Number(id.trim())))
+    : undefined;
+  const unknown = [...(selectedIds ?? [])].filter(
+    (id) => !SITE_ARTICLES.some((a) => a.id === id),
+  );
+  if (unknown.length)
+    throw new Error(`Unknown article ids: ${unknown.join(", ")}`);
+  const selected = SITE_ARTICLES.filter(
+    (article) => !selectedIds || selectedIds.has(article.id),
+  );
+
   const issues = new Map<string, SiteArticle[]>();
-  for (const article of SITE_ARTICLES) {
+  for (const article of selected) {
     const key = issueKey(article);
     issues.set(key, [...(issues.get(key) ?? []), article]);
   }
@@ -134,6 +158,14 @@ async function main() {
           new Date(a.publishDate).getTime() - new Date(b.publishDate).getTime(),
       );
       const first = sorted[0];
+      // Issue-level date is the earliest article in the whole issue, so a
+      // partial deposit does not shift the issue record's date.
+      const issueStart = SITE_ARTICLES.filter(
+        (a) => issueKey(a) === issueKey(first),
+      ).sort(
+        (a, b) =>
+          new Date(a.publishDate).getTime() - new Date(b.publishDate).getTime(),
+      )[0];
       // The journal title-level DOI may only appear once per batch.
       const journalDoi =
         blockIndex === 0
@@ -153,7 +185,7 @@ async function main() {
         ...journalDoi,
         `    </journal_metadata>`,
         `    <journal_issue>`,
-        publicationDateXml(first.publishDate, "      "),
+        publicationDateXml(issueStart.publishDate, "      "),
         `      <journal_volume>`,
         `        <volume>${first.volume}</volume>`,
         `      </journal_volume>`,
@@ -192,10 +224,13 @@ async function main() {
     ``,
   ].join("\n");
 
-  const outPath = path.join(process.cwd(), "crossref-deposit.xml");
+  const outPath = path.resolve(
+    process.cwd(),
+    readArg("--out") ?? "crossref-deposit.xml",
+  );
   await fs.writeFile(outPath, xml, "utf8");
   console.log(
-    `Wrote ${outPath} (${SITE_ARTICLES.length} articles, ${issues.size} issues)`,
+    `Wrote ${outPath} (${selected.length} articles, ${issues.size} issues)`,
   );
 }
 

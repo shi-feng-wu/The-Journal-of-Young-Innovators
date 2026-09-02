@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_batch xmlns="http://www.crossref.org/schema/5.3.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.crossref.org/schema/5.3.1 http://www.crossref.org/schemas/crossref5.3.1.xsd"
+           version="5.3.1">
+  <head>
+    <doi_batch_id>jyi-20260902175003</doi_batch_id>
+    <timestamp>20260902175003</timestamp>
+    <depositor>
+      <depositor_name>The Journal of Young Innovators</depositor_name>
+      <email_address>shifeng@inceptionpad.com</email_address>
+    </depositor>
+    <registrant>The Journal of Young Innovators</registrant>
+  </head>
+  <body>
+  <journal>
+    <journal_metadata language="en">
+      <full_title>The Journal of Young Innovators</full_title>
+      <abbrev_title>JYI</abbrev_title>
+      <issn media_type="electronic">3070-8885</issn>
+      <doi_data>
+        <doi>10.67419/jyi</doi>
+        <resource>https://young-innovator.org</resource>
+      </doi_data>
+    </journal_metadata>
+    <journal_issue>
+      <publication_date media_type="online">
+        <month>04</month>
+        <day>28</day>
+        <year>2026</year>
+      </publication_date>
+      <journal_volume>
+        <volume>2</volume>
+      </journal_volume>
+      <issue>2</issue>
+    </journal_issue>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>The Global Testing Business: Standardization, Inequality, and the Unfairness of One-Size-Fits-All Assessment</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>S.</given_name>
+          <surname>Tong</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>Standardized English proficiency tests such as the Test of English as a Foreign Language (TOEFL) serve as gatekeepers to higher education for millions of students each year, yet the assumption that a single timed test fairly measures a student's ability is seldom examined critically. This review consolidates research on the global testing industry across three connected questions raised by the field: how standardized tests fail diverse learners, how the commercial testing business profits from exclusion, and how assessment might be reimagined beyond a single score. Drawing on educational psychology, language assessment, and the political economy of education, and using the theory of test validity and fairness as a connecting thread, the review argues that a standardized test measures something real but narrow, and does so under conditions that introduce systematic disadvantage for students who think, process information, or approach knowledge differently. The aim is to bring dispersed evidence within reach of students, educators, and admissions practitioners who encounter these concerns one at a time rather than as parts of a single problem.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>05</month>
+        <day>26</day>
+        <year>2026</year>
+      </publication_date>
+      <pages>
+        <first_page>8</first_page>
+        <last_page>15</last_page>
+      </pages>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i2.13</doi>
+        <resource>https://young-innovator.org/issues/articles/global-testing</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/issues/articles/global-testing.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/global-testing.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>The Role of Algorithmic Trading in the U.S. Stock Market</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>Z.</given_name>
+          <surname>Zhang</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This paper reviews empirical research on algorithmic trading in the U.S. stock market and argues that its effects on price efficiency, transaction costs, and market volatility all stem from a single underlying behavior: the voluntary supply of liquidity by algorithmic and high-frequency trading firms. These firms are not required to keep trading when conditions turn unfavorable, so they supply liquidity when doing so is profitable and withdraw it when it is not. Under ordinary market conditions, this behavior narrows bid-ask spreads, speeds up the incorporation of new information into prices, and lowers trading costs for participants who can move as quickly as the market does. The same behavior also explains why these benefits break down during rare, correlated market shocks: firms that reliably supply liquidity on calm days can withdraw from the market in unison once conditions become risky, an event best illustrated by the Flash Crash of May 6, 2010. Bringing these three strands of research together shows that algorithmic trading has not simply made U.S. equity markets more efficient or more fragile. Instead, it has tied everyday market quality to a form of liquidity supply that is dependable under normal conditions and prone to sudden, collective withdrawal exactly when markets need it most.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>06</month>
+        <day>15</day>
+        <year>2026</year>
+      </publication_date>
+      <pages>
+        <first_page>16</first_page>
+        <last_page>21</last_page>
+      </pages>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i2.14</doi>
+        <resource>https://young-innovator.org/issues/articles/algorithmic-trading</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/issues/articles/algorithmic-trading.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/algorithmic-trading.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Bilingual, Bicultural, and Charismatic? Reassessing Social Capability Among Students Who Grow Up Between Cultures</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>M.</given_name>
+          <surname>Luo</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This literature review examines whether bilingual and bicultural students, individuals who grow up speaking two languages and navigating multiple cultural contexts, such as immigrants and green-card holders, possess greater charisma, adaptability, and social capability than their monolingual peers. Drawing on research from cultural psychology, sociolinguistics, and organizational behavior, the review synthesizes findings on cultural intelligence (CQ), cultural frame-switching, code-switching, bicultural identity integration (BII), and the individualism-collectivism dimension. The evidence suggests that bilingual students often develop enhanced cognitive flexibility, empathy, and cross-cultural communication skills that contribute to social adaptability and a charismatic presence. However, these advantages are accompanied by significant psychological costs: code-switching fatigue, identity confusion, and a persistent sense of not fully belonging to any single cultural group. Critically, because charisma itself is defined differently across individualistic and collectivistic cultures, the very skills that make bilingual students adaptable may be perceived as charismatic in one context and inauthentic in another. The review concludes that while bilingualism confers measurable interpersonal and cognitive benefits, the relationship between multicultural experience and charisma is mediated by BII and cultural context, factors that determine whether the bilingual experience becomes a source of strength or strain.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>07</month>
+        <day>22</day>
+        <year>2026</year>
+      </publication_date>
+      <pages>
+        <first_page>22</first_page>
+        <last_page>30</last_page>
+      </pages>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i2.15</doi>
+        <resource>https://young-innovator.org/issues/articles/bilingual-charisma</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/issues/articles/bilingual-charisma.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/bilingual-charisma.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Beyond the American Lens: Examining the South Vietnamese Voice in Films and Documentaries</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>V.</given_name>
+          <surname>Le</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This article examines the erasure of the South Vietnamese perspective in Vietnam War films and documentaries, arguing that this absence distorts public memory and historical understanding of the conflict. While the narratives of American soldiers and North Vietnamese ideologies are frequently centered in cinematic portrayals, the experiences, ideologies, and motivations of the South Vietnamese–those who fought to defend their sovereignty–are often sidelined, stereotyped, or omitted altogether. This line of research begins by defining the three major perspectives of the war–American, North Vietnamese, and South Vietnamese–to contextualize those which are missing. Through an analysis of documentaries like Ken Burns’ The Vietnam War, Lloyd Ellison’s Vietnam: A Television History, and other Hollywood films, this article seeks to identify recurring cinematic patterns that contribute to the marginalization of South Vietnamese characters and negates their agency, which together, produce a myopic cinematic representation of the war itself. It then explores historical factors (i.e., the intellectual climate typifying postwar academia, American reactions to refugees, and cultural stereotypes) that have contributed to this erasure. Finally, the article considers methods for addressing such displacement, including the formation of community-led film festivals and the construction of public memorials, that seek to reclaim and amplify the South Vietnamese perspective. By exposing the absence of a crucial voice of the Vietnam War in film and offering paths toward repair, this article calls for a more complete historical narrative of the war itself.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>08</month>
+        <day>13</day>
+        <year>2026</year>
+      </publication_date>
+      <pages>
+        <first_page>31</first_page>
+        <last_page>47</last_page>
+      </pages>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i2.16</doi>
+        <resource>https://young-innovator.org/issues/articles/american-lens</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/issues/articles/american-lens.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/american-lens.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+      <journal_article publication_type="full_text">
+      <titles>
+        <title>Beyond the Black Box: What 103 Studies Reveal About AI and Business Innovation</title>
+      </titles>
+      <contributors>
+        <person_name sequence="first" contributor_role="author">
+          <given_name>T.</given_name>
+          <surname>Yang</surname>
+        </person_name>
+      </contributors>
+      <jats:abstract xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1">
+        <jats:p>This research paper evaluates how artificial intelligence, or AI, is changing the way companies around the world come up with new ideas and run their businesses. By looking at over 100 high-quality studies published between 2018 and 2024, we discovered that AI is much more than just a cool new gadget; it is actually a powerful force that is helping businesses create better products, work more efficiently, and understand their customers on a much deeper level. We found that while AI can do things like help doctors find diseases faster or help banks stop hackers, it also brings up big questions about fairness, privacy, and how humans and robots should work together. This paper explains how AI-driven innovation works and what the future might look like for students and workers in a world filled with smart technology.</jats:p>
+      </jats:abstract>
+      <publication_date media_type="online">
+        <month>08</month>
+        <day>17</day>
+        <year>2026</year>
+      </publication_date>
+      <pages>
+        <first_page>48</first_page>
+        <last_page>51</last_page>
+      </pages>
+      <ai:program xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" name="AccessIndicators">
+        <ai:free_to_read/>
+        <ai:license_ref applies_to="vor">https://creativecommons.org/licenses/by/4.0/</ai:license_ref>
+      </ai:program>
+      <doi_data>
+        <doi>10.67419/jyi.v2i2.17</doi>
+        <resource>https://young-innovator.org/issues/articles/black-box</resource>
+        <collection property="crawler-based">
+          <item crawler="google">
+            <resource>https://young-innovator.org/issues/articles/black-box.pdf</resource>
+          </item>
+        </collection>
+        <collection property="text-mining">
+          <item>
+            <resource mime_type="application/pdf">https://young-innovator.org/issues/articles/black-box.pdf</resource>
+          </item>
+        </collection>
+      </doi_data>
+      </journal_article>
+  </journal>
+  </body>
+</doi_batch>
