@@ -41,7 +41,7 @@ export default function DesktopNavHighlight() {
       <MotionHighlightItem asChild>
         <Link
           href="/"
-          className="relative z-[1] inline-flex items-center rounded-md px-2 py-1"
+          className="relative z-[1] -ml-[calc(0.5rem+1px)] inline-flex items-center rounded-md px-2 py-1"
         >
           <img
             src="/logolight.png"
@@ -87,7 +87,7 @@ export default function DesktopNavHighlight() {
 
       <div
         aria-hidden="true"
-        className="inline-flex items-center rounded-md px-2 py-1 opacity-0 pointer-events-none"
+        className="-mr-[calc(0.5rem+1px)] inline-flex items-center rounded-md px-2 py-1 opacity-0 pointer-events-none"
       >
         <img
           src="/logolight.png"

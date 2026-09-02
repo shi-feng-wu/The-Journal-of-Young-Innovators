@@ -39,7 +39,7 @@ function DesktopNavStatic() {
     <div className="grid grid-cols-[auto_1fr_auto] items-center w-full gap-2">
       <Link
         href="/"
-        className="relative z-[1] inline-flex items-center rounded-md px-2 py-1"
+        className="relative z-[1] -ml-[calc(0.5rem+1px)] inline-flex items-center rounded-md px-2 py-1"
       >
         <img
           src="/logolight.png"
@@ -62,7 +62,7 @@ function DesktopNavStatic() {
       </div>
       <div
         aria-hidden="true"
-        className="inline-flex items-center rounded-md px-2 py-1 opacity-0 pointer-events-none"
+        className="-mr-[calc(0.5rem+1px)] inline-flex items-center rounded-md px-2 py-1 opacity-0 pointer-events-none"
       >
         <img
           src="/logolight.png"
@@ -131,7 +131,7 @@ export default function Navigation() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center h-16 gap-4">
           <div className="flex items-center shrink-0 xl:hidden">
-            <Link href="/" className="flex items-center xl:hidden">
+            <Link href="/" className="-ml-px flex items-center xl:hidden">
               <img
                 src="/logolight.png"
                 alt="The Journal of Young Innovators home"
