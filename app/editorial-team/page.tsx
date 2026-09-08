@@ -33,7 +33,7 @@ const industryCollaborators: Person[] = [
 ];
 
 const peerEditors: Person[] = [
-  { name: "Ashley Yu", affiliation: "Concord Academy" },
+  { name: "Albert Zhou", affiliation: "Concord Academy" },
   { name: "Andrew Leibowitz", affiliation: "Cornell University" },
   { name: "Lilia Chesky", affiliation: "Waseda University" },
 ];
