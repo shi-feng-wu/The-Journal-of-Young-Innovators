@@ -183,6 +183,12 @@ export default function Home() {
               id="formatting-requirements"
               title="Formatting Requirements"
             >
+              <p>
+                All manuscripts must follow the Publication Manual of the
+                American Psychological Association, 7th edition, in both
+                formatting and citation style. Where APA 7 permits more than one
+                option, follow the single option specified on this page.
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <InfoCard title="File Format & Layout">
                   <ul className="space-y-2 list-disc pl-5">
@@ -190,68 +196,157 @@ export default function Home() {
                       <strong>Format:</strong> Microsoft Word (.docx)
                     </li>
                     <li>
-                      <strong>Maximum:</strong> 20 pages (8.5" × 11", US Letter)
+                      <strong>Length:</strong> 6,000 words maximum, excluding
+                      references and appendices
                     </li>
                     <li>
-                      <strong>Margins:</strong> 1 inch on all sides
+                      <strong>Page:</strong> 8.5" × 11" (US Letter), 1 inch
+                      margins on all sides
                     </li>
                     <li>
-                      <strong>Body Font:</strong> Times New Roman, 10 pt,
-                      single-spaced
+                      <strong>Font:</strong> Times New Roman, 12 pt
+                    </li>
+                    <li>
+                      <strong>Spacing:</strong> Double-spaced throughout,
+                      including the abstract, block quotations, table notes, and
+                      references
+                    </li>
+                    <li>
+                      <strong>Paragraphs:</strong> Left-aligned with a ragged
+                      right margin, first line indented 0.5 inch
+                    </li>
+                  </ul>
+                </InfoCard>
+
+                <InfoCard title="Title Page & Abstract">
+                  <ul className="space-y-2 list-disc pl-5">
+                    <li>
+                      <strong>Title:</strong> Bold, centered, title case, in the
+                      upper half of the page. 12 words or fewer.
+                    </li>
+                    <li>
+                      <strong>Below the title:</strong> Author name, school
+                      affiliation, and date, each on its own line
+                    </li>
+                    <li>
+                      <strong>Abstract:</strong> On its own page, 250 words
+                      maximum, one paragraph, not indented
+                    </li>
+                    <li>
+                      <strong>Keywords:</strong> 3 to 5, indented, with{" "}
+                      <em>Keywords:</em> in italics
                     </li>
                   </ul>
                 </InfoCard>
 
                 <InfoCard title="Headings">
+                  <p className="mb-3">
+                    APA 7 uses five heading levels, all in 12 pt Times New
+                    Roman.
+                  </p>
                   <ul className="space-y-2 list-disc pl-5">
                     <li>
-                      <strong>Title:</strong> Bold, 18 pt
+                      <strong>Level 1:</strong> Centered, Bold, Title Case
                     </li>
                     <li>
-                      <strong>Main Headings:</strong> Bold, 14 pt
+                      <strong>Level 2:</strong> Flush Left, Bold, Title Case
                     </li>
                     <li>
-                      <strong>Subheadings:</strong> 12 pt
+                      <strong>Level 3:</strong> Flush Left, Bold Italic, Title
+                      Case
                     </li>
                     <li>
-                      <strong>Subsubheadings:</strong> Italic, 12 pt
+                      <strong>Level 4:</strong> Indented, Bold, Title Case,
+                      ending with a period. Text begins on the same line.
+                    </li>
+                    <li>
+                      <strong>Level 5:</strong> Indented, Bold Italic, Title
+                      Case, ending with a period. Text begins on the same line.
                     </li>
                   </ul>
                 </InfoCard>
 
-                <InfoCard title="Visuals">
+                <InfoCard title="Tables & Figures">
                   <ul className="space-y-2 list-disc pl-5">
+                    <li>Do not paste tables as images.</li>
                     <li>
-                      <strong>Tables:</strong> Use Word’s table tool (not
-                      images)
+                      <strong>Table number:</strong> Table 1, Table 2, and so
+                      on. Bold, flush left, on the line above the title.
                     </li>
                     <li>
-                      <strong>Figures:</strong> Centered, clearly titled, placed
-                      within text
+                      <strong>Table title:</strong> On the line below the
+                      number, in italics and title case, flush left.
                     </li>
                     <li>
-                      <strong>Image formats:</strong> .png or .jpg
+                      <strong>Table note:</strong> Below the table, beginning
+                      with <em>Note.</em> in italics
                     </li>
                     <li>
-                      Upload images separately with descriptive filenames.
+                      Place within the text, near where it is first mentioned.
+                    </li>
+                    <li>
+                      <strong>Figures:</strong> Follow the same order. Figure
+                      number in bold above the figure, figure title in italics
+                      on the next line, then the image, then the note below.
                     </li>
                   </ul>
                 </InfoCard>
 
-                <InfoCard title="Other Specifications">
+                <InfoCard title="References">
                   <ul className="space-y-2 list-disc pl-5">
+                    <li>APA 7th edition is required</li>
                     <li>
-                      <strong>Abstract:</strong> Up to 250 words
+                      On a new page, with <strong>References</strong> bold and
+                      centered
                     </li>
                     <li>
-                      <strong>Title:</strong> Maximum 100 characters
+                      Alphabetical by first author&apos;s surname, hanging
+                      indent of 0.5 inch
                     </li>
                     <li>
-                      <strong>References:</strong> APA 7th edition preferred
+                      Every in-text citation must appear in the reference list,
+                      and every reference must be cited in the text
                     </li>
-                    <li>Include URLs or DOIs for online sources.</li>
                   </ul>
                 </InfoCard>
+              </div>
+              <div>
+                <p className="font-semibold text-black">
+                  Need help with APA 7?
+                </p>
+                <ul className="mt-2 space-y-2 list-disc pl-5 [&_a]:underline [&_a]:underline-offset-2">
+                  <li>
+                    <Link
+                      href="https://apastyle.apa.org/instructional-aids/student-paper-setup-guide.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Student Paper Setup Guide (PDF)
+                    </Link>
+                    : APA&apos;s own step-by-step setup instructions with
+                    annotated diagrams
+                  </li>
+                  <li>
+                    <Link
+                      href="https://apastyle.apa.org/style-grammar-guidelines/paper-format/sample-papers"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      APA Sample Papers
+                    </Link>
+                    : full sample papers, including an annotated version
+                  </li>
+                  <li>
+                    <Link
+                      href="https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/general_format.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Purdue OWL: APA Formatting Guide
+                    </Link>
+                    : clear examples, popular with students
+                  </li>
+                </ul>
               </div>
             </EditorialSection>
 
