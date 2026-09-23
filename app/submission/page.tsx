@@ -119,15 +119,14 @@ export default function Home() {
 
             <EditorialSection id="selectivity" title="Selectivity" noTopBorder>
               <p>
-                We are a highly competitive journal that upholds rigorous
-                academic standards, and not every submission will be accepted.
-                We value innovative thinking, strong writing, and a genuine
-                commitment to meaningful research.
+                Not every manuscript we receive is accepted. We look for clear
+                writing and for conclusions that follow from the evidence.
               </p>
               <p>
-                Each manuscript is reviewed by editors and subject experts. If
-                your work shows promise, we may invite revision to strengthen
-                argumentation, structure, evidence, and scholarly clarity.
+                Editors and subject experts review each manuscript. If your work
+                shows promise, we may invite you to revise it before a final
+                decision. Revision requests address argument, structure,
+                evidence, and clarity.
               </p>
             </EditorialSection>
 
@@ -145,18 +144,18 @@ export default function Home() {
               <div className="space-y-4">
                 <p>
                   <strong>Original Research Articles:</strong> In-depth studies
-                  presenting novel findings supported by data, analysis, and
+                  that report new findings, supported by data, analysis, and
                   scholarly references.
                 </p>
                 <p>
                   <strong>Literature Reviews:</strong> Focused syntheses of
-                  existing scholarship that identify key debates, gaps, and
-                  future directions.
+                  existing scholarship that identify the main debates and gaps
+                  and point to directions for future work.
                 </p>
                 <p>
                   <strong>Interview Features:</strong> Structured interviews
-                  with technology leaders presented in journalistic or academic
-                  style with analytical value.
+                  with technology leaders, written in a journalistic or academic
+                  style and including the author&apos;s own analysis.
                 </p>
               </div>
             </EditorialSection>
@@ -353,8 +352,8 @@ export default function Home() {
             <EditorialSection id="review-process" title="Review Process">
               <ul className="list-disc pl-6 space-y-2">
                 <li>
-                  Submissions undergo double-blind peer review by at least two
-                  independent reviewers.
+                  Research articles go through double-blind peer review by at
+                  least two independent reviewers.
                 </li>
                 <li>
                   Editorial feedback is typically provided within 4–8 weeks.
@@ -399,9 +398,9 @@ export default function Home() {
 
             <EditorialSection id="fees" title="Fees">
               <p>
-                Submitting a manuscript is free. If your article is accepted
-                for publication, JYI charges a one-time publication fee of $65
-                USD. Nothing is charged for manuscripts that are declined.
+                Submitting a manuscript is free. If your article is accepted for
+                publication, JYI charges a one-time publication fee of $65 USD.
+                Nothing is charged for manuscripts that are declined.
               </p>
               <p>
                 Your acceptance email includes a link to our Stripe checkout
@@ -409,8 +408,8 @@ export default function Home() {
                 school may pay on your behalf.
               </p>
               <p>
-                Need-based waivers are available. If the fee would stop you
-                from publishing, email{" "}
+                Need-based waivers are available. If the fee would stop you from
+                publishing, email{" "}
                 <a
                   href="mailto:editor@young-innovator.org"
                   className="text-primary underline underline-offset-2"
@@ -441,8 +440,8 @@ export default function Home() {
                 >
                   editor@young-innovator.org
                 </a>
-                . Please include your full name, school, grade level, and a
-                concise description of your question.
+                . Please include your full name, school, and grade level, along
+                with a short description of your question.
               </p>
             </EditorialSection>
 

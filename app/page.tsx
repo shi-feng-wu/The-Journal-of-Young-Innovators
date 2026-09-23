@@ -11,7 +11,7 @@ import { parseArticleDate, SITE_ARTICLES } from "@/lib/articles";
 export const metadata: Metadata = {
   title: "The Journal of Young Innovators",
   description:
-    "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
+    "Peer-reviewed journal of research by high school and college students in business, science, the humanities, healthcare, policy, and AI.",
   alternates: {
     canonical: "/",
   },
@@ -74,7 +74,7 @@ export default function Home() {
     url: "https://young-innovator.org",
     logo: "https://young-innovator.org/logodark.png",
     description:
-      "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
+      "An open-access, peer-reviewed journal of research by high school and college students on artificial intelligence and innovation in many disciplines.",
   };
 
   const websiteSchema = {
@@ -130,7 +130,7 @@ export default function Home() {
         delay
         additionalContent={
           <div className="flex flex-col items-start gap-6 lg:mt-1.5">
-            <p className="font-text text-base lg:text-lg leading-relaxed text-white/85 max-w-[620px]">
+            <p className="font-text text-base lg:text-lg leading-relaxed text-pretty text-white/85 max-w-[620px]">
               Peer-reviewed research by high school and college students,
               published open access.
             </p>
@@ -146,7 +146,7 @@ export default function Home() {
               </SiteButton>
               <Link
                 href="/issues"
-                className="inline-flex items-center gap-2.5 border-b border-white/40 pb-1 font-mono text-[13px] uppercase tracking-[0.16em] text-white/85 transition-colors hover:border-white hover:text-white"
+                className="relative inline-flex items-center gap-2.5 border-b border-white/40 pb-1 after:absolute after:inset-x-0 after:-inset-y-3 font-mono text-[13px] uppercase tracking-[0.16em] text-white/85 transition-colors hover:border-white hover:text-white"
               >
                 Read the latest issue
                 <FaArrowRight aria-hidden="true" className="text-xs" />

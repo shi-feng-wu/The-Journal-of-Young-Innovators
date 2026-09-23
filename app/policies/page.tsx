@@ -140,8 +140,8 @@ export default function PoliciesPage() {
                 <strong>Authors retain copyright of their work.</strong> By
                 submitting to JYI, authors grant the journal a non-exclusive
                 license to publish the article and identify it as having been
-                first published in The Journal of Young Innovators, while
-                retaining all other rights to their work.
+                first published in The Journal of Young Innovators. Authors keep
+                all other rights to their work.
               </p>
               <p>
                 Authors are free to deposit their published work in
@@ -251,7 +251,7 @@ export default function PoliciesPage() {
                 are student editorial assistants. Under the supervision of the
                 Editorial Board they read submissions and draft developmental
                 comments on writing and structure, which authors receive
-                alongside the reviewer reports. Peer editors do not act as peer
+                alongside the reviewer reports. Peer editors are not peer
                 reviewers, and their comments do not count toward the two
                 required reviews. They take no part in editorial decisions.
               </p>
@@ -312,22 +312,21 @@ export default function PoliciesPage() {
                 Accepted authors receive a payment link with their acceptance
                 email and pay by card on our Stripe checkout page. A parent,
                 guardian, or school may pay on the author&apos;s behalf.
-                Payments made in error, such as a duplicate charge, are
-                refunded in full on request.
+                Payments made in error, such as a duplicate charge, are refunded
+                in full on request.
               </p>
               <p>
                 Articles accepted during the 2025–2026 academic year carry no
-                fee, thanks to the generous support of the Brain-Targeted
-                Teaching Institute and grant funding dedicated to making
-                scholarly publishing accessible to students of all income
-                levels.
+                fee, thanks to support from the Brain-Targeted Teaching
+                Institute and from grant funding intended to make scholarly
+                publishing accessible to students of all income levels.
               </p>
             </PolicySection>
 
             <PolicySection id="plagiarism" title="Plagiarism">
               <p>
-                JYI takes plagiarism seriously. Beginning June 2026, all
-                submissions will be screened for originality using{" "}
+                Beginning June 2026, JYI will screen all submissions for
+                originality using{" "}
                 <a
                   href="https://www.crossref.org/services/similarity-check/"
                   target="_blank"
@@ -335,7 +334,7 @@ export default function PoliciesPage() {
                 >
                   Crossref Similarity Check
                 </a>{" "}
-                (powered by iThenticate) prior to peer review. Until that date,
+                (powered by iThenticate) before peer review. Until that date,
                 submissions are screened through editorial review and
                 cross-referencing against published literature and online
                 sources. Manuscripts flagged with substantial overlap are
@@ -362,7 +361,7 @@ export default function PoliciesPage() {
 
             <PolicySection id="ethics" title="Publication Ethics">
               <p>
-                JYI follows the principles articulated by the{" "}
+                JYI follows the principles set out in the{" "}
                 <a
                   href="https://publicationethics.org/core-practices"
                   target="_blank"
@@ -566,7 +565,7 @@ export default function PoliciesPage() {
                 Reviewers must not upload manuscripts, in whole or in part, to
                 generative AI tools, as doing so violates the confidentiality of
                 the peer review process. Editors may use AI-assisted tools for
-                administrative tasks (e.g., similarity screening) but final
+                administrative tasks (e.g., similarity screening), but final
                 editorial decisions are made by human editors.
               </p>
             </PolicySection>
@@ -678,7 +677,8 @@ export default function PoliciesPage() {
                 for external guidance.
               </div>
               <p>
-                Retaliation against complainants in good faith is prohibited.
+                JYI does not permit retaliation against anyone who raises a
+                complaint in good faith.
               </p>
             </PolicySection>
 
@@ -721,10 +721,10 @@ export default function PoliciesPage() {
                 unreliable findings (resulting from misconduct or honest error),
                 redundant publication, plagiarism, undisclosed major conflicts
                 of interest, or unethical research practices. Retracted articles
-                are not removed from the site. They remain accessible with a
-                clearly displayed retraction notice and a watermark on the PDF,
-                so the scholarly record remains intact and citing parties can
-                identify the retraction.
+                are not removed from the site. They stay online with a clearly
+                displayed retraction notice and a watermark on the PDF, so the
+                scholarly record is kept intact and anyone citing the article
+                can see that it was retracted.
               </div>
               <p>
                 All correction, expression-of-concern, and retraction notices
@@ -735,7 +735,7 @@ export default function PoliciesPage() {
 
             <PolicySection id="archiving" title="Archiving and Preservation">
               <p>
-                JYI maintains a permanent, freely-accessible online archive of
+                JYI maintains a permanent, freely accessible online archive of
                 all published articles at{" "}
                 <a
                   href="https://young-innovator.org/issues"
@@ -772,14 +772,14 @@ export default function PoliciesPage() {
                 Because every article is published under a CC BY 4.0 license
                 with no embargo, authors are encouraged, and explicitly
                 permitted, to deposit the published version in their
-                institutional or subject repository for additional preservation
-                redundancy. See the{" "}
+                institutional or subject repository as an additional preserved
+                copy. See the{" "}
                 <a href="#self-archiving">Author Self-Archiving</a> section
                 above.
               </div>
               <p>
-                In the event the journal ceases publication, the editorial team
-                will ensure that the existing article archive remains accessible
+                If the journal ceases publication, the editorial team will
+                ensure that the existing article archive remains accessible
                 through web archives and, where possible, through transfer to a
                 partner institution or repository.
               </p>
@@ -789,9 +789,9 @@ export default function PoliciesPage() {
               <p>
                 The Journal of Young Innovators is an independent, non-profit
                 open-access journal published from Baltimore, Maryland, USA. The
-                journal is operated by its editorial team for the purpose of
-                youth educational advancement and is not owned by, sponsored by,
-                or operated for the financial benefit of any commercial entity.
+                journal is run by its editorial team to advance the education of
+                young people. It is not owned by, sponsored by, or operated for
+                the financial benefit of any commercial entity.
               </p>
               <p>
                 Editorial decisions are made independently of any sponsor,
@@ -810,10 +810,9 @@ export default function PoliciesPage() {
                 JYI does not accept paid advertising on the journal website or
                 within published articles. The journal does not engage in direct
                 marketing of acceptance, expedited review, or publication
-                services to authors. Solicitations purporting to offer
-                guaranteed acceptance, paid placement, or fee-based indexing
-                should not be regarded as genuine communications from JYI and
-                may be reported to{" "}
+                services to authors. Any message offering guaranteed acceptance,
+                paid placement, or fee-based indexing should not be treated as a
+                genuine communication from JYI and may be reported to{" "}
                 <a href="mailto:editor@young-innovator.org">
                   editor@young-innovator.org
                 </a>

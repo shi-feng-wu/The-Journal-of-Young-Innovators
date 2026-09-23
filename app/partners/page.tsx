@@ -46,7 +46,7 @@ export default function Partners() {
         <section className="">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-20">
             {partners.map((p) => (
-              <div className="mb-8" key={p.id}>
+              <div className="mb-8 -mx-4 sm:-mx-6 lg:-mx-8" key={p.id}>
                 <Link
                   href={p.link}
                   target={p.link.startsWith("http") ? "_blank" : undefined}
@@ -57,7 +57,7 @@ export default function Partners() {
                   aria-label={p.title}
                 >
                   <article className="relative rounded-lg transition-colors hover:bg-white overflow-hidden bg-transparent duration-200 ease-in-out">
-                    <div className="relative p-8">
+                    <div className="relative p-4 sm:p-6 lg:p-8">
                       <div className="flex flex-col md:flex-row gap-8 md:items-stretch">
                         <div className="md:w-2/3">
                           <h3 className="text-2xl text-black mb-2">
@@ -89,7 +89,7 @@ export default function Partners() {
               </div>
             ))}
 
-            <p className="mt-4 px-8 font-text text-sm md:text-base leading-relaxed text-black/80">
+            <p className="mt-4 font-text text-sm md:text-base leading-relaxed text-black/80">
               To discuss a partnership, write to{" "}
               <a
                 href="mailto:editor@young-innovator.org"

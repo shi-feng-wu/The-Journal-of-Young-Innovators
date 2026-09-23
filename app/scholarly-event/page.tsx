@@ -152,12 +152,12 @@ export default function ScholarlyEvent() {
                   </li>
                   <li className="relative">
                     <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
-                    <p className="card-subheading">Apr 3rd, 2026</p>
+                    <p className="card-subheading">Apr 3, 2026</p>
                     <p>Preliminary selection of finalists</p>
                   </li>
                   <li className="relative">
                     <span className="absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full bg-primary" />
-                    <p className="card-subheading">May 1st, 2026</p>
+                    <p className="card-subheading">May 1, 2026</p>
                     <p>Final competition (online presentations)</p>
                   </li>
                 </ol>
@@ -287,7 +287,7 @@ export default function ScholarlyEvent() {
                 <InfoCard title="What You'll Gain">
                   <ul className="space-y-2 list-disc pl-5">
                     <li>Deeper understanding of academic research</li>
-                    <li>A polished and publication-ready project</li>
+                    <li>A finished project you can submit for publication</li>
                     <li>Confidence to pursue future STEM opportunities</li>
                     <li>College preparation and application support</li>
                     <li>Network of peers and mentors</li>
@@ -301,7 +301,7 @@ export default function ScholarlyEvent() {
                 institution.
               </p>
               <p>
-                For more information,{" "}
+                For more information, email{" "}
                 <a
                   href="mailto:editor@young-innovator.org"
                   className="text-primary underline"
@@ -318,20 +318,18 @@ export default function ScholarlyEvent() {
               title="Occupational Health in Music"
             >
               <p>
-                This Global Occupational Health Summit in Tertiary Music
-                Institutions, offered as a Pre-Conference Event to the
-                Performing Arts Medicine Association’s International Symposium
-                in Washington, D.C., brings together scholars and experts to
-                address the pressing need for health promotion, education,
-                research, and professional accountability in higher music
-                education. The program highlights the importance of specialized
-                training for healthcare providers, the development of tailored
-                care protocols, and the use of measurable outcomes to meet the
-                unique health challenges musicians face. The summit advocates
-                for tertiary music institutions to assume responsibility for
-                safe learning environments and to recognize occupational health
+                The Global Occupational Health Summit in Tertiary Music
+                Institutions is a pre-conference event of the Performing Arts
+                Medicine Association’s International Symposium in Washington,
+                D.C. Scholars and experts meet to discuss health promotion,
+                education, research, and professional accountability in higher
+                music education. The program calls for specialized training for
+                healthcare providers, care protocols designed for musicians, and
+                measurable outcomes for the health problems musicians face. The
+                summit asks tertiary music institutions to take responsibility
+                for safe learning environments and to treat occupational health
                 as an essential area of knowledge and competency for all
-                musicians. Visit:{" "}
+                musicians. Details are at{" "}
                 <a
                   className="text-primary underline"
                   href="https://occupationalhealthinmusic.org"

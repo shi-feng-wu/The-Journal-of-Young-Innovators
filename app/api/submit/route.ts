@@ -103,7 +103,7 @@ export async function POST(request: Request) {
         "",
         "If anything looks incorrect, reply to this email to let us know.",
         "",
-        "— The Journal of Young Innovators",
+        "The Journal of Young Innovators",
       ].join("\n");
 
       await transporter.sendMail({

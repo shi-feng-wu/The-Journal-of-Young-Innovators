@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about JYI (The Journal of Young Innovators), our mission, and how we support young scholars in AI and innovation.",
+    "Mission, aims and scope, and publication details (ISSN, peer review, license, fees) for The Journal of Young Innovators (JYI).",
   alternates: {
     canonical: "/about",
   },
@@ -45,13 +45,13 @@ export default function About() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pb-10 pt-10">
         <AboutSection id="mission" title="Mission Statement" noTopBorder>
           <p>
-            The Journal of Young Innovators aims to cultivate a global community
-            of young scholars exploring the impacts of artificial intelligence
-            and innovation across disciplines, including but not limited to
-            healthcare, ethics, humanities, business, science and technology,
-            policy, law, and security, through research and interdisciplinary
-            collaboration in a student-led, editorial board–reviewed scientific
-            journal.
+            The Journal of Young Innovators publishes research by high school
+            and college students on how artificial intelligence and innovation
+            affect other fields, among them healthcare, ethics, the humanities,
+            business, science and technology, policy, law, and security. We
+            welcome interdisciplinary and collaborative work. JYI is
+            student-led, and its Editors-in-Chief and Editorial Board oversee
+            peer review and make every editorial decision.
           </p>
         </AboutSection>
 
@@ -69,9 +69,9 @@ export default function About() {
             dimensions of emerging technologies.
           </p>
           <p>
-            All accepted manuscripts undergo double-blind peer review and are
-            published under a Creative Commons Attribution 4.0 International
-            License (CC BY 4.0).
+            Research articles go through double-blind peer review before
+            acceptance. Everything JYI publishes carries a Creative Commons
+            Attribution 4.0 International License (CC BY 4.0).
           </p>
         </AboutSection>
 

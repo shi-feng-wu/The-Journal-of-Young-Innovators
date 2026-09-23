@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "The Journal of Young Innovators",
     short_name: "JYI",
     description:
-      "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
+      "Peer-reviewed journal of research by high school and college students in business, science, the humanities, healthcare, policy, and AI.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

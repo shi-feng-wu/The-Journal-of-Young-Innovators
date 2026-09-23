@@ -9,7 +9,7 @@ const faqData = [
     id: 1,
     question: "What if I don't have an advisor?",
     answer:
-      "You do not have to have an advisor. But if you do, please list down his/her/their information as well.",
+      "You do not need an advisor. If you have one, please include their information.",
   },
   {
     id: 2,
@@ -17,8 +17,8 @@ const faqData = [
     answer: (
       <>
         Submitting is free. If your article is accepted, there is a one-time
-        publication fee of $65 USD, and your acceptance email includes a link
-        to pay it by card. Articles accepted during the 2025–2026 academic year
+        publication fee of $65 USD, and your acceptance email includes a link to
+        pay it by card. Articles accepted during the 2025–2026 academic year
         carry no fee. See{" "}
         <Link
           href="/policies#apc"
@@ -51,25 +51,25 @@ const faqData = [
     id: 4,
     question: "Will I get feedback if my paper is not accepted?",
     answer:
-      "Yes. Even if a paper is not accepted, students receive detailed reviewer feedback to help improve their work.",
+      "Yes. If your paper is declined, you still receive detailed comments from the reviewers that you can use to improve the work.",
   },
   {
     id: 5,
     question: "Can more than one student be listed as an author?",
     answer:
-      "Yes. Co-authorship is welcomed when each listed author has made a substantive contribution to the work.",
+      "Yes, as long as each listed author has made a substantive contribution to the work.",
   },
   {
     id: 6,
     question: "Can I revise and resubmit if my paper needs changes?",
     answer:
-      "Yes. Many submissions are accepted pending revisions. You'll be given clear guidance on what to improve before final publication.",
+      "Yes. Many submissions are accepted pending revisions, and the editors will tell you clearly what needs to change before publication.",
   },
   {
     id: 7,
     question: "What disciplines do you accept papers from?",
     answer:
-      "We welcome research across all disciplines, including but not limited to healthcare, ethics, humanities, business, science and technology, policy, law, and security, particularly as they relate to AI and innovation.",
+      "We accept research in any discipline, including healthcare, ethics, the humanities, business, science and technology, policy, law, and security. Work that relates to AI and innovation is especially welcome.",
   },
   {
     id: 8,
@@ -97,8 +97,8 @@ export default function FAQ() {
       {/* FAQ Section (aligned with other pages) */}
       <div className="pb-40">
         <section className="pb-10 pt-10">
-          <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-20">
-            <Accordion variant="light" className="px-0">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20">
+            <Accordion variant="light" className="max-w-[900px] px-0">
               {faqData.map((faq) => (
                 <AccordionItem
                   key={faq.id}

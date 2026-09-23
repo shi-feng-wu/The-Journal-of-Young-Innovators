@@ -254,7 +254,7 @@ export default function Issues() {
     <div className="bg-background relative">
       <Hero
         title="Issues"
-        subtitle="Explore our published issues and articles."
+        subtitle="Every issue and article JYI has published to date."
       />
 
       <div className="mx-auto grid max-w-[1400px] px-4 pt-12 pb-35 sm:px-6 lg:grid-cols-[minmax(0,1fr)_184px] lg:gap-x-8 lg:px-20 lg:pt-14 lg:pb-40 xl:grid-cols-[minmax(0,1fr)_240px] xl:gap-x-12">
@@ -291,9 +291,9 @@ export default function Issues() {
               <p className="text-[15px] leading-[1.65] text-pretty text-white/85 lg:text-base">
                 The Journal of Young Innovators accepts research articles,
                 literature reviews, and opinion pieces from high school and
-                college students on a rolling basis. Accepted manuscripts
-                undergo double-blind peer review and are published continuously
-                online.
+                college students on a rolling basis. Research articles go
+                through double-blind peer review, and accepted work is published
+                online as soon as it is ready.
               </p>
             </div>
             <Link

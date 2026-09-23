@@ -41,6 +41,12 @@ body {
   background: var(--primary);
 }
 
+/* Keep email addresses whole; browsers otherwise break them at the hyphen in
+   young-innovator.org. */
+a[href^="mailto:"] {
+  white-space: nowrap;
+}
+
 ::selection {
   background: var(--highlight);
   color: #ffffff;

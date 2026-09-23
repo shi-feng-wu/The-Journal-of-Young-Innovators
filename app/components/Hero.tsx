@@ -113,7 +113,7 @@ export default function Hero({
               </h1>
             ) : null}
             {subtitle ? (
-              <p className="font-text text-base lg:text-[17px] leading-normal text-white/85 max-w-[640px]">
+              <p className="font-text text-base lg:text-[17px] leading-normal text-pretty text-white/85 max-w-[640px]">
                 {subtitle}
               </p>
             ) : null}

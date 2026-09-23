@@ -203,7 +203,7 @@ export default function PdfArticleViewer({
                     citeStatus === "copied" ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  Copied!
+                  Copied
                 </span>
                 <span
                   className={`col-start-1 row-start-1 font-mono text-[11px] uppercase transition-opacity duration-300 ${

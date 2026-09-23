@@ -3,7 +3,7 @@ import { SITE_ARTICLES } from "@/lib/articles";
 const SITE_URL = "https://young-innovator.org";
 const FEED_TITLE = "The Journal of Young Innovators";
 const FEED_DESCRIPTION =
-  "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.";
+  "Peer-reviewed journal of research by high school and college students in business, science, the humanities, healthcare, policy, and AI.";
 
 function escapeXml(value: string) {
   return value

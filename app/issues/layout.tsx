@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Issues",
   description:
-    "Explore published JYI issues and articles from young scholars on AI, leadership, and innovation.",
+    "Published issues and articles of The Journal of Young Innovators, with research by high school and college students on AI, leadership, and innovation.",
   alternates: {
     canonical: "/issues",
   },

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | JYI",
   },
   description:
-    "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
+    "Peer-reviewed journal of research by high school and college students in business, science, the humanities, healthcare, policy, and AI.",
   alternates: {
     canonical: "/",
     types: {
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "The Journal of Young Innovators",
     title: "The Journal of Young Innovators",
     description:
-      "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
+      "Peer-reviewed journal of research by high school and college students in business, science, the humanities, healthcare, policy, and AI.",
     images: [
       {
         url: "/og-image.png",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Journal of Young Innovators",
     description:
-      "Peer-reviewed journal of high school and college student research across disciplines — business, science, humanities, healthcare, policy, and AI.",
+      "Peer-reviewed journal of research by high school and college students in business, science, the humanities, healthcare, policy, and AI.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -96,7 +96,7 @@ const organizationJsonLd = {
   url: "https://young-innovator.org",
   logo: "https://young-innovator.org/logodark.png",
   description:
-    "A global community of young scholars exploring artificial intelligence and innovation across disciplines.",
+    "Peer-reviewed journal of research by high school and college students in business, science, the humanities, healthcare, policy, and AI.",
 };
 
 export default function RootLayout({
