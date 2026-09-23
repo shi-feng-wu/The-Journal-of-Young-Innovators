@@ -293,26 +293,34 @@ export default function PoliciesPage() {
 
             <PolicySection id="apc" title="Article Processing Charges">
               <p>
-                For the 2025–2026 academic year,{" "}
-                <strong>
-                  submission and publication in JYI are free of charge
-                </strong>
-                . There are no submission fees, article processing charges
-                (APCs), or publication fees, thanks to the generous support of
-                the Brain-Targeted Teaching Institute, and grant funding
-                dedicated to making scholarly publishing accessible to students
-                of all income levels. Need-based waivers are also available by
-                request to{" "}
+                JYI charges a publication fee of{" "}
+                <strong>$65 USD per article</strong>, payable only after the
+                article has been accepted for publication. There is no fee to
+                submit an article for review, and no fee is charged for
+                manuscripts that are declined. JYI charges readers nothing.
+              </p>
+              <p>
+                Because the fee is requested only after acceptance, an
+                author&apos;s ability to pay plays no part in editorial
+                decisions. Need-based waivers are available by request to{" "}
                 <a href="mailto:editor@young-innovator.org">
                   editor@young-innovator.org
                 </a>
-                .
+                . Authors should ask for a waiver before paying.
               </p>
               <p>
-                Beginning with the 2026–2027 academic year, JYI will introduce a
-                $65 USD publication fee per article, payable only after the
-                article has been accepted for publication. There is no fee to
-                submit an article for review.
+                Accepted authors receive a payment link with their acceptance
+                email and pay by card on our Stripe checkout page. A parent,
+                guardian, or school may pay on the author&apos;s behalf.
+                Payments made in error, such as a duplicate charge, are
+                refunded in full on request.
+              </p>
+              <p>
+                Articles accepted during the 2025–2026 academic year carry no
+                fee, thanks to the generous support of the Brain-Targeted
+                Teaching Institute and grant funding dedicated to making
+                scholarly publishing accessible to students of all income
+                levels.
               </p>
             </PolicySection>
 

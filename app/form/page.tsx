@@ -158,7 +158,7 @@ export default function Submit() {
     <div className="min-h-screen bg-primary">
       <Hero
         title="Submit a Manuscript"
-        subtitle="Submissions from high school and college students are open for the 2025-2026 academic year. Submission and publication are free."
+        subtitle="Submissions from high school and college students are open for the 2026-2027 academic year. Submitting is free; accepted articles carry a $65 USD publication fee."
       />
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24">
         <Form

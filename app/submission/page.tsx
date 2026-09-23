@@ -65,7 +65,7 @@ export default function Home() {
     <div className="min-h-screen bg-background pb-24">
       <Hero
         title="Submission Guidelines"
-        subtitle="How to prepare, format, and submit a manuscript. Submissions from high school and college students are open for the 2025-2026 academic year."
+        subtitle="How to prepare, format, and submit a manuscript. Submissions from high school and college students are open for the 2026-2027 academic year."
         additionalContent={
           <SiteButton
             href="/form"
@@ -399,26 +399,35 @@ export default function Home() {
 
             <EditorialSection id="fees" title="Fees">
               <p>
-                For the 2025–2026 academic year, submission and publication in
-                JYI are free of charge. There are no submission fees, article
-                processing charges (APCs), or publication fees, thanks to the
-                generous support of the Brain-Targeted Teaching Institute, and
-                grant funding dedicated to making scholarly publishing
-                accessible to students of all income levels. Need-based waivers
-                are also available by request to{" "}
+                Submitting a manuscript is free. If your article is accepted
+                for publication, JYI charges a one-time publication fee of $65
+                USD. Nothing is charged for manuscripts that are declined.
+              </p>
+              <p>
+                Your acceptance email includes a link to our Stripe checkout
+                page, where you can pay the fee by card. A parent, guardian, or
+                school may pay on your behalf.
+              </p>
+              <p>
+                Need-based waivers are available. If the fee would stop you
+                from publishing, email{" "}
                 <a
                   href="mailto:editor@young-innovator.org"
                   className="text-primary underline underline-offset-2"
                 >
                   editor@young-innovator.org
-                </a>
+                </a>{" "}
+                before paying. Articles accepted during the 2025–2026 academic
+                year carry no fee, thanks to support from the Brain-Targeted
+                Teaching Institute and grant funding for student publishing.
+                Refunds and full details are on our{" "}
+                <Link
+                  href="/policies#apc"
+                  className="underline underline-offset-2"
+                >
+                  Policies page
+                </Link>
                 .
-              </p>
-              <p>
-                Beginning with the 2026–2027 academic year, JYI will introduce a
-                $65 USD publication fee per article, payable only after the
-                article has been accepted for publication. There is no fee to
-                submit an article for review.
               </p>
             </EditorialSection>
 

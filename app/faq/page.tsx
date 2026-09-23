@@ -16,9 +16,10 @@ const faqData = [
     question: "What's the total cost to publish?",
     answer: (
       <>
-        For the 2025–2026 academic year, submission and publication in JYI are
-        free of charge. A $65 USD publication fee per article begins with the
-        2026–2027 academic year, payable only after acceptance. See{" "}
+        Submitting is free. If your article is accepted, there is a one-time
+        publication fee of $65 USD, and your acceptance email includes a link
+        to pay it by card. Articles accepted during the 2025–2026 academic year
+        carry no fee. See{" "}
         <Link
           href="/policies#apc"
           className="text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary"
@@ -80,7 +81,7 @@ const faqData = [
     id: 9,
     question: "What happens after my paper is accepted?",
     answer:
-      "After acceptance, you'll complete any final revisions requested by editors, sign a non-exclusive publishing agreement (you retain copyright), and your paper will be published open access under a CC BY 4.0 license with full attribution.",
+      "After acceptance, you'll complete any final revisions requested by editors, sign a non-exclusive publishing agreement (you retain copyright), and pay the $65 USD publication fee unless you have been granted a waiver. Your paper will then be published open access under a CC BY 4.0 license with full attribution.",
   },
 ];
 

@@ -108,10 +108,9 @@ export default function About() {
               International (CC BY 4.0)
             </li>
             <li>
-              <strong>Fees:</strong> none for the 2025–2026 academic year, with
-              no submission fees, article processing charges, or publication
-              fees. From 2026–2027, a $65 USD publication fee applies only after
-              acceptance. See{" "}
+              <strong>Fees:</strong> no submission fee. A $65 USD publication
+              fee applies only after acceptance, and articles accepted during
+              the 2025–2026 academic year carry no fee. See{" "}
               <Link href="/policies#apc">Article Processing Charges</Link> for
               need-based waivers.
             </li>
