@@ -1,6 +1,6 @@
 import { ApiError, handle, requireApiEditor } from "@/lib/portal/auth";
 import { SUBMISSION_STATUSES, type SubmissionStatus } from "@/lib/portal/constants";
-import { getSubmission, logEvent, transaction } from "@/lib/portal/db";
+import { getSubmission, logEvent, transaction, updateSubmission } from "@/lib/portal/db";
 import { MailNotConfiguredError, sendAuthorEmail } from "@/lib/portal/mailer";
 import { changeStatus } from "@/lib/portal/submissions";
 
@@ -16,7 +16,7 @@ export const POST = handle(
     if (!submission) throw new ApiError(404, "Submission not found.");
 
     const form = await request.formData();
-    const subject = String(form.get("subject") ?? "").trim();
+    let subject = String(form.get("subject") ?? "").trim();
     const text = String(form.get("body") ?? "").trim();
     const setStatus = String(form.get("setStatus") ?? "") as SubmissionStatus | "";
     const waiveFee = form.get("waiveFee") === "true";
@@ -24,6 +24,9 @@ export const POST = handle(
     if (setStatus && !SUBMISSION_STATUSES.includes(setStatus)) {
       throw new ApiError(400, "Unknown status.");
     }
+
+    // The reference in the subject lets the inbox sync file the author's reply.
+    if (!subject.toUpperCase().includes(submission.ref)) subject = `${subject} [${submission.ref}]`;
 
     const files = form
       .getAll("attachments")
@@ -58,6 +61,7 @@ export const POST = handle(
       if (setStatus) {
         changeStatus(getSubmission(id)!, setStatus, editor.id, { waiveFee });
       }
+      updateSubmission(id, { attention_since: null });
     });
 
     return Response.json({ ok: true });

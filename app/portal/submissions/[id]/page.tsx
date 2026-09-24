@@ -30,7 +30,7 @@ import {
   formatDateTime,
   formatMoney,
 } from "../../_components/ui";
-import { DecisionPanel, RecordPanel } from "./SubmissionPanels";
+import { DecisionPanel, HandledButton, RecordPanel } from "./SubmissionPanels";
 
 export async function generateMetadata({
   params,
@@ -88,28 +88,42 @@ const EVENT_MARK: Record<PortalEvent["type"], string> = {
   email: "bg-white border-[1.5px] border-primary",
   note: "bg-[#68ace5]",
   assign: "bg-[#111]/25",
+  reply: "bg-[#32965d] ring-2 ring-[#32965d]/25",
 };
 
-function Letter({ data }: { data: string }) {
+function Letter({ data, incoming }: { data: string; incoming?: boolean }) {
   const email = JSON.parse(data) as {
-    to: string;
-    subject?: string;
+    to?: string;
+    from?: string;
     body: string;
-    attachments?: string[];
+    attachments?: Array<string | { name: string; path: string }>;
   };
+  const files = email.attachments ?? [];
   return (
     <details className="group/letter mt-2">
       <summary className="cursor-pointer list-none font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary underline-offset-4 hover:underline">
-        <span className="group-open/letter:hidden">Read the letter</span>
-        <span className="hidden group-open/letter:inline">
-          Close the letter
-        </span>
+        <span className="group-open/letter:hidden">{incoming ? "Read the reply" : "Read the letter"}</span>
+        <span className="hidden group-open/letter:inline">Close</span>
       </summary>
       <div className="mt-3 border border-black/15 bg-white px-5 py-5 sm:px-7">
-        <p className="font-mono text-[11px] text-[#111]/55">To {email.to}</p>
-        {email.attachments && email.attachments.length > 0 && (
-          <p className="font-mono text-[11px] text-[#111]/55">
-            With {email.attachments.join(", ")}
+        <p className="font-mono text-[11px] text-[#111]/55">
+          {incoming ? `From ${email.from}` : `To ${email.to}`}
+        </p>
+        {files.length > 0 && (
+          <p className="mt-1 flex flex-wrap gap-x-4 font-mono text-[11px] text-[#111]/55">
+            {files.map((f) =>
+              typeof f === "string" ? (
+                <span key={f}>{f}</span>
+              ) : (
+                <a
+                  key={f.path}
+                  href={`/api/portal/files?path=${encodeURIComponent(f.path)}`}
+                  className="text-primary underline underline-offset-2"
+                >
+                  {f.name}
+                </a>
+              ),
+            )}
           </p>
         )}
         <p className="mt-4 max-w-[68ch] whitespace-pre-wrap font-text text-[15px] leading-[1.7] text-[#111]/85">
@@ -218,6 +232,17 @@ export default async function SubmissionPage({
         </Masthead>
       }
     >
+      {submission.attention_since && (
+        <div className="mb-10 flex flex-col gap-4 bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
+          <p className="font-display text-2xl leading-tight">
+            {submission.first_name || "The author"} wrote in on {formatDate(submission.attention_since)}.{" "}
+            <a href="#history" className="font-text text-base text-white/80 underline underline-offset-4">
+              Read it
+            </a>
+          </p>
+          <HandledButton submissionId={submission.id} />
+        </div>
+      )}
       <div className="grid gap-x-14 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="min-w-0">
           <Section
@@ -239,7 +264,7 @@ export default async function SubmissionPage({
                   >
                     <path d="M8 2v8m0 0l-3.5-3.5M8 10l3.5-3.5M2.5 13.5h11" />
                   </svg>
-                  Download .docx
+                  Download .{(submission.manuscript_name ?? submission.manuscript_file).split(".").pop()?.toLowerCase()}
                 </a>
               ) : (
                 <span className="font-text text-sm text-[#111]/50">
@@ -294,7 +319,9 @@ export default async function SubmissionPage({
                         {e.summary}
                       </p>
                     )}
-                    {e.type === "email" && e.data && <Letter data={e.data} />}
+                    {(e.type === "email" || e.type === "reply") && e.data && (
+                      <Letter data={e.data} incoming={e.type === "reply"} />
+                    )}
                   </div>
                   <p className={`${META} mt-1 sm:mt-0.5 sm:text-right`}>
                     {formatDateTime(e.created_at)}

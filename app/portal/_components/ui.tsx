@@ -205,6 +205,8 @@ const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
 });
 
 export const formatDate = (iso: string) => dateFormat.format(new Date(iso));
+export const formatTime = (iso: string) =>
+  new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" });
 export const formatDateTime = (iso: string) => dateTimeFormat.format(new Date(iso));
 
 export const formatMoney = (cents: number, currency = "usd") =>

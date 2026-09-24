@@ -67,6 +67,8 @@ export default async function PortalHome({
   const params: Record<string, string | number> = {};
   if (filters.status === "open") {
     where.push(`status IN (${OPEN.map((s) => `'${s}'`).join(",")})`);
+  } else if (filters.status === "attention") {
+    where.push("attention_since IS NOT NULL");
   } else if (filters.status !== "all") {
     where.push("status = :status");
     params.status = filters.status;
@@ -104,8 +106,11 @@ export default async function PortalHome({
   const count = (s: SubmissionStatus) => counts[s] ?? 0;
   const total = Object.values(counts).reduce((a, b) => a + (b ?? 0), 0);
   const unmatched = get<{ n: number }>("SELECT COUNT(*) AS n FROM payments WHERE submission_id IS NULL")!.n;
+  const replied = get<{ n: number }>("SELECT COUNT(*) AS n FROM submissions WHERE attention_since IS NOT NULL")!.n;
+  const unfiledMail = get<{ n: number }>("SELECT COUNT(*) AS n FROM inbound_mail WHERE state = 'unmatched'")!.n;
 
   const statusNav: Array<{ key: string; label: string }> = [
+    ...(replied > 0 || filters.status === "attention" ? [{ key: "attention", label: "Author replied" }] : []),
     { key: "open", label: "In progress" },
     ...[...STAGES, ...CLOSED].map((s) => ({ key: s, label: STATUS_LABELS[s] })),
     { key: "all", label: "Everything" },
@@ -114,7 +119,9 @@ export default async function PortalHome({
   const heading =
     filters.status === "open"
       ? "In progress"
-      : filters.status === "all"
+      : filters.status === "attention"
+        ? "Author replied"
+        : filters.status === "all"
         ? "Every submission"
         : STATUS_LABELS[filters.status as SubmissionStatus];
 
@@ -140,12 +147,20 @@ export default async function PortalHome({
           {unmatched > 0 && (
             <div className="mb-10 flex flex-col gap-4 bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
               <p className="font-display text-2xl leading-tight">
-                {unmatched === 1
-                  ? "A card payment came in without a submission attached."
-                  : `${unmatched} card payments came in without a submission attached.`}
+                A card payment came in without a manuscript attached.
               </p>
               <Link href="/portal/payments?filter=unmatched" className={BUTTON.onNavy}>
-                Match {unmatched === 1 ? "it" : "them"}
+                Match payments
+              </Link>
+            </div>
+          )}
+          {unfiledMail > 0 && (
+            <div className="mb-10 flex flex-col gap-4 bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
+              <p className="font-display text-2xl leading-tight">
+                Some email in the inbox couldn’t be matched to a manuscript.
+              </p>
+              <Link href="/portal/inbox" className={BUTTON.onNavy}>
+                Sort it
               </Link>
             </div>
           )}
@@ -208,6 +223,12 @@ export default async function PortalHome({
                       {r.school && <p className="mt-0.5 font-mono text-[11px] text-[#111]/65 lg:text-xs">{r.school}</p>}
                       <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
                         <StageTrack status={r.status} />
+                        {r.attention_since && (
+                          <span className="inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[#1d6b40]">
+                            <span className="h-2 w-2 rounded-full bg-[#32965d]" aria-hidden />
+                            Author replied {formatDate(r.attention_since)}
+                          </span>
+                        )}
                         {r.payment_status !== "not_due" && <FeeMark status={r.payment_status} />}
                       </div>
                       <p className={`${META} mt-3 lg:hidden`}>

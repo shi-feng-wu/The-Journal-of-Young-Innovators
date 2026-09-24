@@ -17,6 +17,8 @@ interface PatchBody {
   paymentNote?: string;
   assignedEditorId?: number | null;
   note?: string;
+  /** Clears the "author replied" flag. */
+  handled?: boolean;
 }
 
 export const PATCH = handle(
@@ -35,6 +37,12 @@ export const PATCH = handle(
         changeStatus(getSubmission(id)!, body.status, editor.id, {
           waiveFee: body.waiveFee,
         });
+        updateSubmission(id, { attention_since: null });
+      }
+
+      if (body.handled) {
+        updateSubmission(id, { attention_since: null });
+        logEvent(id, editor.id, "note", "Marked the author's reply as handled");
       }
 
       if (body.paymentStatus !== undefined) {

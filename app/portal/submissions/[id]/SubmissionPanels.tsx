@@ -430,3 +430,29 @@ export function RecordPanel(props: Props) {
     </div>
   );
 }
+
+/** Clears the "author replied" flag without writing back. */
+export function HandledButton({ submissionId }: { submissionId: number }) {
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  return (
+    <div className="flex flex-col items-start gap-2 sm:items-end">
+      <button
+        type="button"
+        disabled={busy}
+        onClick={async () => {
+          setBusy(true);
+          const failure = await patch(submissionId, { handled: true });
+          setBusy(false);
+          if (failure) setError(failure);
+          else router.refresh();
+        }}
+        className={BUTTON.onNavy}
+      >
+        {busy ? "Saving…" : "Mark handled"}
+      </button>
+      {error && <p role="alert" className="font-text text-sm text-white">{error}</p>}
+    </div>
+  );
+}

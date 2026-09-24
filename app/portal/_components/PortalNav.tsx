@@ -8,6 +8,7 @@ const LINKS = [
   { href: "/portal", label: "Submissions", match: (p: string) => p === "/portal" || p.startsWith("/portal/submissions") },
   { href: "/portal/authors", label: "Authors", match: (p: string) => p.startsWith("/portal/authors") },
   { href: "/portal/payments", label: "Payments", match: (p: string) => p.startsWith("/portal/payments") },
+  { href: "/portal/inbox", label: "Inbox", match: (p: string) => p.startsWith("/portal/inbox") },
 ];
 
 const EDITORS_LINK = {

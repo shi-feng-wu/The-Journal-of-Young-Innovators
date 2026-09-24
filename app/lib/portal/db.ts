@@ -90,12 +90,42 @@ const MIGRATIONS: string[] = [
   );
   CREATE INDEX payments_intent ON payments(payment_intent_id);
   `,
+  `
+  ALTER TABLE submissions ADD COLUMN attention_since TEXT;
+  CREATE TABLE submission_emails (
+    submission_id INTEGER NOT NULL REFERENCES submissions(id) ON DELETE CASCADE,
+    email TEXT NOT NULL COLLATE NOCASE,
+    PRIMARY KEY (submission_id, email)
+  );
+  CREATE TABLE inbound_mail (
+    id INTEGER PRIMARY KEY,
+    zoho_message_id TEXT NOT NULL UNIQUE,
+    zoho_folder_id TEXT NOT NULL,
+    thread_id TEXT,
+    from_address TEXT NOT NULL,
+    from_name TEXT,
+    subject TEXT NOT NULL,
+    body TEXT NOT NULL,
+    attachments TEXT,
+    received_at TEXT NOT NULL,
+    submission_id INTEGER REFERENCES submissions(id) ON DELETE SET NULL,
+    match_reason TEXT,
+    state TEXT NOT NULL,
+    created_at TEXT NOT NULL
+  );
+  CREATE INDEX inbound_mail_state ON inbound_mail(state, received_at);
+  CREATE TABLE sync_state (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+  );
+  `,
 ];
 
 function openDatabase(): DatabaseSync {
   fs.mkdirSync(MANUSCRIPT_DIR, { recursive: true });
   const db = new DatabaseSync(path.join(DATA_DIR, "portal.db"));
-  db.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;");
+  // busy_timeout lets the inbox sync (a separate process) share the file.
+  db.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;");
   const { user_version } = db.prepare("PRAGMA user_version").get() as {
     user_version: number;
   };
@@ -186,6 +216,8 @@ export interface Submission {
   payment_status: PaymentStatus;
   assigned_editor_id: number | null;
   source: string;
+  /** Set when an author wrote in and no editor has responded yet. */
+  attention_since: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -315,6 +347,7 @@ export function updateSubmission(
       | "assigned_editor_id"
       | "manuscript_file"
       | "manuscript_name"
+      | "attention_since"
     >
   >,
 ) {

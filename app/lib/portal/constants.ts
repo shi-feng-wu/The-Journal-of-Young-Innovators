@@ -44,7 +44,8 @@ export type EventType =
   | "payment"
   | "email"
   | "note"
-  | "assign";
+  | "assign"
+  | "reply";
 
 export const SUBMISSION_TYPE_LABELS: Record<string, string> = {
   "research-article": "Research Article",
