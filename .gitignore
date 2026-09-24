@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 incoming/
+
+# editor portal database and manuscripts
+/data/

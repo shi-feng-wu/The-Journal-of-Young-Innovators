@@ -1,27 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const allowedOriginsProd = new Set([
-  "https://young-innovator.org",
-  "https://www.young-innovator.org",
-  "https://young-innovator.com",
-  "https://www.young-innovator.com",
-]);
-
-const allowedOriginsDev = new Set([
-  ...allowedOriginsProd,
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-]);
-
-function isAllowedOrigin(origin: string | null): boolean {
-  const allowed =
-    process.env.NODE_ENV === "production"
-      ? allowedOriginsProd
-      : allowedOriginsDev;
-  return !!origin && allowed.has(origin);
-}
-
 export function proxy(req: NextRequest) {
   const userAgent = req.headers.get("user-agent") ?? "";
   if (/\bRCE-Injector\b/i.test(userAgent)) {
@@ -63,8 +42,11 @@ export function proxy(req: NextRequest) {
 
   const res = NextResponse.next();
 
-  // Avoid indexing query-string variants (utm, spam leftovers, etc.).
-  if (searchParams.size > 0) {
+  // The editor portal is private; keep it out of search results entirely.
+  if (pathname.startsWith("/portal")) {
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+  } else if (searchParams.size > 0) {
+    // Avoid indexing query-string variants (utm, spam leftovers, etc.).
     res.headers.set("X-Robots-Tag", "noindex, follow");
   }
 

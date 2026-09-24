@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/portal", "/api/"],
     },
     sitemap: "https://young-innovator.org/sitemap.xml",
     host: "https://young-innovator.org",

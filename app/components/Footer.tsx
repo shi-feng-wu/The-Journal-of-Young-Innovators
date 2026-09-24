@@ -10,7 +10,10 @@ export default function Footer() {
 
   const isHome = pathname === "/";
   const isWhiteFooterPage =
-    hasSegment("donate") || hasSegment("contact") || hasSegment("form");
+    hasSegment("donate") ||
+    hasSegment("contact") ||
+    hasSegment("form") ||
+    hasSegment("portal");
 
   return (
     <footer

@@ -7,3 +7,7 @@ export const PUBLICATION_FEE_PAYMENT_URL =
   "https://buy.stripe.com/dRm9AT7SB00ufXs06y5kk00";
 
 export const PUBLICATION_FEE_PAY_PATH = "/pay";
+
+// The same payment link's ID. The portal only counts Stripe checkouts made
+// through this link as publication fees.
+export const PUBLICATION_FEE_PAYMENT_LINK_ID = "plink_1UIsX6Ff4DD6F2X6xoTRiMPm";
