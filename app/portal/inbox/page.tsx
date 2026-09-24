@@ -58,7 +58,7 @@ export default async function InboxPage() {
                       <span className="group-open/mail:hidden">Read the email</span>
                       <span className="hidden group-open/mail:inline">Close</span>
                     </summary>
-                    <p className="mt-3 max-w-[68ch] whitespace-pre-wrap border border-black/15 bg-white px-5 py-5 font-text text-[15px] leading-[1.7] text-[#111]/85 sm:px-7">
+                    <p className="mt-3 max-w-[68ch] whitespace-pre-wrap rounded-lg border border-black/15 bg-white px-5 py-5 font-text text-[15px] leading-[1.7] text-[#111]/85 sm:px-7">
                       {m.body || "(no text)"}
                     </p>
                   </details>

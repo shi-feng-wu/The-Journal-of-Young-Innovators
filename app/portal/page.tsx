@@ -147,7 +147,7 @@ export default async function PortalHome({
       <div className="grid gap-x-12 lg:grid-cols-[minmax(0,1fr)_200px] xl:grid-cols-[minmax(0,1fr)_240px]">
         <div className="min-w-0">
           {unmatched > 0 && (
-            <div className="mb-10 flex flex-col gap-4 bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
+            <div className="mb-10 flex flex-col gap-4 rounded-xl bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
               <p className="font-display text-2xl leading-tight">
                 A card payment came in without a manuscript attached.
               </p>
@@ -157,7 +157,7 @@ export default async function PortalHome({
             </div>
           )}
           {unfiledMail > 0 && (
-            <div className="mb-10 flex flex-col gap-4 bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
+            <div className="mb-10 flex flex-col gap-4 rounded-xl bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
               <p className="font-display text-2xl leading-tight">
                 Some email in the inbox couldn’t be matched to a manuscript.
               </p>

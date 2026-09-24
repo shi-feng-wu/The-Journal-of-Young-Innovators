@@ -197,7 +197,7 @@ export function DecisionPanel(props: Props) {
       {template && (
         <form ref={emailRef} onSubmit={submit} className="mt-8 scroll-mt-8">
           {/* The email, drawn as a sheet with a ruled header. */}
-          <div className="border border-black/15 bg-white">
+          <div className="overflow-hidden rounded-lg border border-black/15 bg-white">
             <div className="grid grid-cols-[72px_minmax(0,1fr)] items-center border-b border-black/10 px-5 sm:px-8">
               <span className={LABEL}>To</span>
               {toReviewer ? (

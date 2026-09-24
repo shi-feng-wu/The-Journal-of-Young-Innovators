@@ -110,7 +110,7 @@ function EmailBody({ data, incoming }: { data: string; incoming?: boolean }) {
         <span className="group-open/email:hidden">{incoming ? "Read the reply" : "Read the email"}</span>
         <span className="hidden group-open/email:inline">Close</span>
       </summary>
-      <div className="mt-3 border border-black/15 bg-white px-5 py-5 sm:px-7">
+      <div className="mt-3 rounded-lg border border-black/15 bg-white px-5 py-5 sm:px-7">
         <p className="font-mono text-[11px] text-[#111]/55">
           {incoming ? `From ${email.from}` : `To ${email.to}`}
         </p>
@@ -134,7 +134,7 @@ function EmailBody({ data, incoming }: { data: string; incoming?: boolean }) {
                   src={fileUrl(f.path!)}
                   alt={f.name}
                   loading="lazy"
-                  className="max-h-96 max-w-full border border-black/10 transition-opacity group-hover/img:opacity-90"
+                  className="max-h-96 max-w-full rounded-md border border-black/10 transition-opacity group-hover/img:opacity-90"
                 />
                 <span className="mt-1.5 block font-mono text-[11px] text-[#111]/55 group-hover/img:text-primary">
                   {f.name}
@@ -281,7 +281,7 @@ export default async function SubmissionPage({
       }
     >
       {submission.attention_since && (
-        <div className="mb-10 flex flex-col gap-4 bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
+        <div className="mb-10 flex flex-col gap-4 rounded-xl bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
           <p className="font-display text-2xl leading-tight">
             {submission.first_name || "The author"} wrote in on {formatDate(submission.attention_since)}.{" "}
             <a href="#history" className="font-text text-base text-white/80 underline underline-offset-4">

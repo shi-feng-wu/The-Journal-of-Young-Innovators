@@ -50,7 +50,7 @@ export default async function EditorsPage() {
           ))}
         </ol>
         <aside>
-          <div className="bg-primary px-6 py-7 text-white lg:sticky lg:top-8 lg:px-8 lg:py-9">
+          <div className="rounded-xl bg-primary px-6 py-7 text-white lg:sticky lg:top-8 lg:px-8 lg:py-9">
             <h2 className="font-display text-[28px] leading-tight">Invite an editor</h2>
             <p className="mt-2 mb-6 font-text text-[15px] leading-relaxed text-white/80">
               They get an email with a link to choose a password. The link works once, for 72 hours.
