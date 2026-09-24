@@ -19,11 +19,9 @@ const EDITORS_LINK = {
 
 // Same bar as the public site's Navigation: logo left, mono links, navy.
 export default function PortalNav({
-  editorName,
   isAdmin,
   lastRun,
 }: {
-  editorName: string;
   isAdmin: boolean;
   lastRun: string | null;
 }) {
@@ -68,7 +66,6 @@ export default function PortalNav({
         <div className="hidden items-center gap-4 text-xs md:ml-auto md:flex">
           <RefreshButton lastRun={lastRun} />
           <span className="h-5 w-px bg-white/20" aria-hidden />
-          <span className="font-normal text-white/65">{editorName}</span>
           <button
             type="button"
             onClick={signOut}
@@ -80,8 +77,7 @@ export default function PortalNav({
         </div>
       </div>
       {/* Small screens: sign out sits under the bar. */}
-      <div className="flex items-center justify-between border-t border-white/15 px-4 py-1.5 text-[11px] md:hidden">
-        <span className="font-normal text-white/65">{editorName}</span>
+      <div className="flex items-center justify-end border-t border-white/15 px-4 py-1.5 text-[11px] md:hidden">
         <div className="flex items-center gap-2">
           <RefreshButton lastRun={lastRun} compact />
           <button type="button" onClick={signOut} disabled={signingOut} className="cursor-pointer py-1 text-white/80">

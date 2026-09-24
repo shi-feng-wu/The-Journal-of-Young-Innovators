@@ -15,7 +15,7 @@ export default function PortalShell({
     get<{ value: string }>("SELECT value FROM sync_state WHERE key = 'inbox_last_run'")?.value ?? null;
   return (
     <div className="min-h-screen bg-background text-[#111]">
-      <PortalNav editorName={editor.name} isAdmin={!!editor.is_admin} lastRun={lastRun} />
+      <PortalNav isAdmin={!!editor.is_admin} lastRun={lastRun} />
       {masthead}
       <div className="mx-auto max-w-[1400px] px-4 pt-10 pb-32 sm:px-6 lg:px-20 lg:pt-12">{children}</div>
     </div>
