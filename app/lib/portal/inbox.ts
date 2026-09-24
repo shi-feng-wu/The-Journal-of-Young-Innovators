@@ -50,31 +50,45 @@ export interface StoredAttachment {
 
 const ENTITIES: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'", apos: "'", nbsp: " " };
 
-/** Mail HTML to plain text, with the quoted earlier conversation cut off. */
-export function mailText(html: string): string {
-  let s = html
-    // Quoted history: Zoho, Gmail, Outlook and Apple Mail markers.
-    .replace(/<blockquote[\s\S]*$/i, "")
-    .replace(/<div[^>]*(zmail_extra|gmail_quote|divRplyFwdMsg|OutlookMessageHeader)[\s\S]*$/i, "")
+function htmlToText(html: string): string {
+  return html
     .replace(/<(style|script|head)[\s\S]*?<\/\1>/gi, "")
     .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<\/(p|div|li|tr|h\d)>/gi, "\n")
+    .replace(/<\/(p|div|li|tr|h\d|blockquote)>/gi, "\n")
     .replace(/<[^>]+>/g, "")
     .replace(/&(#\d+|#x[0-9a-f]+|\w+);/gi, (m, e: string) => {
       if (e.startsWith("#x")) return String.fromCodePoint(parseInt(e.slice(2), 16));
       if (e.startsWith("#")) return ENTITIES[e] ?? String.fromCodePoint(Number(e.slice(1)));
       return ENTITIES[e.toLowerCase()] ?? m;
     });
-  // Plain-text quote headers that survive as text.
-  const cut = s.search(/^\s*(On .{5,200} wrote:|-{2,} ?Original Message ?-{2,}|From: .+<.+@.+>)\s*$/im);
-  if (cut > 0) s = s.slice(0, cut);
-  return s
+}
+
+const tidy = (s: string) =>
+  s
     .split("\n")
     .map((line) => line.replace(/\s+$/, ""))
     .join("\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim()
     .slice(0, 20_000);
+
+/**
+ * Mail HTML to plain text, with the quoted earlier conversation cut off.
+ * A forward with nothing added keeps the forwarded message, since that is
+ * the whole email.
+ */
+export function mailText(html: string): string {
+  let s = htmlToText(
+    html
+      // Quoted history: Zoho, Gmail, Outlook and Apple Mail markers.
+      .replace(/<blockquote[\s\S]*$/i, "")
+      .replace(/<div[^>]*(zmail_extra|gmail_quote|divRplyFwdMsg|OutlookMessageHeader)[\s\S]*$/i, ""),
+  );
+  // Plain-text quote headers that survive as text.
+  const cut = s.search(/^\s*(On .{5,200} wrote:|-{2,} ?Original Message ?-{2,}|From: .+<.+@.+>|=+ ?Forwarded message ?=+)\s*$/im);
+  if (cut >= 0) s = s.slice(0, cut);
+  const own = tidy(s);
+  return own || tidy(htmlToText(html));
 }
 
 // ---- Matching --------------------------------------------------------------
