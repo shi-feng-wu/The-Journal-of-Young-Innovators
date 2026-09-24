@@ -57,7 +57,7 @@ function Flash({ message }: { message: Message }) {
   );
 }
 
-// ---- Decisions and letters -----------------------------------------------
+// ---- Decisions and emails -----------------------------------------------
 
 type Action = { template: string; when?: (p: Props) => boolean };
 
@@ -72,7 +72,7 @@ const DECISIONS: Action[] = [
   { template: "decline", when: (p) => !["rejected", "published", "withdrawn"].includes(p.status) },
 ];
 
-const LETTERS: Action[] = [
+const OTHER_EMAILS: Action[] = [
   { template: "ai-question", when: (p) => open.includes(p.status) },
   { template: "format", when: (p) => open.includes(p.status) },
   { template: "decline-ai", when: (p) => !["rejected", "published", "withdrawn"].includes(p.status) },
@@ -91,7 +91,7 @@ export function DecisionPanel(props: Props) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<Message>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const letterRef = useRef<HTMLFormElement>(null);
+  const emailRef = useRef<HTMLFormElement>(null);
 
   const template = EMAIL_TEMPLATES.find((t) => t.id === templateId);
   const toReviewer = template?.audience === "reviewer";
@@ -108,9 +108,9 @@ export function DecisionPanel(props: Props) {
     setAttachManuscript(!!props.manuscriptName);
     setMessage(null);
     requestAnimationFrame(() => {
-      letterRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      emailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       const first = t.audience === "reviewer" ? "input[type=email]" : "textarea";
-      letterRef.current?.querySelector<HTMLElement>(first)?.focus({ preventScroll: true });
+      emailRef.current?.querySelector<HTMLElement>(first)?.focus({ preventScroll: true });
     });
   };
 
@@ -146,7 +146,7 @@ export function DecisionPanel(props: Props) {
   };
 
   const decisions = DECISIONS.filter((a) => !a.when || a.when(props));
-  const letters = LETTERS.filter((a) => !a.when || a.when(props));
+  const others = OTHER_EMAILS.filter((a) => !a.when || a.when(props));
   const hasPlaceholder = /\[[^\]]+\]/.test(body);
   const willChange = template?.setsStatus && template.setsStatus !== props.status;
 
@@ -171,8 +171,8 @@ export function DecisionPanel(props: Props) {
         </div>
       )}
       <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <span className="font-text text-sm text-[#111]/55">Other letters:</span>
-        {letters.map((a) => {
+        <span className="font-text text-sm text-[#111]/55">Other emails:</span>
+        {others.map((a) => {
           const t = byId(a.template);
           return (
             <button
@@ -195,8 +195,8 @@ export function DecisionPanel(props: Props) {
       )}
 
       {template && (
-        <form ref={letterRef} onSubmit={submit} className="mt-8 scroll-mt-8">
-          {/* The letter: a sheet of paper with a ruled header. */}
+        <form ref={emailRef} onSubmit={submit} className="mt-8 scroll-mt-8">
+          {/* The email, drawn as a sheet with a ruled header. */}
           <div className="border border-black/15 bg-white">
             <div className="grid grid-cols-[72px_minmax(0,1fr)] items-center border-b border-black/10 px-5 sm:px-8">
               <span className={LABEL}>To</span>
@@ -308,7 +308,7 @@ export function DecisionPanel(props: Props) {
             <Flash message={message} />
             <div className="flex flex-wrap items-center gap-4 pt-1">
               <button type="submit" disabled={busy} className={BUTTON.primary}>
-                {busy ? "Sending…" : "Send letter"}
+                {busy ? "Sending…" : "Send email"}
               </button>
               <button type="button" onClick={() => setTemplateId(null)} className={BUTTON.quiet}>
                 Discard

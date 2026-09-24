@@ -23,7 +23,7 @@ export const POST = handle(
     const text = String(form.get("body") ?? "").trim();
     const setStatus = String(form.get("setStatus") ?? "") as SubmissionStatus | "";
     const waiveFee = form.get("waiveFee") === "true";
-    // Letters go to the author unless another recipient (a reviewer) is given.
+    // Emails go to the author unless another recipient (a reviewer) is given.
     const to = String(form.get("to") ?? "").trim() || submission.email;
     const toAuthor = to.toLowerCase() === submission.email.toLowerCase();
     if (!/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(to)) throw new ApiError(400, "Enter one valid email address.");

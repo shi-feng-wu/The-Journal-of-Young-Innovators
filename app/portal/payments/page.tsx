@@ -84,7 +84,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
             <p className="border-t border-black/30 py-12 font-text text-base text-[#111]/65">
               {unmatchedOnly
                 ? "Every payment is matched to a manuscript."
-                : "No card payments yet. They appear here as soon as an author pays through the link in their acceptance letter."}
+                : "No card payments yet."}
             </p>
           ) : (
             <ol>

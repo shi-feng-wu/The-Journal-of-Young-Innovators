@@ -91,7 +91,7 @@ const EVENT_MARK: Record<PortalEvent["type"], string> = {
   reply: "bg-[#32965d] ring-2 ring-[#32965d]/25",
 };
 
-function Letter({ data, incoming }: { data: string; incoming?: boolean }) {
+function EmailBody({ data, incoming }: { data: string; incoming?: boolean }) {
   const email = JSON.parse(data) as {
     to?: string;
     from?: string;
@@ -100,10 +100,10 @@ function Letter({ data, incoming }: { data: string; incoming?: boolean }) {
   };
   const files = email.attachments ?? [];
   return (
-    <details className="group/letter mt-2">
+    <details className="group/email mt-2">
       <summary className="cursor-pointer list-none font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary underline-offset-4 hover:underline">
-        <span className="group-open/letter:hidden">{incoming ? "Read the reply" : "Read the letter"}</span>
-        <span className="hidden group-open/letter:inline">Close</span>
+        <span className="group-open/email:hidden">{incoming ? "Read the reply" : "Read the email"}</span>
+        <span className="hidden group-open/email:inline">Close</span>
       </summary>
       <div className="mt-3 border border-black/15 bg-white px-5 py-5 sm:px-7">
         <p className="font-mono text-[11px] text-[#111]/55">
@@ -302,7 +302,7 @@ export default async function SubmissionPage({
             )}
           </Section>
 
-          <Section id="decision" title="Write a letter">
+          <Section id="decision" title="Write an email">
             <DecisionPanel {...panelProps} />
           </Section>
 
@@ -332,7 +332,7 @@ export default async function SubmissionPage({
                       </p>
                     )}
                     {(e.type === "email" || e.type === "reply") && e.data && (
-                      <Letter data={e.data} incoming={e.type === "reply"} />
+                      <EmailBody data={e.data} incoming={e.type === "reply"} />
                     )}
                   </div>
                   <p className={`${META} mt-1 sm:mt-0.5 sm:text-right`}>
