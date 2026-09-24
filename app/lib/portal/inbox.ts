@@ -88,7 +88,40 @@ export function mailText(html: string): string {
   const cut = s.search(/^\s*(On .{5,200} wrote:|-{2,} ?Original Message ?-{2,}|From: .+<.+@.+>|=+ ?Forwarded message ?=+)\s*$/im);
   if (cut >= 0) s = s.slice(0, cut);
   const own = tidy(s);
-  return own || tidy(htmlToText(html));
+  return own || forwardedText(html) || tidy(htmlToText(html));
+}
+
+/** Everything inside the first <blockquote> that starts after `from`. */
+function firstBlockquote(html: string, from: number): string | null {
+  const open = /<blockquote\b[^>]*>/gi;
+  open.lastIndex = from;
+  const start = open.exec(html);
+  if (!start) return null;
+  const tags = /<(\/?)blockquote\b[^>]*>/gi;
+  tags.lastIndex = start.index + start[0].length;
+  let depth = 1;
+  for (let t = tags.exec(html); t; t = tags.exec(html)) {
+    depth += t[1] ? -1 : 1;
+    if (depth === 0) return html.slice(start.index + start[0].length, t.index);
+  }
+  return null;
+}
+
+/**
+ * A bare forward, reduced to one level: the forwarded message's sender,
+ * date and subject, then its own text without the history quoted inside it.
+ */
+function forwardedText(html: string): string | null {
+  const marker = html.search(/Forwarded message|Begin forwarded message|-{3,} ?Original Message/i);
+  if (marker < 0) return null;
+  const inner = firstBlockquote(html, marker);
+  if (inner === null) return null;
+  const header = htmlToText(html.slice(marker, html.indexOf("<blockquote", marker)))
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => /^(From|Date|Sent|Subject):/i.test(line));
+  const body = mailText(inner);
+  return tidy(["Forwarded message", ...header, "", body].join("\n"));
 }
 
 // ---- Matching --------------------------------------------------------------
