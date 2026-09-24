@@ -132,11 +132,14 @@ export function Masthead({
   title,
   subtitle,
   above,
+  action,
   children,
 }: {
   title: string;
   subtitle?: React.ReactNode;
   above?: React.ReactNode;
+  /** A control that sits level with the title, on the right. */
+  action?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
@@ -144,9 +147,12 @@ export function Masthead({
       <div className="border-t border-white/15">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-2.5 px-4 pt-6 pb-8 sm:px-6 lg:px-20 lg:pt-8 lg:pb-10">
           {above}
-          <h1 className="max-w-[28ch] font-display text-4xl font-normal leading-[1.1] text-balance lg:text-[44px]">
-            {title}
-          </h1>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <h1 className="max-w-[28ch] font-display text-4xl font-normal leading-[1.1] text-balance lg:text-[44px]">
+              {title}
+            </h1>
+            {action}
+          </div>
           {subtitle && (
             <p className="max-w-[640px] font-text text-base leading-normal text-pretty text-white/85 lg:text-[17px]">
               {subtitle}

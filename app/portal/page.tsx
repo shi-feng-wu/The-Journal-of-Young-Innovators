@@ -9,6 +9,7 @@ import {
 } from "@/lib/portal/constants";
 import { all, get, type Submission } from "@/lib/portal/db";
 import Pipeline from "./_components/Pipeline";
+import RefreshButton from "./_components/RefreshButton";
 import PortalShell from "./_components/PortalShell";
 import {
   BUTTON,
@@ -129,7 +130,7 @@ export default async function PortalHome({
     <PortalShell
       editor={editor}
       masthead={
-        <Masthead title="Submissions">
+        <Masthead title="Submissions" action={<RefreshButton />}>
           <Pipeline
             stages={STAGES.map((s) => ({
               key: s,

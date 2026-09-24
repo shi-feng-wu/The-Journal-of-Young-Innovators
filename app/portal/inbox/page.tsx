@@ -1,35 +1,34 @@
 import { requirePageEditor } from "@/lib/portal/auth";
-import { all, get } from "@/lib/portal/db";
+import Link from "next/link";
+import { all } from "@/lib/portal/db";
 import type { InboundMail, StoredAttachment } from "@/lib/portal/inbox";
 import { zohoConfigured } from "@/lib/portal/zoho";
 import PortalShell from "../_components/PortalShell";
-import { META, Masthead, formatDate, formatDateTime, formatTime } from "../_components/ui";
-import { CheckInboxButton, MailActions } from "./InboxControls";
+import { META, Masthead, formatDate, formatTime } from "../_components/ui";
+import { MailActions } from "./InboxControls";
 
-export const metadata = { title: "Inbox" };
+export const metadata = { title: "Unmatched email" };
 
 export default async function InboxPage() {
   const editor = await requirePageEditor();
   const mail = all<InboundMail>("SELECT * FROM inbound_mail WHERE state = 'unmatched' ORDER BY received_at DESC");
-  const lastRun = get<{ value: string }>("SELECT value FROM sync_state WHERE key = 'inbox_last_run'")?.value;
   const connected = zohoConfigured();
 
   return (
     <PortalShell
       editor={editor}
       masthead={
-        <Masthead title="Inbox">
-          {connected && (
-            <div className="mt-4 flex flex-col gap-3">
-              {lastRun && (
-                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/70">
-                  Last checked {formatDateTime(lastRun)}
-                </p>
-              )}
-              <CheckInboxButton />
-            </div>
-          )}
-        </Masthead>
+        <Masthead
+          title="Unmatched email"
+          above={
+            <Link
+              href="/portal"
+              className="mb-1 font-mono text-[11px] uppercase tracking-[0.2em] text-white/70 underline-offset-4 hover:text-white hover:underline"
+            >
+              Submissions
+            </Link>
+          }
+        />
       }
     >
       {!connected && (

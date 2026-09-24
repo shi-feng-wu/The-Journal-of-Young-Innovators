@@ -14,32 +14,6 @@ async function post(url: string, body?: object) {
   return { ok: !!response?.ok, payload };
 }
 
-export function CheckInboxButton() {
-  const router = useRouter();
-  const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState("");
-  return (
-    <div className="flex flex-col items-start gap-2">
-      <button
-        type="button"
-        disabled={busy}
-        onClick={async () => {
-          setBusy(true);
-          setMessage("");
-          const { ok, payload } = await post("/api/portal/inbox/sync");
-          setBusy(false);
-          if (!ok) setMessage(payload?.error ?? "The inbox check failed.");
-          router.refresh();
-        }}
-        className={BUTTON.onNavy}
-      >
-        {busy ? "Checking…" : "Check the inbox now"}
-      </button>
-      {message && <p role="alert" className="font-text text-sm text-white">{message}</p>}
-    </div>
-  );
-}
-
 export function MailActions({ mailId }: { mailId: number }) {
   const router = useRouter();
   const [ref, setRef] = useState("");
