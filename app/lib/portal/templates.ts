@@ -36,7 +36,7 @@ const greeting = (c: TemplateContext) => `Dear ${c.firstName || "Author"},`;
 export const EMAIL_TEMPLATES: EmailTemplate[] = [
   {
     id: "in-review",
-    label: "Sent to review",
+    label: "Send to reviewers",
     setsStatus: "in_review",
     subject: (c) => `Your manuscript is under review (${c.ref})`,
     body: (c) =>
@@ -70,7 +70,7 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   },
   {
     id: "accept",
-    label: "Accept (fee due)",
+    label: "Accept",
     setsStatus: "accepted",
     subject: (c) => `Accepted for publication: "${c.title}"`,
     body: (c) =>
@@ -91,7 +91,7 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   },
   {
     id: "accept-waived",
-    label: "Accept (fee waived)",
+    label: "Accept and waive fee",
     setsStatus: "accepted",
     waivesFee: true,
     subject: (c) => `Accepted for publication: "${c.title}"`,
@@ -126,7 +126,7 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   },
   {
     id: "payment-reminder",
-    label: "Payment reminder",
+    label: "Fee reminder",
     subject: (c) => `Publication fee reminder for "${c.title}"`,
     body: (c) =>
       [
@@ -143,7 +143,7 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   },
   {
     id: "payment-received",
-    label: "Payment received",
+    label: "Payment thank-you",
     subject: (c) => `Payment received for "${c.title}"`,
     body: (c) =>
       [
@@ -157,7 +157,7 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   },
   {
     id: "published",
-    label: "Published",
+    label: "Publication notice",
     setsStatus: "published",
     subject: (c) => `"${c.title}" is now published`,
     body: (c) =>
@@ -174,7 +174,7 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   },
   {
     id: "blank",
-    label: "Blank email",
+    label: "Blank letter",
     subject: (c) => `About your submission "${c.title}" (${c.ref})`,
     body: (c) => [greeting(c), "", "", signOff(c)].join("\n"),
   },

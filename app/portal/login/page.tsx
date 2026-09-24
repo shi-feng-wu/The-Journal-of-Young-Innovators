@@ -8,7 +8,7 @@ export const metadata = { title: "Sign in" };
 export default async function LoginPage() {
   if (await getCurrentEditor()) redirect("/portal");
   return (
-    <AuthCard title="Sign in">
+    <AuthCard title="Sign in" subtitle="For JYI editors. Use the email address your invite was sent to.">
       <LoginForm />
     </AuthCard>
   );

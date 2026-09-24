@@ -28,9 +28,9 @@ export function SyncButton() {
   };
 
   return (
-    <div className="flex flex-col items-start gap-2 sm:items-end">
+    <div className="flex flex-col items-start gap-2">
       <button type="button" onClick={sync} disabled={busy} className={BUTTON.onNavy}>
-        {busy ? "Checking Stripe..." : "Sync from Stripe"}
+        {busy ? "Checking Stripe…" : "Sync from Stripe"}
       </button>
       {result && <p role="status" className="font-text text-sm text-white/80">{result}</p>}
     </div>

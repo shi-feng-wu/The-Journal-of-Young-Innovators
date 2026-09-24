@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BUTTON, INPUT_ON_NAVY, LABEL_ON_NAVY } from "../_components/ui";
+import { BUTTON, INPUT_ON_NAVY } from "../_components/ui";
 
 export default function SetPasswordForm({ token, minLength }: { token: string; minLength: number }) {
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function SetPasswordForm({ token, minLength }: { token: string; m
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <label className="block space-y-1.5">
-        <span className={LABEL_ON_NAVY}>New password</span>
+        <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">New password</span>
         <input
           name="password"
           type="password"
@@ -48,7 +48,7 @@ export default function SetPasswordForm({ token, minLength }: { token: string; m
         />
       </label>
       <label className="block space-y-1.5">
-        <span className={LABEL_ON_NAVY}>Repeat password</span>
+        <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">Repeat password</span>
         <input
           name="confirm"
           type="password"
@@ -63,8 +63,8 @@ export default function SetPasswordForm({ token, minLength }: { token: string; m
           {error}
         </p>
       )}
-      <button type="submit" disabled={busy} className={`${BUTTON.onNavy} w-full py-3`}>
-        {busy ? "Saving..." : "Save and sign in"}
+      <button type="submit" disabled={busy} className={`${BUTTON.onNavy} h-12 w-full`}>
+        {busy ? "Saving…" : "Save and sign in"}
       </button>
     </form>
   );

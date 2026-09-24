@@ -1,4 +1,6 @@
 // Presentational pieces shared by portal pages (server and client safe).
+// Everything here borrows from the public site: the masthead band, the
+// Issues table-of-contents rows, the mono metadata column, SiteButton.
 
 import {
   PAYMENT_LABELS,
@@ -7,62 +9,184 @@ import {
   type SubmissionStatus,
 } from "@/lib/portal/constants";
 
+/** Mono metadata, as in the right-hand column of the Issues list. */
+export const META =
+  "font-mono text-[11px] uppercase leading-relaxed tracking-[0.18em] text-[#111]/65";
+
+/** Form label on cream. */
 export const LABEL =
-  "font-mono text-[11px] uppercase tracking-[0.16em] text-black/55";
+  "block font-mono text-[10px] uppercase tracking-[0.22em] text-[#111]/60";
 
-export const LABEL_ON_NAVY =
-  "font-mono text-xs uppercase tracking-[0.16em] text-white/70";
-
-export const PANEL = "rounded-lg bg-[#F4EFEB] text-black";
+export const RULE = "border-t border-black/30";
 
 export const INPUT =
-  "w-full rounded-md border border-black/15 bg-white px-3 py-2 font-text text-base sm:text-sm text-black placeholder:text-black/35 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50";
+  "w-full rounded-md border border-black/20 bg-white/70 px-3 py-2.5 font-text text-base sm:text-[15px] text-[#111] placeholder:text-[#111]/35 transition-colors focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/15 disabled:opacity-50";
 
 export const INPUT_ON_NAVY =
-  "w-full rounded-md bg-[#F4EFEB] px-3 py-2.5 font-text text-base sm:text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-white/60";
+  "w-full rounded-md bg-[#F4EFEB] px-3 py-3 font-text text-base sm:text-[15px] text-[#111] placeholder:text-[#111]/40 focus:outline-none focus:ring-2 focus:ring-white/70";
 
 const BUTTON_BASE =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border-2 px-4 py-2 font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40";
+  "inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border-2 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary focus-visible:ring-offset-[#F4EFEB]";
 
 export const BUTTON = {
-  /** Navy fill, for the main action on a cream panel. */
-  primary: `${BUTTON_BASE} border-primary bg-primary text-white hover:bg-[#003a92] hover:border-[#003a92]`,
-  /** Navy outline on cream. */
-  ghost: `${BUTTON_BASE} border-primary text-primary hover:bg-primary hover:text-white`,
-  /** White outline on navy. */
-  onNavy: `${BUTTON_BASE} border-white text-white hover:bg-white hover:text-primary`,
-  /** Quiet destructive action. */
-  danger: `${BUTTON_BASE} border-[#9b2c2c] text-[#9b2c2c] hover:bg-[#9b2c2c] hover:text-white`,
+  /** Filled navy: the one main action in a section. */
+  primary: `${BUTTON_BASE} border-primary bg-primary text-white hover:bg-transparent hover:text-primary`,
+  /** SiteButton's default: navy outline that fills on hover. */
+  outline: `${BUTTON_BASE} border-primary text-primary hover:bg-primary hover:text-white`,
+  /** SiteButton's whiteHover variant, for navy grounds. */
+  onNavy: `${BUTTON_BASE} border-white text-white hover:bg-white hover:text-primary focus-visible:ring-white focus-visible:ring-offset-primary`,
+  /** Plain text action. */
+  quiet:
+    "inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary underline-offset-4 hover:underline cursor-pointer disabled:opacity-35 disabled:no-underline",
 };
 
-const BADGE =
-  "inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em]";
+// ---- The editorial pipeline ---------------------------------------------
 
-const STATUS_STYLES: Record<SubmissionStatus, string> = {
-  received: "bg-primary/10 text-primary ring-1 ring-inset ring-primary/30",
-  in_review: "bg-[#68ace5]/25 text-[#0b3f73]",
-  revisions: "bg-[#f2c14e]/35 text-[#6b4a00]",
-  accepted: "bg-[#32965d]/20 text-[#1d5e39]",
-  published: "bg-primary text-white",
-  rejected: "bg-black/10 text-black/60",
-  withdrawn: "bg-black/5 text-black/45",
+/** The stages a manuscript moves through, in order. */
+export const STAGES: SubmissionStatus[] = [
+  "received",
+  "in_review",
+  "revisions",
+  "accepted",
+  "published",
+];
+
+export const STAGE_NAMES: Record<SubmissionStatus, string> = {
+  ...STATUS_LABELS,
+  revisions: "Revisions",
 };
 
-const PAYMENT_STYLES: Record<PaymentStatus, string> = {
-  not_due: "text-black/40 ring-1 ring-inset ring-black/15",
-  due: "bg-[#f2c14e]/35 text-[#6b4a00]",
-  paid: "bg-[#32965d] text-white",
-  waived: "bg-[#68ace5]/25 text-[#0b3f73]",
-  refunded: "bg-[#9b2c2c]/15 text-[#7a1f1f]",
-};
-
-export function StatusBadge({ status }: { status: SubmissionStatus }) {
-  return <span className={`${BADGE} ${STATUS_STYLES[status]}`}>{STATUS_LABELS[status]}</span>;
+/**
+ * A five-step track showing how far a manuscript has come. Declined and
+ * withdrawn manuscripts leave the track, so it greys out.
+ */
+export function StageTrack({
+  status,
+  onNavy = false,
+  showLabel = true,
+}: {
+  status: SubmissionStatus;
+  onNavy?: boolean;
+  showLabel?: boolean;
+}) {
+  const index = STAGES.indexOf(status);
+  const off = index === -1;
+  const filled = onNavy ? "bg-white" : "bg-primary";
+  const empty = onNavy ? "bg-white/25" : "bg-[#111]/15";
+  return (
+    <span className="inline-flex items-center gap-3">
+      <span className="flex gap-1" aria-hidden>
+        {STAGES.map((stage, i) => (
+          <span
+            key={stage}
+            className={`h-[3px] w-4 rounded-full ${
+              off ? empty : i <= index ? (status === "published" && !onNavy ? "bg-[#32965d]" : filled) : empty
+            }`}
+          />
+        ))}
+      </span>
+      {showLabel && (
+        <span
+          className={`font-mono text-[11px] uppercase tracking-[0.18em] ${
+            onNavy ? "text-white/85" : off ? "text-[#111]/45 line-through decoration-1" : "text-[#111]/80"
+          }`}
+        >
+          {STATUS_LABELS[status]}
+        </span>
+      )}
+    </span>
+  );
 }
 
-export function PaymentBadge({ status }: { status: PaymentStatus }) {
-  return <span className={`${BADGE} ${PAYMENT_STYLES[status]}`}>{PAYMENT_LABELS[status]}</span>;
+const FEE_MARK: Record<PaymentStatus, string> = {
+  not_due: "border border-[#111]/30",
+  due: "border-[1.5px] border-primary",
+  paid: "bg-[#32965d]",
+  waived: "bg-[#68ace5]",
+  refunded: "border border-[#111]/40 bg-[repeating-linear-gradient(135deg,transparent_0_2px,rgba(17,17,17,.4)_2px_3px)]",
+};
+
+const FEE_TEXT: Record<PaymentStatus, string> = {
+  not_due: "text-[#111]/45",
+  due: "text-primary",
+  paid: "text-[#1d6b40]",
+  waived: "text-[#2a6698]",
+  refunded: "text-[#111]/55",
+};
+
+export function FeeMark({ status }: { status: PaymentStatus }) {
+  return (
+    <span className="inline-flex items-center gap-2">
+      <span className={`h-2 w-2 shrink-0 rounded-full ${FEE_MARK[status]}`} aria-hidden />
+      <span className={`font-mono text-[11px] uppercase tracking-[0.18em] ${FEE_TEXT[status]}`}>
+        {status === "due" ? "Fee due" : status === "not_due" ? "No fee yet" : `Fee ${PAYMENT_LABELS[status].toLowerCase()}`}
+      </span>
+    </span>
+  );
 }
+
+// ---- Page furniture -----------------------------------------------------
+
+/** The running-head masthead used on every interior page of the site. */
+export function Masthead({
+  title,
+  subtitle,
+  above,
+  children,
+}: {
+  title: string;
+  subtitle?: React.ReactNode;
+  above?: React.ReactNode;
+  children?: React.ReactNode;
+}) {
+  return (
+    <section className="bg-primary text-white">
+      <div className="border-t border-white/15">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-2.5 px-4 pt-6 pb-8 sm:px-6 lg:px-20 lg:pt-8 lg:pb-10">
+          {above}
+          <h1 className="max-w-[28ch] font-display text-4xl font-normal leading-[1.1] text-balance lg:text-[44px]">
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="max-w-[640px] font-text text-base leading-normal text-pretty text-white/85 lg:text-[17px]">
+              {subtitle}
+            </p>
+          )}
+          {children}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** A ruled section with a serif heading, as on the Submission page. */
+export function Section({
+  id,
+  title,
+  aside,
+  children,
+  className = "",
+}: {
+  id: string;
+  title: string;
+  aside?: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <section aria-labelledby={id} className={`${RULE} pt-7 pb-10 lg:pt-8 ${className}`}>
+      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
+        <h2 id={id} className="font-display text-[28px] font-normal leading-tight text-[#111] lg:text-[32px]">
+          {title}
+        </h2>
+        {aside}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+// ---- Formatting ---------------------------------------------------------
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -87,26 +211,13 @@ export const formatMoney = (cents: number, currency = "usd") =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currency.toUpperCase(),
+    minimumFractionDigits: cents % 100 === 0 ? 0 : 2,
   }).format(cents / 100);
 
-export function PageTitle({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow?: string;
-  title: string;
-  children?: React.ReactNode;
-}) {
-  return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        {eyebrow && <p className={LABEL_ON_NAVY}>{eyebrow}</p>}
-        <h1 className="mt-1 font-display text-4xl font-normal text-white md:text-5xl">
-          {title}
-        </h1>
-      </div>
-      {children}
-    </div>
-  );
+/** How long a new manuscript has sat unread, as a short phrase. */
+export function waiting(iso: string) {
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000);
+  if (days <= 0) return "Arrived today";
+  if (days === 1) return "Waiting 1 day";
+  return `Waiting ${days} days`;
 }

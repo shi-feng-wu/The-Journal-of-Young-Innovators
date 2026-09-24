@@ -13,7 +13,8 @@ export default function Footer() {
     hasSegment("donate") ||
     hasSegment("contact") ||
     hasSegment("form") ||
-    hasSegment("portal");
+    hasSegment("login") ||
+    hasSegment("set-password");
 
   return (
     <footer

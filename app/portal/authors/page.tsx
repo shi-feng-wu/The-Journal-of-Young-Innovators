@@ -3,15 +3,11 @@ import { requirePageEditor } from "@/lib/portal/auth";
 import { GRADE_LABELS } from "@/lib/portal/constants";
 import { all, type Submission } from "@/lib/portal/db";
 import PortalShell from "../_components/PortalShell";
-import { INPUT, LABEL, PANEL, PageTitle, PaymentBadge, StatusBadge, formatDate } from "../_components/ui";
+import { BUTTON, FeeMark, INPUT, META, Masthead, StageTrack, formatDate } from "../_components/ui";
 
 export const metadata = { title: "Authors" };
 
-export default async function AuthorsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
+export default async function AuthorsPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const editor = await requirePageEditor();
   const q = (await searchParams).q?.trim() ?? "";
   const submissions = all<Submission>(
@@ -21,64 +17,86 @@ export default async function AuthorsPage({
     q ? { q: `%${q}%` } : {},
   );
 
-  // One entry per email address, newest details first.
+  // One entry per email address; the newest submission supplies the details.
   const authors = new Map<string, Submission[]>();
   for (const s of submissions) {
     const key = s.email.toLowerCase();
     authors.set(key, [...(authors.get(key) ?? []), s]);
   }
+  const returning = [...authors.values()].filter((subs) => subs.length > 1).length;
 
   return (
-    <PortalShell editor={editor}>
-      <PageTitle title="Authors" eyebrow={`${authors.size} ${authors.size === 1 ? "author" : "authors"}`} />
-      <form action="/portal/authors" className="mt-6 max-w-md">
-        <label className="block space-y-1">
-          <span className="font-mono text-xs uppercase tracking-[0.16em] text-white/70">Search</span>
-          <input name="q" defaultValue={q} placeholder="Name, email, or school" className={INPUT} />
+    <PortalShell
+      editor={editor}
+      masthead={
+        <Masthead
+          title="Authors"
+          subtitle={
+            authors.size === 0
+              ? "Everyone who submits through the website form is listed here."
+              : `${authors.size} ${authors.size === 1 ? "student has" : "students have"} submitted${
+                  returning ? `, ${returning} of them more than once` : ""
+                }.`
+          }
+        />
+      }
+    >
+      <form action="/portal/authors" className="flex max-w-2xl gap-3">
+        <label htmlFor="q" className="sr-only">
+          Search authors
         </label>
+        <input id="q" name="q" type="search" defaultValue={q} placeholder="Name, email, or school" className={INPUT} />
+        <button type="submit" className={BUTTON.outline}>
+          Search
+        </button>
       </form>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {[...authors.values()].map((subs) => {
-          const latest = subs[0];
-          return (
-            <section key={latest.email.toLowerCase()} className={`${PANEL} flex flex-col p-5`}>
-              <h2 className="font-display text-2xl font-normal leading-tight">
-                {latest.first_name} {latest.last_name}
-              </h2>
-              <a href={`mailto:${latest.email}`} className="mt-1 truncate font-text text-sm text-primary underline underline-offset-2">
-                {latest.email}
-              </a>
-              <p className="mt-1 font-text text-sm text-black/60">
-                {[latest.school, GRADE_LABELS[latest.grade_level] ?? latest.grade_level, latest.phone]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </p>
-              <h3 className={`${LABEL} mt-4`}>
-                {subs.length === 1 ? "1 submission" : `${subs.length} submissions`}
-              </h3>
-              <ul className="mt-2 space-y-3">
-                {subs.map((s) => (
-                  <li key={s.id}>
-                    <Link href={`/portal/submissions/${s.id}`} className="font-text text-sm font-semibold leading-snug text-primary hover:underline">
-                      {s.title}
-                    </Link>
-                    <div className="mt-1 flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-[11px] text-black/50">{formatDate(s.created_at)}</span>
-                      <StatusBadge status={s.status} />
-                      {s.payment_status !== "not_due" && <PaymentBadge status={s.payment_status} />}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          );
-        })}
-      </div>
-      {authors.size === 0 && (
-        <p className="mt-10 font-text text-sm text-white/70">
-          {q ? "No authors match that search." : "No authors yet."}
+      {authors.size === 0 ? (
+        <p className="mt-10 border-t border-black/30 py-12 font-text text-base text-[#111]/65">
+          {q ? `No author matches “${q}”.` : "No authors yet."}
         </p>
+      ) : (
+        <ol className="mt-10">
+          {[...authors.values()].map((subs) => {
+            const a = subs[0];
+            return (
+              <li
+                key={a.email.toLowerCase()}
+                className="grid gap-y-5 border-t border-black/30 py-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-x-12"
+              >
+                <div className="min-w-0">
+                  <h2 className="font-display text-[28px] leading-tight">
+                    {a.first_name} {a.last_name}
+                  </h2>
+                  <a href={`mailto:${a.email}`} className="mt-2 inline-block font-mono text-[13px] text-primary underline decoration-1 underline-offset-4">
+                    {a.email}
+                  </a>
+                  <p className="mt-1 font-mono text-xs text-[#111]/65">
+                    {[a.school, GRADE_LABELS[a.grade_level] ?? a.grade_level].filter(Boolean).join(", ")}
+                  </p>
+                  {a.phone && <p className="mt-0.5 font-mono text-xs text-[#111]/65">{a.phone}</p>}
+                </div>
+                <ul className="min-w-0 divide-y divide-black/10 border-t border-black/10 lg:border-t-0">
+                  {subs.map((s) => (
+                    <li key={s.id} className="group relative flex flex-col gap-2 py-3.5 first:pt-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                      <Link
+                        href={`/portal/submissions/${s.id}`}
+                        className="min-w-0 font-display text-xl leading-snug underline-offset-4 decoration-1 after:absolute after:inset-0 group-hover:text-primary group-hover:underline"
+                      >
+                        {s.title}
+                      </Link>
+                      <span className="flex shrink-0 flex-wrap items-center gap-x-5 gap-y-1">
+                        <StageTrack status={s.status} />
+                        {s.payment_status !== "not_due" && <FeeMark status={s.payment_status} />}
+                        <span className={META}>{formatDate(s.created_at)}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+        </ol>
       )}
     </PortalShell>
   );

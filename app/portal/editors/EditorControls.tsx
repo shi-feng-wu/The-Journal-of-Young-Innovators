@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BUTTON, INPUT, LABEL } from "../_components/ui";
+import { BUTTON, INPUT_ON_NAVY } from "../_components/ui";
 
 async function call(url: string, method: string, body: object) {
   const response = await fetch(url, {
@@ -13,6 +13,8 @@ async function call(url: string, method: string, body: object) {
   const payload = await response?.json().catch(() => null);
   return { ok: !!response?.ok, payload };
 }
+
+const NAVY_LABEL = "block font-mono text-[10px] uppercase tracking-[0.22em] text-white/70";
 
 export function InviteForm() {
   const router = useRouter();
@@ -42,31 +44,31 @@ export function InviteForm() {
         setMessage({
           ok: payload.emailed,
           text: payload.emailed
-            ? "Invite sent. The link expires in 72 hours."
-            : "Account created, but the invite email failed. Use Resend invite below.",
+            ? `Invite sent to ${form.get("email")}.`
+            : "Account created, but the invite email failed. Use Resend invite on their row.",
         });
         router.refresh();
       }}
     >
-      <label className="block space-y-1">
-        <span className={LABEL}>Name</span>
-        <input name="name" required className={INPUT} />
+      <label className="block space-y-1.5">
+        <span className={NAVY_LABEL}>Name</span>
+        <input name="name" required autoComplete="off" className={INPUT_ON_NAVY} />
       </label>
-      <label className="block space-y-1">
-        <span className={LABEL}>Email</span>
-        <input name="email" type="email" required className={INPUT} />
+      <label className="block space-y-1.5">
+        <span className={NAVY_LABEL}>Email</span>
+        <input name="email" type="email" required autoComplete="off" className={INPUT_ON_NAVY} />
       </label>
-      <label className="flex items-center gap-2 font-text text-sm text-black/75">
-        <input name="isAdmin" type="checkbox" className="accent-primary" />
-        Admin (can add and remove editors)
+      <label className="flex cursor-pointer items-center gap-2.5 pt-1 font-text text-[15px] text-white/85">
+        <input name="isAdmin" type="checkbox" className="h-4 w-4 accent-white" />
+        Make them an admin
       </label>
       {message && (
-        <p role="status" className={`font-text text-sm ${message.ok ? "text-[#1d5e39]" : "text-[#7a1f1f]"}`}>
+        <p role="status" className="border-l-2 border-white/60 pl-3 font-text text-sm text-white">
           {message.text}
         </p>
       )}
-      <button type="submit" disabled={busy} className={`${BUTTON.primary} w-full`}>
-        {busy ? "Sending..." : "Send invite"}
+      <button type="submit" disabled={busy} className={`${BUTTON.onNavy} w-full`}>
+        {busy ? "Sending…" : "Send invite"}
       </button>
     </form>
   );
@@ -85,42 +87,44 @@ export function EditorRowActions({
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState<{ ok: boolean; text: string } | null>(null);
 
   const run = async (body: object, done: string) => {
     setBusy(true);
-    setNote("");
+    setNote(null);
     const { ok, payload } = await call(`/api/portal/editors/${id}`, "PATCH", body);
     setBusy(false);
-    setNote(ok ? done : (payload?.error ?? "That did not work."));
+    setNote({ ok, text: ok ? done : (payload?.error ?? "That did not work.") });
     if (ok) router.refresh();
   };
 
-  const small = "rounded-md px-2 py-1 font-mono text-[11px] uppercase tracking-[0.12em] cursor-pointer disabled:opacity-40";
-
   return (
-    <div className="flex flex-wrap items-center gap-1">
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
       {!disabled && (
-        <button type="button" disabled={busy} onClick={() => run({ sendInvite: true }, "Link sent.")} className={`${small} text-primary hover:bg-primary/10`}>
-          {isSelf ? "Email me a reset link" : "Resend invite / reset"}
+        <button type="button" disabled={busy} onClick={() => run({ sendInvite: true }, "Link sent.")} className={BUTTON.quiet}>
+          {isSelf ? "Email me a reset link" : "Resend invite"}
         </button>
       )}
       {!isSelf && (
         <>
-          <button type="button" disabled={busy} onClick={() => run({ isAdmin: !isAdmin }, "Saved.")} className={`${small} text-primary hover:bg-primary/10`}>
+          <button type="button" disabled={busy} onClick={() => run({ isAdmin: !isAdmin }, "Saved.")} className={BUTTON.quiet}>
             {isAdmin ? "Remove admin" : "Make admin"}
           </button>
           <button
             type="button"
             disabled={busy}
             onClick={() => run({ disabled: !disabled }, disabled ? "Access restored." : "Access removed.")}
-            className={`${small} ${disabled ? "text-primary hover:bg-primary/10" : "text-[#9b2c2c] hover:bg-[#9b2c2c]/10"}`}
+            className={`${BUTTON.quiet} ${disabled ? "" : "!text-[#9b2c2c]"}`}
           >
             {disabled ? "Restore access" : "Remove access"}
           </button>
         </>
       )}
-      {note && <span role="status" className="font-text text-xs text-black/60">{note}</span>}
+      {note && (
+        <span role="status" className={`font-text text-sm ${note.ok ? "text-[#1d6b40]" : "text-[#7a1f1f]"}`}>
+          {note.text}
+        </span>
+      )}
     </div>
   );
 }

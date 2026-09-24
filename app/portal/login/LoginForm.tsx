@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BUTTON, INPUT_ON_NAVY, LABEL_ON_NAVY } from "../_components/ui";
+import { BUTTON, INPUT_ON_NAVY } from "../_components/ui";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -32,11 +32,11 @@ export default function LoginForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <label className="block space-y-1.5">
-        <span className={LABEL_ON_NAVY}>Email</span>
+        <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">Email</span>
         <input name="email" type="email" autoComplete="username" required className={INPUT_ON_NAVY} />
       </label>
       <label className="block space-y-1.5">
-        <span className={LABEL_ON_NAVY}>Password</span>
+        <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">Password</span>
         <input
           name="password"
           type="password"
@@ -50,11 +50,11 @@ export default function LoginForm() {
           {error}
         </p>
       )}
-      <button type="submit" disabled={busy} className={`${BUTTON.onNavy} w-full py-3`}>
-        {busy ? "Signing in..." : "Sign in"}
+      <button type="submit" disabled={busy} className={`${BUTTON.onNavy} h-12 w-full`}>
+        {busy ? "Signing in…" : "Sign in"}
       </button>
-      <p className="text-center font-text text-xs text-white/60">
-        Forgot your password? Ask a portal admin to send you a new link.
+      <p className="font-text text-sm text-white/60">
+        Forgot your password? Ask a portal admin to email you a new link.
       </p>
     </form>
   );

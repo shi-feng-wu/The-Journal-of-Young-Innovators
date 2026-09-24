@@ -1,31 +1,54 @@
 import Link from "next/link";
 import { requirePageEditor } from "@/lib/portal/auth";
 import {
-  PAYMENT_LABELS,
   PAYMENT_STATUSES,
   STATUS_LABELS,
-  SUBMISSION_STATUSES,
   SUBMISSION_TYPE_LABELS,
   type PaymentStatus,
   type SubmissionStatus,
 } from "@/lib/portal/constants";
 import { all, get, type Submission } from "@/lib/portal/db";
+import Pipeline from "./_components/Pipeline";
 import PortalShell from "./_components/PortalShell";
 import {
+  BUTTON,
+  FeeMark,
   INPUT,
-  LABEL,
-  PANEL,
-  PageTitle,
-  PaymentBadge,
-  StatusBadge,
+  META,
+  Masthead,
+  STAGES,
+  STAGE_NAMES,
+  StageTrack,
   formatDate,
+  waiting,
 } from "./_components/ui";
 
 export const metadata = { title: "Submissions" };
 
 const OPEN: SubmissionStatus[] = ["received", "in_review", "revisions", "accepted"];
+const CLOSED: SubmissionStatus[] = ["rejected", "withdrawn"];
 
 type Row = Submission & { assignee: string | null };
+
+type Filters = { status: string; payment?: PaymentStatus; q: string; mine: boolean };
+
+function hrefFor(current: Filters, next: Partial<Filters>) {
+  const f = { ...current, ...next };
+  const qs = new URLSearchParams();
+  if (f.status !== "open") qs.set("status", f.status);
+  if (f.payment) qs.set("payment", f.payment);
+  if (f.q) qs.set("q", f.q);
+  if (f.mine) qs.set("mine", "1");
+  const s = qs.toString();
+  return s ? `/portal?${s}` : "/portal";
+}
+
+const FEE_FILTERS: Array<{ key: PaymentStatus; label: string }> = [
+  { key: "due", label: "Fee due" },
+  { key: "paid", label: "Paid" },
+  { key: "waived", label: "Waived" },
+  { key: "refunded", label: "Refunded" },
+];
 
 export default async function PortalHome({
   searchParams,
@@ -34,35 +57,35 @@ export default async function PortalHome({
 }) {
   const editor = await requirePageEditor();
   const sp = await searchParams;
-  const status = sp.status ?? "open";
-  const payment = PAYMENT_STATUSES.includes(sp.payment as PaymentStatus)
-    ? (sp.payment as PaymentStatus)
-    : undefined;
-  const q = sp.q?.trim() ?? "";
-  const mine = sp.mine === "1";
+  const filters: Filters = {
+    status: sp.status ?? "open",
+    payment: PAYMENT_STATUSES.includes(sp.payment as PaymentStatus) ? (sp.payment as PaymentStatus) : undefined,
+    q: sp.q?.trim() ?? "",
+    mine: sp.mine === "1",
+  };
 
   const where: string[] = [];
   const params: Record<string, string | number> = {};
-  if (status === "open") {
+  if (filters.status === "open") {
     where.push(`status IN (${OPEN.map((s) => `'${s}'`).join(",")})`);
-  } else if (SUBMISSION_STATUSES.includes(status as SubmissionStatus)) {
+  } else if (filters.status !== "all") {
     where.push("status = :status");
-    params.status = status;
+    params.status = filters.status;
   }
-  if (payment) {
+  if (filters.payment) {
     where.push("payment_status = :payment");
-    params.payment = payment;
+    params.payment = filters.payment;
   }
-  if (mine) {
+  if (filters.mine) {
     where.push("assigned_editor_id = :me");
     params.me = editor.id;
   }
-  if (q) {
+  if (filters.q) {
     where.push(
       `(title LIKE :q OR first_name || ' ' || last_name LIKE :q OR email LIKE :q
         OR school LIKE :q OR ref LIKE :q)`,
     );
-    params.q = `%${q}%`;
+    params.q = `%${filters.q}%`;
   }
 
   const rows = all<Row>(
@@ -75,194 +98,272 @@ export default async function PortalHome({
   );
 
   const counts = Object.fromEntries(
-    all<{ status: string; n: number }>(
-      "SELECT status, COUNT(*) AS n FROM submissions GROUP BY status",
-    ).map((r) => [r.status, r.n]),
+    all<{ status: string; n: number }>("SELECT status, COUNT(*) AS n FROM submissions GROUP BY status").map(
+      (r) => [r.status, r.n],
+    ),
   ) as Partial<Record<SubmissionStatus, number>>;
-  const openCount = OPEN.reduce((sum, s) => sum + (counts[s] ?? 0), 0);
-  const allCount = SUBMISSION_STATUSES.reduce((sum, s) => sum + (counts[s] ?? 0), 0);
-  const feesDue = get<{ n: number }>(
-    "SELECT COUNT(*) AS n FROM submissions WHERE payment_status = 'due'",
-  )!.n;
-  const unmatched = get<{ n: number }>(
-    "SELECT COUNT(*) AS n FROM payments WHERE submission_id IS NULL",
-  )!.n;
+  const count = (s: SubmissionStatus) => counts[s] ?? 0;
+  const openCount = OPEN.reduce((sum, s) => sum + count(s), 0);
+  const total = Object.values(counts).reduce((a, b) => a + (b ?? 0), 0);
+  const feeCounts = Object.fromEntries(
+    all<{ payment_status: string; n: number }>(
+      "SELECT payment_status, COUNT(*) AS n FROM submissions GROUP BY payment_status",
+    ).map((r) => [r.payment_status, r.n]),
+  ) as Partial<Record<PaymentStatus, number>>;
+  const unmatched = get<{ n: number }>("SELECT COUNT(*) AS n FROM payments WHERE submission_id IS NULL")!.n;
 
-  const href = (next: Record<string, string | undefined>) => {
-    const merged = { status, payment, q: q || undefined, mine: mine ? "1" : undefined, ...next };
-    const qs = new URLSearchParams(
-      Object.entries(merged).filter((e): e is [string, string] => !!e[1]),
-    ).toString();
-    return qs ? `/portal?${qs}` : "/portal";
-  };
+  const newCount = count("received");
+  const due = feeCounts.due ?? 0;
+  const subtitle =
+    total === 0
+      ? "New manuscripts from the submission form will appear here."
+      : [
+          newCount === 0
+            ? "Nothing new is waiting for a first read."
+            : `${newCount} new ${newCount === 1 ? "manuscript is" : "manuscripts are"} waiting for a first read.`,
+          due > 0 ? `${due} accepted ${due === 1 ? "author owes" : "authors owe"} the publication fee.` : null,
+        ]
+          .filter(Boolean)
+          .join(" ");
 
-  const tabs: Array<{ key: string; label: string; count: number }> = [
-    { key: "open", label: "Open", count: openCount },
-    ...SUBMISSION_STATUSES.map((s) => ({ key: s, label: STATUS_LABELS[s], count: counts[s] ?? 0 })),
-    { key: "all", label: "All", count: allCount },
+  const statusNav: Array<{ key: string; label: string; n: number }> = [
+    { key: "open", label: "In progress", n: openCount },
+    ...STAGES.map((s) => ({ key: s, label: STATUS_LABELS[s], n: count(s) })),
+    ...CLOSED.map((s) => ({ key: s, label: STATUS_LABELS[s], n: count(s) })),
+    { key: "all", label: "Everything", n: total },
   ];
 
-  const stats = [
-    { label: "New", value: counts.received ?? 0, link: href({ status: "received", payment: undefined }) },
-    { label: "In review", value: counts.in_review ?? 0, link: href({ status: "in_review", payment: undefined }) },
-    { label: "Awaiting revisions", value: counts.revisions ?? 0, link: href({ status: "revisions", payment: undefined }) },
-    { label: "Fees due", value: feesDue, link: href({ status: "all", payment: "due" }) },
-  ];
+  const heading =
+    filters.status === "open"
+      ? "In progress"
+      : filters.status === "all"
+        ? "Every submission"
+        : STATUS_LABELS[filters.status as SubmissionStatus];
 
   return (
-    <PortalShell editor={editor}>
-      <PageTitle eyebrow={`Signed in as ${editor.name}`} title="Submissions" />
-
-      {unmatched > 0 && (
-        <Link
-          href="/portal/payments?filter=unmatched"
-          className="mt-6 flex items-center justify-between gap-4 rounded-lg border-2 border-[#f2c14e] px-4 py-3 font-text text-sm text-white hover:bg-white/5"
-        >
-          <span>
-            {unmatched === 1
-              ? "1 Stripe payment could not be matched to a submission."
-              : `${unmatched} Stripe payments could not be matched to a submission.`}
-          </span>
-          <span className="font-mono text-xs uppercase tracking-[0.16em]">Review</span>
-        </Link>
-      )}
-
-      <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {stats.map((s) => (
-          <Link
-            key={s.label}
-            href={s.link}
-            className="rounded-lg border border-white/20 px-4 py-4 transition-colors hover:border-white/50 hover:bg-white/5"
-          >
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/65">{s.label}</p>
-            <p className="mt-1 font-display text-4xl">{s.value}</p>
-          </Link>
-        ))}
-      </div>
-
-      <div className={`${PANEL} mt-8 overflow-hidden`}>
-        <div className="flex flex-col gap-4 border-b border-black/10 p-4 sm:p-5">
-          <nav aria-label="Filter by status" className="-mx-1 flex gap-1 overflow-x-auto pb-1">
-            {tabs.map((t) => (
-              <Link
-                key={t.key}
-                href={href({ status: t.key })}
-                aria-current={status === t.key ? "page" : undefined}
-                className={`whitespace-nowrap rounded-md px-3 py-1.5 font-mono text-xs transition-colors ${
-                  status === t.key ? "bg-primary text-white" : "text-black/70 hover:bg-black/5"
-                }`}
-              >
-                {t.label} <span className="opacity-60">{t.count}</span>
+    <PortalShell
+      editor={editor}
+      masthead={
+        <Masthead title="Submissions" subtitle={subtitle}>
+          <Pipeline
+            stages={STAGES.map((s) => ({
+              key: s,
+              label: STAGE_NAMES[s],
+              count: count(s),
+              href: hrefFor(filters, { status: s, payment: undefined }),
+              active: filters.status === s,
+            }))}
+          />
+        </Masthead>
+      }
+    >
+      <div className="grid gap-x-12 lg:grid-cols-[minmax(0,1fr)_200px] xl:grid-cols-[minmax(0,1fr)_240px]">
+        <div className="min-w-0">
+          {unmatched > 0 && (
+            <div className="mb-10 flex flex-col gap-4 bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
+              <p className="font-display text-2xl leading-tight">
+                {unmatched === 1
+                  ? "A card payment came in without a submission attached."
+                  : `${unmatched} card payments came in without a submission attached.`}
+              </p>
+              <Link href="/portal/payments?filter=unmatched" className={BUTTON.onNavy}>
+                Match {unmatched === 1 ? "it" : "them"}
               </Link>
-            ))}
-          </nav>
-          <form className="flex flex-col gap-3 sm:flex-row sm:items-end" action="/portal">
-            <input type="hidden" name="status" value={status} />
-            <label className="flex-1 space-y-1">
-              <span className={LABEL}>Search</span>
-              <input
-                name="q"
-                defaultValue={q}
-                placeholder="Title, author, email, school, or reference"
-                className={INPUT}
-              />
+            </div>
+          )}
+
+          <form action="/portal" className="flex gap-3">
+            {filters.status !== "open" && <input type="hidden" name="status" value={filters.status} />}
+            {filters.payment && <input type="hidden" name="payment" value={filters.payment} />}
+            {filters.mine && <input type="hidden" name="mine" value="1" />}
+            <label className="sr-only" htmlFor="q">
+              Search submissions
             </label>
-            <label className="space-y-1 sm:w-44">
-              <span className={LABEL}>Fee</span>
-              <select name="payment" defaultValue={payment ?? ""} className={INPUT}>
-                <option value="">Any</option>
-                {PAYMENT_STATUSES.map((p) => (
-                  <option key={p} value={p}>
-                    {PAYMENT_LABELS[p]}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="flex items-center gap-2 pb-2 font-text text-sm text-black/75">
-              <input type="checkbox" name="mine" value="1" defaultChecked={mine} className="accent-primary" />
-              Assigned to me
-            </label>
-            <button type="submit" className="rounded-md bg-primary px-4 py-2 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-white cursor-pointer">
-              Filter
+            <input
+              id="q"
+              name="q"
+              type="search"
+              defaultValue={filters.q}
+              placeholder="Search by title, author, email, school, or JYI reference"
+              className={INPUT}
+            />
+            <button type="submit" className={BUTTON.outline}>
+              Search
             </button>
           </form>
+
+          <div className="mt-10 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <h2 className="font-display text-[28px] font-normal leading-tight lg:text-[32px]">{heading}</h2>
+            <p className={META}>
+              {rows.length} {rows.length === 1 ? "manuscript" : "manuscripts"}
+              {filters.payment && `, ${FEE_FILTERS.find((f) => f.key === filters.payment)?.label.toLowerCase()}`}
+              {filters.mine && ", assigned to you"}
+              {filters.q && `, matching “${filters.q}”`}
+            </p>
+          </div>
+
+          {rows.length === 0 ? (
+            <div className="mt-5 border-t border-black/30 py-16">
+              <p className="max-w-[48ch] font-text text-base text-[#111]/70">
+                {total === 0
+                  ? "No manuscripts yet. When a student submits through the website form, the manuscript lands here with its own JYI reference."
+                  : "Nothing matches these filters."}
+              </p>
+              {total > 0 && (
+                <Link href="/portal?status=all" className={`${BUTTON.quiet} mt-4`}>
+                  Show every submission
+                </Link>
+              )}
+            </div>
+          ) : (
+            <ol className="mt-5">
+              {rows.map((r) => {
+                const attention = r.status === "received" ? waiting(r.created_at) : null;
+                return (
+                  <li
+                    key={r.id}
+                    className="group relative grid border-t border-black/30 py-7 lg:grid-cols-[minmax(0,1fr)_176px] lg:gap-8"
+                  >
+                    <div className="min-w-0">
+                      <h3 className="font-display text-2xl font-normal leading-[1.2] text-[#111] lg:text-[28px]">
+                        <Link
+                          href={`/portal/submissions/${r.id}`}
+                          className="underline-offset-4 decoration-1 after:absolute after:inset-0 group-hover:text-primary group-hover:underline"
+                        >
+                          {r.title}
+                        </Link>
+                      </h3>
+                      <p className="mt-2 font-mono text-[13px] text-[#111]/80 lg:text-sm">
+                        {r.first_name} {r.last_name}
+                      </p>
+                      {r.school && <p className="mt-0.5 font-mono text-[11px] text-[#111]/65 lg:text-xs">{r.school}</p>}
+                      <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
+                        <StageTrack status={r.status} />
+                        {r.payment_status !== "not_due" && <FeeMark status={r.payment_status} />}
+                        {attention && (
+                          <span className="font-text text-sm italic text-[#111]/60">{attention}</span>
+                        )}
+                      </div>
+                      <p className={`${META} mt-3 lg:hidden`}>
+                        {r.ref}, {formatDate(r.created_at)}
+                      </p>
+                    </div>
+                    <div className={`${META} hidden text-right lg:flex lg:flex-col lg:gap-2`}>
+                      <span className="text-[#111]/85">{r.ref}</span>
+                      <span>{formatDate(r.created_at)}</span>
+                      {r.submission_type && (
+                        <span>{SUBMISSION_TYPE_LABELS[r.submission_type] ?? r.submission_type}</span>
+                      )}
+                      <span className={r.assignee ? "" : "text-[#111]/40"}>{r.assignee ?? "No editor"}</span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
         </div>
 
-        {rows.length === 0 ? (
-          <p className="px-5 py-12 text-center font-text text-sm text-black/55">
-            {allCount === 0
-              ? "No submissions yet. New ones from the website form appear here automatically."
-              : "No submissions match these filters."}
-          </p>
-        ) : (
-          <>
-            {/* Desktop table */}
-            <table className="hidden w-full text-left md:table">
-              <thead>
-                <tr className="border-b border-black/10">
-                  {["Reference", "Manuscript", "Received", "Status", "Fee", "Editor"].map((h) => (
-                    <th key={h} scope="col" className={`${LABEL} px-5 py-3 font-normal`}>
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((r) => (
-                  <tr key={r.id} className="group relative border-b border-black/5 last:border-0 hover:bg-white/60">
-                    <td className="px-5 py-3.5 align-top font-mono text-xs text-black/60 whitespace-nowrap">
-                      {r.ref}
-                    </td>
-                    <td className="px-5 py-3.5 align-top">
-                      <Link
-                        href={`/portal/submissions/${r.id}`}
-                        className="font-text text-[15px] font-semibold leading-snug text-primary after:absolute after:inset-0 group-hover:underline underline-offset-2"
-                      >
-                        {r.title}
-                      </Link>
-                      <p className="mt-0.5 font-text text-sm text-black/60">
-                        {r.first_name} {r.last_name}
-                        {r.school && ` · ${r.school}`}
-                        {r.submission_type && ` · ${SUBMISSION_TYPE_LABELS[r.submission_type] ?? r.submission_type}`}
-                      </p>
-                    </td>
-                    <td className="px-5 py-3.5 align-top font-text text-sm text-black/70 whitespace-nowrap">
-                      {formatDate(r.created_at)}
-                    </td>
-                    <td className="px-5 py-3.5 align-top"><StatusBadge status={r.status} /></td>
-                    <td className="px-5 py-3.5 align-top"><PaymentBadge status={r.payment_status} /></td>
-                    <td className="px-5 py-3.5 align-top font-text text-sm text-black/60 whitespace-nowrap">
-                      {r.assignee ?? <span className="text-black/35">Unassigned</span>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {/* Mobile list */}
-            <ul className="divide-y divide-black/10 md:hidden">
-              {rows.map((r) => (
-                <li key={r.id}>
-                  <Link href={`/portal/submissions/${r.id}`} className="block px-4 py-4 active:bg-white/60">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-[11px] text-black/55">{r.ref}</span>
-                      <span className="font-text text-xs text-black/55">{formatDate(r.created_at)}</span>
-                    </div>
-                    <p className="mt-1 font-text text-[15px] font-semibold leading-snug text-primary">{r.title}</p>
-                    <p className="mt-0.5 font-text text-sm text-black/60">
-                      {r.first_name} {r.last_name}
-                      {r.school && ` · ${r.school}`}
-                    </p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      <StatusBadge status={r.status} />
-                      <PaymentBadge status={r.payment_status} />
-                    </div>
+        {/* Right-hand index, in the style of the Issues page. */}
+        <aside className="order-first mb-10 min-w-0 lg:order-none lg:mb-0">
+          <div className="lg:sticky lg:top-8">
+            <nav aria-label="Filter by stage" className="hidden border-t border-black/30 lg:block">
+              {statusNav.map((item) => {
+                const active = filters.status === item.key;
+                return (
+                  <Link
+                    key={item.key}
+                    href={hrefFor(filters, { status: item.key })}
+                    aria-current={active ? "page" : undefined}
+                    className="flex items-baseline justify-between gap-3 border-b border-black/10 py-3"
+                  >
+                    <span
+                      className={`font-display text-xl leading-tight transition-colors ${
+                        active ? "text-primary" : "text-[#111]/60 hover:text-[#111]"
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                    <span className={`font-mono text-xs tabular-nums ${active ? "text-primary" : "text-[#111]/50"}`}>
+                      {item.n}
+                    </span>
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+                );
+              })}
+            </nav>
+
+            {/* Small screens get the stages as a scrolling row. */}
+            <nav aria-label="Filter by stage" className="hide-scrollbar -mx-4 flex gap-6 overflow-x-auto border-b border-black/30 px-4 lg:hidden">
+              {statusNav.map((item) => {
+                const active = filters.status === item.key;
+                return (
+                  <Link
+                    key={item.key}
+                    href={hrefFor(filters, { status: item.key })}
+                    aria-current={active ? "page" : undefined}
+                    className={`-mb-px inline-flex min-h-11 items-center whitespace-nowrap border-b-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] ${
+                      active ? "border-primary text-primary" : "border-transparent text-[#111]/55"
+                    }`}
+                  >
+                    {item.label} <span className="ml-1.5 font-normal">{item.n}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 lg:mt-10 lg:block">
+              <p className={`${META} hidden lg:mb-3 lg:block`}>Publication fee</p>
+              {FEE_FILTERS.map((f) => {
+                const active = filters.payment === f.key;
+                return (
+                  <Link
+                    key={f.key}
+                    href={hrefFor(filters, { payment: active ? undefined : f.key })}
+                    aria-pressed={active}
+                    className={`flex items-center gap-2 py-1 font-text text-[15px] transition-colors ${
+                      active ? "font-semibold text-primary" : "text-[#111]/65 hover:text-[#111]"
+                    }`}
+                  >
+                    <span
+                      aria-hidden
+                      className={`flex h-4 w-4 items-center justify-center rounded border ${
+                        active ? "border-primary bg-primary text-white" : "border-[#111]/30"
+                      }`}
+                    >
+                      {active && (
+                        <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+                        </svg>
+                      )}
+                    </span>
+                    {f.label}
+                    <span className="font-mono text-xs text-[#111]/45">{feeCounts[f.key] ?? 0}</span>
+                  </Link>
+                );
+              })}
+              <Link
+                href={hrefFor(filters, { mine: !filters.mine })}
+                aria-pressed={filters.mine}
+                className={`flex items-center gap-2 py-1 font-text text-[15px] transition-colors lg:mt-4 lg:border-t lg:border-black/10 lg:pt-4 ${
+                  filters.mine ? "font-semibold text-primary" : "text-[#111]/65 hover:text-[#111]"
+                }`}
+              >
+                <span
+                  aria-hidden
+                  className={`flex h-4 w-4 items-center justify-center rounded border ${
+                    filters.mine ? "border-primary bg-primary text-white" : "border-[#111]/30"
+                  }`}
+                >
+                  {filters.mine && (
+                    <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+                    </svg>
+                  )}
+                </span>
+                Assigned to me
+              </Link>
+            </div>
+          </div>
+        </aside>
       </div>
     </PortalShell>
   );
