@@ -11,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { DATA_DIR, MANUSCRIPT_DIR, all, get, logEvent, now, run, transaction, updateSubmission, type Submission } from "./db";
 import { EDITOR_INBOX } from "./mailer";
+import { receivedLine } from "./wording";
 import * as zoho from "./zoho";
 
 const INBOX_FILES_DIR = path.join(DATA_DIR, "inbox");
@@ -155,8 +156,6 @@ function fileUnder(mail: InboundMail, submission: Submission, attachments: Store
   });
 
   const revised = filed.find((a) => /\.docx?$/i.test(a.name)) ?? filed.find((a) => isManuscript(a.name));
-  const byAuthor = mail.from_address.toLowerCase() === submission.email.toLowerCase();
-  const who = byAuthor ? "Author" : mail.from_name || mail.from_address;
   transaction(() => {
     run(
       `UPDATE inbound_mail SET submission_id = :sid, state = 'matched', attachments = :att WHERE id = :id`,
@@ -166,9 +165,7 @@ function fileUnder(mail: InboundMail, submission: Submission, attachments: Store
       submission.id,
       null,
       "reply",
-      revised
-        ? `${who} sent a revised manuscript: ${mail.subject}`
-        : `${who} wrote: ${mail.subject}`,
+      receivedLine(mail.from_address, mail.from_name, submission.email, mail.subject, !!revised),
       { from: mail.from_address, subject: mail.subject, body: mail.body, attachments: filed, receivedAt: mail.received_at },
     );
     // The history entry is dated when the mail arrived.

@@ -3,6 +3,7 @@ import { SUBMISSION_STATUSES, type SubmissionStatus } from "@/lib/portal/constan
 import { getSubmission, logEvent, transaction, updateSubmission } from "@/lib/portal/db";
 import { MailNotConfiguredError, sendAuthorEmail } from "@/lib/portal/mailer";
 import { changeStatus } from "@/lib/portal/submissions";
+import { sentLine } from "@/lib/portal/wording";
 
 export const runtime = "nodejs";
 
@@ -52,7 +53,7 @@ export const POST = handle(
 
     // The status only changes once the email has actually gone out.
     transaction(() => {
-      logEvent(id, editor.id, "email", `Emailed author: ${subject}`, {
+      logEvent(id, editor.id, "email", sentLine(submission.email, submission.email, subject), {
         to: submission.email,
         subject,
         body: text,

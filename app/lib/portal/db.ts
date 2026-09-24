@@ -6,6 +6,7 @@ import type {
   PaymentStatus,
   SubmissionStatus,
 } from "./constants";
+import { SUBMITTED } from "./wording";
 
 // Everything the portal stores (the SQLite file and uploaded manuscripts)
 // lives under one directory outside git. On the server, set PORTAL_DATA_DIR
@@ -322,7 +323,7 @@ export function createSubmission(input: NewSubmission): Submission {
       },
     );
     const id = Number(lastInsertRowid);
-    logEvent(id, null, "created", "Submitted through the website form");
+    logEvent(id, null, "created", SUBMITTED);
     return getSubmission(id)!;
   });
 }
