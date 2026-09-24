@@ -10,7 +10,8 @@
     "optimize-images": "node scripts/optimize-images.mjs",
     "stamp-pdfs": "tsx scripts/stamp-pdf-metadata.ts",
     "crossref-deposit": "tsx scripts/generate-crossref-deposit.ts",
-    "portal:add-editor": "tsx scripts/portal-add-editor.ts"
+    "portal:add-editor": "tsx scripts/portal-add-editor.ts",
+    "portal:backfill": "tsx scripts/portal-backfill.ts"
   },
   "dependencies": {
     "@heroui/react": "2.8.9",
