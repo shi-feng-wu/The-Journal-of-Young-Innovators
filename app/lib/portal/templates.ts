@@ -1,5 +1,7 @@
 // Email templates for the portal composer. Client-safe: plain data only.
-// Editors always see and can edit the filled-in text before it is sent.
+// Each one is taken from a real email the editors sent (or the template they
+// already use), with only the names, title and payment link filled in.
+// Editors always see and can edit the text before it is sent.
 
 import type { SubmissionStatus } from "./constants";
 
@@ -24,188 +26,195 @@ export interface EmailTemplate {
   body: (c: TemplateContext) => string;
 }
 
-const signOff = (c: TemplateContext) =>
-  [
-    "",
-    "Best regards,",
-    c.editorName,
-    "Editorial Team, The Journal of Young Innovators",
-    "editor@young-innovator.org",
-  ].join("\n");
-
-const greeting = (c: TemplateContext) => `Dear ${c.firstName || "Author"},`;
+const lines = (...parts: string[]) => parts.join("\n");
 
 export const EMAIL_TEMPLATES: EmailTemplate[] = [
   {
+    // Review request sent to a peer reviewer, 2026-04-30.
     id: "review-request",
     label: "Send to a reviewer",
     audience: "reviewer",
     setsStatus: "in_review",
-    subject: (c) => `Review request: "${c.title}" [${c.ref}]`,
-    // Review is double-blind: nothing here names the author.
+    subject: (c) => `Peer Review Request: “${c.title}”`,
     body: (c) =>
-      [
-        "Dear [Reviewer name],",
+      lines(
+        "Hi [Reviewer name],",
         "",
-        `We would like to invite you to review a manuscript submitted to The Journal of Young Innovators, "${c.title}". The manuscript is attached. Review at JYI is double-blind, so please keep the manuscript confidential and do not try to identify the author.`,
+        `We are reaching out to invite you to serve as a peer reviewer for a manuscript titled “${c.title}.” Given your editorial expertise, your perspective would be especially valuable in assessing this piece.`,
         "",
-        "In your review, please look at the strength and originality of the central argument, how clearly the manuscript is written and organized, and how well it speaks to a broad academic audience. Suggestions for revision are welcome.",
+        "In your review, please focus on the strength and originality of the central argument, clarity and organization, and how effectively the manuscript engages a broader academic and professional audience. Suggestions for refinement or repositioning are also welcome.",
         "",
-        "Please rate each of these from 1 to 5:",
-        "1. Argument and contribution: how strong and original is the central argument?",
-        "2. Clarity and structure: how clear and well organized is the manuscript?",
-        "3. Engagement and relevance: how well does it engage its readers and contribute to the field?",
+        "To help guide your feedback, we would appreciate it if you could consider and rate the following:",
         "",
-        "Then give your recommendation: accept, accept with revisions, or decline.",
+        "1. Argument & Contribution – How strong and original is the central argument? (Rating: 1–5)",
+        "2. Clarity & Structure – How clear, coherent, and well-organized is the manuscript? (Rating: 1–5)",
+        "3. Engagement & Relevance – How effectively does the manuscript engage its intended audience and contribute to the field? (Rating: 1–5)",
+        "4. Final Decision - Can this paper be published? What is the overall rating?",
         "",
-        "We would be grateful to have your review within two to three weeks. If that timing doesn't work, or you would rather not review this one, just reply and let us know.",
+        "We would appreciate receiving your feedback within the next 2–3 weeks. Please let us know if that timeline works for you.",
         "",
-        `When you reply, please keep ${c.ref} in the subject line so your review reaches the right file.`,
-        signOff(c),
-      ].join("\n"),
+        "Thank you for your time and for helping uphold the quality of our publication.",
+        "",
+        "Best regards,",
+        "Editor Team",
+      ),
   },
   {
-    id: "in-review",
-    label: "Under review notice",
-    setsStatus: "in_review",
-    subject: (c) => `Your manuscript is under review (${c.ref})`,
-    body: (c) =>
-      [
-        greeting(c),
-        "",
-        `Thank you for submitting "${c.title}" to The Journal of Young Innovators. Our editors have completed an initial check, and the manuscript has now gone to peer review.`,
-        "",
-        "Review usually takes several weeks. We will write to you as soon as we have a decision or questions from the reviewers.",
-        "",
-        `Your submission reference is ${c.ref}. Please include it if you write to us about this manuscript.`,
-        signOff(c),
-      ].join("\n"),
-  },
-  {
-    id: "revisions",
-    label: "Request revisions",
-    setsStatus: "revisions",
-    subject: (c) => `Revisions requested for "${c.title}" (${c.ref})`,
-    body: (c) =>
-      [
-        greeting(c),
-        "",
-        `Our reviewers have read "${c.title}" and would like to see some changes before we make a final decision. Their comments are attached to this email.`,
-        "",
-        "Please revise the manuscript to address each comment, and send the revised .docx file by replying to this email. A short note listing what you changed makes the second round of review much faster.",
-        "",
-        "If a comment is unclear, or you disagree with one, tell us in your reply and explain your reasoning.",
-        signOff(c),
-      ].join("\n"),
-  },
-  {
+    // The journal's acceptance template, rewritten for the fee that is
+    // charged only on acceptance, with this manuscript's payment link.
     id: "accept",
     label: "Accept",
     setsStatus: "accepted",
-    subject: (c) => `Accepted for publication: "${c.title}"`,
+    subject: (c) => `Accepted for publication: “${c.title}”`,
     body: (c) =>
-      [
-        greeting(c),
+      lines(
+        `Dear ${c.firstName || "Author"},`,
         "",
-        `Congratulations. We are pleased to accept "${c.title}" for publication in The Journal of Young Innovators.`,
+        `We are pleased to inform you that following peer review, your manuscript, “${c.title},” has been accepted for publication in the Journal of Young Innovators.`,
         "",
-        "Accepted articles carry a publication fee of $65 USD. You can pay securely by card at the link below. It is tied to your submission, so we will see the payment as soon as it goes through.",
+        "Accepted articles carry a publication fee of $65 USD. Please complete the payment using the following link:",
+        `Submit Payment (${c.paymentUrl})`,
         "",
-        c.paymentUrl,
+        "Once your payment has been processed, our team will send you a confirmation and schedule your article for publication. If the fee would prevent you from publishing, or if you have any questions, please reply to this email.",
         "",
-        "If the fee would prevent you from publishing, reply to this email and ask about a waiver. Our editors review every request.",
-        "",
-        "Once the fee is settled, we will be in touch about the final steps before the article goes online.",
-        signOff(c),
-      ].join("\n"),
+        "Sincerely,",
+        "JYI Administration",
+      ),
   },
   {
+    // Acceptance sent 2026-08-18 (no fee).
     id: "accept-waived",
-    label: "Accept and waive fee",
+    label: "Accept, no fee",
     setsStatus: "accepted",
     waivesFee: true,
-    subject: (c) => `Accepted for publication: "${c.title}"`,
+    subject: (c) => `Publication decision: “${c.title}”`,
     body: (c) =>
-      [
-        greeting(c),
+      lines(
+        `Dear ${c.firstName || "Author"},`,
         "",
-        `Congratulations. We are pleased to accept "${c.title}" for publication in The Journal of Young Innovators.`,
+        `We are writing to inform you that following peer review, your manuscript, “${c.title},” has been approved for publication to our journal.`,
         "",
-        "There is no publication fee for your article, so there is nothing for you to pay.",
+        "We would like to commend you on this achievement and your commitment to advancing academic research. Please expect your article to be published to the journal’s website within 30 days.",
         "",
-        "We will be in touch about the final steps before the article goes online.",
-        signOff(c),
-      ].join("\n"),
+        "Sincerely,",
+        "The Editorial Team",
+        "The Journal of Young Innovators",
+      ),
   },
   {
+    // Revision request sent 2026-05-29 (reviewer feedback attached).
+    id: "revisions",
+    label: "Request revisions",
+    setsStatus: "revisions",
+    subject: () => "Revision Request",
+    body: (c) =>
+      lines(
+        `Dear ${c.firstName || "Author"},`,
+        "",
+        `Thank you for submitting your manuscript, “${c.title}” to the Journal of Young Innovators.`,
+        "",
+        "Following peer review, we are pleased to inform you that the editorial team has recommended your manuscript for publication pending minor revisions. The reviewer found the article to be a valuable contribution to the field and has suggested only limited revisions to strengthen the final version of the manuscript.",
+        "",
+        "Because the requested revisions are minor in scope, your revised manuscript will not require a second round of peer review and will instead undergo final editorial review upon resubmission.",
+        "",
+        "Please note that publication is contingent upon satisfactorily addressing the attached reviewer feedback.",
+        "",
+        "To ensure inclusion in the forthcoming issue, we kindly request that you submit your revised draft within six (6) weeks of the date of this letter.",
+        "",
+        "We appreciate your contribution to the Journal of Young Innovators and look forward to receiving your revised manuscript.",
+        "",
+        "Sincerely,",
+        "The Editorial Team",
+        "Journal of Young Innovators",
+      ),
+  },
+  {
+    // Acknowledgement sent 2026-05-19.
+    id: "in-review",
+    label: "Under review notice",
+    setsStatus: "in_review",
+    subject: (c) => `Re: Submission Received: ${c.title}`,
+    body: (c) =>
+      lines(
+        `Hi ${c.firstName || "there"},`,
+        "",
+        "Thank you for your submission to The Journal of Young Innovators. Your article has been received and is currently under review by our editorial team.",
+        "",
+        "Please allow approximately 6–8 weeks for the review process to be completed. We appreciate your patience and interest in contributing to our journal.",
+        "",
+        "Best regards,",
+        "The Editorial Team",
+      ),
+  },
+  {
+    // Decision sent 2026-08-13.
     id: "decline",
     label: "Decline",
     setsStatus: "rejected",
-    subject: (c) => `Decision on "${c.title}" (${c.ref})`,
+    subject: () => "Submission Decision",
     body: (c) =>
-      [
-        greeting(c),
+      lines(
+        `Dear ${c.firstName || "Author"},`,
         "",
-        `Thank you for giving us the chance to consider "${c.title}". After careful review, we are unable to accept it for publication in The Journal of Young Innovators.`,
+        "Thank you for your submission. However, the attached manuscript does not meet our criteria for a research article, and we are therefore unable to accept it for publication.",
         "",
-        "[Add the main reasons for the decision, or attach the reviewer comments.]",
+        "We wish you the best of luck with your future submissions.",
         "",
-        "We know how much work goes into a manuscript, and we hope you keep writing. You are welcome to submit new work to the journal in the future.",
-        signOff(c),
-      ].join("\n"),
+        "Editorial Team",
+      ),
   },
   {
-    id: "payment-reminder",
-    label: "Fee reminder",
-    subject: (c) => `Publication fee reminder for "${c.title}"`,
+    // Decision sent 2026-09-21.
+    id: "decline-ai",
+    label: "Decline for AI content",
+    setsStatus: "rejected",
+    subject: (c) => `Re: Submission Received: ${c.title}`,
     body: (c) =>
-      [
-        greeting(c),
+      lines(
+        `Hi ${c.firstName || "there"},`,
         "",
-        `This is a reminder that the $65 USD publication fee for "${c.title}" is still outstanding. We will schedule the article for publication once it is paid.`,
+        `Thank you for submitting your article, “${c.title},” for consideration on our website.`,
         "",
-        "You can pay by card here:",
-        c.paymentUrl,
+        "As part of our review process, we identified concerns regarding the extent of AI-generated content in the article. After careful consideration, we have decided not to move forward with the submission for publication at this time.",
         "",
-        "If you have already paid, or if you would like to ask about a waiver, just reply to this email.",
-        signOff(c),
-      ].join("\n"),
+        "We appreciate the time and effort you put into your submission and thank you for your interest in contributing to our website.",
+        "",
+        "Best regards,",
+        "The Editorial Team",
+      ),
   },
   {
-    id: "payment-received",
-    label: "Payment thank-you",
-    subject: (c) => `Payment received for "${c.title}"`,
-    body: (c) =>
-      [
-        greeting(c),
+    // Question sent 2026-08-27.
+    id: "ai-question",
+    label: "Ask about AI use",
+    subject: (c) => `Re: New Submission: ${c.title}`,
+    body: () =>
+      lines(
+        "Hi There,",
         "",
-        `We have received your publication fee for "${c.title}". Thank you. Stripe sends a separate receipt to the email address used at checkout.`,
+        "Thank you for your submission. Could you please clarify how much AI was used in writing the article? Our AI detection tool indicates that the article may contain 100% AI-generated content.",
         "",
-        "We will be in touch about the final steps before the article goes online.",
-        signOff(c),
-      ].join("\n"),
+        "Editor Team",
+      ),
   },
   {
-    id: "published",
-    label: "Publication notice",
-    setsStatus: "published",
-    subject: (c) => `"${c.title}" is now published`,
-    body: (c) =>
-      [
-        greeting(c),
+    // Note sent 2026-08-12.
+    id: "format",
+    label: "Formatting request",
+    subject: (c) => `Re: New Submission: ${c.title}`,
+    body: () =>
+      lines(
+        "Hi There,",
         "",
-        `Your article "${c.title}" is now live on The Journal of Young Innovators website.`,
+        "Please check the format in the page of requirement. We do not accept papers that are not aligned with our format.",
         "",
-        "[Paste the article link and DOI here.]",
-        "",
-        "Congratulations on your publication. Feel free to share the link with your school, teachers, and anyone who helped with the research.",
-        signOff(c),
-      ].join("\n"),
+        "Editor team",
+      ),
   },
   {
     id: "blank",
     label: "Blank letter",
-    subject: (c) => `About your submission "${c.title}" (${c.ref})`,
-    body: (c) => [greeting(c), "", "", signOff(c)].join("\n"),
+    subject: (c) => `Re: Submission Received: ${c.title}`,
+    body: (c) => lines(`Hi ${c.firstName || "there"},`, "", "", "Best regards,", "The Editorial Team"),
   },
 ];

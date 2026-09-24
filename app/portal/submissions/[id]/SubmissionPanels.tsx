@@ -61,19 +61,21 @@ function Flash({ message }: { message: Message }) {
 
 type Action = { template: string; when?: (p: Props) => boolean };
 
+const open = ["received", "in_review", "revisions"];
+
 const DECISIONS: Action[] = [
   { template: "accept", when: (p) => !["accepted", "published"].includes(p.status) },
   { template: "accept-waived", when: (p) => !["accepted", "published"].includes(p.status) },
-  { template: "review-request", when: (p) => ["received", "in_review", "revisions"].includes(p.status) },
-  { template: "revisions", when: (p) => ["received", "in_review", "revisions"].includes(p.status) },
+  { template: "review-request", when: (p) => open.includes(p.status) },
+  { template: "revisions", when: (p) => open.includes(p.status) },
   { template: "in-review", when: (p) => p.status === "received" },
   { template: "decline", when: (p) => !["rejected", "published", "withdrawn"].includes(p.status) },
 ];
 
 const LETTERS: Action[] = [
-  { template: "payment-reminder", when: (p) => p.paymentStatus === "due" },
-  { template: "payment-received", when: (p) => p.paymentStatus === "paid" },
-  { template: "published", when: (p) => p.status === "accepted" },
+  { template: "ai-question", when: (p) => open.includes(p.status) },
+  { template: "format", when: (p) => open.includes(p.status) },
+  { template: "decline-ai", when: (p) => !["rejected", "published", "withdrawn"].includes(p.status) },
   { template: "blank" },
 ];
 
