@@ -59,7 +59,7 @@ export default function SetPasswordForm({ token, minLength }: { token: string; m
         />
       </label>
       {error && (
-        <p role="alert" className="border-l-2 border-white/50 pl-3 font-text text-sm text-[#F4EFEB]">
+        <p role="alert" className="border-l-2 border-white/50 pl-3 font-text text-sm text-[#F8F5F1]">
           {error}
         </p>
       )}

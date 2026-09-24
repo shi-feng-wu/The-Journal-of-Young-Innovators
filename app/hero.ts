@@ -7,7 +7,7 @@ export default heroui({
       colors: {
         primary: "#002d72",
         secondary: "#68ace5",
-        background: "#F4EFEB",
+        background: "#F8F5F1",
         focus: "#ffffff",
       },
     },
@@ -15,7 +15,7 @@ export default heroui({
       colors: {
         primary: "#002d72",
         secondary: "#68ace5",
-        background: "#F4EFEB",
+        background: "#F8F5F1",
         focus: "#ffffff",
       },
     },

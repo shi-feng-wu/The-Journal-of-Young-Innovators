@@ -23,10 +23,10 @@ export const INPUT =
   "w-full rounded-md border border-black/20 bg-white/70 px-3 py-2.5 font-text text-base sm:text-[15px] text-[#111] placeholder:text-[#111]/35 transition-colors focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/15 disabled:opacity-50";
 
 export const INPUT_ON_NAVY =
-  "w-full rounded-md bg-[#F4EFEB] px-3 py-3 font-text text-base sm:text-[15px] text-[#111] placeholder:text-[#111]/40 focus:outline-none focus:ring-2 focus:ring-white/70";
+  "w-full rounded-md bg-[#F8F5F1] px-3 py-3 font-text text-base sm:text-[15px] text-[#111] placeholder:text-[#111]/40 focus:outline-none focus:ring-2 focus:ring-white/70";
 
 const BUTTON_BASE =
-  "inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border-2 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary focus-visible:ring-offset-[#F4EFEB]";
+  "inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border-2 px-5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary focus-visible:ring-offset-[#F8F5F1]";
 
 export const BUTTON = {
   /** Filled navy: the one main action in a section. */

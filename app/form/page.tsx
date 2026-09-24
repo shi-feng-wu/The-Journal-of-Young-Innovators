@@ -13,7 +13,7 @@ const LABEL_CLASS =
   "font-mono text-xs uppercase tracking-[0.16em] text-white/80 [&>span]:text-white/70 after:text-white/70 group-data-[required=true]:after:text-white/70";
 
 const CREAM_WRAPPER =
-  "bg-[#F4EFEB] data-[hover=true]:bg-[#F4EFEB] group-data-[focus=true]:bg-[#F4EFEB]";
+  "bg-[#F8F5F1] data-[hover=true]:bg-[#F8F5F1] group-data-[focus=true]:bg-[#F8F5F1]";
 
 const INPUT_CLASS_NAMES = {
   base: "w-full",
@@ -375,7 +375,7 @@ export default function Submit() {
               classNames={{
                 base: "items-start max-w-3xl",
                 wrapper:
-                  "mt-0.5 before:border-white/50 after:bg-[#F4EFEB] group-data-[hover=true]:before:border-white",
+                  "mt-0.5 before:border-white/50 after:bg-[#F8F5F1] group-data-[hover=true]:before:border-white",
                 icon: "text-primary",
                 label: "font-text text-sm text-white/85",
               }}
@@ -407,7 +407,7 @@ export default function Submit() {
             {status === "error" && (
               <p
                 role="alert"
-                className="max-w-2xl border-l-2 border-white/50 pl-4 font-text text-sm text-[#F4EFEB]"
+                className="max-w-2xl border-l-2 border-white/50 pl-4 font-text text-sm text-[#F8F5F1]"
               >
                 {errorMessage}
               </p>
