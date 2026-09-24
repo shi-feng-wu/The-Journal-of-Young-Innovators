@@ -3,9 +3,10 @@ import {
   clearFailedLogins,
   handle,
   loginThrottled,
+  MAX_PASSWORD_LENGTH,
   recordFailedLogin,
   startSession,
-  verifyPassword,
+  verifyPasswordOrDummy,
 } from "@/lib/portal/auth";
 import { get, type Editor } from "@/lib/portal/db";
 
@@ -19,33 +20,37 @@ export const POST = handle(async (request: Request) => {
     email?: string;
     password?: string;
   };
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
-  const key = `${ip}|${(email ?? "").toLowerCase()}`;
+  // Caddy replaces any client-sent X-Forwarded-For, and the app only listens
+  // on localhost, so this is the real client address.
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  const emailKey = typeof email === "string" ? email : "";
 
-  if (loginThrottled(key)) {
+  if (loginThrottled(ip, emailKey)) {
     return Response.json(
       { error: "Too many attempts. Wait 15 minutes and try again." },
       { status: 429 },
     );
   }
 
-  const editor =
-    email && password
-      ? get<Editor>(
-          "SELECT * FROM editors WHERE email = :email AND disabled = 0",
-          { email: email.trim() },
-        )
-      : undefined;
+  const valid =
+    typeof email === "string" &&
+    typeof password === "string" &&
+    email.length <= 320 &&
+    password.length > 0 &&
+    password.length <= MAX_PASSWORD_LENGTH;
+  const editor = valid
+    ? get<Editor>("SELECT * FROM editors WHERE email = :email AND disabled = 0", { email: email.trim() })
+    : undefined;
 
-  if (!editor?.password_hash || !verifyPassword(password!, editor.password_hash)) {
-    recordFailedLogin(key);
+  if (!valid || !verifyPasswordOrDummy(password, editor?.password_hash) || !editor) {
+    recordFailedLogin(ip, emailKey);
     return Response.json(
       { error: "That email and password do not match an editor account." },
       { status: 401 },
     );
   }
 
-  clearFailedLogins(key);
+  clearFailedLogins(ip, emailKey);
   await startSession(editor.id);
   return Response.json({ ok: true });
 });

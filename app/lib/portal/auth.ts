@@ -8,6 +8,8 @@ export const SESSION_COOKIE = "jyi_portal";
 const SESSION_DAYS = 14;
 const INVITE_HOURS = 72;
 export const MIN_PASSWORD_LENGTH = 10;
+/** Caps the work one login attempt can cost (scrypt time grows with input). */
+export const MAX_PASSWORD_LENGTH = 256;
 
 // ---- Passwords -----------------------------------------------------------
 
@@ -28,6 +30,15 @@ export function hashPassword(password: string): string {
     salt.toString("base64"),
     key.toString("base64"),
   ].join("$");
+}
+
+// Checked when the email has no account, so a wrong email takes as long as a
+// wrong password and response times do not reveal which accounts exist.
+const DUMMY_HASH = hashPassword(crypto.randomBytes(16).toString("hex"));
+
+export function verifyPasswordOrDummy(password: string, stored: string | null | undefined): boolean {
+  const ok = verifyPassword(password, stored ?? DUMMY_HASH);
+  return !!stored && ok;
 }
 
 export function verifyPassword(password: string, stored: string): boolean {
@@ -215,24 +226,41 @@ export function consumePasswordToken(token: string, password: string) {
 
 // ---- Login throttling ----------------------------------------------------
 
+// Failed sign-ins are counted three ways, so guessing one account from many
+// addresses and many accounts from one address are both slowed down.
 const attempts = new Map<string, { count: number; resetAt: number }>();
-const MAX_ATTEMPTS = 8;
 const WINDOW_MS = 15 * 60_000;
+const LIMITS = { pair: 8, account: 15, ip: 40 };
 
-export function loginThrottled(key: string): boolean {
-  const entry = attempts.get(key);
-  return !!entry && entry.resetAt > Date.now() && entry.count >= MAX_ATTEMPTS;
+const loginKeys = (ip: string, email: string) => {
+  const e = email.trim().toLowerCase();
+  return [
+    { key: `pair:${ip}|${e}`, limit: LIMITS.pair },
+    { key: `account:${e}`, limit: LIMITS.account },
+    { key: `ip:${ip}`, limit: LIMITS.ip },
+  ];
+};
+
+export function loginThrottled(ip: string, email: string): boolean {
+  const now = Date.now();
+  return loginKeys(ip, email).some(({ key, limit }) => {
+    const entry = attempts.get(key);
+    return !!entry && entry.resetAt > now && entry.count >= limit;
+  });
 }
 
-export function recordFailedLogin(key: string) {
-  const entry = attempts.get(key);
-  if (!entry || entry.resetAt < Date.now()) {
-    attempts.set(key, { count: 1, resetAt: Date.now() + WINDOW_MS });
-  } else {
-    entry.count += 1;
+export function recordFailedLogin(ip: string, email: string) {
+  const now = Date.now();
+  for (const { key } of loginKeys(ip, email)) {
+    const entry = attempts.get(key);
+    if (!entry || entry.resetAt < now) attempts.set(key, { count: 1, resetAt: now + WINDOW_MS });
+    else entry.count += 1;
+  }
+  if (attempts.size > 10_000) {
+    for (const [key, entry] of attempts) if (entry.resetAt < now) attempts.delete(key);
   }
 }
 
-export function clearFailedLogins(key: string) {
-  attempts.delete(key);
+export function clearFailedLogins(ip: string, email: string) {
+  attempts.delete(loginKeys(ip, email)[0].key);
 }

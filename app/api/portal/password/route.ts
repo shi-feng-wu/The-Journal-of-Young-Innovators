@@ -2,6 +2,7 @@ import { isAllowedOrigin } from "@/lib/origins";
 import {
   consumePasswordToken,
   handle,
+  MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH,
   startSession,
 } from "@/lib/portal/auth";
@@ -16,13 +17,16 @@ export const POST = handle(async (request: Request) => {
     token?: string;
     password?: string;
   };
-  if (!password || password.length < MIN_PASSWORD_LENGTH) {
+  if (typeof password !== "string" || password.length < MIN_PASSWORD_LENGTH) {
     return Response.json(
       { error: `Use at least ${MIN_PASSWORD_LENGTH} characters.` },
       { status: 400 },
     );
   }
-  const editor = token ? consumePasswordToken(token, password) : null;
+  if (password.length > MAX_PASSWORD_LENGTH) {
+    return Response.json({ error: `Use at most ${MAX_PASSWORD_LENGTH} characters.` }, { status: 400 });
+  }
+  const editor = typeof token === "string" && token ? consumePasswordToken(token, password) : null;
   if (!editor) {
     return Response.json(
       { error: "This link has expired or was already used. Ask an admin for a new one." },
