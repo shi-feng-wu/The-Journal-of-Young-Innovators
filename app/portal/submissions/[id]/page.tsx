@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requirePageEditor } from "@/lib/portal/auth";
-import { GRADE_LABELS, STATUS_LABELS, SUBMISSION_TYPE_LABELS } from "@/lib/portal/constants";
+import {
+  GRADE_LABELS,
+  STATUS_LABELS,
+  SUBMISSION_TYPE_LABELS,
+} from "@/lib/portal/constants";
 import {
   all,
   getSubmission,
@@ -28,7 +32,11 @@ import {
 } from "../../_components/ui";
 import { DecisionPanel, RecordPanel } from "./SubmissionPanels";
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const submission = getSubmission(Number((await params).id));
   return { title: submission?.ref ?? "Submission" };
 }
@@ -48,11 +56,20 @@ function StageLine({ submission }: { submission: Submission }) {
       {STAGES.map((stage, i) => {
         const reached = i <= index;
         return (
-          <li key={stage} aria-current={i === index ? "step" : undefined} className="relative pt-4 pr-2">
-            <span className={`absolute top-0 left-0 h-[3px] w-full ${reached ? "bg-white" : "bg-white/20"}`} aria-hidden />
+          <li
+            key={stage}
+            aria-current={i === index ? "step" : undefined}
+            className="relative pt-4 pr-2"
+          >
+            <span
+              className={`absolute top-0 left-0 h-[3px] w-full ${reached ? "bg-white" : "bg-white/20"}`}
+              aria-hidden
+            />
             <span
               className={`block font-mono text-[10px] uppercase tracking-[0.16em] sm:text-[11px] sm:tracking-[0.2em] ${
-                i === index ? "whitespace-nowrap text-white" : `hidden sm:block ${reached ? "text-white/70" : "text-white/40"}`
+                i === index
+                  ? "whitespace-nowrap text-white"
+                  : `hidden sm:block ${reached ? "text-white/70" : "text-white/40"}`
               }`}
             >
               {STAGE_NAMES[stage]}
@@ -74,17 +91,26 @@ const EVENT_MARK: Record<PortalEvent["type"], string> = {
 };
 
 function Letter({ data }: { data: string }) {
-  const email = JSON.parse(data) as { to: string; subject?: string; body: string; attachments?: string[] };
+  const email = JSON.parse(data) as {
+    to: string;
+    subject?: string;
+    body: string;
+    attachments?: string[];
+  };
   return (
     <details className="group/letter mt-2">
       <summary className="cursor-pointer list-none font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary underline-offset-4 hover:underline">
         <span className="group-open/letter:hidden">Read the letter</span>
-        <span className="hidden group-open/letter:inline">Close the letter</span>
+        <span className="hidden group-open/letter:inline">
+          Close the letter
+        </span>
       </summary>
       <div className="mt-3 border border-black/15 bg-white px-5 py-5 sm:px-7">
         <p className="font-mono text-[11px] text-[#111]/55">To {email.to}</p>
         {email.attachments && email.attachments.length > 0 && (
-          <p className="font-mono text-[11px] text-[#111]/55">With {email.attachments.join(", ")}</p>
+          <p className="font-mono text-[11px] text-[#111]/55">
+            With {email.attachments.join(", ")}
+          </p>
         )}
         <p className="mt-4 max-w-[68ch] whitespace-pre-wrap font-text text-[15px] leading-[1.7] text-[#111]/85">
           {email.body}
@@ -94,21 +120,32 @@ function Letter({ data }: { data: string }) {
   );
 }
 
-export default async function SubmissionPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function SubmissionPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const editor = await requirePageEditor();
   const id = Number((await params).id);
   const submission = Number.isInteger(id) ? getSubmission(id) : undefined;
   if (!submission) notFound();
 
   const events = listEvents(id);
-  const payments = all<Payment>("SELECT * FROM payments WHERE submission_id = :id ORDER BY paid_at DESC", { id });
-  const editors = all<{ id: number; name: string }>("SELECT id, name FROM editors WHERE disabled = 0 ORDER BY name");
+  const payments = all<Payment>(
+    "SELECT * FROM payments WHERE submission_id = :id ORDER BY paid_at DESC",
+    { id },
+  );
+  const editors = all<{ id: number; name: string }>(
+    "SELECT id, name FROM editors WHERE disabled = 0 ORDER BY name",
+  );
   const others = all<Submission>(
     `SELECT * FROM submissions WHERE email = :email COLLATE NOCASE AND id != :id ORDER BY created_at DESC`,
     { email: submission.email, id },
   );
 
-  const authorName = `${submission.first_name} ${submission.last_name}`.trim() || submission.email;
+  const authorName =
+    `${submission.first_name} ${submission.last_name}`.trim() ||
+    submission.email;
   const panelProps = {
     submissionId: submission.id,
     email: submission.email,
@@ -137,12 +174,23 @@ export default async function SubmissionPage({ params }: { params: Promise<{ id:
   const details: Array<[string, React.ReactNode]> = [
     [
       "Email",
-      <a key="e" href={`mailto:${submission.email}`} className="text-primary underline decoration-1 underline-offset-4">
+      <a
+        key="e"
+        href={`mailto:${submission.email}`}
+        className="text-primary underline decoration-1 underline-offset-4"
+      >
         {submission.email}
       </a>,
     ],
-    ["Phone", submission.phone || <span className="text-[#111]/40">Not given</span>],
-    ["Type", SUBMISSION_TYPE_LABELS[submission.submission_type] ?? (submission.submission_type || "Not given")],
+    [
+      "Phone",
+      submission.phone || <span className="text-[#111]/40">Not given</span>,
+    ],
+    [
+      "Type",
+      SUBMISSION_TYPE_LABELS[submission.submission_type] ??
+        (submission.submission_type || "Not given"),
+    ],
     ["Received", formatDateTime(submission.created_at)],
   ];
 
@@ -153,7 +201,10 @@ export default async function SubmissionPage({ params }: { params: Promise<{ id:
         <Masthead
           above={
             <div className="mb-1 flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-[11px] uppercase tracking-[0.2em] text-white/70">
-              <Link href="/portal" className="hover:text-white hover:underline underline-offset-4">
+              <Link
+                href="/portal"
+                className="hover:text-white hover:underline underline-offset-4"
+              >
                 Submissions
               </Link>
               <span aria-hidden>/</span>
@@ -174,14 +225,26 @@ export default async function SubmissionPage({ params }: { params: Promise<{ id:
             title="Manuscript"
             aside={
               submission.manuscript_file ? (
-                <a href={`/api/portal/submissions/${submission.id}/manuscript`} className={BUTTON.outline}>
-                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
+                <a
+                  href={`/api/portal/submissions/${submission.id}/manuscript`}
+                  className={BUTTON.outline}
+                >
+                  <svg
+                    viewBox="0 0 16 16"
+                    className="h-3.5 w-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    aria-hidden
+                  >
                     <path d="M8 2v8m0 0l-3.5-3.5M8 10l3.5-3.5M2.5 13.5h11" />
                   </svg>
                   Download .docx
                 </a>
               ) : (
-                <span className="font-text text-sm text-[#111]/50">No file on record</span>
+                <span className="font-text text-sm text-[#111]/50">
+                  No file on record
+                </span>
               )
             }
           >
@@ -189,42 +252,59 @@ export default async function SubmissionPage({ params }: { params: Promise<{ id:
               {details.map(([label, value]) => (
                 <div key={label} className="min-w-0">
                   <dt className={LABEL}>{label}</dt>
-                  <dd className="mt-1 break-words font-text text-base">{value}</dd>
+                  <dd className="mt-1 break-words font-text text-base">
+                    {value}
+                  </dd>
                 </div>
               ))}
             </dl>
             {submission.manuscript_name && (
-              <p className="mt-6 break-all font-mono text-xs text-[#111]/55">{submission.manuscript_name}</p>
+              <p className="mt-6 break-all font-mono text-xs text-[#111]/55">
+                {submission.manuscript_name}
+              </p>
             )}
           </Section>
 
           <Section id="decision" title="Write to the author">
-            <p className="-mt-2 mb-6 max-w-[62ch] font-text text-[15px] leading-relaxed text-[#111]/65">
-              Each choice opens a drafted letter. Edit it freely; the stage only changes once the letter is sent.
-            </p>
             <DecisionPanel {...panelProps} />
           </Section>
 
           <Section id="history" title="History">
             <ol className="relative">
-              <span className="absolute top-2 bottom-2 left-[4px] w-px bg-black/15" aria-hidden />
+              <span
+                className="absolute top-2 bottom-2 left-[4px] w-px bg-black/15"
+                aria-hidden
+              />
               {events.map((e) => (
-                <li key={e.id} className="relative grid gap-x-6 pb-6 pl-7 last:pb-0 sm:grid-cols-[minmax(0,1fr)_auto]">
-                  <span className={`absolute top-[7px] left-0 h-[9px] w-[9px] rounded-full ${EVENT_MARK[e.type]}`} aria-hidden />
+                <li
+                  key={e.id}
+                  className="relative grid gap-x-6 pb-6 pl-7 last:pb-0 sm:grid-cols-[minmax(0,1fr)_auto]"
+                >
+                  <span
+                    className={`absolute top-[7px] left-0 h-[9px] w-[9px] rounded-full ${EVENT_MARK[e.type]}`}
+                    aria-hidden
+                  />
                   <div className="min-w-0">
                     {e.type === "note" ? (
                       <blockquote className="max-w-[62ch] border-l-2 border-[#68ace5] pl-4 font-text text-[15px] italic leading-relaxed whitespace-pre-wrap text-[#111]/85">
                         {e.summary}
                       </blockquote>
                     ) : (
-                      <p className="font-text text-[15px] leading-relaxed">{e.summary}</p>
+                      <p className="font-text text-[15px] leading-relaxed">
+                        {e.summary}
+                      </p>
                     )}
                     {e.type === "email" && e.data && <Letter data={e.data} />}
                   </div>
                   <p className={`${META} mt-1 sm:mt-0.5 sm:text-right`}>
                     {formatDateTime(e.created_at)}
                     <span className="block text-[#111]/45">
-                      {e.editor_name ?? (e.type === "payment" ? "Stripe" : e.type === "created" ? "Website form" : "")}
+                      {e.editor_name ??
+                        (e.type === "payment"
+                          ? "Stripe"
+                          : e.type === "created"
+                            ? "Website form"
+                            : "")}
                     </span>
                   </p>
                 </li>
@@ -237,40 +317,49 @@ export default async function SubmissionPage({ params }: { params: Promise<{ id:
           <div className="lg:sticky lg:top-8">
             <RecordPanel {...panelProps} />
 
-            <div className="border-t border-black/30 pt-5 pb-7">
-              <p className={LABEL}>Card payments</p>
-              {payments.length === 0 ? (
-                <p className="mt-2 font-text text-sm text-[#111]/55">
-                  {submission.payment_status === "due" ? "None yet." : "None."}
-                </p>
-              ) : (
-                <ul className="mt-3 space-y-3">
-                  {payments.map((p) => (
-                    <li key={p.id} className="font-text text-sm">
-                      <span className={`font-display text-xl ${p.status === "refunded" ? "text-[#111]/45 line-through decoration-1" : ""}`}>
-                        {formatMoney(p.amount, p.currency)}
-                      </span>{" "}
-                      <span className="text-[#111]/65">
-                        {p.status === "refunded" ? "refunded" : "paid"} {formatDate(p.paid_at)}
-                      </span>
-                      {p.email && p.email.toLowerCase() !== submission.email.toLowerCase() && (
-                        <span className="block text-xs text-[#111]/50">by {p.email}</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {submission.payment_status === "due" && (
-                <div className="mt-3">
-                  <CopyButton text={panelProps.context.paymentUrl} label="Copy payment link" />
-                  <p className="mt-1 font-text text-xs text-[#111]/50">Tied to {submission.ref}, so the payment matches itself.</p>
-                </div>
-              )}
-            </div>
+            {(payments.length > 0 || submission.payment_status === "due") && (
+              <div className="border-t border-black/30 pt-5 pb-7">
+                <p className={LABEL}>Card payments</p>
+                {payments.length > 0 && (
+                  <ul className="mt-3 space-y-3">
+                    {payments.map((p) => (
+                      <li key={p.id} className="font-text text-sm">
+                        <span
+                          className={`font-display text-xl ${p.status === "refunded" ? "text-[#111]/45 line-through decoration-1" : ""}`}
+                        >
+                          {formatMoney(p.amount, p.currency)}
+                        </span>{" "}
+                        <span className="text-[#111]/65">
+                          {p.status === "refunded" ? "refunded" : "paid"}{" "}
+                          {formatDate(p.paid_at)}
+                        </span>
+                        {p.email &&
+                          p.email.toLowerCase() !==
+                            submission.email.toLowerCase() && (
+                            <span className="block text-xs text-[#111]/50">
+                              by {p.email}
+                            </span>
+                          )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {submission.payment_status === "due" && (
+                  <div className="mt-3">
+                    <CopyButton
+                      text={panelProps.context.paymentUrl}
+                      label="Copy payment link"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
 
             {others.length > 0 && (
               <div className="border-t border-black/30 pt-5 pb-7">
-                <p className={LABEL}>Also by {submission.first_name || "this author"}</p>
+                <p className={LABEL}>
+                  Also by {submission.first_name || "this author"}
+                </p>
                 <ul className="mt-3 space-y-4">
                   {others.map((o) => (
                     <li key={o.id}>

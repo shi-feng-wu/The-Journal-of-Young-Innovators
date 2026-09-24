@@ -34,18 +34,14 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
   const figures = [
     { label: "Collected", value: formatMoney(collected) },
     { label: "Still owed", value: formatMoney(due.length * PUBLICATION_FEE_CENTS) },
-    { label: "To match", value: String(unmatchedCount) },
   ];
 
   return (
     <PortalShell
       editor={editor}
       masthead={
-        <Masthead
-          title="Payments"
-          subtitle="Publication fees paid by card through the Stripe link, and the accepted authors who have not paid yet."
-        >
-          <dl className="mt-8 grid max-w-[760px] grid-cols-3 lg:mt-10">
+        <Masthead title="Payments">
+          <dl className="mt-8 grid max-w-[520px] grid-cols-2 lg:mt-10">
             {figures.map((f) => (
               <div key={f.label} className="border-t border-white/30 pt-4 pr-4">
                 <dd className="font-display text-[40px] leading-none tabular-nums sm:text-[56px] lg:text-[64px]">{f.value}</dd>
@@ -79,7 +75,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
                 href={unmatchedOnly ? "/portal/payments" : "/portal/payments?filter=unmatched"}
                 className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary underline-offset-4 hover:underline"
               >
-                {unmatchedOnly ? "Show all payments" : `Unmatched only (${unmatchedCount})`}
+                {unmatchedOnly ? "Show all payments" : "Unmatched only"}
               </Link>
             )}
           </div>

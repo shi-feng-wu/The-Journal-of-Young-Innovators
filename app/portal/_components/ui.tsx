@@ -213,11 +213,3 @@ export const formatMoney = (cents: number, currency = "usd") =>
     currency: currency.toUpperCase(),
     minimumFractionDigits: cents % 100 === 0 ? 0 : 2,
   }).format(cents / 100);
-
-/** How long a new manuscript has sat unread, as a short phrase. */
-export function waiting(iso: string) {
-  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000);
-  if (days <= 0) return "Arrived today";
-  if (days === 1) return "Waiting 1 day";
-  return `Waiting ${days} days`;
-}

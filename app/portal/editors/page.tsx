@@ -8,23 +8,13 @@ export const metadata = { title: "Editors" };
 
 export default async function EditorsPage() {
   const editor = await requirePageEditor({ admin: true });
-  const editors = all<Editor & { handling: number }>(
-    `SELECT editors.*,
-            (SELECT COUNT(*) FROM submissions
-              WHERE assigned_editor_id = editors.id
-                AND status IN ('received','in_review','revisions','accepted')) AS handling
-       FROM editors ORDER BY disabled, name`,
-  );
-  const active = editors.filter((e) => !e.disabled).length;
+  const editors = all<Editor>("SELECT * FROM editors ORDER BY disabled, name");
 
   return (
     <PortalShell
       editor={editor}
       masthead={
-        <Masthead
-          title="Editors"
-          subtitle={`${active} ${active === 1 ? "person has" : "people have"} access to the portal. Admins can invite and remove editors.`}
-        />
+        <Masthead title="Editors" />
       }
     >
       <div className="grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,1fr)_340px]">
@@ -47,9 +37,6 @@ export default async function EditorsPage() {
               <div className={`${META} sm:text-right`}>
                 <span className="block text-[#111]/85">
                   {e.disabled ? "No access" : e.is_admin ? "Admin" : "Editor"}
-                </span>
-                <span className="block">
-                  {e.handling} open {e.handling === 1 ? "manuscript" : "manuscripts"}
                 </span>
                 <span className="block">
                   {!e.password_hash

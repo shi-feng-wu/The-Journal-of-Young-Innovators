@@ -20,7 +20,6 @@ import {
   STAGE_NAMES,
   StageTrack,
   formatDate,
-  waiting,
 } from "./_components/ui";
 
 export const metadata = { title: "Submissions" };
@@ -103,34 +102,13 @@ export default async function PortalHome({
     ),
   ) as Partial<Record<SubmissionStatus, number>>;
   const count = (s: SubmissionStatus) => counts[s] ?? 0;
-  const openCount = OPEN.reduce((sum, s) => sum + count(s), 0);
   const total = Object.values(counts).reduce((a, b) => a + (b ?? 0), 0);
-  const feeCounts = Object.fromEntries(
-    all<{ payment_status: string; n: number }>(
-      "SELECT payment_status, COUNT(*) AS n FROM submissions GROUP BY payment_status",
-    ).map((r) => [r.payment_status, r.n]),
-  ) as Partial<Record<PaymentStatus, number>>;
   const unmatched = get<{ n: number }>("SELECT COUNT(*) AS n FROM payments WHERE submission_id IS NULL")!.n;
 
-  const newCount = count("received");
-  const due = feeCounts.due ?? 0;
-  const subtitle =
-    total === 0
-      ? "New manuscripts from the submission form will appear here."
-      : [
-          newCount === 0
-            ? "Nothing new is waiting for a first read."
-            : `${newCount} new ${newCount === 1 ? "manuscript is" : "manuscripts are"} waiting for a first read.`,
-          due > 0 ? `${due} accepted ${due === 1 ? "author owes" : "authors owe"} the publication fee.` : null,
-        ]
-          .filter(Boolean)
-          .join(" ");
-
-  const statusNav: Array<{ key: string; label: string; n: number }> = [
-    { key: "open", label: "In progress", n: openCount },
-    ...STAGES.map((s) => ({ key: s, label: STATUS_LABELS[s], n: count(s) })),
-    ...CLOSED.map((s) => ({ key: s, label: STATUS_LABELS[s], n: count(s) })),
-    { key: "all", label: "Everything", n: total },
+  const statusNav: Array<{ key: string; label: string }> = [
+    { key: "open", label: "In progress" },
+    ...[...STAGES, ...CLOSED].map((s) => ({ key: s, label: STATUS_LABELS[s] })),
+    { key: "all", label: "Everything" },
   ];
 
   const heading =
@@ -144,7 +122,7 @@ export default async function PortalHome({
     <PortalShell
       editor={editor}
       masthead={
-        <Masthead title="Submissions" subtitle={subtitle}>
+        <Masthead title="Submissions">
           <Pipeline
             stages={STAGES.map((s) => ({
               key: s,
@@ -192,15 +170,7 @@ export default async function PortalHome({
             </button>
           </form>
 
-          <div className="mt-10 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-            <h2 className="font-display text-[28px] font-normal leading-tight lg:text-[32px]">{heading}</h2>
-            <p className={META}>
-              {rows.length} {rows.length === 1 ? "manuscript" : "manuscripts"}
-              {filters.payment && `, ${FEE_FILTERS.find((f) => f.key === filters.payment)?.label.toLowerCase()}`}
-              {filters.mine && ", assigned to you"}
-              {filters.q && `, matching “${filters.q}”`}
-            </p>
-          </div>
+          <h2 className="mt-10 font-display text-[28px] font-normal leading-tight lg:text-[32px]">{heading}</h2>
 
           {rows.length === 0 ? (
             <div className="mt-5 border-t border-black/30 py-16">
@@ -218,7 +188,6 @@ export default async function PortalHome({
           ) : (
             <ol className="mt-5">
               {rows.map((r) => {
-                const attention = r.status === "received" ? waiting(r.created_at) : null;
                 return (
                   <li
                     key={r.id}
@@ -240,9 +209,6 @@ export default async function PortalHome({
                       <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
                         <StageTrack status={r.status} />
                         {r.payment_status !== "not_due" && <FeeMark status={r.payment_status} />}
-                        {attention && (
-                          <span className="font-text text-sm italic text-[#111]/60">{attention}</span>
-                        )}
                       </div>
                       <p className={`${META} mt-3 lg:hidden`}>
                         {r.ref}, {formatDate(r.created_at)}
@@ -254,7 +220,7 @@ export default async function PortalHome({
                       {r.submission_type && (
                         <span>{SUBMISSION_TYPE_LABELS[r.submission_type] ?? r.submission_type}</span>
                       )}
-                      <span className={r.assignee ? "" : "text-[#111]/40"}>{r.assignee ?? "No editor"}</span>
+                      {r.assignee && <span>{r.assignee}</span>}
                     </div>
                   </li>
                 );
@@ -274,18 +240,11 @@ export default async function PortalHome({
                     key={item.key}
                     href={hrefFor(filters, { status: item.key })}
                     aria-current={active ? "page" : undefined}
-                    className="flex items-baseline justify-between gap-3 border-b border-black/10 py-3"
+                    className={`block border-b border-black/10 py-3 font-display text-xl leading-tight transition-colors ${
+                      active ? "text-primary" : "text-[#111]/60 hover:text-[#111]"
+                    }`}
                   >
-                    <span
-                      className={`font-display text-xl leading-tight transition-colors ${
-                        active ? "text-primary" : "text-[#111]/60 hover:text-[#111]"
-                      }`}
-                    >
-                      {item.label}
-                    </span>
-                    <span className={`font-mono text-xs tabular-nums ${active ? "text-primary" : "text-[#111]/50"}`}>
-                      {item.n}
-                    </span>
+                    {item.label}
                   </Link>
                 );
               })}
@@ -304,7 +263,7 @@ export default async function PortalHome({
                       active ? "border-primary text-primary" : "border-transparent text-[#111]/55"
                     }`}
                   >
-                    {item.label} <span className="ml-1.5 font-normal">{item.n}</span>
+                    {item.label}
                   </Link>
                 );
               })}
@@ -336,7 +295,6 @@ export default async function PortalHome({
                       )}
                     </span>
                     {f.label}
-                    <span className="font-mono text-xs text-[#111]/45">{feeCounts[f.key] ?? 0}</span>
                   </Link>
                 );
               })}

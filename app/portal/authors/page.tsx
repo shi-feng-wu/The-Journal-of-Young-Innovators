@@ -23,22 +23,12 @@ export default async function AuthorsPage({ searchParams }: { searchParams: Prom
     const key = s.email.toLowerCase();
     authors.set(key, [...(authors.get(key) ?? []), s]);
   }
-  const returning = [...authors.values()].filter((subs) => subs.length > 1).length;
 
   return (
     <PortalShell
       editor={editor}
       masthead={
-        <Masthead
-          title="Authors"
-          subtitle={
-            authors.size === 0
-              ? "Everyone who submits through the website form is listed here."
-              : `${authors.size} ${authors.size === 1 ? "student has" : "students have"} submitted${
-                  returning ? `, ${returning} of them more than once` : ""
-                }.`
-          }
-        />
+        <Masthead title="Authors" />
       }
     >
       <form action="/portal/authors" className="flex max-w-2xl gap-3">

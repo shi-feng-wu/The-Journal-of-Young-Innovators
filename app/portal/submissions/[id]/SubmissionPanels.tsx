@@ -342,7 +342,6 @@ export function RecordPanel(props: Props) {
             >
               {busy === "status" ? "Saving…" : "Change quietly"}
             </button>
-            <p className="font-text text-xs text-[#111]/50">Changes the stage without writing to the author.</p>
           </>
         )}
         {flashFor("status")}
@@ -359,7 +358,7 @@ export function RecordPanel(props: Props) {
             ))}
           </select>
         </label>
-        {payment !== props.paymentStatus ? (
+        {payment !== props.paymentStatus && (
           <>
             <input
               value={paymentNote}
@@ -378,8 +377,6 @@ export function RecordPanel(props: Props) {
               {busy === "payment" ? "Saving…" : "Save fee"}
             </button>
           </>
-        ) : (
-          <p className="font-text text-xs text-[#111]/50">Card payments through the Stripe link record themselves.</p>
         )}
         {flashFor("payment")}
       </div>
