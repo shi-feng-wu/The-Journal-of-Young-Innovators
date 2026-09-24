@@ -10,6 +10,7 @@ import {
 import { all, get, type Submission } from "@/lib/portal/db";
 import Pipeline from "./_components/Pipeline";
 import RefreshButton from "./_components/RefreshButton";
+import SearchBar from "./_components/SearchBar";
 import PortalShell from "./_components/PortalShell";
 import {
   BUTTON,
@@ -84,8 +85,9 @@ export default async function PortalHome({
   }
   if (filters.q) {
     where.push(
-      `(title LIKE :q OR first_name || ' ' || last_name LIKE :q OR email LIKE :q
-        OR school LIKE :q OR ref LIKE :q)`,
+      `(submissions.title LIKE :q
+        OR submissions.first_name || ' ' || submissions.last_name LIKE :q
+        OR submissions.email LIKE :q OR submissions.school LIKE :q OR submissions.ref LIKE :q)`,
     );
     params.q = `%${filters.q}%`;
   }
@@ -166,25 +168,18 @@ export default async function PortalHome({
             </div>
           )}
 
-          <form action="/portal" className="flex gap-3">
-            {filters.status !== "open" && <input type="hidden" name="status" value={filters.status} />}
-            {filters.payment && <input type="hidden" name="payment" value={filters.payment} />}
-            {filters.mine && <input type="hidden" name="mine" value="1" />}
-            <label className="sr-only" htmlFor="q">
-              Search submissions
-            </label>
-            <input
-              id="q"
-              name="q"
-              type="search"
-              defaultValue={filters.q}
-              placeholder="Search by title, author, email, school, or JYI reference"
-              className={INPUT}
-            />
-            <button type="submit" className={BUTTON.outline}>
-              Search
-            </button>
-          </form>
+          <SearchBar
+            action="/portal"
+            label="Search submissions"
+            placeholder="Title, author, or reference"
+            defaultValue={filters.q}
+            hidden={{
+              status: filters.status !== "open" ? filters.status : undefined,
+              payment: filters.payment,
+              mine: filters.mine ? "1" : undefined,
+            }}
+            clearHref={hrefFor(filters, { q: "" })}
+          />
 
           <h2 className="mt-10 font-display text-[28px] font-normal leading-tight lg:text-[32px]">{heading}</h2>
 

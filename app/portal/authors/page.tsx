@@ -3,6 +3,7 @@ import { requirePageEditor } from "@/lib/portal/auth";
 import { GRADE_LABELS } from "@/lib/portal/constants";
 import { all, type Submission } from "@/lib/portal/db";
 import PortalShell from "../_components/PortalShell";
+import SearchBar from "../_components/SearchBar";
 import { BUTTON, FeeMark, INPUT, META, Masthead, StageTrack, formatDate } from "../_components/ui";
 
 export const metadata = { title: "Authors" };
@@ -31,15 +32,15 @@ export default async function AuthorsPage({ searchParams }: { searchParams: Prom
         <Masthead title="Authors" />
       }
     >
-      <form action="/portal/authors" className="flex max-w-2xl gap-3">
-        <label htmlFor="q" className="sr-only">
-          Search authors
-        </label>
-        <input id="q" name="q" type="search" defaultValue={q} placeholder="Name, email, or school" className={INPUT} />
-        <button type="submit" className={BUTTON.outline}>
-          Search
-        </button>
-      </form>
+      <div className="max-w-3xl">
+        <SearchBar
+          action="/portal/authors"
+          label="Search authors"
+          placeholder="Name, email, or school"
+          defaultValue={q}
+          clearHref="/portal/authors"
+        />
+      </div>
 
       {authors.size === 0 ? (
         <p className="mt-10 border-t border-black/30 py-12 font-text text-base text-[#111]/65">
