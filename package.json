@@ -12,7 +12,8 @@
     "crossref-deposit": "tsx scripts/generate-crossref-deposit.ts",
     "portal:add-editor": "tsx scripts/portal-add-editor.ts",
     "portal:backfill": "tsx scripts/portal-backfill.ts",
-    "portal:sync-inbox": "tsx scripts/portal-sync-inbox.ts"
+    "portal:sync-inbox": "tsx scripts/portal-sync-inbox.ts",
+    "portal:backup": "tsx scripts/portal-backup.ts"
   },
   "dependencies": {
     "@heroui/react": "2.8.9",
