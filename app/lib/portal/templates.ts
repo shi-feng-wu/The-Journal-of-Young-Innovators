@@ -1,6 +1,6 @@
 // Email templates for the portal composer. Client-safe: plain data only.
-// Each one is taken from a real email the editors sent (or the template they
-// already use), with only the names, title and payment link filled in.
+// Each one started from a real email the editors sent, rewritten in a
+// business-casual voice. Only the names, title and payment link are filled in.
 // Editors always see and can edit the text before it is sent.
 
 import type { SubmissionStatus } from "./constants";
@@ -28,10 +28,9 @@ export interface EmailTemplate {
 
 const lines = (...parts: string[]) => parts.join("\n");
 
-// One sign-off for every email.
-const SIGN_OFF = ["Best regards,", "The Editorial Team", "The Journal of Young Innovators"];
+const SIGN_OFF = ["Best,", "The JYI editorial team"];
 
-const hello = (c: TemplateContext) => `Dear ${c.firstName || "Author"},`;
+const hi = (c: TemplateContext) => `Hi ${c.firstName || "there"},`;
 
 export const EMAIL_TEMPLATES: EmailTemplate[] = [
   {
@@ -41,46 +40,44 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     label: "Send to a reviewer",
     audience: "reviewer",
     setsStatus: "in_review",
-    subject: (c) => `Peer review request: “${c.title}”`,
+    subject: () => "Would you review a manuscript for JYI?",
     body: (c) =>
       lines(
-        "Dear [Reviewer name],",
+        "Hi [Reviewer name],",
         "",
-        `We are reaching out to invite you to serve as a peer reviewer for a manuscript titled “${c.title}.” The manuscript is attached. Given your expertise, your perspective would be especially helpful in assessing this piece.`,
+        `Would you be up for reviewing a manuscript for us? It's called “${c.title}”, and it's attached. Our review is double-blind, so please keep it confidential and don't try to work out who wrote it.`,
         "",
-        "In your review, please focus on the strength and originality of the central argument, clarity and organization, and how effectively the manuscript engages a broader academic and professional audience. Suggestions for refinement or repositioning are also welcome.",
+        "We'd love your take on how strong and original the argument is and how clearly it's written. Any suggestions for revision are welcome too.",
         "",
-        "To guide your feedback, please rate the following:",
+        "It helps us if you can score these from 1 to 5:",
+        "1. Argument and contribution",
+        "2. Clarity and structure",
+        "3. Engagement and relevance",
         "",
-        "1. Argument and contribution: how strong and original is the central argument? (1 to 5)",
-        "2. Clarity and structure: how clear, coherent, and well organized is the manuscript? (1 to 5)",
-        "3. Engagement and relevance: how effectively does the manuscript engage its intended audience and contribute to the field? (1 to 5)",
-        "4. Final decision: can this paper be published, and what is your overall rating?",
+        "Then tell us what you'd recommend.",
         "",
-        "We would appreciate receiving your feedback within the next two to three weeks. Please let us know if that timeline works for you.",
+        "Two to three weeks would be ideal. If that timing doesn't work, or you'd rather pass on this one, just reply and let us know.",
         "",
-        "Thank you for your time and for helping uphold the quality of our publication.",
-        "",
-        ...SIGN_OFF,
+        "Thanks so much,",
+        "The JYI editorial team",
       ),
   },
   {
-    // The journal's acceptance template, rewritten for the fee that is
-    // charged only on acceptance, with this manuscript's payment link.
+    // From the acceptance template, for the fee charged only on acceptance.
     id: "accept",
     label: "Accept",
     setsStatus: "accepted",
-    subject: (c) => `Accepted for publication: “${c.title}”`,
+    subject: (c) => `Good news about “${c.title}”`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        `We are pleased to inform you that following peer review, your manuscript, “${c.title},” has been accepted for publication in The Journal of Young Innovators.`,
+        `Great news: “${c.title}” has been accepted for publication in The Journal of Young Innovators. Congratulations!`,
         "",
-        "Accepted articles carry a publication fee of $65 USD. Please complete the payment using the following link:",
+        "Accepted articles have a $65 publication fee. You can pay by card here:",
         c.paymentUrl,
         "",
-        "Once your payment has been processed, we will send you a confirmation and schedule your article for publication. If the fee would prevent you from publishing, or if you have any questions, please reply to this email.",
+        "Once it's paid, we'll confirm and get your article scheduled. If the fee would keep you from publishing, just reply and we can talk about a waiver.",
         "",
         ...SIGN_OFF,
       ),
@@ -91,39 +88,33 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     label: "Accept, no fee",
     setsStatus: "accepted",
     waivesFee: true,
-    subject: (c) => `Accepted for publication: “${c.title}”`,
+    subject: (c) => `Good news about “${c.title}”`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        `We are pleased to inform you that following peer review, your manuscript, “${c.title},” has been approved for publication in The Journal of Young Innovators.`,
+        `Great news: “${c.title}” has been accepted for publication in The Journal of Young Innovators. Congratulations, and thanks for all the work you put into it.`,
         "",
-        "Congratulations on this achievement and on your commitment to academic research. Please expect your article to be published on the journal’s website within 30 days.",
+        "There's no publication fee for your article. We'll have it up on the journal's website within 30 days.",
         "",
         ...SIGN_OFF,
       ),
   },
   {
-    // From the revision request sent 2026-05-29 (reviewer feedback attached).
+    // From the revision request sent 2026-05-29 (reviewer comments attached).
     id: "revisions",
     label: "Request revisions",
     setsStatus: "revisions",
-    subject: (c) => `Revision request: “${c.title}”`,
+    subject: (c) => `Revisions for “${c.title}”`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        `Thank you for submitting your manuscript, “${c.title},” to The Journal of Young Innovators.`,
+        `Thanks again for sending us “${c.title}”. Our reviewer liked it and recommended it for publication with a few minor revisions. Their comments are attached.`,
         "",
-        "Following peer review, the editorial team has recommended your manuscript for publication pending minor revisions. The reviewer found the article to be a strong contribution to the field and has suggested only limited revisions to strengthen the final version.",
+        "Since the changes are small, you won't need another round of peer review. We'll just do a final read when you send the new version.",
         "",
-        "Because the requested revisions are minor in scope, your revised manuscript will not need a second round of peer review. It will go through a final editorial review when you resubmit.",
-        "",
-        "Please note that publication depends on satisfactorily addressing the attached reviewer feedback.",
-        "",
-        "To make sure your article is included in the forthcoming issue, please submit your revised draft within six weeks of the date of this email.",
-        "",
-        "We look forward to receiving your revised manuscript.",
+        "If you can get the revised draft back to us within six weeks, it can go in the next issue. Let us know if you have any questions about the comments.",
         "",
         ...SIGN_OFF,
       ),
@@ -133,14 +124,14 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     id: "in-review",
     label: "Under review notice",
     setsStatus: "in_review",
-    subject: (c) => `Your manuscript is under review: “${c.title}”`,
+    subject: (c) => `“${c.title}” is under review`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        "Thank you for your submission to The Journal of Young Innovators. Your article has been received and is currently under review by our editorial team.",
+        "Thanks for submitting to The Journal of Young Innovators. Your article is now with our editorial team for review.",
         "",
-        "Please allow approximately six to eight weeks for the review process to be completed. We appreciate your patience and your interest in contributing to our journal.",
+        "Review usually takes six to eight weeks. We'll be in touch as soon as we have a decision.",
         "",
         ...SIGN_OFF,
       ),
@@ -150,14 +141,14 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     id: "decline",
     label: "Decline",
     setsStatus: "rejected",
-    subject: (c) => `Submission decision: “${c.title}”`,
+    subject: (c) => `Your submission “${c.title}”`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        `Thank you for your submission, “${c.title}.” Unfortunately, the manuscript does not meet our criteria for a research article, and we are unable to accept it for publication.`,
+        `Thanks for sending us “${c.title}”. Unfortunately it doesn't meet our criteria for a research article, so we can't accept it for publication.`,
         "",
-        "We wish you the best of luck with your future submissions.",
+        "We hope you'll keep writing, and you're welcome to submit again in the future.",
         "",
         ...SIGN_OFF,
       ),
@@ -167,16 +158,14 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     id: "decline-ai",
     label: "Decline for AI content",
     setsStatus: "rejected",
-    subject: (c) => `Submission decision: “${c.title}”`,
+    subject: (c) => `Your submission “${c.title}”`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        `Thank you for submitting your article, “${c.title},” to The Journal of Young Innovators.`,
+        `Thanks for sending us “${c.title}”. During review we had concerns about how much of the article was written with AI, so we've decided not to move forward with it.`,
         "",
-        "As part of our review process, we identified concerns about the extent of AI-generated content in the article. After careful consideration, we have decided not to move forward with the submission for publication at this time.",
-        "",
-        "We appreciate the time and effort you put into your submission and thank you for your interest in contributing to the journal.",
+        "We appreciate the time you put into it, and you're welcome to submit new work in the future.",
         "",
         ...SIGN_OFF,
       ),
@@ -185,12 +174,12 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     // From the question sent 2026-08-27.
     id: "ai-question",
     label: "Ask about AI use",
-    subject: (c) => `Question about AI use: “${c.title}”`,
+    subject: (c) => `A question about “${c.title}”`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        "Thank you for your submission. Could you please tell us how much AI was used in writing the article? Our AI detection tool indicates that much of the article may be AI-generated.",
+        "Thanks for your submission. Our AI detection tool flagged a lot of the article as AI-generated. Could you tell us how you used AI while writing it?",
         "",
         ...SIGN_OFF,
       ),
@@ -199,13 +188,15 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     // From the note sent 2026-08-12.
     id: "format",
     label: "Formatting request",
-    subject: (c) => `Formatting: “${c.title}”`,
+    subject: (c) => `Formatting for “${c.title}”`,
     body: (c) =>
       lines(
-        hello(c),
+        hi(c),
         "",
-        "Please check your manuscript against the formatting requirements on our submission page and resubmit it in that format. We are unable to review papers that do not follow it.",
+        "Thanks for your submission. Before we can review it, it needs to follow our formatting requirements, which are here:",
         "https://young-innovator.org/submission#formatting-requirements",
+        "",
+        "Could you update the manuscript and send it back to us?",
         "",
         ...SIGN_OFF,
       ),
@@ -213,7 +204,7 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   {
     id: "blank",
     label: "Blank email",
-    subject: (c) => `About your submission: “${c.title}”`,
-    body: (c) => lines(hello(c), "", "", ...SIGN_OFF),
+    subject: (c) => `About “${c.title}”`,
+    body: (c) => lines(hi(c), "", "", ...SIGN_OFF),
   },
 ];
