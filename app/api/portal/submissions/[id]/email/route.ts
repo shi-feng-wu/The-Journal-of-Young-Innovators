@@ -42,7 +42,7 @@ export const POST = handle(
     if (totalBytes > MAX_ATTACHMENT_BYTES) {
       throw new ApiError(413, "Attachments must add up to 15 MB or less.");
     }
-    const attachments = await Promise.all(
+    const attachments: Array<{ filename: string; content: Buffer; storedAt?: string }> = await Promise.all(
       files.map(async (f) => ({
         filename: f.name,
         content: Buffer.from(await f.arrayBuffer()),
@@ -58,6 +58,8 @@ export const POST = handle(
       attachments.unshift({
         filename: toAuthor ? original : `${submission.ref} manuscript${path.extname(original).toLowerCase()}`,
         content: fs.readFileSync(file),
+        // Already stored; the history links to the manuscript itself.
+        storedAt: submission.manuscript_file,
       });
     }
 
@@ -69,13 +71,23 @@ export const POST = handle(
       throw new ApiError(502, "The email could not be sent. Nothing was changed.");
     }
 
+    // Keep copies of what was attached so the history can show it.
+    const sentDir = path.join(submission.ref, "sent", String(Date.now()));
+    const stored = attachments.map((a) => {
+      if (a.storedAt) return { name: a.filename, path: a.storedAt };
+      const rel = path.join(sentDir, path.basename(a.filename).replace(/[^\w.\- ()]/g, "_") || "attachment");
+      fs.mkdirSync(path.join(MANUSCRIPT_DIR, sentDir), { recursive: true });
+      fs.writeFileSync(path.join(MANUSCRIPT_DIR, rel), a.content);
+      return { name: a.filename, path: rel };
+    });
+
     // The status only changes once the email has actually gone out.
     transaction(() => {
       logEvent(id, editor.id, "email", sentLine(to, submission.email, subject), {
         to,
         subject,
         body: text,
-        attachments: attachments.map((a) => a.filename),
+        attachments: stored,
       });
       if (setStatus) {
         changeStatus(getSubmission(id)!, setStatus, editor.id, { waiveFee });

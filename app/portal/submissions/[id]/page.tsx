@@ -91,6 +91,9 @@ const EVENT_MARK: Record<PortalEvent["type"], string> = {
   reply: "bg-[#32965d] ring-2 ring-[#32965d]/25",
 };
 
+const IMAGE = /\.(png|jpe?g|gif|webp)$/i;
+const fileUrl = (p: string) => `/api/portal/files?path=${encodeURIComponent(p)}`;
+
 function EmailBody({ data, incoming }: { data: string; incoming?: boolean }) {
   const email = JSON.parse(data) as {
     to?: string;
@@ -98,7 +101,9 @@ function EmailBody({ data, incoming }: { data: string; incoming?: boolean }) {
     body: string;
     attachments?: Array<string | { name: string; path: string }>;
   };
-  const files = email.attachments ?? [];
+  const files = (email.attachments ?? []).map((f) => (typeof f === "string" ? { name: f, path: null } : f));
+  const images = files.filter((f) => f.path && IMAGE.test(f.name));
+  const others = files.filter((f) => !(f.path && IMAGE.test(f.name)));
   return (
     <details className="group/email mt-2">
       <summary className="cursor-pointer list-none font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-primary underline-offset-4 hover:underline">
@@ -109,26 +114,57 @@ function EmailBody({ data, incoming }: { data: string; incoming?: boolean }) {
         <p className="font-mono text-[11px] text-[#111]/55">
           {incoming ? `From ${email.from}` : `To ${email.to}`}
         </p>
-        {files.length > 0 && (
-          <p className="mt-1 flex flex-wrap gap-x-4 font-mono text-[11px] text-[#111]/55">
-            {files.map((f) =>
-              typeof f === "string" ? (
-                <span key={f}>{f}</span>
-              ) : (
-                <a
-                  key={f.path}
-                  href={`/api/portal/files?path=${encodeURIComponent(f.path)}`}
-                  className="text-primary underline underline-offset-2"
-                >
-                  {f.name}
-                </a>
-              ),
-            )}
+        {email.body && (
+          <p className="mt-4 max-w-[68ch] whitespace-pre-wrap font-text text-[15px] leading-[1.7] text-[#111]/85">
+            {email.body}
           </p>
         )}
-        <p className="mt-4 max-w-[68ch] whitespace-pre-wrap font-text text-[15px] leading-[1.7] text-[#111]/85">
-          {email.body}
-        </p>
+        {images.length > 0 && (
+          <div className="mt-5 flex flex-wrap gap-4">
+            {images.map((f) => (
+              <a
+                key={f.path}
+                href={fileUrl(f.path!)}
+                target="_blank"
+                rel="noreferrer"
+                className="group/img block max-w-full"
+              >
+                {/* Editor-only files served behind the portal session. */}
+                <img
+                  src={fileUrl(f.path!)}
+                  alt={f.name}
+                  loading="lazy"
+                  className="max-h-96 max-w-full border border-black/10 transition-opacity group-hover/img:opacity-90"
+                />
+                <span className="mt-1.5 block font-mono text-[11px] text-[#111]/55 group-hover/img:text-primary">
+                  {f.name}
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+        {others.length > 0 && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {others.map((f, i) =>
+              f.path ? (
+                <a
+                  key={f.path}
+                  href={fileUrl(f.path)}
+                  className="inline-flex items-center gap-2 rounded-md border border-primary/30 px-3 py-1.5 font-mono text-[11px] text-primary transition-colors hover:border-primary hover:bg-primary/5"
+                >
+                  <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                    <path d="M8 2v8m0 0l-3.5-3.5M8 10l3.5-3.5M2.5 13.5h11" />
+                  </svg>
+                  {f.name}
+                </a>
+              ) : (
+                <span key={`${f.name}-${i}`} className="inline-flex items-center rounded-md border border-black/10 px-3 py-1.5 font-mono text-[11px] text-[#111]/55">
+                  {f.name}
+                </span>
+              ),
+            )}
+          </div>
+        )}
       </div>
     </details>
   );

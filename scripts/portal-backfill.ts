@@ -6,7 +6,8 @@
 //   { tag, firstName, lastName, email, phone, school, gradeLevel, title,
 //     submissionType, submittedAt (ISO), status, paymentStatus,
 //     mail: [{ direction: "in"|"out", from, fromName?, to, subject, at (ISO),
-//              html, attachments?: [file names] }] }
+//              html, attachments?: [file names],
+//              files?: [{ name, path }] }] }   (path: a local copy to store)
 // History is built only from the literal emails plus fixed wording (see
 // app/lib/portal/wording.ts); the import never writes free-text summaries.
 // With --files, the manuscript for a record is the first file in <dir>/<tag>/.
@@ -72,6 +73,7 @@ interface Record {
     at: string;
     html: string;
     attachments?: string[];
+    files?: Array<{ name: string; path: string }>;
   }>;
 }
 
@@ -115,17 +117,29 @@ function addEvent(id: number, type: string, summary: string, at: string, data?: 
   );
 }
 
+/** Copies an email's attachments next to the manuscript; returns history entries. */
+function storeFiles(ref: string, index: number, m: NonNullable<Record["mail"]>[number]) {
+  if (!m.files?.length) return m.attachments ?? [];
+  const dir = path.join(ref, "mail", String(index + 1));
+  fs.mkdirSync(path.join(MANUSCRIPT_DIR, dir), { recursive: true });
+  return m.files.map((f) => {
+    const rel = path.join(dir, safeName(f.name));
+    fs.copyFileSync(f.path, path.join(MANUSCRIPT_DIR, rel));
+    return { name: f.name, path: rel };
+  });
+}
+
 /** History from the literal emails, plus fixed lines for what the import set. */
-function writeHistory(id: number, r: Record) {
+function writeHistory(id: number, ref: string, r: Record) {
   addEvent(id, "created", SUBMITTED, r.submittedAt);
   const mail = [...(r.mail ?? [])].sort((a, b) => a.at.localeCompare(b.at));
-  for (const m of mail) {
+  for (const [index, m] of mail.entries()) {
     const body = mailText(m.html);
-    const attachments = m.attachments ?? [];
+    const attachments = storeFiles(ref, index, m);
     if (m.direction === "out") {
       addEvent(id, "email", sentLine(m.to, r.email, m.subject), m.at, { to: m.to, subject: m.subject, body, attachments });
     } else {
-      const withManuscript = attachments.some((a) => /\.(docx?|pdf)$/i.test(a));
+      const withManuscript = attachments.some((a) => /\.(docx?|pdf)$/i.test(typeof a === "string" ? a : a.name));
       addEvent(id, "reply", receivedLine(m.from, m.fromName ?? null, r.email, m.subject, withManuscript), m.at, {
         from: m.from,
         subject: m.subject,
@@ -154,7 +168,7 @@ for (const r of records) {
       const sub = get<{ id: number }>("SELECT id FROM submissions WHERE ref = :ref", { ref: existing.ref })!;
       transaction(() => {
         run("DELETE FROM events WHERE submission_id = :id", { id: sub.id });
-        writeHistory(sub.id, r);
+        writeHistory(sub.id, existing.ref, r);
       });
       console.log(`rebuilt history  ${existing.ref}  ${r.title.slice(0, 60)}`);
     } else {
@@ -193,7 +207,7 @@ for (const r of records) {
 
   transaction(() => {
     run("DELETE FROM events WHERE submission_id = :id", { id: submission.id });
-    writeHistory(submission.id, r);
+    writeHistory(submission.id, submission.ref, r);
     run(
       `UPDATE submissions
           SET status = :status, payment_status = :payment,
