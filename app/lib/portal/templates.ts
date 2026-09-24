@@ -18,6 +18,8 @@ export interface EmailTemplate {
   setsStatus?: SubmissionStatus;
   /** Sending this template marks the fee as waived. */
   waivesFee?: boolean;
+  /** Who the letter goes to. Reviewer letters get an editable To field. */
+  audience?: "author" | "reviewer";
   subject: (c: TemplateContext) => string;
   body: (c: TemplateContext) => string;
 }
@@ -35,8 +37,36 @@ const greeting = (c: TemplateContext) => `Dear ${c.firstName || "Author"},`;
 
 export const EMAIL_TEMPLATES: EmailTemplate[] = [
   {
+    id: "review-request",
+    label: "Send to a reviewer",
+    audience: "reviewer",
+    setsStatus: "in_review",
+    subject: (c) => `Review request: "${c.title}" [${c.ref}]`,
+    // Review is double-blind: nothing here names the author.
+    body: (c) =>
+      [
+        "Dear [Reviewer name],",
+        "",
+        `We would like to invite you to review a manuscript submitted to The Journal of Young Innovators, "${c.title}". The manuscript is attached. Review at JYI is double-blind, so please keep the manuscript confidential and do not try to identify the author.`,
+        "",
+        "In your review, please look at the strength and originality of the central argument, how clearly the manuscript is written and organized, and how well it speaks to a broad academic audience. Suggestions for revision are welcome.",
+        "",
+        "Please rate each of these from 1 to 5:",
+        "1. Argument and contribution: how strong and original is the central argument?",
+        "2. Clarity and structure: how clear and well organized is the manuscript?",
+        "3. Engagement and relevance: how well does it engage its readers and contribute to the field?",
+        "",
+        "Then give your recommendation: accept, accept with revisions, or decline.",
+        "",
+        "We would be grateful to have your review within two to three weeks. If that timing doesn't work, or you would rather not review this one, just reply and let us know.",
+        "",
+        `When you reply, please keep ${c.ref} in the subject line so your review reaches the right file.`,
+        signOff(c),
+      ].join("\n"),
+  },
+  {
     id: "in-review",
-    label: "Send to reviewers",
+    label: "Under review notice",
     setsStatus: "in_review",
     subject: (c) => `Your manuscript is under review (${c.ref})`,
     body: (c) =>

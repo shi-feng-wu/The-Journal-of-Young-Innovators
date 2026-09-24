@@ -160,6 +160,16 @@ export default async function SubmissionPage({
   const authorName =
     `${submission.first_name} ${submission.last_name}`.trim() ||
     submission.email;
+  // Anyone the journal has emailed about a manuscript who is not its author.
+  const reviewers = all<{ to: string }>(
+    `SELECT DISTINCT json_extract(events.data, '$.to') AS "to"
+       FROM events JOIN submissions ON submissions.id = events.submission_id
+      WHERE events.type = 'email'
+        AND json_extract(events.data, '$.to') IS NOT NULL
+        AND lower(json_extract(events.data, '$.to')) != lower(submissions.email)
+      ORDER BY 1`,
+  ).map((r) => r.to);
+
   const panelProps = {
     submissionId: submission.id,
     email: submission.email,
@@ -168,6 +178,8 @@ export default async function SubmissionPage({
     paymentStatus: submission.payment_status,
     assignedEditorId: submission.assigned_editor_id,
     editors,
+    reviewers,
+    manuscriptName: submission.manuscript_file ? submission.manuscript_name : null,
     context: {
       firstName: submission.first_name,
       title: submission.title,
@@ -290,7 +302,7 @@ export default async function SubmissionPage({
             )}
           </Section>
 
-          <Section id="decision" title="Write to the author">
+          <Section id="decision" title="Write a letter">
             <DecisionPanel {...panelProps} />
           </Section>
 

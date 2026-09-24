@@ -22,6 +22,9 @@ interface Props {
   assignedEditorId: number | null;
   editors: Array<{ id: number; name: string }>;
   context: TemplateContext;
+  /** Addresses the journal has sent review requests to before. */
+  reviewers: string[];
+  manuscriptName: string | null;
 }
 
 type Message = { kind: "ok" | "error"; text: string } | null;
@@ -61,6 +64,7 @@ type Action = { template: string; when?: (p: Props) => boolean };
 const DECISIONS: Action[] = [
   { template: "accept", when: (p) => !["accepted", "published"].includes(p.status) },
   { template: "accept-waived", when: (p) => !["accepted", "published"].includes(p.status) },
+  { template: "review-request", when: (p) => ["received", "in_review", "revisions"].includes(p.status) },
   { template: "revisions", when: (p) => ["received", "in_review", "revisions"].includes(p.status) },
   { template: "in-review", when: (p) => p.status === "received" },
   { template: "decline", when: (p) => !["rejected", "published", "withdrawn"].includes(p.status) },
@@ -80,12 +84,15 @@ export function DecisionPanel(props: Props) {
   const [body, setBody] = useState("");
   const [applyStatus, setApplyStatus] = useState(true);
   const [files, setFiles] = useState<File[]>([]);
+  const [to, setTo] = useState("");
+  const [attachManuscript, setAttachManuscript] = useState(true);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<Message>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const letterRef = useRef<HTMLFormElement>(null);
 
   const template = EMAIL_TEMPLATES.find((t) => t.id === templateId);
+  const toReviewer = template?.audience === "reviewer";
   const byId = (id: string) => EMAIL_TEMPLATES.find((t) => t.id === id)!;
 
   const open = (id: string) => {
@@ -95,10 +102,13 @@ export function DecisionPanel(props: Props) {
     setBody(t.body(props.context));
     setApplyStatus(true);
     setFiles([]);
+    setTo("");
+    setAttachManuscript(!!props.manuscriptName);
     setMessage(null);
     requestAnimationFrame(() => {
       letterRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      letterRef.current?.querySelector("textarea")?.focus({ preventScroll: true });
+      const first = t.audience === "reviewer" ? "input[type=email]" : "textarea";
+      letterRef.current?.querySelector<HTMLElement>(first)?.focus({ preventScroll: true });
     });
   };
 
@@ -114,6 +124,10 @@ export function DecisionPanel(props: Props) {
       form.set("setStatus", template.setsStatus);
       if (template.waivesFee) form.set("waiveFee", "true");
     }
+    if (toReviewer) {
+      form.set("to", to);
+      if (attachManuscript) form.set("attachManuscript", "true");
+    }
     for (const file of files) form.append("attachments", file);
     const error = await send(`/api/portal/submissions/${props.submissionId}/email`, {
       method: "POST",
@@ -125,7 +139,7 @@ export function DecisionPanel(props: Props) {
       return;
     }
     setTemplateId(null);
-    setMessage({ kind: "ok", text: `Sent “${subject}” to ${props.email}.` });
+    setMessage({ kind: "ok", text: `Sent “${subject}” to ${toReviewer ? to : props.email}.` });
     router.refresh();
   };
 
@@ -184,9 +198,28 @@ export function DecisionPanel(props: Props) {
           <div className="border border-black/15 bg-white">
             <div className="grid grid-cols-[72px_minmax(0,1fr)] items-center border-b border-black/10 px-5 sm:px-8">
               <span className={LABEL}>To</span>
-              <p className="truncate py-3.5 font-text text-[15px]">
-                {props.authorName} <span className="text-[#111]/55">&lt;{props.email}&gt;</span>
-              </p>
+              {toReviewer ? (
+                <>
+                  <input
+                    type="email"
+                    value={to}
+                    onChange={(e) => setTo(e.target.value)}
+                    list="known-reviewers"
+                    placeholder="reviewer@example.com"
+                    required
+                    className="w-full bg-transparent py-3.5 font-text text-[15px] text-[#111] placeholder:text-[#111]/35 focus:outline-none"
+                  />
+                  <datalist id="known-reviewers">
+                    {props.reviewers.map((r) => (
+                      <option key={r} value={r} />
+                    ))}
+                  </datalist>
+                </>
+              ) : (
+                <p className="truncate py-3.5 font-text text-[15px]">
+                  {props.authorName} <span className="text-[#111]/55">&lt;{props.email}&gt;</span>
+                </p>
+              )}
             </div>
             <label className="grid grid-cols-[72px_minmax(0,1fr)] items-center border-b border-black/10 px-5 sm:px-8">
               <span className={LABEL}>Subject</span>
@@ -208,6 +241,17 @@ export function DecisionPanel(props: Props) {
               />
             </label>
             <div className="flex flex-wrap items-center gap-3 border-t border-black/10 px-5 py-3.5 sm:px-8">
+              {toReviewer && props.manuscriptName && (
+                <label className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-primary/[0.07] py-1 pr-3 pl-2.5 font-mono text-[11px] text-primary">
+                  <input
+                    type="checkbox"
+                    checked={attachManuscript}
+                    onChange={(e) => setAttachManuscript(e.target.checked)}
+                    className="h-3.5 w-3.5 accent-[#002d72]"
+                  />
+                  {`${props.context.ref} manuscript.${props.manuscriptName.split(".").pop()?.toLowerCase()}`}
+                </label>
+              )}
               <button type="button" onClick={() => fileRef.current?.click()} className={BUTTON.quiet}>
                 <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
                   <path d="M10.5 4.5l-5 5a1.4 1.4 0 002 2l5.5-5.5a2.8 2.8 0 00-4-4L3.5 7.5a4.2 4.2 0 006 6l4-4" />
@@ -234,9 +278,6 @@ export function DecisionPanel(props: Props) {
                   </button>
                 </span>
               ))}
-              {files.length === 0 && (
-                <span className="font-text text-xs text-[#111]/45">Reviewer comments, proofs, up to 15 MB</span>
-              )}
             </div>
           </div>
 
