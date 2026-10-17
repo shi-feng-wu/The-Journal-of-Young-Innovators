@@ -507,7 +507,7 @@ function drawCoverPage(doc: PDFDocument, assets: Assets, article: Article) {
   return page;
 }
 
-async function stampOne(article: Article) {
+async function stampOne(article: Article, replaceTitlePage = false) {
   const filename = `${article.slug}.pdf`;
   const filePath = path.join(pdfDir, filename);
 
@@ -559,6 +559,14 @@ async function stampOne(article: Article) {
       return;
     }
     const assets = await embedAssets(doc);
+    // Editorial manuscripts may already include a title-only first page.
+    // Replacing that page preserves the editors' assigned issue pagination.
+    if (replaceTitlePage) {
+      if (doc.getPageCount() !== article.pageCount) {
+        throw new Error(`${filename}: expected ${article.pageCount} manuscript pages`);
+      }
+      doc.removePage(0);
+    }
     drawCoverPage(doc, assets, article);
   }
 
@@ -634,11 +642,20 @@ async function main() {
     return;
   }
 
-  console.log(`Stamping cover + metadata on ${SITE_ARTICLES.length} PDFs...`);
+  const onlyIdx = argv.indexOf("--only");
+  const only = onlyIdx === -1 ? undefined : argv[onlyIdx + 1];
+  const articles = only ? SITE_ARTICLES.filter((a) => a.slug === only) : SITE_ARTICLES;
+  if ((onlyIdx !== -1 && !only) || articles.length === 0) {
+    throw new Error("--only requires a known article slug");
+  }
+  if (argv.includes("--replace-title-page") && !only) {
+    throw new Error("--replace-title-page requires --only <slug>");
+  }
+  console.log(`Stamping cover + metadata on ${articles.length} PDFs...`);
   console.log(`License URL embedded: ${LICENSE_URL}`);
   console.log("");
-  for (const article of SITE_ARTICLES) {
-    await stampOne(article);
+  for (const article of articles) {
+    await stampOne(article, argv.includes("--replace-title-page"));
   }
   console.log("");
   console.log("Done. Verify with: pdfinfo 'public/issues/articles/<slug>.pdf'");

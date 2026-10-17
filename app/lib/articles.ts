@@ -310,6 +310,39 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     firstPage: 48,
     lastPage: 51,
   },
+  {
+    id: 18,
+    title: "Energy and Water Conservation in AI Data Centers",
+    author: "Z. Qian",
+    publishDate: "2026-10-10",
+    category: "Research Articles",
+    volume: 2,
+    issueNumber: 2,
+    abstract:
+      "As artificial intelligence applications become increasingly widespread, data centers' electricity and water consumption is drawing growing attention. This article analyzes 30 scientific and institutional reports to explore how these facilities can meet ever-increasing computing demands while conserving resources. The article compares published estimates with survey findings and uses a simple calculation to illustrate the impact of a lower power usage effectiveness (PUE) ratio. In 2023, electricity consumption at U.S. data centers reached 176 terawatt-hours (TWh); a 2024 national report projects that this figure will reach 325–580 TWh by 2028. Assuming IT power demand remains constant, reducing the PUE from 1.54 to 1.10 would decrease a facility’s total electricity consumption by 28.6%. Using a PUE of 1.40 as a baseline, total electricity consumption would decrease by 21.4% while achieving the same goal. The literature advocates improving both computational and facility operational efficiency; however, cooling choices must account for local water supply and the electricity source. Low-carbon electricity can reduce emissions, but it does not reduce electricity demand. The study concludes that resource conservation requires efficient data processing, appropriate cooling systems, and location-specific management of electricity and water resources. Beyond efficiency metrics, absolute consumption data are important for evaluating progress.",
+    image: "/images/optimized/blackbox-1600.webp",
+    pdfBasename: "AI Data Centers",
+    pageCount: 24,
+    firstPage: 52,
+    lastPage: 75,
+  },
+  {
+    id: 19,
+    title:
+      "Comparing the Performance of American Football Helmet Materials Using Finite Element Simulation",
+    author: "G. Sayde",
+    publishDate: "2026-10-15",
+    category: "Research Articles",
+    volume: 2,
+    issueNumber: 2,
+    abstract:
+      "Concussions remain a major safety concern in the NFL, where player-to-player and head-to-ground impacts can generate substantial head loading. Building on a prior video-analysis project that identified common concussion mechanisms and impact locations, this study used finite element simulations in Autodesk Fusion 360 to evaluate how helmet materials affected force transmission to a simplified headform. Expanded polypropylene (EPP) and expanded thermoplastic polyurethane (E-TPU) padding were compared under low-, medium-, and high-magnitude prescribed frontal, side, and rear loads. Polycarbonate (PC) and high-strength polycarbonate (HS-PC) shells were compared under frontal loading. Outputs included peak headform contact force, peak linear acceleration, and total padding displacement. Compared with EPP, E-TPU reduced peak headform contact force by 30–53% under frontal loading and 41–48% under side loading. The largest acceleration reduction (60%) occurred under high-magnitude side loading, accompanied by a 50% increase in padding displacement. The high-magnitude rear-impact E-TPU simulation did not converge due to excessive padding compression. PC and HS-PC produced nearly identical frontal-force results. Because the model used simplified geometry and constraints, omitted rotational motion, and lacked experimental validation, these findings represent relative material comparisons rather than concussion-risk predictions. The results support further testing of zoned or multilayer EPP/E-TPU padding systems to balance lower peak loading with controlled deformation.",
+    image: "/images/optimized/helmet-simulation.webp",
+    pdfBasename: "Football Helmet Materials",
+    pageCount: 26,
+    firstPage: 76,
+    lastPage: 101,
+  },
 ];
 
 /** Parse a YYYY-M-D publish date in local time (ISO strings otherwise parse
