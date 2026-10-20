@@ -405,9 +405,9 @@ export default function Home() {
                 publication.
               </p>
               <p>
-                After you submit your manuscript, you will be taken to our
-                secure Stripe checkout page, and your confirmation email
-                contains the same payment link. Payment must be completed
+                After you submit your manuscript, our secure Stripe checkout
+                opens on the same page, and your confirmation email also
+                contains a payment link. Payment must be completed
                 before the manuscript can proceed to editorial review. Failure
                 to pay the submission fee will result in your paper not being
                 considered for publication by the JYI Editorial Board. A parent,

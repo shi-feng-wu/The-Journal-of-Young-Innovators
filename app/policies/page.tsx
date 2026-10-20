@@ -301,12 +301,13 @@ export default function PoliciesPage() {
                 readers nothing.
               </p>
               <p>
-                After submitting, authors are taken to our secure Stripe
-                checkout page, and the confirmation email carries the same
-                payment link. Payment must be completed before the manuscript
-                can proceed to editorial review; manuscripts whose fee is not
-                paid are not considered for publication. A parent, guardian, or
-                school may make the payment on the author&apos;s behalf.
+                Authors pay by card in our secure Stripe checkout, which opens
+                on the submission page as soon as the manuscript is sent. The
+                confirmation email also carries a payment link. Payment must be
+                completed before the manuscript can proceed to editorial review;
+                manuscripts whose fee is not paid are not considered for
+                publication. A parent, guardian, or school may make the payment
+                on the author&apos;s behalf.
               </p>
               <p>
                 The fee is non-refundable, including when a manuscript is

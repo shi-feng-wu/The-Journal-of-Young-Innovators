@@ -1,5 +1,11 @@
 import crypto from "node:crypto";
-import { FEE_PAY_PATH, FEE_PAYMENT_LINK_IDS } from "../fees";
+import {
+  FEE_CHECKOUT_PURPOSE,
+  FEE_PAY_PATH,
+  FEE_PAYMENT_LINK_IDS,
+  SUBMISSION_FEE_PRODUCT_NAME,
+} from "../fees";
+import { SUBMISSION_FEE_CENTS } from "./constants";
 import {
   all,
   get,
@@ -70,6 +76,7 @@ export interface CheckoutSessionLike {
   amount_total?: number | null;
   currency?: string | null;
   created?: number;
+  metadata?: Record<string, string> | null;
   customer_details?: { email?: string | null; name?: string | null } | null;
   custom_fields?: Array<{
     key?: string;
@@ -85,7 +92,9 @@ export interface CheckoutSessionLike {
     | null;
 }
 
+/** A fee paid in the form's embedded checkout or through a payment link. */
 export function isFeeSession(session: CheckoutSessionLike) {
+  if (session.metadata?.purpose === FEE_CHECKOUT_PURPOSE) return true;
   return !!session.payment_link && FEE_PAYMENT_LINK_IDS.includes(session.payment_link);
 }
 
@@ -266,51 +275,110 @@ export function assignPayment(
   });
 }
 
-// ---- Pulling from the Stripe API -----------------------------------------
+// ---- The Stripe API --------------------------------------------------------
 
-export const stripeSyncEnabled = () => !!process.env.STRIPE_RESTRICTED_KEY;
+const stripeKey = () => process.env.STRIPE_SECRET_KEY;
+
+export const stripeCheckoutEnabled = () => !!stripeKey();
+
+export const stripeSyncEnabled = () =>
+  !!(process.env.STRIPE_RESTRICTED_KEY || stripeKey());
+
+async function stripeApi<T>(
+  path: string,
+  key: string,
+  body?: URLSearchParams,
+): Promise<T> {
+  const response = await fetch(`https://api.stripe.com/v1/${path}`, {
+    method: body ? "POST" : "GET",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      ...(body ? { "Content-Type": "application/x-www-form-urlencoded" } : {}),
+    },
+    body,
+    cache: "no-store",
+  });
+  const json = await response.json().catch(() => null);
+  if (!response.ok) {
+    throw new Error(
+      `Stripe returned ${response.status}: ${json?.error?.message ?? "unknown error"}`,
+    );
+  }
+  return json as T;
+}
 
 /**
- * Reads every completed checkout through the fee payment links and records
- * any the webhook missed. Needs STRIPE_RESTRICTED_KEY with read access to
- * Checkout Sessions, PaymentIntents, and Charges.
+ * Opens an embedded Checkout Session for a submission's fee. The session is
+ * tagged with the submission reference so the webhook can match it.
+ */
+export async function createFeeCheckout(
+  submission: Pick<Submission, "ref" | "email" | "title">,
+): Promise<{ id: string; client_secret: string }> {
+  const key = stripeKey();
+  if (!key) throw new Error("STRIPE_SECRET_KEY is not set.");
+  const params = new URLSearchParams({
+    ui_mode: "embedded_page",
+    mode: "payment",
+    redirect_on_completion: "never",
+    client_reference_id: submission.ref,
+    "line_items[0][quantity]": "1",
+    "line_items[0][price_data][currency]": "usd",
+    "line_items[0][price_data][unit_amount]": String(SUBMISSION_FEE_CENTS),
+    "line_items[0][price_data][product_data][name]": SUBMISSION_FEE_PRODUCT_NAME,
+    "line_items[0][price_data][product_data][description]": submission.title.slice(0, 500),
+    "metadata[purpose]": FEE_CHECKOUT_PURPOSE,
+    "metadata[ref]": submission.ref,
+    "payment_intent_data[description]": `${SUBMISSION_FEE_PRODUCT_NAME} ${submission.ref}`,
+    "payment_intent_data[metadata][purpose]": FEE_CHECKOUT_PURPOSE,
+    "payment_intent_data[metadata][ref]": submission.ref,
+  });
+  if (submission.email) params.set("customer_email", submission.email);
+  return stripeApi("checkout/sessions", key, params);
+}
+
+/**
+ * Reads one Checkout Session back from Stripe and records it. The form calls
+ * this when the embedded checkout finishes, so the portal does not have to
+ * wait for the webhook.
+ */
+export async function confirmFeeCheckout(sessionId: string) {
+  const key = stripeKey();
+  if (!key) throw new Error("STRIPE_SECRET_KEY is not set.");
+  const params = new URLSearchParams();
+  params.append("expand[]", "payment_intent.latest_charge");
+  const session = await stripeApi<CheckoutSessionLike>(
+    `checkout/sessions/${encodeURIComponent(sessionId)}?${params}`,
+    key,
+  );
+  return { session, payment: recordCheckoutSession(session) };
+}
+
+/**
+ * Reads every completed checkout and records the fees the webhook missed.
+ * Uses STRIPE_RESTRICTED_KEY (read access to Checkout Sessions,
+ * PaymentIntents, and Charges) when set, otherwise the secret key.
  */
 export async function syncFromStripe(): Promise<{ seen: number; added: number }> {
-  const key = process.env.STRIPE_RESTRICTED_KEY;
+  const key = process.env.STRIPE_RESTRICTED_KEY || stripeKey();
   if (!key) throw new Error("STRIPE_RESTRICTED_KEY is not set.");
   const before = get<{ n: number }>("SELECT COUNT(*) AS n FROM payments")!.n;
   let seen = 0;
-  for (const paymentLink of FEE_PAYMENT_LINK_IDS) {
-    let startingAfter: string | undefined;
-    for (let page = 0; page < 20; page++) {
-      const params = new URLSearchParams({
-        payment_link: paymentLink,
-        status: "complete",
-        limit: "100",
-      });
-      params.append("expand[]", "data.payment_intent.latest_charge");
-      if (startingAfter) params.set("starting_after", startingAfter);
-      const response = await fetch(
-        `https://api.stripe.com/v1/checkout/sessions?${params}`,
-        { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" },
-      );
-      if (!response.ok) {
-        const body = await response.json().catch(() => null);
-        throw new Error(
-          `Stripe returned ${response.status}: ${body?.error?.message ?? "unknown error"}`,
-        );
-      }
-      const list = (await response.json()) as {
-        data: CheckoutSessionLike[];
-        has_more: boolean;
-      };
-      for (const session of list.data) {
-        seen += 1;
-        recordCheckoutSession(session);
-      }
-      if (!list.has_more || list.data.length === 0) break;
-      startingAfter = list.data[list.data.length - 1].id;
+  let startingAfter: string | undefined;
+  for (let page = 0; page < 20; page++) {
+    const params = new URLSearchParams({ status: "complete", limit: "100" });
+    params.append("expand[]", "data.payment_intent.latest_charge");
+    if (startingAfter) params.set("starting_after", startingAfter);
+    const list = await stripeApi<{ data: CheckoutSessionLike[]; has_more: boolean }>(
+      `checkout/sessions?${params}`,
+      key,
+    );
+    for (const session of list.data) {
+      if (!isFeeSession(session)) continue;
+      seen += 1;
+      recordCheckoutSession(session);
     }
+    if (!list.has_more || list.data.length === 0) break;
+    startingAfter = list.data[list.data.length - 1].id;
   }
   const after = get<{ n: number }>("SELECT COUNT(*) AS n FROM payments")!.n;
   return { seen, added: after - before };

@@ -22,6 +22,8 @@
     "@number-flow/react": "^0.6.0",
     "@pdf-viewer/react": "^1.19.0",
     "@react-pdf/renderer": "4.3.2",
+    "@stripe/react-stripe-js": "6.8.0",
+    "@stripe/stripe-js": "9.10.0",
     "@tailwindcss/postcss": "^4.2.2",
     "canvas": "^3.2.3",
     "class-variance-authority": "^0.7.1",

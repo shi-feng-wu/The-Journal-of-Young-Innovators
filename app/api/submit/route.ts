@@ -155,5 +155,5 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
-  return Response.json({ ok: true, checkoutUrl });
+  return Response.json({ ok: true, ref: saved?.ref ?? null, checkoutUrl });
 }
