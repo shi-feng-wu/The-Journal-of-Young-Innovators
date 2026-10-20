@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import WaiverRequest from "../form/WaiverRequest";
+import WaiverRequest from "./WaiverRequest";
 
 const FIELD =
   "w-full rounded-xl bg-[#F8F5F1] px-3 py-2.5 font-mono text-base text-black sm:text-sm";

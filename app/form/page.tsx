@@ -43,6 +43,7 @@ export default function Submit() {
   const [submitted, setSubmitted] = useState<{
     ref: string;
     email: string;
+    waiver: boolean;
   } | null>(null);
   const isDisabled = status === "sending" || status === "success";
   const USE_DEFAULT_VALUES = false;
@@ -51,6 +52,8 @@ export default function Submit() {
   const MAX_FILE_BYTES = 25 * 1024 * 1024;
   const [manuscriptFile, setManuscriptFile] = useState<File | null>(null);
   const [hasConsented, setHasConsented] = useState(false);
+  const [askWaiver, setAskWaiver] = useState(false);
+  const [waiverReason, setWaiverReason] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -92,6 +95,8 @@ export default function Submit() {
     setStatus("idle");
     setCheckoutUrl("");
     setSubmitted(null);
+    setAskWaiver(false);
+    setWaiverReason("");
     setErrorMessage("");
     setManuscriptFile(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -114,6 +119,10 @@ export default function Submit() {
     }
     if (manuscript.size > MAX_FILE_BYTES) {
       failWith("Manuscript must be 25MB or less.");
+      return;
+    }
+    if (askWaiver && !waiverReason.trim()) {
+      failWith("Tell us briefly why you are asking for a fee waiver.");
       return;
     }
     if (!hasConsented) {
@@ -142,6 +151,7 @@ export default function Submit() {
           setSubmitted({
             ref: String(payload.ref),
             email: String(formData.get("email") ?? ""),
+            waiver: !!payload.waiverRequested,
           });
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -184,6 +194,7 @@ export default function Submit() {
             submissionRef={submitted.ref}
             email={submitted.email}
             fallbackUrl={checkoutUrl}
+            waiverRequested={submitted.waiver}
             onDone={startAnotherSubmission}
           />
         ) : (
@@ -395,6 +406,43 @@ export default function Submit() {
             {/* flex gap rather than space-y: HeroUI's checkbox base carries a
                 `-m-2` hit-area margin that outranks Tailwind's space-y rule. */}
             <div className="w-full flex flex-col items-start gap-6 pt-2">
+              <Checkbox
+                name="waiverRequested"
+                value="yes"
+                isSelected={askWaiver}
+                onValueChange={setAskWaiver}
+                isDisabled={isDisabled}
+                radius="sm"
+                classNames={{
+                  base: "items-start max-w-3xl",
+                  wrapper:
+                    "mt-0.5 before:border-white/50 after:bg-[#F8F5F1] group-data-[hover=true]:before:border-white",
+                  icon: "text-primary",
+                  label: "font-text text-sm text-white/85",
+                }}
+              >
+                I can&apos;t afford the $65 submission fee and would like to ask
+                for a waiver.
+              </Checkbox>
+
+              {askWaiver && (
+                <label className="block w-full space-y-2">
+                  <span className="font-mono text-xs uppercase tracking-[0.16em] text-white/80">
+                    Why are you asking for a waiver? *
+                  </span>
+                  <textarea
+                    name="waiverReason"
+                    required
+                    rows={4}
+                    maxLength={2000}
+                    value={waiverReason}
+                    onChange={(e) => setWaiverReason(e.target.value)}
+                    disabled={isDisabled}
+                    className="w-full rounded-xl bg-[#F8F5F1] p-3 font-text text-base text-black sm:text-sm"
+                  />
+                </label>
+              )}
+
               <Checkbox
                 name="consent"
                 value="yes"

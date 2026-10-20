@@ -315,12 +315,13 @@ export default function PoliciesPage() {
                 such as a duplicate charge, are refunded in full on request.
               </p>
               <p>
-                Authors who cannot afford the fee may ask for a waiver instead
-                of paying, either on the payment step after submitting or
-                through the link in the confirmation email. An editor reads each
-                request and replies by email. The manuscript waits for review
-                until the request is answered, and an author whose request is
-                declined can still pay the fee to proceed.
+                Authors who cannot afford the fee may ask for a waiver by
+                ticking the waiver box on the submission form and explaining
+                their circumstances; they are not charged at submission. An
+                editor reads each request and replies by email, and the
+                manuscript waits for review until the request is answered. If a
+                waiver is declined, the author has 14 days to pay the fee, after
+                which the submission is withdrawn.
               </p>
             </PolicySection>
 

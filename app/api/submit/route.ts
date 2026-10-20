@@ -8,6 +8,7 @@ import {
 } from "@/lib/portal/db";
 import { EDITOR_INBOX, getTransport } from "@/lib/portal/mailer";
 import { paymentUrlFor, SITE_URL, waiverUrlFor } from "@/lib/portal/payments";
+import { MAX_WAIVER_REASON, requestWaiver } from "@/lib/portal/waivers";
 
 export const runtime = "nodejs";
 
@@ -33,6 +34,23 @@ export async function POST(request: Request) {
   const manuscriptTitle = String(formData.get("manuscriptTitle") ?? "").trim();
   const submissionType = String(formData.get("submissionType") ?? "").trim();
   const manuscript = formData.get("manuscript");
+  // Ticking the waiver box skips checkout; an editor decides before review.
+  const waiverReason = String(formData.get("waiverReason") ?? "").trim();
+  const waiverRequested = formData.get("waiverRequested") === "yes";
+  if (waiverRequested && !waiverReason) {
+    return Response.json(
+      { error: "Tell us briefly why you are asking for a fee waiver." },
+      { status: 400 },
+    );
+  }
+  if (waiverReason.length > MAX_WAIVER_REASON) {
+    return Response.json(
+      {
+        error: `Keep the waiver explanation under ${MAX_WAIVER_REASON} characters.`,
+      },
+      { status: 400 },
+    );
+  }
 
   let file: { name: string; content: Buffer } | null = null;
   if (manuscript && typeof manuscript === "object" && "arrayBuffer" in manuscript) {
@@ -73,6 +91,7 @@ export async function POST(request: Request) {
         manuscript_name: file.name,
       });
     }
+    if (waiverRequested) requestWaiver(saved, waiverReason);
   } catch (error) {
     console.error("[submit] could not store submission", error);
   }
@@ -95,6 +114,7 @@ export async function POST(request: Request) {
       `Grade Level: ${gradeLevel}`,
       `Submission Type: ${submissionType}`,
       `Manuscript Title: ${manuscriptTitle}`,
+      waiverRequested ? `\nFee waiver requested:\n${waiverReason}` : null,
       saved ? `\nOpen in the editor portal: ${SITE_URL}/portal/submissions/${saved.id}` : null,
     ]
       .filter((line) => line !== null)
@@ -104,7 +124,7 @@ export async function POST(request: Request) {
       from,
       to: EDITOR_INBOX,
       replyTo: email || undefined,
-      subject: `New Submission: ${manuscriptTitle || "Untitled"} - ${firstName} ${lastName}`,
+      subject: `New Submission${waiverRequested ? " (fee waiver requested)" : ""}: ${manuscriptTitle || "Untitled"} - ${firstName} ${lastName}`,
       text: textBody,
       attachments: file ? [{ filename: file.name, content: file.content }] : [],
     });
@@ -125,13 +145,19 @@ export async function POST(request: Request) {
         `Grade Level: ${gradeLevel || "(not provided)"}`,
         `Manuscript Title: ${manuscriptTitle || "(not provided)"}`,
         "",
-        "Your manuscript moves to editorial review once the $65 USD submission fee is paid. If you have not paid yet, you can do so here:",
-        checkoutUrl,
-        "",
-        "A parent, guardian, or school may pay on your behalf. The fee is non-refundable.",
-        saved
-          ? `If the fee would keep you from submitting, you can ask for a waiver here: ${waiverUrlFor(saved)}`
-          : null,
+        ...(waiverRequested
+          ? [
+              "You asked for the $65 USD submission fee to be waived. An editor will read your request and reply by email, usually within a few days. Review begins once the request is answered.",
+            ]
+          : [
+              "Your manuscript moves to editorial review once the $65 USD submission fee is paid. If you have not paid yet, you can do so here:",
+              checkoutUrl,
+              "",
+              "A parent, guardian, or school may pay on your behalf. The fee is non-refundable.",
+              saved
+                ? `If the fee would keep you from submitting, you can ask for a waiver here: ${waiverUrlFor(saved)}`
+                : null,
+            ]),
         "",
         "If anything looks incorrect, reply to this email to let us know.",
         "",
@@ -158,5 +184,10 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
-  return Response.json({ ok: true, ref: saved?.ref ?? null, checkoutUrl });
+  return Response.json({
+    ok: true,
+    ref: saved?.ref ?? null,
+    checkoutUrl,
+    waiverRequested: waiverRequested && !!saved,
+  });
 }
