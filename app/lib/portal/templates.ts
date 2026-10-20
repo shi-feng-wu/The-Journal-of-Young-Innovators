@@ -3,13 +3,14 @@
 // friendly, lightly formal voice. Only the names, title and payment link are filled in.
 // Editors always see and can edit the text before it is sent.
 
-import type { SubmissionStatus } from "./constants";
+import type { PaymentStatus, SubmissionStatus } from "./constants";
 
 export interface TemplateContext {
   firstName: string;
   title: string;
   ref: string;
   paymentUrl: string;
+  waiverUrl: string;
   editorName: string;
 }
 
@@ -18,6 +19,8 @@ export interface EmailTemplate {
   label: string;
   /** Status the composer offers to set when this email is sent. */
   setsStatus?: SubmissionStatus;
+  /** Fee status the composer offers to set when this email is sent. */
+  setsPayment?: PaymentStatus;
   /** Who the email goes to. Reviewer emails get an editable To field. */
   audience?: "author" | "reviewer";
   subject: (c: TemplateContext) => string;
@@ -77,6 +80,45 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
         c.paymentUrl,
         "",
         "Once your payment has been processed, we will send you a confirmation and move your submission forward for review. If you have any questions, please feel free to reply to this email.",
+        "",
+        "If the fee would keep you from submitting, you can ask for a waiver here:",
+        c.waiverUrl,
+        "",
+        ...SIGN_OFF,
+      ),
+  },
+  {
+    // Answers a waiver request made through the website.
+    id: "waiver-approve",
+    label: "Approve waiver",
+    setsPayment: "waived",
+    subject: (c) => `Fee waiver approved: “${c.title}”`,
+    body: (c) =>
+      lines(
+        dear(c),
+        "",
+        `Thank you for writing to us about the submission fee for “${c.title}”. We have waived the fee, so there is nothing to pay.`,
+        "",
+        "Your manuscript now moves to editorial review, and we will be in touch once we have a decision.",
+        "",
+        ...SIGN_OFF,
+      ),
+  },
+  {
+    id: "waiver-decline",
+    label: "Decline waiver",
+    setsPayment: "due",
+    subject: (c) => `Your fee waiver request: “${c.title}”`,
+    body: (c) =>
+      lines(
+        dear(c),
+        "",
+        `Thank you for writing to us about the submission fee for “${c.title}”. After reviewing your request, we are unable to waive the fee for this submission.`,
+        "",
+        "To proceed with the review, please complete the $65 submission fee using this link:",
+        c.paymentUrl,
+        "",
+        "If you have any questions, please feel free to reply to this email.",
         "",
         ...SIGN_OFF,
       ),

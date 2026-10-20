@@ -24,6 +24,9 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
   const due = all<Submission>(
     "SELECT * FROM submissions WHERE payment_status = 'due' ORDER BY created_at",
   );
+  const waivers = all<Submission>(
+    "SELECT * FROM submissions WHERE payment_status = 'waiver_requested' ORDER BY attention_since",
+  );
   const collected = allPayments.filter((p) => p.status === "paid").reduce((sum, p) => sum + p.amount, 0);
   const webhookReady = !!process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -136,6 +139,29 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
 
         <aside aria-labelledby="owed">
           <div className="lg:sticky lg:top-8">
+            {waivers.length > 0 && (
+              <div className="mb-12">
+                <h2 id="waivers" className="mb-5 font-display text-[28px] leading-tight">
+                  Waiver requests
+                </h2>
+                <ul className="border-t border-black/30">
+                  {waivers.map((s) => (
+                    <li key={s.id} className="group relative border-b border-black/10 py-3.5">
+                      <Link
+                        href={`/portal/submissions/${s.id}#history`}
+                        className="font-display text-lg leading-snug underline-offset-4 decoration-1 after:absolute after:inset-0 group-hover:text-primary group-hover:underline"
+                      >
+                        {s.title}
+                      </Link>
+                      <p className={`${LABEL} mt-1`}>
+                        {s.first_name} {s.last_name}
+                        {s.attention_since && `, asked ${formatDate(s.attention_since)}`}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <h2 id="owed" className="font-display text-[28px] leading-tight">
               Owed
             </h2>

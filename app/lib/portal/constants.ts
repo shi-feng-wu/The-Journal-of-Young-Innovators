@@ -24,6 +24,7 @@ export const STATUS_LABELS: Record<SubmissionStatus, string> = {
 export const PAYMENT_STATUSES = [
   "not_due",
   "due",
+  "waiver_requested",
   "paid",
   "waived",
   "refunded",
@@ -33,6 +34,7 @@ export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
 export const PAYMENT_LABELS: Record<PaymentStatus, string> = {
   not_due: "Not due",
   due: "Fee due",
+  waiver_requested: "Waiver requested",
   paid: "Paid",
   waived: "Waived",
   refunded: "Refunded",
@@ -45,7 +47,8 @@ export type EventType =
   | "email"
   | "note"
   | "assign"
-  | "reply";
+  | "reply"
+  | "waiver";
 
 export const SUBMISSION_TYPE_LABELS: Record<string, string> = {
   "research-article": "Research Article",

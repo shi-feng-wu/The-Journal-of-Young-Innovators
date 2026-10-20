@@ -7,7 +7,7 @@ import {
   type Submission,
 } from "@/lib/portal/db";
 import { EDITOR_INBOX, getTransport } from "@/lib/portal/mailer";
-import { paymentUrlFor, SITE_URL } from "@/lib/portal/payments";
+import { paymentUrlFor, SITE_URL, waiverUrlFor } from "@/lib/portal/payments";
 
 export const runtime = "nodejs";
 
@@ -129,6 +129,9 @@ export async function POST(request: Request) {
         checkoutUrl,
         "",
         "A parent, guardian, or school may pay on your behalf. The fee is non-refundable.",
+        saved
+          ? `If the fee would keep you from submitting, you can ask for a waiver here: ${waiverUrlFor(saved)}`
+          : null,
         "",
         "If anything looks incorrect, reply to this email to let us know.",
         "",

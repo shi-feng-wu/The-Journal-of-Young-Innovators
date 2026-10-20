@@ -101,6 +101,7 @@ export function StageTrack({
 const FEE_MARK: Record<PaymentStatus, string> = {
   not_due: "border border-[#111]/30",
   due: "border-[1.5px] border-primary",
+  waiver_requested: "border-[1.5px] border-[#68ace5]",
   paid: "bg-[#32965d]",
   waived: "bg-[#68ace5]",
   refunded: "border border-[#111]/40 bg-[repeating-linear-gradient(135deg,transparent_0_2px,rgba(17,17,17,.4)_2px_3px)]",
@@ -109,6 +110,7 @@ const FEE_MARK: Record<PaymentStatus, string> = {
 const FEE_TEXT: Record<PaymentStatus, string> = {
   not_due: "text-[#111]/45",
   due: "text-primary",
+  waiver_requested: "text-[#2a6698]",
   paid: "text-[#1d6b40]",
   waived: "text-[#2a6698]",
   refunded: "text-[#111]/55",
@@ -119,7 +121,11 @@ export function FeeMark({ status }: { status: PaymentStatus }) {
     <span className="inline-flex items-center gap-2">
       <span className={`h-2 w-2 shrink-0 rounded-full ${FEE_MARK[status]}`} aria-hidden />
       <span className={`font-mono text-[11px] uppercase tracking-[0.18em] ${FEE_TEXT[status]}`}>
-        {status === "due" ? "Fee due" : status === "not_due" ? "No fee" : `Fee ${PAYMENT_LABELS[status].toLowerCase()}`}
+        {status === "due" || status === "waiver_requested"
+          ? PAYMENT_LABELS[status]
+          : status === "not_due"
+            ? "No fee"
+            : `Fee ${PAYMENT_LABELS[status].toLowerCase()}`}
       </span>
     </span>
   );

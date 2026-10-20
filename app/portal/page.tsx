@@ -45,6 +45,7 @@ function hrefFor(current: Filters, next: Partial<Filters>) {
 
 const FEE_FILTERS: Array<{ key: PaymentStatus; label: string }> = [
   { key: "due", label: "Fee due" },
+  { key: "waiver_requested", label: "Waiver requested" },
   { key: "paid", label: "Paid" },
   { key: "waived", label: "Waived" },
   { key: "refunded", label: "Refunded" },

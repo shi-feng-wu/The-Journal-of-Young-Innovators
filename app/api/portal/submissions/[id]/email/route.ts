@@ -1,10 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { ApiError, handle, requireApiEditor } from "@/lib/portal/auth";
-import { SUBMISSION_STATUSES, type SubmissionStatus } from "@/lib/portal/constants";
+import {
+  PAYMENT_STATUSES,
+  SUBMISSION_STATUSES,
+  type PaymentStatus,
+  type SubmissionStatus,
+} from "@/lib/portal/constants";
 import { MANUSCRIPT_DIR, getSubmission, logEvent, transaction, updateSubmission } from "@/lib/portal/db";
 import { MailNotConfiguredError, sendAuthorEmail } from "@/lib/portal/mailer";
-import { changeStatus } from "@/lib/portal/submissions";
+import { changeStatus, setPaymentStatus } from "@/lib/portal/submissions";
 import { sentLine } from "@/lib/portal/wording";
 
 export const runtime = "nodejs";
@@ -22,11 +27,15 @@ export const POST = handle(
     let subject = String(form.get("subject") ?? "").trim();
     const text = String(form.get("body") ?? "").trim();
     const setStatus = String(form.get("setStatus") ?? "") as SubmissionStatus | "";
+    const setPayment = String(form.get("setPayment") ?? "") as PaymentStatus | "";
     // Emails go to the author unless another recipient (a reviewer) is given.
     const to = String(form.get("to") ?? "").trim() || submission.email;
     const toAuthor = to.toLowerCase() === submission.email.toLowerCase();
     if (!/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(to)) throw new ApiError(400, "Enter one valid email address.");
     if (!subject || !text) throw new ApiError(400, "Add a subject and a message.");
+    if (setPayment && !PAYMENT_STATUSES.includes(setPayment)) {
+      throw new ApiError(400, "Unknown fee status.");
+    }
     if (setStatus && !SUBMISSION_STATUSES.includes(setStatus)) {
       throw new ApiError(400, "Unknown status.");
     }
@@ -88,6 +97,9 @@ export const POST = handle(
         body: text,
         attachments: stored,
       });
+      if (setPayment) {
+        setPaymentStatus(getSubmission(id)!, setPayment, editor.id);
+      }
       if (setStatus) {
         changeStatus(getSubmission(id)!, setStatus, editor.id);
       }

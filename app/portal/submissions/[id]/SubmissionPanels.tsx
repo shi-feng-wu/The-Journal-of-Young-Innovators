@@ -64,11 +64,14 @@ type Action = { template: string; when?: (p: Props) => boolean };
 const open = ["received", "in_review", "revisions"];
 
 // Review waits for the submission fee, so an unpaid manuscript gets a
-// payment request in place of the review steps.
-const unpaid = (p: Props) => p.paymentStatus === "due";
+// payment request, or an answer to its waiver request, in place of the
+// review steps.
+const unpaid = (p: Props) => p.paymentStatus === "due" || p.paymentStatus === "waiver_requested";
 
 const DECISIONS: Action[] = [
-  { template: "fee-reminder", when: (p) => unpaid(p) && open.includes(p.status) },
+  { template: "waiver-approve", when: (p) => p.paymentStatus === "waiver_requested" },
+  { template: "waiver-decline", when: (p) => p.paymentStatus === "waiver_requested" },
+  { template: "fee-reminder", when: (p) => p.paymentStatus === "due" && open.includes(p.status) },
   { template: "accept", when: (p) => !unpaid(p) && !["accepted", "published"].includes(p.status) },
   { template: "review-request", when: (p) => !unpaid(p) && open.includes(p.status) },
   { template: "revisions", when: (p) => !unpaid(p) && open.includes(p.status) },
@@ -89,6 +92,7 @@ export function DecisionPanel(props: Props) {
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
   const [applyStatus, setApplyStatus] = useState(true);
+  const [applyFee, setApplyFee] = useState(true);
   const [files, setFiles] = useState<File[]>([]);
   const [to, setTo] = useState("");
   const [attachManuscript, setAttachManuscript] = useState(true);
@@ -107,6 +111,7 @@ export function DecisionPanel(props: Props) {
     setSubject(t.subject(props.context));
     setBody(t.body(props.context));
     setApplyStatus(true);
+    setApplyFee(true);
     setFiles([]);
     setTo("");
     setAttachManuscript(!!props.manuscriptName);
@@ -126,6 +131,9 @@ export function DecisionPanel(props: Props) {
     const form = new FormData();
     form.set("subject", subject);
     form.set("body", body);
+    if (template.setsPayment && applyFee) {
+      form.set("setPayment", template.setsPayment);
+    }
     if (template.setsStatus && applyStatus) {
       form.set("setStatus", template.setsStatus);
     }
@@ -152,6 +160,7 @@ export function DecisionPanel(props: Props) {
   const others = OTHER_EMAILS.filter((a) => !a.when || a.when(props));
   const hasPlaceholder = /\[[^\]]+\]/.test(body);
   const willChange = template?.setsStatus && template.setsStatus !== props.status;
+  const willChangeFee = template?.setsPayment && template.setsPayment !== props.paymentStatus;
 
   return (
     <div>
@@ -165,7 +174,7 @@ export function DecisionPanel(props: Props) {
                 type="button"
                 onClick={() => open(t.id)}
                 aria-pressed={templateId === t.id}
-                className={`${t.id === "accept" || t.id === "fee-reminder" ? BUTTON.primary : BUTTON.outline} ${templateId === t.id ? "!bg-primary !text-white" : ""}`}
+                className={`${["accept", "fee-reminder", "waiver-approve"].includes(t.id) ? BUTTON.primary : BUTTON.outline} ${templateId === t.id ? "!bg-primary !text-white" : ""}`}
               >
                 {t.label}
               </button>
@@ -302,6 +311,19 @@ export function DecisionPanel(props: Props) {
                 />
                 <span>
                   Move the manuscript to <strong className="font-semibold">{STATUS_LABELS[template.setsStatus!]}</strong> when this sends
+                </span>
+              </label>
+            )}
+            {willChangeFee && (
+              <label className="flex cursor-pointer items-start gap-3 font-text text-[15px] text-[#111]/80">
+                <input
+                  type="checkbox"
+                  checked={applyFee}
+                  onChange={(e) => setApplyFee(e.target.checked)}
+                  className="mt-1 h-4 w-4 accent-[#002d72]"
+                />
+                <span>
+                  Set the fee to <strong className="font-semibold">{PAYMENT_LABELS[template.setsPayment!]}</strong> when this sends
                 </span>
               </label>
             )}

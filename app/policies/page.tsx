@@ -313,11 +313,14 @@ export default function PoliciesPage() {
                 The fee is non-refundable, including when a manuscript is
                 declined or withdrawn by the author. Payments made in error,
                 such as a duplicate charge, are refunded in full on request.
-                Authors facing financial hardship may write to{" "}
-                <a href="mailto:editor@young-innovator.org">
-                  editor@young-innovator.org
-                </a>{" "}
-                before submitting to ask about a waiver.
+              </p>
+              <p>
+                Authors who cannot afford the fee may ask for a waiver instead
+                of paying, either on the payment step after submitting or
+                through the link in the confirmation email. An editor reads each
+                request and replies by email. The manuscript waits for review
+                until the request is answered, and an author whose request is
+                declined can still pay the fee to proceed.
               </p>
             </PolicySection>
 

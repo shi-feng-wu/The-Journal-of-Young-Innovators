@@ -26,7 +26,8 @@ export async function POST(request: Request) {
   if (!submission || submission.email.toLowerCase() !== email.toLowerCase()) {
     return Response.json({ error: "Submission not found." }, { status: 404 });
   }
-  if (submission.payment_status !== "due") {
+  // An author who asked for a waiver may still choose to pay.
+  if (!["due", "waiver_requested"].includes(submission.payment_status)) {
     return Response.json(
       { error: "The fee for this submission is already settled." },
       { status: 409 },

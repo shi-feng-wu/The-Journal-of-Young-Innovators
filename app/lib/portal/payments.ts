@@ -34,6 +34,14 @@ export function paymentUrlFor(submission: Pick<Submission, "ref" | "email">) {
   return `${SITE_URL}${FEE_PAY_PATH}?${params}`;
 }
 
+/** The page where an author asks for a fee waiver, filled in for them. */
+export function waiverUrlFor(submission: Pick<Submission, "ref" | "email">) {
+  const params = new URLSearchParams();
+  if (submission.ref) params.set("ref", submission.ref);
+  if (submission.email) params.set("email", submission.email);
+  return `${SITE_URL}/waiver?${params}`;
+}
+
 // ---- Webhook signatures --------------------------------------------------
 
 const SIGNATURE_TOLERANCE_S = 300;

@@ -6,6 +6,8 @@ import { PAYMENT_LABELS, STATUS_LABELS, type PaymentStatus, type SubmissionStatu
 
 export const SUBMITTED = "Submitted through the website form";
 
+export const WAIVER_REQUESTED = "Author asked for a fee waiver through the website";
+
 export const sentLine = (to: string, authorEmail: string, subject: string) =>
   to.toLowerCase() === authorEmail.toLowerCase() ? `Emailed author: ${subject}` : `Emailed ${to}: ${subject}`;
 

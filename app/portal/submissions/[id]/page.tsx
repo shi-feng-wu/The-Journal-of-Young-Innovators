@@ -14,7 +14,7 @@ import {
   type PortalEvent,
   type Submission,
 } from "@/lib/portal/db";
-import { paymentUrlFor } from "@/lib/portal/payments";
+import { paymentUrlFor, waiverUrlFor } from "@/lib/portal/payments";
 import CopyButton from "../../_components/CopyButton";
 import PortalShell from "../../_components/PortalShell";
 import {
@@ -89,6 +89,7 @@ const EVENT_MARK: Record<PortalEvent["type"], string> = {
   note: "bg-[#68ace5]",
   assign: "bg-[#111]/25",
   reply: "bg-[#32965d] ring-2 ring-[#32965d]/25",
+  waiver: "bg-white border-[1.5px] border-[#68ace5]",
 };
 
 const IMAGE = /\.(png|jpe?g|gif|webp)$/i;
@@ -221,6 +222,7 @@ export default async function SubmissionPage({
       title: submission.title,
       ref: submission.ref,
       paymentUrl: paymentUrlFor(submission),
+      waiverUrl: waiverUrlFor(submission),
       editorName: editor.name,
     },
   };
@@ -283,7 +285,9 @@ export default async function SubmissionPage({
       {submission.attention_since && (
         <div className="mb-10 flex flex-col gap-4 rounded-xl bg-primary px-6 py-6 text-white sm:flex-row sm:items-center sm:justify-between lg:px-10">
           <p className="font-display text-2xl leading-tight">
-            {submission.first_name || "The author"} wrote in on {formatDate(submission.attention_since)}.{" "}
+            {submission.first_name || "The author"}{" "}
+            {submission.payment_status === "waiver_requested" ? "asked for a fee waiver" : "wrote in"} on{" "}
+            {formatDate(submission.attention_since)}.{" "}
             <a href="#history" className="font-text text-base text-white/80 underline underline-offset-4">
               Read it
             </a>
@@ -370,6 +374,11 @@ export default async function SubmissionPage({
                     {(e.type === "email" || e.type === "reply") && e.data && (
                       <EmailBody data={e.data} incoming={e.type === "reply"} />
                     )}
+                    {e.type === "waiver" && e.data && (
+                      <blockquote className="mt-3 max-w-[62ch] border-l-2 border-[#68ace5] pl-4 font-text text-[15px] leading-relaxed whitespace-pre-wrap text-[#111]/85">
+                        {(JSON.parse(e.data) as { reason?: string }).reason}
+                      </blockquote>
+                    )}
                   </div>
                   <p className={`${META} mt-1 sm:mt-0.5 sm:text-right`}>
                     {formatDateTime(e.created_at)}
@@ -392,7 +401,9 @@ export default async function SubmissionPage({
           <div className="lg:sticky lg:top-8">
             <RecordPanel {...panelProps} />
 
-            {(payments.length > 0 || submission.payment_status === "due") && (
+            {(payments.length > 0 ||
+              submission.payment_status === "due" ||
+              submission.payment_status === "waiver_requested") && (
               <div className="border-t border-black/30 pt-5 pb-7">
                 <p className={LABEL}>Card payments</p>
                 {payments.length > 0 && (
@@ -419,7 +430,8 @@ export default async function SubmissionPage({
                     ))}
                   </ul>
                 )}
-                {submission.payment_status === "due" && (
+                {(submission.payment_status === "due" ||
+                  submission.payment_status === "waiver_requested") && (
                   <div className="mt-3">
                     <CopyButton
                       text={panelProps.context.paymentUrl}

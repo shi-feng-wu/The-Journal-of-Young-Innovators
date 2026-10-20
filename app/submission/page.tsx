@@ -416,8 +416,10 @@ export default function Home() {
               </p>
               <p>
                 The submission fee is non-refundable, including when a
-                manuscript is declined or withdrawn by the author. Full payment
-                details are on our{" "}
+                manuscript is declined or withdrawn by the author. If you
+                cannot afford the fee, you can ask for a waiver on the payment
+                step instead of paying. Full payment and waiver details are on
+                our{" "}
                 <Link
                   href="/policies#apc"
                   className="underline underline-offset-2"

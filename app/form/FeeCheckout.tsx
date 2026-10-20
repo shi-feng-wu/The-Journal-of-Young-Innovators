@@ -6,6 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
+import WaiverRequest from "./WaiverRequest";
 
 const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
@@ -34,9 +35,9 @@ export default function FeeCheckout({
     clientSecret: string;
     sessionId: string;
   } | null>(null);
-  const [state, setState] = useState<"loading" | "open" | "paid" | "failed">(
-    stripePromise ? "loading" : "failed",
-  );
+  const [state, setState] = useState<
+    "loading" | "open" | "paid" | "failed" | "waiver"
+  >(stripePromise ? "loading" : "failed");
 
   useEffect(() => {
     if (!stripePromise) return;
@@ -57,6 +58,8 @@ export default function FeeCheckout({
       cancelled = true;
     };
   }, [submissionRef, email]);
+
+  const [asking, setAsking] = useState(false);
 
   const handleComplete = () => {
     setState("paid");
@@ -79,55 +82,84 @@ export default function FeeCheckout({
           id="fee-heading"
           className="text-2xl font-normal text-white font-display"
         >
-          {state === "paid" ? "Payment received" : "Submission Fee"}
+          {state === "paid"
+            ? "Payment received"
+            : state === "waiver"
+              ? "Waiver requested"
+              : "Submission Fee"}
         </h3>
-        {state === "paid" ? (
+        {state === "paid" && (
           <p className="max-w-2xl font-text text-white/85">
             Thank you. Your manuscript ({submissionRef}) now moves to editorial
             review.
           </p>
-        ) : (
-          <p className="max-w-2xl font-text text-white/85">
-            Your manuscript was received as {submissionRef}. Pay the one-time,
-            non-refundable $65 USD submission fee below to send it to editorial
-            review. A parent, guardian, or school may pay on your behalf.
-          </p>
+        )}
+        {state !== "paid" && state !== "waiver" && (
+          <>
+            <p className="max-w-2xl font-text text-white/85">
+              Your manuscript was received as {submissionRef}. Pay the one-time,
+              non-refundable $65 USD submission fee below to send it to
+              editorial review. A parent, guardian, or school may pay on your
+              behalf.
+            </p>
+            <button
+              type="button"
+              onClick={() => setAsking((a) => !a)}
+              aria-expanded={asking}
+              className={LINK}
+            >
+              {asking
+                ? "Back to payment"
+                : "Can't pay the fee? Ask for a waiver"}
+            </button>
+          </>
         )}
       </div>
 
-      {state === "loading" && (
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-white/70">
-          Opening checkout...
-        </p>
+      {(asking || state === "waiver") && (
+        <WaiverRequest
+          submissionRef={submissionRef}
+          email={email}
+          onSent={() => setState("waiver")}
+        />
       )}
 
-      {state === "open" && checkout && stripePromise && (
-        <div className="min-h-[480px] w-full overflow-hidden rounded-xl bg-white">
-          <EmbeddedCheckoutProvider
-            stripe={stripePromise}
-            options={{
-              clientSecret: checkout.clientSecret,
-              onComplete: handleComplete,
-            }}
-          >
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
-        </div>
-      )}
-
-      {state === "failed" && (
-        <div className="max-w-2xl space-y-3 border-l-2 border-white/50 pl-4">
-          <p className="font-text text-sm text-white">
-            Checkout could not open on this page. You can pay on our Stripe
-            checkout page instead; the same link is in your confirmation email.
+      <div className={asking || state === "waiver" ? "hidden" : "space-y-6"}>
+        {state === "loading" && (
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-white/70">
+            Opening checkout...
           </p>
-          <a href={fallbackUrl} className={LINK}>
-            Pay the submission fee
-          </a>
-        </div>
-      )}
+        )}
 
-      {state === "paid" && (
+        {state === "open" && checkout && stripePromise && (
+          <div className="min-h-[480px] w-full overflow-hidden rounded-xl bg-white">
+            <EmbeddedCheckoutProvider
+              stripe={stripePromise}
+              options={{
+                clientSecret: checkout.clientSecret,
+                onComplete: handleComplete,
+              }}
+            >
+              <EmbeddedCheckout />
+            </EmbeddedCheckoutProvider>
+          </div>
+        )}
+
+        {state === "failed" && (
+          <div className="max-w-2xl space-y-3 border-l-2 border-white/50 pl-4">
+            <p className="font-text text-sm text-white">
+              Checkout could not open on this page. You can pay on our Stripe
+              checkout page instead; the same link is in your confirmation
+              email.
+            </p>
+            <a href={fallbackUrl} className={LINK}>
+              Pay the submission fee
+            </a>
+          </div>
+        )}
+      </div>
+
+      {(state === "paid" || state === "waiver") && (
         <button type="button" onClick={onDone} className={LINK}>
           Submit another manuscript
         </button>
