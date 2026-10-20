@@ -230,7 +230,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     id: 13,
     title:
       "The Global Testing Business: Standardization, Inequality, and the Unfairness of One-Size-Fits-All Assessment",
-    author: "S. Tong",
+    author: "Shengli Tong",
     publishDate: "2026-05-26",
     category: "Research Articles",
     volume: 2,
@@ -246,7 +246,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
   {
     id: 14,
     title: "The Role of Algorithmic Trading in the U.S. Stock Market",
-    author: "Z. Zhang",
+    author: "Zhiyue Zhang",
     publishDate: "2026-06-15",
     category: "Research Articles",
     volume: 2,
@@ -263,7 +263,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     id: 15,
     title:
       "Bilingual, Bicultural, and Charismatic? Reassessing Social Capability Among Students Who Grow Up Between Cultures",
-    author: "M. Luo",
+    author: "Meng Luo",
     publishDate: "2026-07-22",
     category: "Research Articles",
     volume: 2,
@@ -280,7 +280,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     id: 16,
     title:
       "Beyond the American Lens: Examining the South Vietnamese Voice in Films and Documentaries",
-    author: "V. Le",
+    author: "Vinh Le",
     publishDate: "2026-08-13",
     category: "Research Articles",
     volume: 2,
@@ -297,7 +297,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     id: 17,
     title:
       "Beyond the Black Box: What 103 Studies Reveal About AI and Business Innovation",
-    author: "T. Yang",
+    author: "Tianyou Yang",
     publishDate: "2026-08-17",
     category: "Research Articles",
     volume: 2,
@@ -313,7 +313,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
   {
     id: 18,
     title: "Energy and Water Conservation in AI Data Centers",
-    author: "Z. Qian",
+    author: "Zheyu Qian",
     publishDate: "2026-10-10",
     category: "Research Articles",
     volume: 2,
@@ -330,7 +330,7 @@ const SITE_ARTICLE_SOURCE: readonly SiteArticleSourceEntry[] = [
     id: 19,
     title:
       "Comparing the Performance of American Football Helmet Materials Using Finite Element Simulation",
-    author: "G. Sayde",
+    author: "Giorgio Sayde",
     publishDate: "2026-10-15",
     category: "Research Articles",
     volume: 2,
