@@ -12,7 +12,6 @@ export const runtime = "nodejs";
 
 interface PatchBody {
   status?: SubmissionStatus;
-  waiveFee?: boolean;
   paymentStatus?: PaymentStatus;
   paymentNote?: string;
   assignedEditorId?: number | null;
@@ -34,9 +33,7 @@ export const PATCH = handle(
         if (!SUBMISSION_STATUSES.includes(body.status)) {
           throw new ApiError(400, "Unknown status.");
         }
-        changeStatus(getSubmission(id)!, body.status, editor.id, {
-          waiveFee: body.waiveFee,
-        });
+        changeStatus(getSubmission(id)!, body.status, editor.id);
         updateSubmission(id, { attention_since: null });
       }
 

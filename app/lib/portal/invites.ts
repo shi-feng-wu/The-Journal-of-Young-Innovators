@@ -14,7 +14,7 @@ export async function sendInvite(editor: Editor, origin: string, invitedBy: stri
     text: [
       `Hi ${editor.name},`,
       "",
-      `${invitedBy} has set up an account for you on the JYI editor portal, where the team tracks submissions, decisions, and publication fees.`,
+      `${invitedBy} has set up an account for you on the JYI editor portal, where the team tracks submissions, decisions, and submission fees.`,
       "",
       "Choose a password here (the link works once and expires in 72 hours):",
       link,

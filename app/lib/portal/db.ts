@@ -293,6 +293,7 @@ export interface NewSubmission {
   gradeLevel: string;
   title: string;
   submissionType: string;
+  paymentStatus?: PaymentStatus;
   source?: string;
   createdAt?: string;
 }
@@ -304,10 +305,10 @@ export function createSubmission(input: NewSubmission): Submission {
     const { lastInsertRowid } = run(
       `INSERT INTO submissions
          (ref, first_name, last_name, email, phone, school, grade_level, title,
-          submission_type, source, created_at, updated_at)
+          submission_type, payment_status, source, created_at, updated_at)
        VALUES
          (:ref, :firstName, :lastName, :email, :phone, :school, :gradeLevel,
-          :title, :submissionType, :source, :createdAt, :createdAt)`,
+          :title, :submissionType, :paymentStatus, :source, :createdAt, :createdAt)`,
       {
         ref,
         firstName: input.firstName,
@@ -318,6 +319,7 @@ export function createSubmission(input: NewSubmission): Submission {
         gradeLevel: input.gradeLevel,
         title: input.title,
         submissionType: input.submissionType,
+        paymentStatus: input.paymentStatus ?? "not_due",
         source: input.source ?? "form",
         createdAt,
       },

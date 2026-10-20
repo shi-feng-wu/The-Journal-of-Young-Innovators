@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 import { SITE_ARTICLES } from "./app/lib/articles";
 import {
-  PUBLICATION_FEE_PAY_PATH,
-  PUBLICATION_FEE_PAYMENT_URL,
+  FEE_PAY_PATH,
+  FEE_PAYMENT_URL,
 } from "./app/lib/fees";
 
 const SITE_URL = "https://young-innovator.org";
@@ -42,8 +42,8 @@ const nextConfig: NextConfig = {
       {
         // Temporary so the Stripe link can be swapped without browsers
         // caching the old destination.
-        source: PUBLICATION_FEE_PAY_PATH,
-        destination: PUBLICATION_FEE_PAYMENT_URL,
+        source: FEE_PAY_PATH,
+        destination: FEE_PAYMENT_URL,
         permanent: false,
       },
       {

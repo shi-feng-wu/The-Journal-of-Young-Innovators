@@ -37,6 +37,7 @@ export default function Submit() {
     "idle" | "sending" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [checkoutUrl, setCheckoutUrl] = useState<string>("");
   const isDisabled = status === "sending" || status === "success";
   const USE_DEFAULT_VALUES = false;
   const defaultPhone = USE_DEFAULT_VALUES ? "(555) 123-4567" : "";
@@ -83,6 +84,7 @@ export default function Submit() {
 
   const startAnotherSubmission = () => {
     setStatus("idle");
+    setCheckoutUrl("");
     setErrorMessage("");
     setManuscriptFile(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -126,7 +128,14 @@ export default function Submit() {
       });
 
       if (response.ok) {
+        const payload = await response.json().catch(() => null);
         setStatus("success");
+        // Send the author on to the Stripe checkout for the submission fee.
+        if (payload?.checkoutUrl) {
+          const url = String(payload.checkoutUrl);
+          setCheckoutUrl(url);
+          window.setTimeout(() => window.location.assign(url), 1500);
+        }
         return;
       }
 
@@ -158,7 +167,7 @@ export default function Submit() {
     <div className="min-h-screen bg-primary">
       <Hero
         title="Submit a Manuscript"
-        subtitle="Submissions from high school and college students are open for the 2026-2027 academic year. Submitting is free; accepted articles carry a $65 USD publication fee."
+        subtitle="Submissions from high school and college students are open for the 2026-2027 academic year. Each manuscript carries a one-time, non-refundable $65 USD submission fee, paid at checkout after you submit."
       />
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-20 pt-10 pb-24">
         <Form
@@ -393,14 +402,25 @@ export default function Submit() {
                 <p className="font-text text-sm text-white">
                   Submission received. We sent a confirmation summary to the
                   email address you entered.
+                  {checkoutUrl &&
+                    " Taking you to checkout for the $65 submission fee now."}
                 </p>
-                <button
-                  type="button"
-                  onClick={startAnotherSubmission}
-                  className="font-mono text-xs uppercase tracking-[0.16em] text-white/70 underline underline-offset-4 hover:text-white cursor-pointer"
-                >
-                  Submit another manuscript
-                </button>
+                {checkoutUrl ? (
+                  <a
+                    href={checkoutUrl}
+                    className="inline-block font-mono text-xs uppercase tracking-[0.16em] text-white underline underline-offset-4 hover:text-white/80"
+                  >
+                    Continue to payment
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={startAnotherSubmission}
+                    className="font-mono text-xs uppercase tracking-[0.16em] text-white/70 underline underline-offset-4 hover:text-white cursor-pointer"
+                  >
+                    Submit another manuscript
+                  </button>
+                )}
               </div>
             )}
 

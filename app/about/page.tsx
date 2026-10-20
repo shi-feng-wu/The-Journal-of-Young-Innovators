@@ -108,11 +108,10 @@ export default function About() {
               International (CC BY 4.0)
             </li>
             <li>
-              <strong>Fees:</strong> no submission fee. A $65 USD publication
-              fee applies only after acceptance, and articles accepted during
-              the 2025–2026 academic year carry no fee. See{" "}
-              <Link href="/policies#apc">Article Processing Charges</Link> for
-              need-based waivers.
+              <strong>Fees:</strong> a one-time, non-refundable submission fee
+              of $65 USD per manuscript, paid at submission. There is no
+              publication fee and no charge to readers. See{" "}
+              <Link href="/policies#apc">Submission Fee</Link> for details.
             </li>
             <li>
               <strong>Contact:</strong>{" "}

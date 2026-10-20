@@ -22,7 +22,6 @@ export const POST = handle(
     let subject = String(form.get("subject") ?? "").trim();
     const text = String(form.get("body") ?? "").trim();
     const setStatus = String(form.get("setStatus") ?? "") as SubmissionStatus | "";
-    const waiveFee = form.get("waiveFee") === "true";
     // Emails go to the author unless another recipient (a reviewer) is given.
     const to = String(form.get("to") ?? "").trim() || submission.email;
     const toAuthor = to.toLowerCase() === submission.email.toLowerCase();
@@ -90,7 +89,7 @@ export const POST = handle(
         attachments: stored,
       });
       if (setStatus) {
-        changeStatus(getSubmission(id)!, setStatus, editor.id, { waiveFee });
+        changeStatus(getSubmission(id)!, setStatus, editor.id);
       }
       // Writing to the author answers them; writing to a reviewer does not.
       if (toAuthor) updateSubmission(id, { attention_since: null });

@@ -1,13 +1,13 @@
-// The publication fee is collected through a Stripe Payment Link sent only in
-// acceptance emails, so the site holds no Stripe keys and shows no pay button.
-// Editors link to /pay, which redirects here (query strings such as
-// ?prefilled_email= pass through). If the link is replaced in the Stripe
-// Dashboard, update it here.
-export const PUBLICATION_FEE_PAYMENT_URL =
-  "https://buy.stripe.com/dRm9AT7SB00ufXs06y5kk00";
+// The $65 submission fee is collected through a Stripe Payment Link, so the
+// site holds no Stripe secret key. After the form saves a submission it sends
+// the author to /pay, which redirects here with the query string intact
+// (?client_reference_id=<ref>&prefilled_email=...), and the confirmation
+// email carries the same link. If the link is replaced in the Stripe
+// Dashboard, update the URL and add the new ID below.
+export const FEE_PAYMENT_URL = "https://buy.stripe.com/dRm9AT7SB00ufXs06y5kk00";
 
-export const PUBLICATION_FEE_PAY_PATH = "/pay";
+export const FEE_PAY_PATH = "/pay";
 
-// The same payment link's ID. The portal only counts Stripe checkouts made
-// through this link as publication fees.
-export const PUBLICATION_FEE_PAYMENT_LINK_ID = "plink_1UIsX6Ff4DD6F2X6xoTRiMPm";
+// Checkouts made through these payment links count as fees in the editor
+// portal. Keep old IDs listed so earlier payments still sync.
+export const FEE_PAYMENT_LINK_IDS = ["plink_1UIsX6Ff4DD6F2X6xoTRiMPm"];

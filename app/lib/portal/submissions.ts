@@ -7,24 +7,14 @@ import {
 import { logEvent, updateSubmission, type Submission } from "./db";
 
 /**
- * Moves a submission to a new status and keeps the fee state consistent:
- * acceptance makes the fee due (or waived), and leaving acceptance clears a
- * fee that was never paid.
+ * Moves a submission to a new status. The fee is charged at submission, so
+ * the stage never changes it.
  */
 export function changeStatus(
   submission: Submission,
   status: SubmissionStatus,
   editorId: number,
-  opts: { waiveFee?: boolean } = {},
 ) {
-  let payment: PaymentStatus = submission.payment_status;
-  if (status === "accepted" || status === "published") {
-    if (payment === "not_due") payment = opts.waiveFee ? "waived" : "due";
-    if (payment === "due" && opts.waiveFee) payment = "waived";
-  } else if (payment === "due") {
-    payment = "not_due";
-  }
-
   if (status !== submission.status) {
     updateSubmission(submission.id, { status });
     logEvent(
@@ -34,9 +24,6 @@ export function changeStatus(
       `Status changed from ${STATUS_LABELS[submission.status]} to ${STATUS_LABELS[status]}`,
       { from: submission.status, to: status },
     );
-  }
-  if (payment !== submission.payment_status) {
-    setPaymentStatus(submission, payment, editorId);
   }
 }
 

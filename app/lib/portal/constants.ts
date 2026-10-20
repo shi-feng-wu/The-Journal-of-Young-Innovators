@@ -65,4 +65,4 @@ export const GRADE_LABELS: Record<string, string> = {
   "college-grad": "Graduate",
 };
 
-export const PUBLICATION_FEE_CENTS = 6500;
+export const SUBMISSION_FEE_CENTS = 6500;

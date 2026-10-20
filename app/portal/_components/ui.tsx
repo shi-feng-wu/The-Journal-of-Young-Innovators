@@ -119,7 +119,7 @@ export function FeeMark({ status }: { status: PaymentStatus }) {
     <span className="inline-flex items-center gap-2">
       <span className={`h-2 w-2 shrink-0 rounded-full ${FEE_MARK[status]}`} aria-hidden />
       <span className={`font-mono text-[11px] uppercase tracking-[0.18em] ${FEE_TEXT[status]}`}>
-        {status === "due" ? "Fee due" : status === "not_due" ? "No fee yet" : `Fee ${PAYMENT_LABELS[status].toLowerCase()}`}
+        {status === "due" ? "Fee due" : status === "not_due" ? "No fee" : `Fee ${PAYMENT_LABELS[status].toLowerCase()}`}
       </span>
     </span>
   );

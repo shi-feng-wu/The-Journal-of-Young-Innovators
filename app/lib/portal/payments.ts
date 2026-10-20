@@ -1,8 +1,5 @@
 import crypto from "node:crypto";
-import {
-  PUBLICATION_FEE_PAY_PATH,
-  PUBLICATION_FEE_PAYMENT_LINK_ID,
-} from "../fees";
+import { FEE_PAY_PATH, FEE_PAYMENT_LINK_IDS } from "../fees";
 import {
   all,
   get,
@@ -20,16 +17,15 @@ import {
 export const SITE_URL = "https://young-innovator.org";
 
 /**
- * The link an acceptance email carries. /pay redirects to the Stripe payment
- * link with the query string intact, so the checkout comes back tagged with
- * the submission reference.
+ * The checkout link for a submission's fee. /pay redirects to the Stripe
+ * payment link with the query string intact, so the checkout comes back
+ * tagged with the submission reference.
  */
 export function paymentUrlFor(submission: Pick<Submission, "ref" | "email">) {
-  const params = new URLSearchParams({
-    client_reference_id: submission.ref,
-    prefilled_email: submission.email,
-  });
-  return `${SITE_URL}${PUBLICATION_FEE_PAY_PATH}?${params}`;
+  const params = new URLSearchParams();
+  if (submission.ref) params.set("client_reference_id", submission.ref);
+  if (submission.email) params.set("prefilled_email", submission.email);
+  return `${SITE_URL}${FEE_PAY_PATH}?${params}`;
 }
 
 // ---- Webhook signatures --------------------------------------------------
@@ -89,8 +85,8 @@ export interface CheckoutSessionLike {
     | null;
 }
 
-export function isPublicationFeeSession(session: CheckoutSessionLike) {
-  return session.payment_link === PUBLICATION_FEE_PAYMENT_LINK_ID;
+export function isFeeSession(session: CheckoutSessionLike) {
+  return !!session.payment_link && FEE_PAYMENT_LINK_IDS.includes(session.payment_link);
 }
 
 function articleTitleField(session: CheckoutSessionLike): string | null {
@@ -154,17 +150,17 @@ function applyPaymentToSubmission(
     "payment",
     alreadyPaid
       ? `Second payment of ${amount} received (${how}); check for a duplicate charge`
-      : `Publication fee of ${amount} paid (${how})`,
+      : `Submission fee of ${amount} paid (${how})`,
     { paymentId: payment.id, stripeSessionId: payment.stripe_session_id },
   );
 }
 
 /**
- * Stores a completed publication-fee checkout and links it to a submission
+ * Stores a completed fee checkout and links it to a submission
  * when one matches. Safe to call repeatedly for the same session.
  */
 export function recordCheckoutSession(session: CheckoutSessionLike) {
-  if (!isPublicationFeeSession(session) || session.payment_status !== "paid") {
+  if (!isFeeSession(session) || session.payment_status !== "paid") {
     return null;
   }
   return transaction(() => {
@@ -275,7 +271,7 @@ export function assignPayment(
 export const stripeSyncEnabled = () => !!process.env.STRIPE_RESTRICTED_KEY;
 
 /**
- * Reads every completed checkout for the publication-fee link and records
+ * Reads every completed checkout through the fee payment links and records
  * any the webhook missed. Needs STRIPE_RESTRICTED_KEY with read access to
  * Checkout Sessions, PaymentIntents, and Charges.
  */
@@ -284,35 +280,37 @@ export async function syncFromStripe(): Promise<{ seen: number; added: number }>
   if (!key) throw new Error("STRIPE_RESTRICTED_KEY is not set.");
   const before = get<{ n: number }>("SELECT COUNT(*) AS n FROM payments")!.n;
   let seen = 0;
-  let startingAfter: string | undefined;
-  for (let page = 0; page < 20; page++) {
-    const params = new URLSearchParams({
-      payment_link: PUBLICATION_FEE_PAYMENT_LINK_ID,
-      status: "complete",
-      limit: "100",
-    });
-    params.append("expand[]", "data.payment_intent.latest_charge");
-    if (startingAfter) params.set("starting_after", startingAfter);
-    const response = await fetch(
-      `https://api.stripe.com/v1/checkout/sessions?${params}`,
-      { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" },
-    );
-    if (!response.ok) {
-      const body = await response.json().catch(() => null);
-      throw new Error(
-        `Stripe returned ${response.status}: ${body?.error?.message ?? "unknown error"}`,
+  for (const paymentLink of FEE_PAYMENT_LINK_IDS) {
+    let startingAfter: string | undefined;
+    for (let page = 0; page < 20; page++) {
+      const params = new URLSearchParams({
+        payment_link: paymentLink,
+        status: "complete",
+        limit: "100",
+      });
+      params.append("expand[]", "data.payment_intent.latest_charge");
+      if (startingAfter) params.set("starting_after", startingAfter);
+      const response = await fetch(
+        `https://api.stripe.com/v1/checkout/sessions?${params}`,
+        { headers: { Authorization: `Bearer ${key}` }, cache: "no-store" },
       );
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        throw new Error(
+          `Stripe returned ${response.status}: ${body?.error?.message ?? "unknown error"}`,
+        );
+      }
+      const list = (await response.json()) as {
+        data: CheckoutSessionLike[];
+        has_more: boolean;
+      };
+      for (const session of list.data) {
+        seen += 1;
+        recordCheckoutSession(session);
+      }
+      if (!list.has_more || list.data.length === 0) break;
+      startingAfter = list.data[list.data.length - 1].id;
     }
-    const list = (await response.json()) as {
-      data: CheckoutSessionLike[];
-      has_more: boolean;
-    };
-    for (const session of list.data) {
-      seen += 1;
-      recordCheckoutSession(session);
-    }
-    if (!list.has_more || list.data.length === 0) break;
-    startingAfter = list.data[list.data.length - 1].id;
   }
   const after = get<{ n: number }>("SELECT COUNT(*) AS n FROM payments")!.n;
   return { seen, added: after - before };

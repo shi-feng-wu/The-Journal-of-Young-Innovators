@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requirePageEditor } from "@/lib/portal/auth";
-import { PUBLICATION_FEE_CENTS } from "@/lib/portal/constants";
+import { SUBMISSION_FEE_CENTS } from "@/lib/portal/constants";
 import { all, type Payment, type Submission } from "@/lib/portal/db";
 import { stripeSyncEnabled } from "@/lib/portal/payments";
 import PortalShell from "../_components/PortalShell";
@@ -21,19 +21,15 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
   );
   const payments = unmatchedOnly ? allPayments.filter((p) => !p.submission_id) : allPayments;
   const unmatchedCount = allPayments.filter((p) => !p.submission_id).length;
-  const due = all<Submission & { accepted_at: string | null }>(
-    `SELECT submissions.*,
-            (SELECT MAX(created_at) FROM events
-              WHERE events.submission_id = submissions.id AND events.type = 'status'
-                AND events.data LIKE '%"to":"accepted"%') AS accepted_at
-       FROM submissions WHERE payment_status = 'due' ORDER BY accepted_at`,
+  const due = all<Submission>(
+    "SELECT * FROM submissions WHERE payment_status = 'due' ORDER BY created_at",
   );
   const collected = allPayments.filter((p) => p.status === "paid").reduce((sum, p) => sum + p.amount, 0);
   const webhookReady = !!process.env.STRIPE_WEBHOOK_SECRET;
 
   const figures = [
     { label: "Collected", value: formatMoney(collected) },
-    { label: "Still owed", value: formatMoney(due.length * PUBLICATION_FEE_CENTS) },
+    { label: "Still owed", value: formatMoney(due.length * SUBMISSION_FEE_CENTS) },
   ];
 
   return (
@@ -143,7 +139,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
             <h2 id="owed" className="font-display text-[28px] leading-tight">
               Owed
             </h2>
-            <p className="mt-1 mb-5 font-text text-sm text-[#111]/60">Accepted, fee not paid yet.</p>
+            <p className="mt-1 mb-5 font-text text-sm text-[#111]/60">Submitted, fee not paid yet.</p>
             {due.length === 0 ? (
               <p className="border-t border-black/30 pt-5 font-text text-[15px] text-[#111]/65">Nobody owes a fee right now.</p>
             ) : (
@@ -158,7 +154,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: Pro
                     </Link>
                     <p className={`${LABEL} mt-1`}>
                       {s.first_name} {s.last_name}
-                      {s.accepted_at && `, accepted ${formatDate(s.accepted_at)}`}
+                      , submitted {formatDate(s.created_at)}
                     </p>
                   </li>
                 ))}

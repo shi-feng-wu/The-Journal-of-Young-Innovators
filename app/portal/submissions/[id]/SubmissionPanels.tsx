@@ -63,12 +63,16 @@ type Action = { template: string; when?: (p: Props) => boolean };
 
 const open = ["received", "in_review", "revisions"];
 
+// Review waits for the submission fee, so an unpaid manuscript gets a
+// payment request in place of the review steps.
+const unpaid = (p: Props) => p.paymentStatus === "due";
+
 const DECISIONS: Action[] = [
-  { template: "accept", when: (p) => !["accepted", "published"].includes(p.status) },
-  { template: "accept-waived", when: (p) => !["accepted", "published"].includes(p.status) },
-  { template: "review-request", when: (p) => open.includes(p.status) },
-  { template: "revisions", when: (p) => open.includes(p.status) },
-  { template: "in-review", when: (p) => p.status === "received" },
+  { template: "fee-reminder", when: (p) => unpaid(p) && open.includes(p.status) },
+  { template: "accept", when: (p) => !unpaid(p) && !["accepted", "published"].includes(p.status) },
+  { template: "review-request", when: (p) => !unpaid(p) && open.includes(p.status) },
+  { template: "revisions", when: (p) => !unpaid(p) && open.includes(p.status) },
+  { template: "in-review", when: (p) => !unpaid(p) && p.status === "received" },
   { template: "decline", when: (p) => !["rejected", "published", "withdrawn"].includes(p.status) },
 ];
 
@@ -124,7 +128,6 @@ export function DecisionPanel(props: Props) {
     form.set("body", body);
     if (template.setsStatus && applyStatus) {
       form.set("setStatus", template.setsStatus);
-      if (template.waivesFee) form.set("waiveFee", "true");
     }
     if (toReviewer) {
       form.set("to", to);
@@ -162,7 +165,7 @@ export function DecisionPanel(props: Props) {
                 type="button"
                 onClick={() => open(t.id)}
                 aria-pressed={templateId === t.id}
-                className={`${t.id === "accept" ? BUTTON.primary : BUTTON.outline} ${templateId === t.id ? "!bg-primary !text-white" : ""}`}
+                className={`${t.id === "accept" || t.id === "fee-reminder" ? BUTTON.primary : BUTTON.outline} ${templateId === t.id ? "!bg-primary !text-white" : ""}`}
               >
                 {t.label}
               </button>
@@ -298,10 +301,7 @@ export function DecisionPanel(props: Props) {
                   className="mt-1 h-4 w-4 accent-[#002d72]"
                 />
                 <span>
-                  Move the manuscript to <strong className="font-semibold">{STATUS_LABELS[template.setsStatus!]}</strong>
-                  {template.waivesFee && " and waive the fee"}
-                  {template.id === "accept" && props.paymentStatus === "not_due" && ", and mark the $65 fee as due"}{" "}
-                  when this sends
+                  Move the manuscript to <strong className="font-semibold">{STATUS_LABELS[template.setsStatus!]}</strong> when this sends
                 </span>
               </label>
             )}
@@ -326,7 +326,6 @@ export function DecisionPanel(props: Props) {
 export function RecordPanel(props: Props) {
   const router = useRouter();
   const [status, setStatus] = useState<SubmissionStatus>(props.status);
-  const [waive, setWaive] = useState(false);
   const [payment, setPayment] = useState<PaymentStatus>(props.paymentStatus);
   const [paymentNote, setPaymentNote] = useState("");
   const [note, setNote] = useState("");
@@ -340,7 +339,6 @@ export function RecordPanel(props: Props) {
     setLastSaved(saved);
     setStatus(props.status);
     setPayment(props.paymentStatus);
-    setWaive(false);
   }
 
   const act = async (key: string, body: object, done: string) => {
@@ -370,29 +368,21 @@ export function RecordPanel(props: Props) {
           </select>
         </label>
         {status !== props.status && (
-          <>
-            {status === "accepted" && props.paymentStatus === "not_due" && (
-              <label className="flex items-center gap-2 font-text text-sm text-[#111]/75">
-                <input type="checkbox" checked={waive} onChange={(e) => setWaive(e.target.checked)} className="accent-[#002d72]" />
-                Waive the publication fee
-              </label>
-            )}
-            <button
-              type="button"
-              disabled={busy !== null}
-              onClick={() => act("status", { status, waiveFee: waive }, "Stage changed. The author was not emailed.")}
-              className={`${BUTTON.outline} w-full`}
-            >
-              {busy === "status" ? "Saving…" : "Change quietly"}
-            </button>
-          </>
+          <button
+            type="button"
+            disabled={busy !== null}
+            onClick={() => act("status", { status }, "Stage changed. The author was not emailed.")}
+            className={`${BUTTON.outline} w-full`}
+          >
+            {busy === "status" ? "Saving…" : "Change quietly"}
+          </button>
         )}
         {flashFor("status")}
       </div>
 
       <div className={block}>
         <label className="block space-y-1.5">
-          <span className={LABEL}>Publication fee</span>
+          <span className={LABEL}>Submission fee</span>
           <select value={payment} onChange={(e) => setPayment(e.target.value as PaymentStatus)} className={INPUT}>
             {PAYMENT_STATUSES.map((p) => (
               <option key={p} value={p}>

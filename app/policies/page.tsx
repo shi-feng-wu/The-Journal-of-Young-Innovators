@@ -20,7 +20,7 @@ const sections = [
   { id: "self-archiving", title: "Author Self-Archiving" },
   { id: "peer-review", title: "Peer Review" },
   { id: "frequency", title: "Publication Frequency" },
-  { id: "apc", title: "Article Processing Charges" },
+  { id: "apc", title: "Submission Fee" },
   { id: "plagiarism", title: "Plagiarism" },
   { id: "ethics", title: "Publication Ethics" },
   { id: "ai", title: "AI Use Policy" },
@@ -291,35 +291,32 @@ export default function PoliciesPage() {
               </ul>
             </PolicySection>
 
-            <PolicySection id="apc" title="Article Processing Charges">
+            <PolicySection id="apc" title="Submission Fee">
               <p>
-                JYI charges a publication fee of{" "}
-                <strong>$65 USD per article</strong>, payable only after the
-                article has been accepted for publication. There is no fee to
-                submit an article for review, and no fee is charged for
-                manuscripts that are declined. JYI charges readers nothing.
+                A one-time, non-refundable submission fee of{" "}
+                <strong>$65 USD</strong> is required for each manuscript
+                submitted to JYI. The fee covers the administrative processing
+                and review of the manuscript and does not guarantee acceptance
+                or publication. JYI charges no publication fee and charges
+                readers nothing.
               </p>
               <p>
-                Because the fee is requested only after acceptance, an
-                author&apos;s ability to pay plays no part in editorial
-                decisions. Need-based waivers are available by request to{" "}
+                After submitting, authors are taken to our secure Stripe
+                checkout page, and the confirmation email carries the same
+                payment link. Payment must be completed before the manuscript
+                can proceed to editorial review; manuscripts whose fee is not
+                paid are not considered for publication. A parent, guardian, or
+                school may make the payment on the author&apos;s behalf.
+              </p>
+              <p>
+                The fee is non-refundable, including when a manuscript is
+                declined or withdrawn by the author. Payments made in error,
+                such as a duplicate charge, are refunded in full on request.
+                Authors facing financial hardship may write to{" "}
                 <a href="mailto:editor@young-innovator.org">
                   editor@young-innovator.org
-                </a>
-                . Authors should ask for a waiver before paying.
-              </p>
-              <p>
-                Accepted authors receive a payment link with their acceptance
-                email and pay by card on our Stripe checkout page. A parent,
-                guardian, or school may pay on the author&apos;s behalf.
-                Payments made in error, such as a duplicate charge, are refunded
-                in full on request.
-              </p>
-              <p>
-                Articles accepted during the 2025–2026 academic year carry no
-                fee, thanks to support from the Brain-Targeted Teaching
-                Institute and from grant funding intended to make scholarly
-                publishing accessible to students of all income levels.
+                </a>{" "}
+                before submitting to ask about a waiver.
               </p>
             </PolicySection>
 

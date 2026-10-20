@@ -398,28 +398,26 @@ export default function Home() {
 
             <EditorialSection id="fees" title="Fees">
               <p>
-                Submitting a manuscript is free. If your article is accepted for
-                publication, JYI charges a one-time publication fee of $65 USD.
-                Nothing is charged for manuscripts that are declined.
+                A one-time, non-refundable submission fee of $65 USD is required
+                for each manuscript submitted to The Journal of Young Innovators
+                (JYI). This fee covers the administrative processing and review
+                of the manuscript and does not guarantee acceptance or
+                publication.
               </p>
               <p>
-                Your acceptance email includes a link to our Stripe checkout
-                page, where you can pay the fee by card. A parent, guardian, or
-                school may pay on your behalf.
+                After you submit your manuscript, you will be taken to our
+                secure Stripe checkout page, and your confirmation email
+                contains the same payment link. Payment must be completed
+                before the manuscript can proceed to editorial review. Failure
+                to pay the submission fee will result in your paper not being
+                considered for publication by the JYI Editorial Board. A parent,
+                guardian, or school may make the payment on the author&apos;s
+                behalf.
               </p>
               <p>
-                Need-based waivers are available. If the fee would stop you from
-                publishing, email{" "}
-                <a
-                  href="mailto:editor@young-innovator.org"
-                  className="text-primary underline underline-offset-2"
-                >
-                  editor@young-innovator.org
-                </a>{" "}
-                before paying. Articles accepted during the 2025–2026 academic
-                year carry no fee, thanks to support from the Brain-Targeted
-                Teaching Institute and grant funding for student publishing.
-                Refunds and full details are on our{" "}
+                The submission fee is non-refundable, including when a
+                manuscript is declined or withdrawn by the author. Full payment
+                details are on our{" "}
                 <Link
                   href="/policies#apc"
                   className="underline underline-offset-2"

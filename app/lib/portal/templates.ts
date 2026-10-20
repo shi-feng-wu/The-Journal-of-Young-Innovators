@@ -18,8 +18,6 @@ export interface EmailTemplate {
   label: string;
   /** Status the composer offers to set when this email is sent. */
   setsStatus?: SubmissionStatus;
-  /** Sending this template marks the fee as waived. */
-  waivesFee?: boolean;
   /** Who the email goes to. Reviewer emails get an editable To field. */
   audience?: "author" | "reviewer";
   subject: (c: TemplateContext) => string;
@@ -64,7 +62,27 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
       ),
   },
   {
-    // From the acceptance template, for the fee charged only on acceptance.
+    // From the payment request drafted 2026-09-24, for a submission whose
+    // fee has not come through yet.
+    id: "fee-reminder",
+    label: "Ask for the fee",
+    subject: (c) => `Submission fee: “${c.title}”`,
+    body: (c) =>
+      lines(
+        dear(c),
+        "",
+        `Thank you for submitting “${c.title}” to The Journal of Young Innovators.`,
+        "",
+        "To proceed with the review of your submission, please complete the $65 submission fee using this link:",
+        c.paymentUrl,
+        "",
+        "Once your payment has been processed, we will send you a confirmation and move your submission forward for review. If you have any questions, please feel free to reply to this email.",
+        "",
+        ...SIGN_OFF,
+      ),
+  },
+  {
+    // From the acceptance sent 2026-08-18.
     id: "accept",
     label: "Accept",
     setsStatus: "accepted",
@@ -73,30 +91,9 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
       lines(
         dear(c),
         "",
-        `We're pleased to let you know that “${c.title}” has been accepted for publication in The Journal of Young Innovators. Congratulations.`,
-        "",
-        "Accepted articles carry a $65 publication fee, which you can pay by card here:",
-        c.paymentUrl,
-        "",
-        "Once the payment goes through, we will confirm it and schedule your article for publication. If the fee would keep you from publishing, please reply and we can discuss a waiver.",
-        "",
-        ...SIGN_OFF,
-      ),
-  },
-  {
-    // From the acceptance sent 2026-08-18 (no fee).
-    id: "accept-waived",
-    label: "Accept, no fee",
-    setsStatus: "accepted",
-    waivesFee: true,
-    subject: (c) => `Accepted for publication: “${c.title}”`,
-    body: (c) =>
-      lines(
-        dear(c),
-        "",
         `We're pleased to let you know that “${c.title}” has been accepted for publication in The Journal of Young Innovators. Congratulations, and thank you for the work you put into it.`,
         "",
-        "There is no publication fee for your article. We expect to publish it on the journal's website within 30 days.",
+        "We expect to publish it on the journal's website within 30 days.",
         "",
         ...SIGN_OFF,
       ),

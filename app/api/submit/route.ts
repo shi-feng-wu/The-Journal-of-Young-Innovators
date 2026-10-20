@@ -7,7 +7,7 @@ import {
   type Submission,
 } from "@/lib/portal/db";
 import { EDITOR_INBOX, getTransport } from "@/lib/portal/mailer";
-import { SITE_URL } from "@/lib/portal/payments";
+import { paymentUrlFor, SITE_URL } from "@/lib/portal/payments";
 
 export const runtime = "nodejs";
 
@@ -62,6 +62,7 @@ export async function POST(request: Request) {
       gradeLevel,
       title: manuscriptTitle || "Untitled",
       submissionType,
+      paymentStatus: "due",
     });
     if (file) {
       const relative = path.join(saved.ref, safeFileName(file.name));
@@ -75,6 +76,10 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[submit] could not store submission", error);
   }
+
+  // The author goes straight on to checkout. Without a reference the payment
+  // still arrives, and an editor links it to the submission by hand.
+  const checkoutUrl = paymentUrlFor({ ref: saved?.ref ?? "", email });
 
   let emailed = false;
   try {
@@ -120,6 +125,11 @@ export async function POST(request: Request) {
         `Grade Level: ${gradeLevel || "(not provided)"}`,
         `Manuscript Title: ${manuscriptTitle || "(not provided)"}`,
         "",
+        "Your manuscript moves to editorial review once the $65 USD submission fee is paid. If you have not paid yet, you can do so here:",
+        checkoutUrl,
+        "",
+        "A parent, guardian, or school may pay on your behalf. The fee is non-refundable.",
+        "",
         "If anything looks incorrect, reply to this email to let us know.",
         "",
         "The Journal of Young Innovators",
@@ -145,5 +155,5 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
-  return Response.json({ ok: true });
+  return Response.json({ ok: true, checkoutUrl });
 }

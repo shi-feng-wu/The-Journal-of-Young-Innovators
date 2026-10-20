@@ -286,7 +286,7 @@ export default async function PortalHome({
             </nav>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 lg:mt-10 lg:block">
-              <p className={`${META} hidden lg:mb-3 lg:block`}>Publication fee</p>
+              <p className={`${META} hidden lg:mb-3 lg:block`}>Submission fee</p>
               {FEE_FILTERS.map((f) => {
                 const active = filters.payment === f.key;
                 return (
