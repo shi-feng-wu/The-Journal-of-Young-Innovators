@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import sharp from "sharp";
 import { getSiteArticleFromSlug } from "@/lib/articles";
 
 export const alt = "The Journal of Young Innovators";
@@ -16,6 +17,14 @@ async function publicAssetDataUri(publicPath: string): Promise<string | null> {
     );
     const data = await readFile(filePath);
     const ext = publicPath.split(".").pop()?.toLowerCase();
+    // ImageResponse cannot decode WebP, so article images go in as JPEG.
+    if (ext === "webp") {
+      const jpeg = await sharp(data)
+        .resize(size.width, size.height, { fit: "cover" })
+        .jpeg({ quality: 82 })
+        .toBuffer();
+      return `data:image/jpeg;base64,${jpeg.toString("base64")}`;
+    }
     const mime =
       ext === "png"
         ? "image/png"
@@ -69,7 +78,8 @@ export default async function OgImage({
             height={630}
             style={{
               position: "absolute",
-              inset: 0,
+              top: 0,
+              left: 0,
               width: "100%",
               height: "100%",
               objectFit: "cover",
@@ -79,7 +89,10 @@ export default async function OgImage({
         <div
           style={{
             position: "absolute",
-            inset: 0,
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
             background:
               "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.75) 55%, rgba(0,0,0,0.92) 100%)",
             display: "flex",
