@@ -16,6 +16,7 @@ const editors: Person[] = [
   { name: "Michele Moreau", affiliation: "Johns Hopkins University" },
   { name: "Mariale Hardiman", affiliation: "Johns Hopkins University" },
   { name: "Kris Chesky", affiliation: "Johns Hopkins University" },
+  { name: "Amy Yu", affiliation: "Johns Hopkins University" },
 ];
 
 const editorsInChief: Person[] = [
