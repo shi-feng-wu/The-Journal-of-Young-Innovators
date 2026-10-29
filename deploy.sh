@@ -24,4 +24,7 @@ fi
 
 pm2 save
 
+echo "==> Registering new DOIs with Crossref..."
+pnpm -s crossref-sync || echo "Crossref sync failed; see output above (the deploy itself succeeded)"
+
 echo "==> Deploy complete!"

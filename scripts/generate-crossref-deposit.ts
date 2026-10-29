@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 import fs from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { SITE_ARTICLES, type SiteArticle } from "../app/lib/articles";
 
 const SITE_URL = "https://young-innovator.org";
@@ -124,26 +125,8 @@ function readArg(name: string) {
   return index === -1 ? undefined : process.argv[index + 1];
 }
 
-/**
- * Usage: tsx scripts/generate-crossref-deposit.ts [--ids 13,14,15] [--out file.xml]
- * Without --ids every article is deposited (a full re-deposit updates
- * existing records). With --ids only those article ids are included, which is
- * the normal case after publishing new articles.
- */
-async function main() {
-  const idsArg = readArg("--ids");
-  const selectedIds = idsArg
-    ? new Set(idsArg.split(",").map((id) => Number(id.trim())))
-    : undefined;
-  const unknown = [...(selectedIds ?? [])].filter(
-    (id) => !SITE_ARTICLES.some((a) => a.id === id),
-  );
-  if (unknown.length)
-    throw new Error(`Unknown article ids: ${unknown.join(", ")}`);
-  const selected = SITE_ARTICLES.filter(
-    (article) => !selectedIds || selectedIds.has(article.id),
-  );
-
+/** Builds a Crossref deposit batch for the given articles, grouped by issue. */
+export function buildDepositXml(selected: SiteArticle[]) {
   const issues = new Map<string, SiteArticle[]>();
   for (const article of selected) {
     const key = issueKey(article);
@@ -224,14 +207,38 @@ async function main() {
     ``,
   ].join("\n");
 
+  return { xml, batchId: `jyi-${timestamp}` };
+}
+
+/**
+ * Usage: tsx scripts/generate-crossref-deposit.ts [--ids 13,14,15] [--out file.xml]
+ * Without --ids every article is deposited (a full re-deposit updates
+ * existing records). With --ids only those article ids are included, which is
+ * the normal case after publishing new articles.
+ */
+async function main() {
+  const idsArg = readArg("--ids");
+  const selectedIds = idsArg
+    ? new Set(idsArg.split(",").map((id) => Number(id.trim())))
+    : undefined;
+  const unknown = [...(selectedIds ?? [])].filter(
+    (id) => !SITE_ARTICLES.some((a) => a.id === id),
+  );
+  if (unknown.length)
+    throw new Error(`Unknown article ids: ${unknown.join(", ")}`);
+  const selected = SITE_ARTICLES.filter(
+    (article) => !selectedIds || selectedIds.has(article.id),
+  );
+
+  const { xml } = buildDepositXml(selected);
   const outPath = path.resolve(
     process.cwd(),
     readArg("--out") ?? "crossref-deposit.xml",
   );
   await fs.writeFile(outPath, xml, "utf8");
   console.log(
-    `Wrote ${outPath} (${selected.length} articles, ${issues.size} issues)`,
+    `Wrote ${outPath} (${selected.length} articles)`,
   );
 }
 
-main();
+if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
